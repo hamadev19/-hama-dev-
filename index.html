@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HAMA DEV HUB - AI Assistant</title>
+  <title>HAMA DEV HUB - AI Assistant & Script</title>
   <style>
     :root {
       --bg-color: #0f172a;
@@ -22,6 +22,7 @@
       background-color: var(--bg-color);
       color: var(--text-color);
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
@@ -29,10 +30,57 @@
       padding: 10px;
     }
 
-    .chat-container {
+    .main-wrapper {
       width: 100%;
       max-width: 600px;
-      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      height: 95vh;
+    }
+
+    .script-box {
+      background-color: var(--chat-bg);
+      padding: 12px 15px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .script-code {
+      background-color: #0f172a;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 11px;
+      color: #38bdf8;
+      flex: 1;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .copy-btn {
+      background-color: #10b981;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 12px;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .copy-btn:hover {
+      background-color: #059669;
+    }
+
+    .chat-container {
+      flex: 1;
       background-color: var(--chat-bg);
       border-radius: 16px;
       display: flex;
@@ -44,9 +92,9 @@
 
     .chat-header {
       background: linear-gradient(135deg, #1e293b, #0f172a);
-      padding: 15px 20px;
+      padding: 12px 20px;
       font-weight: bold;
-      font-size: 18px;
+      font-size: 16px;
       border-bottom: 1px solid var(--border-color);
       display: flex;
       justify-content: space-between;
@@ -59,20 +107,20 @@
 
     .chat-box {
       flex: 1;
-      padding: 20px;
+      padding: 15px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 12px;
       scroll-behavior: smooth;
     }
 
     .message {
-      padding: 12px 16px;
+      padding: 10px 14px;
       border-radius: 12px;
       max-width: 85%;
-      line-height: 1.6;
-      font-size: 14px;
+      line-height: 1.5;
+      font-size: 13px;
       white-space: pre-wrap;
       word-wrap: break-word;
     }
@@ -94,7 +142,7 @@
 
     .input-area {
       display: flex;
-      padding: 15px;
+      padding: 12px;
       background-color: #0f172a;
       border-top: 1px solid var(--border-color);
       gap: 10px;
@@ -102,21 +150,21 @@
 
     input {
       flex: 1;
-      padding: 12px 15px;
+      padding: 10px 14px;
       border: 1px solid var(--border-color);
       border-radius: 8px;
       background-color: #1e293b;
       color: white;
       outline: none;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     input:focus {
       border-color: var(--accent-color);
     }
 
-    button {
-      padding: 10px 20px;
+    button.send-btn {
+      padding: 10px 18px;
       border: none;
       border-radius: 8px;
       background-color: var(--accent-color);
@@ -126,23 +174,32 @@
       transition: background 0.2s;
     }
 
-    button:hover {
+    button.send-btn:hover {
       background-color: var(--accent-hover);
     }
   </style>
 </head>
 <body>
 
-  <div class="chat-container">
-    <div class="chat-header">
-      🤖 HAMA DEV HUB <span>AI</span>
+  <div class="main-wrapper">
+    <!-- بەشی کۆپیکردنی سکریپتی ڕۆبڵۆکس -->
+    <div class="script-box">
+      <div class="script-code" id="scriptText">loadstring(game:HttpGet("https://gist.githubusercontent.com/hamadev19/389a807853f085f498b2488f49f3a4f5/raw"))()</div>
+      <button class="copy-btn" onclick="copyScript()">کۆپیکردن 📋</button>
     </div>
-    <div class="chat-box" id="chatBox">
-      <div class="message ai-msg">سڵاو! من یاریدەدەری هاما دەڤ هب هستم. چۆن دەتوانم لە کۆدنوسین یان پرسیارەکانتدا یارمەتیت بدەم؟</div>
-    </div>
-    <div class="input-area">
-      <input type="text" id="userInput" placeholder="پەیامەکەت لێرە بنووسە..." onkeypress="checkEnter(event)">
-      <button onclick="handleSend()">ناردن</button>
+
+    <!-- بەشی چاتی AI -->
+    <div class="chat-container">
+      <div class="chat-header">
+        🤖 HAMA DEV HUB <span>AI</span>
+      </div>
+      <div class="chat-box" id="chatBox">
+        <div class="message ai-msg">سڵاو! من یاریدەدەری هاما دەڤ هب هستم. چۆن دەتوانم لە کۆدنوسین یان پرسیارەکانتدا یارمەتیت بدەم؟</div>
+      </div>
+      <div class="input-area">
+        <input type="text" id="userInput" placeholder="پەیامەکەت لێرە بنووسە..." onkeypress="checkEnter(event)">
+        <button class="send-btn" onclick="handleSend()">ناردن</button>
+      </div>
     </div>
   </div>
 
@@ -151,13 +208,21 @@
     const apiKey = "YOUR_API_KEY_HERE"; 
 
     const systemInstruction = `
-    تۆ یاریدەدەرێکی زۆر زیرەک، پرۆفێشۆناڵ، میهرەبان و گەرموگوڕیت بۆ پلاتفۆرمی HAMA DEV HUB.
-
-    یاسا و کەسایەتیت:
-    1. هەمیشە وەڵامەکانت بە زمانی کوردیی ناوەڕاست (سۆرانی) ڕوان، ڕوون و بێ هەڵە بنووسە.
-    2. زۆر بەڕێز و هاوکار بە، کێشەکانی بەکارهێنەر لە بواری کۆدکردن (HTML, CSS, JS, Lua, Python) بە باشترین شێوە چارەسەر بکە.
-    3. وەڵامەکانت بە شێوازێکی ڕێکخراو پێشکەش بکە.
+    تۆ یاریدەدەرێکی زۆر زیرەک، پرۆفێشۆناڵ، میهرەبان و گەرموگوڕیت بۆ پلاتفۆرمی HAMA DEV HUB. خاوەنەکەت کاکە حەمەیە (rip_hama276). هەمیشە بە زمانی کوردی وەڵام بدەوە.
     `;
+
+    function copyScript() {
+      const scriptCode = document.getElementById("scriptText").innerText;
+      navigator.clipboard.writeText(scriptCode).then(() => {
+        const btn = document.querySelector(".copy-btn");
+        btn.innerText = "کۆپیکرا! ✅";
+        btn.style.backgroundColor = "#059669";
+        setTimeout(() => {
+          btn.innerText = "کۆپیکردن 📋";
+          btn.style.backgroundColor = "#10b981";
+        }, 2000);
+      });
+    }
 
     async function sendMessageToAI(userMessage) {
       try {
@@ -195,19 +260,16 @@
 
       if (!text) return;
 
-      // نامەی بەکارهێنەر
       chatBox.innerHTML += `<div class="message user-msg">${escapeHtml(text)}</div>`;
       input.value = "";
       chatBox.scrollTop = chatBox.scrollHeight;
 
-      // نیشانەی چاوەڕوانی
       const loadingDiv = document.createElement("div");
       loadingDiv.className = "message ai-msg";
       loadingDiv.innerText = "وەڵام دەدرێتەوە...";
       chatBox.appendChild(loadingDiv);
       chatBox.scrollTop = chatBox.scrollHeight;
 
-      // وەرگرتنی وەڵامی AI
       const aiReply = await sendMessageToAI(text);
       loadingDiv.innerText = aiReply;
       chatBox.scrollTop = chatBox.scrollHeight;

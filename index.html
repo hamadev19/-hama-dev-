@@ -3,71 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>چات بۆتی زیرەک</title>
+    <title>Hama Dev AI</title>
     <style>
-        body { font-family: Tahoma, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .chat-container { width: 100%; max-width: 500px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .chat-box { height: 400px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; margin-bottom: 15px; border-radius: 5px; display: flex; flex-direction: column; gap: 10px; }
-        .message { padding: 10px; border-radius: 8px; max-width: 80%; line-height: 1.5; }
-        .user { background: #0084ff; color: white; align-self: flex-start; }
-        .ai { background: #e4e6eb; color: black; align-self: flex-end; }
-        .input-group { display: flex; gap: 10px; }
-        input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; outline: none; }
-        button { padding: 10px 20px; background: #0084ff; color: white; border: none; border-radius: 5px; cursor: pointer; }
-        button:hover { background: #006dd7; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Tahoma, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        header {
+            background-color: #1e293b;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-bottom: 1px solid #334155;
+            color: #38bdf8;
+        }
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 15px;
+            overflow: hidden;
+        }
+        .chat-box {
+            flex: 1;
+            overflow-y: auto;
+            background-color: #1e293b;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            border: 1px solid #334155;
+            margin-bottom: 15px;
+        }
+        .message {
+            padding: 12px 16px;
+            border-radius: 12px;
+            max-width: 80%;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+        .user {
+            background-color: #0284c7;
+            color: white;
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+        }
+        .ai {
+            background-color: #334155;
+            color: #f1f5f9;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+        input {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid #475569;
+            background-color: #1e293b;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+        }
+        input:focus {
+            border-color: #38bdf8;
+        }
+        button {
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: none;
+            background-color: #0284c7;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #0ea5e9;
+        }
     </style>
 </head>
 <body>
 
-<div class="chat-container">
-    <h3>چات بۆتی تایبەت بە من</h3>
-    <div class="chat-box" id="chatBox"></div>
-    <div class="input-group">
-        <input type="text" id="userInput" placeholder="پسیارەکەت لێرە بنووسە..." onkeypress="handleKey(event)">
-        <button onclick="sendMessage()">ناردن</button>
+    <header>🤖 Hama Dev AI</header>
+
+    <div class="chat-container">
+        <div class="chat-box" id="chatBox">
+            <div class="message ai">سڵاو! من Hama Dev AIـم. چۆن دەتوانم یارمەتیت بدەم ئەمڕۆ؟</div>
+        </div>
+        <div class="input-group">
+            <input type="text" id="userInput" placeholder="پسیارەکەت لێرە بنووسە..." onkeydown="if(event.key === 'KeyE' || event.key === 'Enter') sendMessage()">
+            <button onclick="sendMessage()">ناردن</button>
+        </div>
     </div>
-</div>
 
-<script>
-    // لێرە کلیلی APIـەکەی خۆت دابنە لە نێوان دووانە تیترەکەدا
-    const apiKey = "LIRA_API_KEY_AKAT_DANB_LERA";
+    <script>
+        // لێرەدا دەتوانیت کلیلی Gemini APIـکەت دابنێیت
+        const apiKey = "API_KEY_ەکەت_لێرە_دابنێ";
 
-    async function sendMessage() {
-        const input = document.getElementById('userInput');
-        const chatBox = document.getElementById('chatBox');
-        const text = input.value.trim();
-        if (!text) return;
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const chatBox = document.getElementById('chatBox');
+            const text = input.value.trim();
+            
+            if (!text) return;
 
-        // نیشاندانی پەیامی بەکارهێنەر
-        chatBox.innerHTML += `<div class="message user">${text}</div>`;
-        input.value = '';
-        chatBox.scrollTop = chatBox.scrollHeight;
-
-        try {
-            // بەکارهێنانی مۆدێلی gemini-2.5-flash یان gemini-1.5-flash بۆ وەڵامدانەوە
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: text }] }]
-                })
-            });
-
-            const data = await response.json();
-            const reply = data.candidates[0].content.parts[0].text;
-
-            // نیشاندانی وەڵامی AI
-            chatBox.innerHTML += `<div class="message ai">${reply}</div>`;
+            // نیشاندانی پەیامی بەکارهێنەر
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message user';
+            userMsg.textContent = text;
+            chatBox.appendChild(userMsg);
+            input.value = '';
             chatBox.scrollTop = chatBox.scrollHeight;
-        } catch (error) {
-            chatBox.innerHTML += `<div class="message ai" style="color:red;">هەڵەیەک ڕوویدا، دڵنیابە لە کلیلەکەت.</div>`;
+
+            // نیشاندانی چاوەڕوانی بۆ وەڵامی AI
+            const aiMsg = document.createElement('div');
+            aiMsg.className = 'message ai';
+            aiMsg.textContent = 'خەریکی بیرکردنەوەیە...';
+            chatBox.appendChild(aiMsg);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{ text: "تۆ Hama Dev AI یت، یاریدەدەرێکی زیرەک و پێشکەوتووی دروستکراوی. پێویستە هەمیشە بە زمانی کوردی (یاخود بەپێی زمانی پرسیارەکە) بە شێوازێکی زۆر ڕاست، ڕوون و پڕ زانیاری وەڵام بدەیتەوە. پرسیاری بەکارهێنەر ئەمەیە: " + text }]
+                        }]
+                    })
+                });
+
+                const data = await response.json();
+                const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "بۆرورەیەک ڕوویدا، دووبارە هەوڵ بدەرەوە.";
+                aiMsg.textContent = reply;
+            } catch (error) {
+                aiMsg.textContent, aiMsg.textContent = "کێشەیەک لە پەیوەندی هەیە لەگەڵ سێرڤەردا.";
+            }
+            chatBox.scrollTop = chatBox.scrollHeight;
         }
-    }
-
-    function handleKey(event) {
-        if (event.key === 'Enter') sendMessage();
-    }
-</script>
-
+    </script>
 </body>
 </html>

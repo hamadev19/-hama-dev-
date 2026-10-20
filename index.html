@@ -47,7 +47,7 @@
     </div>
 
     <script>
-        // کلیلی تایبەتی Gemini API کە تۆ هێناوتە
+        // کلیلەکەت بە ڕێکی لێرە جێگیر کراوە
         const apiKey = "AQ.Ab8RN6LAtMwAcg98vvsw3djix5CeoyhSFyXcXtGm59mUKdMM2g";
         let selectedImageData = null;
         let selectedImageBase64 = null;
@@ -85,7 +85,6 @@
 
             if (!text && !selectedImageData) return;
 
-            // نیشاندانی پەیامی بەکارهێنەر
             const userMsg = document.createElement('div');
             userMsg.className = 'message user';
             
@@ -102,7 +101,6 @@
             clearImage();
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            // پەیامی چاوەڕوانی
             const aiMsg = document.createElement('div');
             aiMsg.className = 'message ai';
             aiMsg.textContent = "خەریکی بیرکردنەوە و حەلکردنم...";

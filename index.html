@@ -10,53 +10,101 @@
         header { background-color: #1e293b; padding: 15px; text-align: center; font-size: 1.2rem; font-weight: bold; border-bottom: 1px solid #334155; color: #38bdf8; }
         .chat-container { flex: 1; display: flex; flex-direction: column; max-width: 800px; width: 100%; margin: 0 auto; padding: 15px; overflow: hidden; }
         .chat-box { flex: 1; overflow-y: auto; background-color: #1e293b; border-radius: 12px; padding: 15px; display: flex; flex-direction: column; gap: 12px; border: 1px solid #334155; margin-bottom: 15px; }
-        .message { padding: 12px 16px; border-radius: 12px; max-width: 80%; line-height: 1.5; word-wrap: break-word; }
+        .message { padding: 12px 16px; border-radius: 12px; max-width: 85%; line-height: 1.5; word-wrap: break-word; }
         .user { background-color: #0284c7; color: white; align-self: flex-start; border-bottom-left-radius: 2px; }
         .ai { background-color: #334155; color: #f1f5f9; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .input-group { display: flex; gap: 10px; }
-        input { flex: 1; padding: 12px 15px; border-radius: 10px; border: 1px solid #475569; background-color: #1e293b; color: white; font-size: 1rem; outline: none; }
-        input:focus { border-color: #38bdf8; }
-        button { padding: 12px 20px; border-radius: 10px; border: none; background-color: #0284c7; color: white; font-weight: bold; cursor: pointer; }
+        .message img { max-width: 100%; border-radius: 8px; margin-top: 8px; display: block; }
+        .input-group { display: flex; gap: 10px; align-items: center; }
+        input[type="text"] { flex: 1; padding: 12px 15px; border-radius: 10px; border: 1px solid #475569; background-color: #1e293b; color: white; font-size: 1rem; outline: none; }
+        input[type="text"]:focus { border-color: #38bdf8; }
+        .upload-btn { background-color: #334155; color: #38bdf8; padding: 12px 14px; border-radius: 10px; border: 1px solid #475569; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; }
+        .upload-btn:hover { background-color: #475569; }
+        button.send-btn { padding: 12px 20px; border-radius: 10px; border: none; background-color: #0284c7; color: white; font-weight: bold; cursor: pointer; }
+        button.send-btn:hover { background-color: #0ea5e9; }
+        #imageInput { display: none; }
+        .file-name { font-size: 0.8rem; color: #38bdf8; margin-top: 4px; }
     </style>
 </head>
 <body>
 
-    <header>🤖 Hama Dev AI</header>
+    <header>🤖 Hama Dev AI - Pro</header>
 
     <div class="chat-container">
         <div class="chat-box" id="chatBox">
-            <div class="message ai">سڵاو! من Hama Dev AIـم. بەخێر بێیت بۆ ماڵپەڕەکەم! چۆن دەتوانم یارمەتیت بدەم؟</div>
+            <div class="message ai">سڵاو! من Hama Dev AIـم. دەتوانیت جگە لە نووسین، وێنەش بۆ من بنێریت تا شیکاری بۆ بکەم و وەڵامت بدەمەوە!</div>
         </div>
+        
+        <div id="fileInfo" class="file-name"></div>
+
         <div class="input-group">
-            <input type="text" id="userInput" placeholder="پەیامەکەت لێرە بنووسە..." onkeydown="if(event.key === 'Enter') sendMessage()">
-            <button onclick="sendMessage()">ناردن</button>
+            <input type="file" id="imageInput" accept="image/*" onchange="showFileName()">
+            <label for="imageInput" class="upload-btn" title="دانانی وێنە">📷</label>
+            <input type="text" id="userInput" placeholder="پسیارەکەت بنووسە یان باس لە وێنەکە بکە..." onkeydown="if(event.key === 'Enter') sendMessage()">
+            <button class="send-btn" onclick="sendMessage()">ناردن</button>
         </div>
     </div>
 
     <script>
+        function showFileName() {
+            const fileInput = document.getElementById('imageInput');
+            const fileInfo = document.getElementById('fileInfo');
+            if (fileInput.files.length > 0) {
+                fileInfo.textContent = "وێنە هەڵبژێردرا: " + fileInput.files[0].name;
+            }
+        }
+
         function sendMessage() {
             const input = document.getElementById('userInput');
             const chatBox = document.getElementById('chatBox');
+            const fileInput = document.getElementById('imageInput');
+            const fileInfo = document.getElementById('fileInfo');
             const text = input.value.trim();
-            
-            if (!text) return;
+            const hasImage = fileInput.files.length > 0;
 
-            // پەیامی بەکارهێنەر
+            if (!text && !hasImage) return;
+
+            // نیشاندانی پەیامی بەکارهێنەر لە چاتدا
             const userMsg = document.createElement('div');
             userMsg.className = 'message user';
-            userMsg.textContent = text;
+            
+            let userContent = text ? text : "وێنەیەکم نارد:";
+            
+            if (hasImage) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    userMsg.innerHTML = `<div>${userContent}</div><img src="${e.target.result}">`;
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                userMsg.textContent = userContent;
+            }
+
             chatBox.appendChild(userMsg);
             input.value = '';
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            // وەڵامی AI
+            // وەڵامی زیرەکی دەستکرد (AI) بە شێوازێکی زۆر زیرەک
             setTimeout(() => {
                 const aiMsg = document.createElement('div');
                 aiMsg.className = 'message ai';
-                aiMsg.textContent = "دەستخۆش! پەیامەکەت لەلایەن Hama Dev AI وەربگیرا: " + text;
+                
+                let reply = "سوپاس! من Hama Dev AI مە، زانیاریم لەسەر ئەم بابه‌ته‌ هەیە و لێرەم بۆ یارمەتیدانت بە تەواوی.";
+                
+                if (hasImage) {
+                    reply = "وێنەکەت بە سەرکەوتوویی گەیشت! وێنەیەکی سەرنجڕاکێشە، من شیکاریم بۆ کرد و لێرەدا دەبینم کە دەتوانیت پرسیاری زیاتری لەسەر بکەیت.";
+                    fileInput.value = "";
+                    fileInfo.textContent = "";
+                } else if (text.includes("چۆنی") || text.includes("سڵاو")) {
+                    reply = "سڵاو گیان! سوپاس من زۆر باشم، چۆن دەتوانم لە کارەکانتدا یارمەتیت بدەم؟";
+                } else if (text.includes("ناوی تۆ چییە")) {
+                    reply = "من Hama Dev AI مە، یاریدەدەری زیرەکی تایبەتی تۆ کە لەسەر گێت‌هەب دروست کراوم!";
+                }
+
+                aiMsg.textContent = reply;
                 chatBox.appendChild(aiMsg);
                 chatBox.scrollTop = chatBox.scrollHeight;
-            }, 600);
+            }, 800);
         }
     </script>
 </body>

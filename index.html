@@ -3,123 +3,189 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gemini AI Chat</title>
+  <title>HAMA DEV HUB - AI Assistant</title>
   <style>
+    :root {
+      --bg-color: #0f172a;
+      --chat-bg: #1e293b;
+      --accent-color: #3b82f6;
+      --accent-hover: #2563eb;
+      --text-color: #f8fafc;
+      --text-secondary: #94a3b8;
+      --border-color: #334155;
+      --user-msg: #2563eb;
+      --ai-msg: #334155;
+    }
+
     body {
       font-family: Tahoma, Arial, sans-serif;
-      background-color: #121212;
-      color: #ffffff;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
+      padding: 10px;
     }
+
     .chat-container {
-      width: 90%;
-      max-width: 500px;
-      height: 80vh;
-      background-color: #1e1e1e;
-      border-radius: 12px;
+      width: 100%;
+      max-width: 600px;
+      height: 90vh;
+      background-color: var(--chat-bg);
+      border-radius: 16px;
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--border-color);
     }
+
+    .chat-header {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      padding: 15px 20px;
+      font-weight: bold;
+      font-size: 18px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-header span {
+      color: var(--accent-color);
+    }
+
     .chat-box {
       flex: 1;
-      padding: 15px;
+      padding: 20px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 15px;
+      scroll-behavior: smooth;
     }
+
     .message {
-      padding: 10px 14px;
-      border-radius: 8px;
-      max-width: 80%;
-      line-height: 1.5;
+      padding: 12px 16px;
+      border-radius: 12px;
+      max-width: 85%;
+      line-height: 1.6;
+      font-size: 14px;
       white-space: pre-wrap;
+      word-wrap: break-word;
     }
+
     .user-msg {
-      background-color: #007bff;
+      background-color: var(--user-msg);
+      color: white;
       align-self: flex-end;
+      border-bottom-right-radius: 4px;
     }
+
     .ai-msg {
-      background-color: #2a2a2a;
+      background-color: var(--ai-msg);
+      color: var(--text-color);
       align-self: flex-start;
-      border: 1px solid #333;
+      border-bottom-left-radius: 4px;
+      border: 1px solid var(--border-color);
     }
+
     .input-area {
       display: flex;
-      padding: 10px;
-      background-color: #181818;
+      padding: 15px;
+      background-color: #0f172a;
+      border-top: 1px solid var(--border-color);
+      gap: 10px;
     }
+
     input {
       flex: 1;
-      padding: 10px;
-      border: none;
-      border-radius: 6px;
-      background-color: #2a2a2a;
+      padding: 12px 15px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background-color: #1e293b;
       color: white;
       outline: none;
+      font-size: 14px;
     }
+
+    input:focus {
+      border-color: var(--accent-color);
+    }
+
     button {
-      padding: 10px 15px;
-      margin-right: 8px;
+      padding: 10px 20px;
       border: none;
-      border-radius: 6px;
-      background-color: #007bff;
+      border-radius: 8px;
+      background-color: var(--accent-color);
       color: white;
       cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
     }
+
     button:hover {
-      background-color: #0056b3;
+      background-color: var(--accent-hover);
     }
   </style>
 </head>
 <body>
 
   <div class="chat-container">
+    <div class="chat-header">
+      🤖 HAMA DEV HUB <span>AI</span>
+    </div>
     <div class="chat-box" id="chatBox">
-      <div class="message ai-msg">سڵاو! من یاریدەدەری ژیریی دەستکردم. چۆن دەتوانم یارمەتیت بدەم؟</div>
+      <div class="message ai-msg">سڵاو! من یاریدەدەری هاما دەڤ هب هستم. چۆن دەتوانم لە کۆدنوسین یان پرسیارەکانتدا یارمەتیت بدەم؟</div>
     </div>
     <div class="input-area">
-      <input type="text" id="userInput" placeholder="پەیامەکەت بنووسە...">
+      <input type="text" id="userInput" placeholder="پەیامەکەت لێرە بنووسە..." onkeypress="checkEnter(event)">
       <button onclick="handleSend()">ناردن</button>
     </div>
   </div>
 
   <script>
-    const apiKey = "AIzaSy-RF4z1LnkwG30HjwJFHXAPyBl-at2nh0jsiMZA-RF4z1LnkwG30HjwJFHXAPyBl-at2nh0jsiMZA"; 
+    // کلیلی API خۆت لێرە دابنە (AIzaSy...)
+    const apiKey = "YOUR_API_KEY_HERE"; 
 
     const systemInstruction = `
-    تۆ یاریدەدەرێکی زۆر زیرەک، پرۆفێشۆناڵ، میهرەبان و گەرموگوڕیت (ڕێک وەک جەمینای / Gemini).
+    تۆ یاریدەدەرێکی زۆر زیرەک، پرۆفێشۆناڵ، میهرەبان و گەرموگوڕیت بۆ پلاتفۆرمی HAMA DEV HUB.
 
     یاسا و کەسایەتیت:
     1. هەمیشە وەڵامەکانت بە زمانی کوردیی ناوەڕاست (سۆرانی) ڕوان، ڕوون و بێ هەڵە بنووسە.
-    2. زۆر بەڕێز و هاوکار بە، هەمیشە هەوڵ بده بە باشترین شێوە کێشەکانی بەکارهێنەر چارەسەر بکەیت.
-    3. ئەگەر بەکارهێنەر داوای کۆدنوسینی کرد (وەک HTML, CSS, JavaScript, Lua یان Python)، باشترین، خێراترین و پاکترین کۆدی بێ هەڵەی بۆ بنووسە.
-    4. وەڵامەکانت بە شێوازێکی ڕێکخراو، دیار و سەرپەڕەی ڕوون پێشکەش بکە تا خوێندنەوەیان ئاسان بێت.
+    2. زۆر بەڕێز و هاوکار بە، کێشەکانی بەکارهێنەر لە بواری کۆدکردن (HTML, CSS, JS, Lua, Python) بە باشترین شێوە چارەسەر بکە.
+    3. وەڵامەکانت بە شێوازێکی ڕێکخراو پێشکەش بکە.
     `;
 
     async function sendMessageToAI(userMessage) {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+      try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: systemInstruction }] },
-          contents: [{ parts: [{ text: userMessage }] }]
-        })
-      });
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            system_instruction: { parts: [{ text: systemInstruction }] },
+            contents: [{ parts: [{ text: userMessage }] }]
+          })
+        });
 
-      const data = await response.json();
-      if (data.candidates && data.candidates[0] && data.candidates[0].content.parts[0].text) {
-        return data.candidates[0].content.parts[0].text;
+        const data = await response.json();
+
+        if (data.error) {
+          return "هەڵە لە API: " + data.error.message;
+        }
+
+        if (data.candidates && data.candidates[0] && data.candidates[0].content.parts[0].text) {
+          return data.candidates[0].content.parts[0].text;
+        }
+
+        return "ببۆرە، هیچ وەڵامێک نەهاتەوە.";
+      } catch (err) {
+        return "هەڵەی پەیوەندی: " + err.message;
       }
-      return "ببۆرە، هەڵەیەک ڕووی دا لە وەڵامدانەوەدا.";
     }
 
     async function handleSend() {
@@ -129,19 +195,39 @@
 
       if (!text) return;
 
-      chatBox.innerHTML += `<div class="message user-msg">${text}</div>`;
+      // نامەی بەکارهێنەر
+      chatBox.innerHTML += `<div class="message user-msg">${escapeHtml(text)}</div>`;
       input.value = "";
       chatBox.scrollTop = chatBox.scrollHeight;
 
+      // نیشانەی چاوەڕوانی
       const loadingDiv = document.createElement("div");
       loadingDiv.className = "message ai-msg";
       loadingDiv.innerText = "وەڵام دەدرێتەوە...";
       chatBox.appendChild(loadingDiv);
       chatBox.scrollTop = chatBox.scrollHeight;
 
+      // وەرگرتنی وەڵامی AI
       const aiReply = await sendMessageToAI(text);
       loadingDiv.innerText = aiReply;
       chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function checkEnter(event) {
+      if (event.key === "Enter") {
+        handleSend();
+      }
+    }
+
+    function escapeHtml(text) {
+      const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      };
+      return text.replace(/[&<>"']/g, function(m) { return map[m]; });
     }
   </script>
 

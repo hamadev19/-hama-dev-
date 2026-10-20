@@ -1,8 +1,152 @@
-const systemInstruction = `
-تۆ یاریدەدەرێکی زۆر زیرەک، میهرەبان و پرۆفێشۆناڵیت (ڕێک وەک Gemini).
-ڕێنماییە سەرەکییەکانت:
-1. هەمیشە بە زمانی کوردییەکی زۆر ڕوان، شاد و بەڕێز وەڵام بدەرەوە.
-2. وەڵامەکانت زۆر ڕوون، ڕێکخراو و ئاسان بن بۆ تێگەیشتن.
-3. ئەگەر بەکارهێنەر داوای کۆدی کرد (وەک HTML, CSS, JS, Lua)، باشترین و خێراترین کۆدی بێ هەڵەی بۆ بنووسە.
-4. هەمیشە هانی بەکارهێنەر بدە و بە گەرموگوڕییەوە وەڵامی بپۆشە.
-`;
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gemini AI Chat</title>
+  <style>
+    body {
+      font-family: Tahoma, Arial, sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .chat-container {
+      width: 90%;
+      max-width: 500px;
+      height: 80vh;
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    .chat-box {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .message {
+      padding: 10px 14px;
+      border-radius: 8px;
+      max-width: 80%;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+    .user-msg {
+      background-color: #007bff;
+      align-self: flex-end;
+    }
+    .ai-msg {
+      background-color: #2a2a2a;
+      align-self: flex-start;
+      border: 1px solid #333;
+    }
+    .input-area {
+      display: flex;
+      padding: 10px;
+      background-color: #181818;
+    }
+    input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      background-color: #2a2a2a;
+      color: white;
+      outline: none;
+    }
+    button {
+      padding: 10px 15px;
+      margin-right: 8px;
+      border: none;
+      border-radius: 6px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-container">
+    <div class="chat-box" id="chatBox">
+      <div class="message ai-msg">سڵاو! من یاریدەدەری ژیریی دەستکردم. چۆن دەتوانم یارمەتیت بدەم؟</div>
+    </div>
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="پەیامەکەت بنووسە...">
+      <button onclick="handleSend()">ناردن</button>
+    </div>
+  </div>
+
+  <script>
+    const apiKey = "AIzaSy-RF4z1LnkwG30HjwJFHXAPyBl-at2nh0jsiMZA-RF4z1LnkwG30HjwJFHXAPyBl-at2nh0jsiMZA"; 
+
+    const systemInstruction = `
+    تۆ یاریدەدەرێکی زۆر زیرەک، پرۆفێشۆناڵ، میهرەبان و گەرموگوڕیت (ڕێک وەک جەمینای / Gemini).
+
+    یاسا و کەسایەتیت:
+    1. هەمیشە وەڵامەکانت بە زمانی کوردیی ناوەڕاست (سۆرانی) ڕوان، ڕوون و بێ هەڵە بنووسە.
+    2. زۆر بەڕێز و هاوکار بە، هەمیشە هەوڵ بده بە باشترین شێوە کێشەکانی بەکارهێنەر چارەسەر بکەیت.
+    3. ئەگەر بەکارهێنەر داوای کۆدنوسینی کرد (وەک HTML, CSS, JavaScript, Lua یان Python)، باشترین، خێراترین و پاکترین کۆدی بێ هەڵەی بۆ بنووسە.
+    4. وەڵامەکانت بە شێوازێکی ڕێکخراو، دیار و سەرپەڕەی ڕوون پێشکەش بکە تا خوێندنەوەیان ئاسان بێت.
+    `;
+
+    async function sendMessageToAI(userMessage) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: systemInstruction }] },
+          contents: [{ parts: [{ text: userMessage }] }]
+        })
+      });
+
+      const data = await response.json();
+      if (data.candidates && data.candidates[0].content.parts[0].text) {
+        return data.candidates[0].content.parts[0].text;
+      }
+      return "ببۆرە، هەڵەیەک ڕووی دا لە وەڵامدانەوەدا.";
+    }
+
+    async function handleSend() {
+      const input = document.getElementById("userInput");
+      const chatBox = document.getElementById("chatBox");
+      const text = input.value.trim();
+
+      if (!text) return;
+
+      // هەڵگرتنی پەیامی بەکارهێنەر لەسەر ڕوونمای چاتەکە
+      chatBox.innerHTML += `<div class="message user-msg">${text}</div>`;
+      input.value = "";
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      // نیشاندانی حاڵەتی چاوەڕوانی
+      const loadingDiv = document.createElement("div");
+      loadingDiv.className = "message ai-msg";
+      loadingDiv.innerText = "وەڵام دەدرێتەوە...";
+      chatBox.appendChild(loadingDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      // وەرگرتنی وەڵام لە AI
+      const aiReply = await sendMessageToAI(text);
+      loadingDiv.innerText = aiReply;
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+
+</body>
+</html>

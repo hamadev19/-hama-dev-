@@ -104,7 +104,7 @@
     `;
 
     async function sendMessageToAI(userMessage) {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
       const response = await fetch(url, {
         method: 'POST',
@@ -129,19 +129,16 @@
 
       if (!text) return;
 
-      // هەڵگرتنی پەیامی بەکارهێنەر لەسەر ڕوونمای چاتەکە
       chatBox.innerHTML += `<div class="message user-msg">${text}</div>`;
       input.value = "";
       chatBox.scrollTop = chatBox.scrollHeight;
 
-      // نیشاندانی حاڵەتی چاوەڕوانی
       const loadingDiv = document.createElement("div");
       loadingDiv.className = "message ai-msg";
       loadingDiv.innerText = "وەڵام دەدرێتەوە...";
       chatBox.appendChild(loadingDiv);
       chatBox.scrollTop = chatBox.scrollHeight;
 
-      // وەرگرتنی وەڵام لە AI
       const aiReply = await sendMessageToAI(text);
       loadingDiv.innerText = aiReply;
       chatBox.scrollTop = chatBox.scrollHeight;

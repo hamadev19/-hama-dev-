@@ -38,18 +38,14 @@
       cursor: pointer;
       width: 100%;
     }
-    .btn-google:hover {
-      background-color: #357ae8;
-    }
-    #user-info {
-      margin-top: 20px;
+    #debug-box {
+      margin-top: 15px;
+      font-size: 13px;
+      color: #ffeb3b;
       word-break: break-all;
-    }
-    .avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      margin-bottom: 10px;
+      background: #2c2c2c;
+      padding: 8px;
+      border-radius: 5px;
     }
   </style>
 </head>
@@ -60,76 +56,51 @@
     <div id="auth-container">
       <button id="google-btn" class="btn-google">چوونەژوورەوە بە Google</button>
     </div>
-    <div id="user-info"></div>
+    <div id="debug-box">دۆخ: چاوەڕوانی...</div>
   </div>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { 
-      getAuth, 
-      signInWithRedirect, 
-      getRedirectResult, 
-      GoogleAuthProvider, 
-      onAuthStateChanged,
-      signOut 
-    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    const debugBox = document.getElementById('debug-box');
 
-    // زانیارییەکانی فایربەیزەکەی تۆ (بە دروستی لێرە جێگیر کراون)
-    const firebaseConfig = {
-      apiKey: "AIzaSyAD2e4pTOekwessoPpsa1zgwJx4eq9vD0c",
-      authDomain: "aizasy-2e889.firebaseapp.com",
-      projectId: "aizasy-2e889",
-      storageBucket: "aizasy-2e889.firebasestorage.app",
-      messagingSenderId: "503323472309",
-      appId: "1:503323472309:web:7bf28bd9d9121030dd29fc",
-      measurementId: "G-NCXRC9F2EW"
-    };
+    try {
+      debugBox.innerText = "فایربەیز دەستی پێکرد...";
+      
+      import("https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js").then(async ({ initializeApp }) => {
+        const { getAuth, signInWithRedirect, GoogleAuthProvider } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js");
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
+        const firebaseConfig = {
+          apiKey: "AIzaSyAD2e4pTOekwessoPpsa1zgwJx4eq9vD0c",
+          authDomain: "aizasy-2e889.firebaseapp.com",
+          projectId: "aizasy-2e889",
+          storageBucket: "aizasy-2e889.firebasestorage.app",
+          messagingSenderId: "503323472309",
+          appId: "1:503323472309:web:7bf28bd9d9121030dd29fc",
+          measurementId: "G-NCXRC9F2EW"
+        };
 
-    const googleBtn = document.getElementById('google-btn');
-    const userInfo = document.getElementById('user-info');
-    const authContainer = document.getElementById('auth-container');
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
 
-    // کاتێک کلیک لە دوگمەکە دەکرێت
-    googleBtn.addEventListener('click', () => {
-      signInWithRedirect(auth, provider);
-    });
+        debugBox.innerText = "سایتەکە ئامادەیە، کلیک بکە!";
 
-    // پشکنینی گەڕانەوە دوای هەڵبژاردنی ئیمەیڵ
-    getRedirectResult(auth)
-      .then((result) => {
-        if (result && result.user) {
-          console.log("بە سەرکەوتوویی چوویتە ژوورەوە:", result.user);
-        }
-      })
-      .catch((error) => {
-        console.error("هەڵە:", error);
+        document.getElementById('google-btn').addEventListener('click', async () => {
+          debugBox.innerText = "داواکاری ڕەوانە دەکرێت...";
+          try {
+            await signInWithRedirect(auth, provider);
+          } catch (err) {
+            debugBox.innerText = "هەڵە لە کلیک: " + err.message;
+            alert("هەڵە: " + err.message);
+          }
+        });
+
+      }).catch(err => {
+        debugBox.innerText = "هەڵەی لۆدکردنی فایربەیز: " + err.message;
       });
 
-    // پیشاندانی زانیاری بەکارهێنەر ئەگەر چووبێتە ژوورەوە
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        authContainer.style.display = 'none';
-        userInfo.innerHTML = `
-          <img class="avatar" src="${user.photoURL}" alt="Profile">
-          <h3>بەخێربیێت ${user.displayName}</h3>
-          <p>${user.email}</p>
-          <button id="logout-btn" style="background:#ff5252; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer; margin-top:10px;">دەرچوون</button>
-        `;
-
-        document.getElementById('logout-btn').addEventListener('click', () => {
-          signOut(auth).then(() => {
-            location.reload();
-          });
-        });
-      } else {
-        authContainer.style.display = 'block';
-        userInfo.innerHTML = '';
-      }
-    });
+    } catch (e) {
+      debugBox.innerText = "هەڵەی گشتی: " + e.message;
+    }
   </script>
 
 </body>

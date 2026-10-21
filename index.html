@@ -1,299 +1,402 @@
 ```html
 <!DOCTYPE html>
-<html lang="ckb" dir="rtl">
+<html lang="ckb" dir="rtl" class="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HAMA DEV HUB - AI Assistant & Script</title>
-  <style>
-    :root {
-      --bg-color: #0f172a;
-      --chat-bg: #1e293b;
-      --accent-color: #3b82f6;
-      --accent-hover: #2563eb;
-      --text-color: #f8fafc;
-      --text-secondary: #94a3b8;
-      --border-color: #334155;
-      --user-msg: #2563eb;
-      --ai-msg: #334155;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAMA DEV HUB 🤖</title>
 
-    body {
-      font-family: Tahoma, Arial, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      padding: 10px;
-    }
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#0f172a">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="HAMA DEV HUB">
+    <meta name="application-name" content="HAMA DEV HUB">
+    <meta name="description" content="HAMA DEV HUB - Roblox Scripts & AI Assistant">
 
-    .main-wrapper {
-      width: 100%;
-      max-width: 600px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      height: 95vh;
-    }
+    <!-- Dynamic PWA Manifest Generator -->
+    <script>
+        const appIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none"><rect width="512" height="512" rx="128" fill="#0f172a"/><rect x="32" y="32" width="448" height="448" rx="96" fill="#1e293b" stroke="#3b82f6" stroke-width="8"/><circle cx="170" cy="200" r="40" fill="#3b82f6"/><circle cx="342" cy="200" r="40" fill="#3b82f6"/><path d="M160 330 Q256 400 352 330" stroke="#3b82f6" stroke-width="24" stroke-linecap="round" fill="none"/><path d="M256 60 V100" stroke="#3b82f6" stroke-width="16" stroke-linecap="round"/><circle cx="256" cy="50" r="16" fill="#60a5fa"/></svg>`;
+        const iconDataUrl = "data:image/svg+xml;base64," + btoa(appIconSvg);
 
-    .script-box {
-      background-color: var(--chat-bg);
-      padding: 12px 15px;
-      border-radius: 12px;
-      border: 1px solid var(--border-color);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
+        const manifest = {
+            "name": "HAMA DEV HUB",
+            "short_name": "HAMA DEV",
+            "description": "HAMA DEV HUB - Roblox Scripts & AI Assistant",
+            "start_url": "./",
+            "display": "standalone",
+            "background_color": "#0f172a",
+            "theme_color": "#0f172a",
+            "icons": [
+                {
+                    "src": iconDataUrl,
+                    "sizes": "192x192",
+                    "type": "image/svg+xml",
+                    "purpose": "any maskable"
+                },
+                {
+                    "src": iconDataUrl,
+                    "sizes": "512x512",
+                    "type": "image/svg+xml",
+                    "purpose": "any maskable"
+                }
+            ]
+        };
 
-    .script-code {
-      background-color: #0f172a;
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-family: monospace;
-      font-size: 11px;
-      color: #38bdf8;
-      flex: 1;
-      overflow-x: auto;
-      white-space: nowrap;
-    }
+        const manifestBlob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
+        const manifestURL = URL.createObjectURL(manifestBlob);
+        
+        const linkElem = document.createElement('link');
+        linkElem.rel = 'manifest';
+        linkElem.href = manifestURL;
+        document.head.appendChild(linkElem);
 
-    .copy-btn {
-      background-color: #10b981;
-      color: white;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 12px;
-      transition: background 0.2s;
-      white-space: nowrap;
-    }
+        // Favicon link
+        const favicon = document.createElement('link');
+        favicon.rel = 'icon';
+        favicon.type = 'image/svg+xml';
+        favicon.href = iconDataUrl;
+        document.head.appendChild(favicon);
+    </script>
 
-    .copy-btn:hover {
-      background-color: #059669;
-    }
-
-    .chat-container {
-      flex: 1;
-      background-color: var(--chat-bg);
-      border-radius: 16px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-      border: 1px solid var(--border-color);
-    }
-
-    .chat-header {
-      background: linear-gradient(135deg, #1e293b, #0f172a);
-      padding: 12px 20px;
-      font-weight: bold;
-      font-size: 16px;
-      border-bottom: 1px solid var(--border-color);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .chat-header span {
-      color: var(--accent-color);
-    }
-
-    .chat-box {
-      flex: 1;
-      padding: 15px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      scroll-behavior: smooth;
-    }
-
-    .message {
-      padding: 10px 14px;
-      border-radius: 12px;
-      max-width: 85%;
-      line-height: 1.5;
-      font-size: 13px;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-    }
-
-    .user-msg {
-      background-color: var(--user-msg);
-      color: white;
-      align-self: flex-end;
-      border-bottom-right-radius: 4px;
-    }
-
-    .ai-msg {
-      background-color: var(--ai-msg);
-      color: var(--text-color);
-      align-self: flex-start;
-      border-bottom-left-radius: 4px;
-      border: 1px solid var(--border-color);
-    }
-
-    .input-area {
-      display: flex;
-      padding: 12px;
-      background-color: #0f172a;
-      border-top: 1px solid var(--border-color);
-      gap: 10px;
-    }
-
-    input {
-      flex: 1;
-      padding: 10px 14px;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      background-color: #1e293b;
-      color: white;
-      outline: none;
-      font-size: 13px;
-    }
-
-    input:focus {
-      border-color: var(--accent-color);
-    }
-
-    button.send-btn {
-      padding: 10px 18px;
-      border: none;
-      border-radius: 8px;
-      background-color: var(--accent-color);
-      color: white;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.2s;
-    }
-
-    button.send-btn:hover {
-      background-color: var(--accent-hover);
-    }
-  </style>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#0f172a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between">
 
-  <div class="main-wrapper">
-    <!-- بەشی کۆپیکردنی سکریپتی ڕۆبڵۆکس -->
-    <div class="script-box">
-      <div class="script-code" id="scriptText">loadstring(game:HttpGet("https://gist.githubusercontent.com/hamadev19/389a807853f085f498b2488f49f3a4f5/raw"))()</div>
-      <button class="copy-btn" onclick="copyScript()">کۆپیکردن 📋</button>
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800 p-4">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-xl">
+                    🤖
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight text-slate-100">HAMA DEV HUB</h1>
+                    <p class="text-xs text-slate-400">گەشەپێدەر: rip_hama276</p>
+                </div>
+            </div>
+
+            <!-- Install PWA Button (Visible when ready) -->
+            <button id="pwaInstallBtn" class="hidden flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-medium text-xs sm:text-sm px-4 py-2 rounded-xl shadow-lg shadow-blue-500/20 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                <span>دابەزاندنی ئەپ</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl w-full mx-auto p-4 flex-1 flex flex-col gap-6">
+
+        <!-- Roblox Script Box -->
+        <section class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-4 shadow-xl backdrop-blur-sm">
+            <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <h2 class="text-sm font-semibold text-slate-200">کۆدی Roblox Script</h2>
+                </div>
+                <button id="copyScriptBtn" onclick="copyRobloxScript()" class="flex items-center gap-1.5 bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-600/30 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all">
+                    <svg id="copyIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                    <span id="copyBtnText">کۆپیکردن</span>
+                </button>
+            </div>
+            
+            <div class="bg-slate-950/80 rounded-xl p-3 border border-slate-800 font-mono text-xs sm:text-sm text-slate-300 overflow-x-auto relative dir-ltr text-left select-all">
+                <code>loadstring(game:HttpGet("https://gist.githubusercontent.com/hamadev19/389a807853f085f498b2488f49f3a4f5/raw"))()</code>
+            </div>
+        </section>
+
+        <!-- Chat Window Section -->
+        <section class="flex-1 bg-slate-800/60 border border-slate-700/60 rounded-2xl p-4 shadow-xl flex flex-col justify-between min-h-[400px]">
+            <!-- Messages Box -->
+            <div id="chatMessages" class="flex-1 overflow-y-auto space-y-4 mb-4 pr-1">
+                <!-- AI Initial Welcome Message -->
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
+                        AI
+                    </div>
+                    <div class="bg-slate-700/60 border border-slate-600/50 rounded-2xl rounded-tr-none p-3.5 text-sm max-w-[85%] leading-relaxed text-slate-200">
+                        سڵاو! من یاردیدەدەری **HAMA DEV HUB** هەستم. چۆن دەتوانم لە کۆدنوسین، دروستکردنی سکریپتی ڕوبلۆکس یان پرسیارەکانتدا یارمتیدەت بدم؟ 🤖
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Controls -->
+            <form id="chatForm" onsubmit="handleSendMessage(event)" class="relative flex items-center">
+                <input 
+                    type="text" 
+                    id="userPrompt" 
+                    placeholder="پرسیارێک یان داواکارییەک بنووسە..." 
+                    class="w-full bg-slate-950/80 text-sm text-slate-100 placeholder-slate-500 rounded-xl pl-12 pr-4 py-3 border border-slate-700 focus:outline-none focus:border-blue-500 transition-colors"
+                    required
+                >
+                <button 
+                    type="submit" 
+                    id="sendBtn"
+                    class="absolute left-2 bg-blue-600 hover:bg-blue-500 text-white p-2 rounded-lg transition-all disabled:opacity-50"
+                >
+                    <svg class="w-4 h-4 rotate-90 dir-ltr" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                </button>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-3 border-t border-slate-800 text-xs text-slate-500">
+        © HAMA DEV HUB — هەموو مافەکان پارێزراون بۆ <span class="text-blue-400">rip_hama276</span>
+    </footer>
+
+    <!-- Toast Notification for Copy -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-emerald-600 text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-2xl opacity-0 transition-opacity duration-300 pointer-events-none flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        <span>کۆدەکە بە سەرکەوتوویی کۆپی کرا!</span>
     </div>
 
-    <!-- بەشی چاتی AI -->
-    <div class="chat-container">
-      <div class="chat-header">
-        🤖 HAMA DEV HUB <span>AI</span>
-      </div>
-      <div class="chat-box" id="chatBox">
-        <div class="message ai-msg">سڵاو! من یاریدەدەری هاما دەڤ هب هستم. چۆن دەتوانم لە کۆدنوسین یان پرسیارەکانتدا یارمەتیت بدەم؟</div>
-      </div>
-      <div class="input-area">
-        <input type="text" id="userInput" placeholder="پەیامەکەت لێرە بنووسە..." onkeypress="checkEnter(event)">
-        <button class="send-btn" onclick="handleSend()">ناردن</button>
-      </div>
-    </div>
-  </div>
+    <!-- PWA & AI Logic JavaScript -->
+    <script>
+        // ----------------------------------------------------
+        // 1. Service Worker Blob Registration (Ensures PWA Installability)
+        // ----------------------------------------------------
+        const swCode = `
+            const CACHE_NAME = 'hama-dev-hub-v1';
+            self.addEventListener('install', (e) => {
+                self.skipWaiting();
+            });
+            self.addEventListener('activate', (e) => {
+                e.waitUntil(clients.claim());
+            });
+            self.addEventListener('fetch', (e) => {
+                e.respondWith(
+                    fetch(e.request).catch(() => caches.match(e.request))
+                );
+            });
+        `;
+        
+        if ('serviceWorker' in navigator) {
+            const swBlob = new Blob([swCode], {type: 'application/javascript'});
+            const swUrl = URL.createObjectURL(swBlob);
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register(swUrl)
+                    .then(reg => console.log('ServiceWorker Ready'))
+                    .catch(err => console.error('ServiceWorker Error:', err));
+            });
+        }
 
-  <script>
-    // کلیلی API خۆت لێرە دابنە (AIzaSy...)
-    const apiKey = "YOUR_API_KEY_HERE"; 
+        // ----------------------------------------------------
+        // 2. PWA Installation Handler
+        // ----------------------------------------------------
+        let deferredPrompt;
+        const pwaInstallBtn = document.getElementById('pwaInstallBtn');
 
-    const systemInstruction = `
-    تۆ یاریدەدەرێکی زۆر زیرەک، پرۆفێشۆناڵ، میهرەبان و گەرموگوڕیت بۆ پلاتفۆرمی HAMA DEV HUB. خاوەنەکەت کاکە حەمەیە (rip_hama276). هەمیشە بە زمانی کوردی وەڵام بدەوە.
-    `;
-
-    function copyScript() {
-      const scriptCode = document.getElementById("scriptText").innerText;
-      navigator.clipboard.writeText(scriptCode).then(() => {
-        const btn = document.querySelector(".copy-btn");
-        btn.innerText = "کۆپیکرا! ✅";
-        btn.style.backgroundColor = "#059669";
-        setTimeout(() => {
-          btn.innerText = "کۆپیکردن 📋";
-          btn.style.backgroundColor = "#10b981";
-        }, 2000);
-      });
-    }
-
-    async function sendMessageToAI(userMessage) {
-      try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            system_instruction: { parts: [{ text: systemInstruction }] },
-            contents: [{ parts: [{ text: userMessage }] }]
-          })
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            pwaInstallBtn.classList.remove('hidden');
         });
 
-        const data = await response.json();
+        pwaInstallBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    console.log('User accepted PWA installation');
+                }
+                deferredPrompt = null;
+                pwaInstallBtn.classList.add('hidden');
+            }
+        });
 
-        if (data.error) {
-          return "هەڵە لە API: " + data.error.message;
+        window.addEventListener('appinstalled', () => {
+            pwaInstallBtn.classList.add('hidden');
+            console.log('PWA installed successfully!');
+        });
+
+        // ----------------------------------------------------
+        // 3. Roblox Script Copy Logic
+        // ----------------------------------------------------
+        function copyRobloxScript() {
+            const scriptText = 'loadstring(game:HttpGet("https://gist.githubusercontent.com/hamadev19/389a807853f085f498b2488f49f3a4f5/raw"))()';
+            
+            // Clipboard Copy Guard
+            const tempInput = document.createElement("textarea");
+            tempInput.value = scriptText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            // Toast UI Feedback
+            const toast = document.getElementById('toast');
+            toast.classList.remove('opacity-0');
+            toast.classList.add('opacity-100');
+            setTimeout(() => {
+                toast.classList.remove('opacity-100');
+                toast.classList.add('opacity-0');
+            }, 2500);
         }
 
-        if (data.candidates && data.candidates[0] && data.candidates[0].content.parts[0].text) {
-          return data.candidates[0].content.parts[0].text;
+        // ----------------------------------------------------
+        // 4. Gemini AI Integration
+        // ----------------------------------------------------
+        const systemPrompt = "تۆ یاریدەدەری ژیری دەستکردی فەرمی (HAMA DEV HUB) 🤖. خاوەنەکەت ناوی (rip_hama276) دەتوانیت بە کوردیی سۆرانی زۆر بەڕێزەوە و بە زانیاری وردی کۆدنوسین و سکریپتی ڕوبلۆکس (Roblox Lua Scripts) و هاوکاری پرۆگرامسازی وەڵامی بەکارهێنەران بدەیتەوە. هەردەم زۆر هاوکار و یارمەتیدەر بە.";
+
+        async function handleSendMessage(event) {
+            event.preventDefault();
+            const inputEl = document.getElementById('userPrompt');
+            const sendBtn = document.getElementById('sendBtn');
+            const chatMessages = document.getElementById('chatMessages');
+            const promptText = inputEl.value.trim();
+
+            if (!promptText) return;
+
+            // Render User Message
+            appendMessage('user', promptText);
+            inputEl.value = '';
+            sendBtn.disabled = true;
+
+            // Render Loading AI Message
+            const loadingId = appendLoadingMessage();
+
+            try {
+                const apiKey = ""; // Canvas dynamic key loader
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: promptText }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] }
+                    })
+                });
+
+                const data = await response.json();
+                const aiReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "داوا لە لێبوردن دەکەم، هەڵەیەک ڕوویدا لە وەڵامدانەوەدا.";
+                
+                removeLoadingMessage(loadingId);
+                appendMessage('ai', aiReply);
+
+            } catch (err) {
+                console.error(err);
+                removeLoadingMessage(loadingId);
+                appendMessage('ai', "ببوورە! پەیوەندی بە سەرڤەرەوە پچڕا. تکایە دوابارە هەوڵبدەرەوە.");
+            } finally {
+                sendBtn.disabled = false;
+            }
         }
 
-        return "ببۆرە، هیچ وەڵامێک نەهاتەوە.";
-      } catch (err) {
-        return "هەڵەی پەیوەندی: " + err.message;
-      }
-    }
+        function appendMessage(sender, text) {
+            const chatMessages = document.getElementById('chatMessages');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = "flex items-start gap-3";
 
-    async function handleSend() {
-      const input = document.getElementById("userInput");
-      const chatBox = document.getElementById("chatBox");
-      const text = input.value.trim();
+            if (sender === 'user') {
+                msgDiv.innerHTML = `
+                    <div class="flex items-start gap-3 justify-end w-full">
+                        <div class="bg-blue-600 text-white rounded-2xl rounded-tl-none p-3.5 text-sm max-w-[85%] leading-relaxed">
+                            ${escapeHtml(text)}
+                        </div>
+                        <div class="w-8 h-8 rounded-xl bg-slate-700 flex items-center justify-center text-slate-300 text-xs font-bold shrink-0">
+                            تۆ
+                        </div>
+                    </div>
+                `;
+            } else {
+                msgDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
+                        AI
+                    </div>
+                    <div class="bg-slate-700/60 border border-slate-600/50 rounded-2xl rounded-tr-none p-3.5 text-sm max-w-[85%] leading-relaxed text-slate-200">
+                        ${formatMarkdown(text)}
+                    </div>
+                `;
+            }
 
-      if (!text) return;
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
 
-      chatBox.innerHTML += `<div class="message user-msg">${escapeHtml(text)}</div>`;
-      input.value = "";
-      chatBox.scrollTop = chatBox.scrollHeight;
+        function appendLoadingMessage() {
+            const chatMessages = document.getElementById('chatMessages');
+            const id = 'loading-' + Date.now();
+            const msgDiv = document.createElement('div');
+            msgDiv.id = id;
+            msgDiv.className = "flex items-start gap-3";
+            msgDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
+                    AI
+                </div>
+                <div class="bg-slate-700/60 border border-slate-600/50 rounded-2xl rounded-tr-none p-3.5 text-sm max-w-[85%] text-slate-400 flex items-center gap-2">
+                    <span class="w-2 h-2 bg-blue-400 rounded-full animate-ping"></span>
+                    خەریکی بیرکردنەوەم...
+                </div>
+            `;
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return id;
+        }
 
-      const loadingDiv = document.createElement("div");
-      loadingDiv.className = "message ai-msg";
-      loadingDiv.innerText = "وەڵام دەدرێتەوە...";
-      chatBox.appendChild(loadingDiv);
-      chatBox.scrollTop = chatBox.scrollHeight;
+        function removeLoadingMessage(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
 
-      const aiReply = await sendMessageToAI(text);
-      loadingDiv.innerText = aiReply;
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
 
-    function checkEnter(event) {
-      if (event.key === "Enter") {
-        handleSend();
-      }
-    }
-
-    function escapeHtml(text) {
-      const map = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;'
-      };
-      return text.replace(/[&<>"']/g, function(m) { return map[m]; });
-    }
-  </script>
-
+        function formatMarkdown(text) {
+            let formatted = escapeHtml(text);
+            formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            formatted = formatted.replace(/`([^`]+)`/g, '<code class="bg-slate-900 px-1.5 py-0.5 rounded text-blue-400 font-mono text-xs dir-ltr inline-block">$1</code>');
+            formatted = formatted.replace(/\n/g, '<br>');
+            return formatted;
+        }
+    </script>
 </body>
 </html>
 ```

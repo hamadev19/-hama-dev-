@@ -104,7 +104,6 @@
       <p style="color: #4ade80; text-align: center;">بەخێر بێیت! بە سەرکەوتوویی لە ڕێگەی گووگڵەوە چوویتە ژوورەوە. 🚀</p>
     </div>
 
-    <!-- شوێنی نیشدانی هەڵەکان -->
     <div id="msg" style="margin-top: 15px; color: #f87171; font-size: 14px; word-break: break-all;"></div>
   </div>
 
@@ -124,12 +123,18 @@
     }
     const auth = firebase.auth();
 
+    // بەکارهێنانی Redirect لە جیاتی Popup بۆ مۆبایل
     function loginWithGoogle() {
       const provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithPopup(provider).catch((error) => {
+      auth.signInWithRedirect(provider).catch((error) => {
         document.getElementById("msg").innerText = "هەڵە: " + error.code + " - " + error.message;
       });
     }
+
+    // وەرگرتنی ئەنجامی چوونەژوورەوە دوای گەڕانەوە
+    auth.getRedirectResult().catch((error) => {
+      document.getElementById("msg").innerText = "هەڵە: " + error.code + " - " + error.message;
+    });
 
     function logout() {
       auth.signOut();

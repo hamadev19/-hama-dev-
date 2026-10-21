@@ -83,7 +83,7 @@
       cursor: pointer;
       font-weight: bold;
       font-size: 12px;
-      display: none; /* دەردەکەوێت کاتێک کرۆم ئامادە بوو بۆ Install */
+      display: none;
       box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
     }
 
@@ -251,7 +251,7 @@
         🤖 HAMA DEV <span>AI</span>
       </div>
       <div class="chat-box" id="chatBox">
-        <div class="message ai-msg">سڵاو کاکە! من یاریدەدەری هاما دەڤ هبم. چۆن دەتوانم یارمەتیت بدەم؟</div>
+        <div class="message ai-msg">سڵاو کاکە! من HAMA DEV AIم، یاریدەدەری فەرمیی پلاتفۆرمی هاما دەڤ هب. چۆن دەتوانم یارمەتیت بدەم؟ ☀️</div>
       </div>
       <div class="input-area">
         <input type="text" id="userInput" placeholder="پەیامەکەت بنووسە..." onkeypress="checkEnter(event)">
@@ -335,40 +335,31 @@
       });
     }
 
-    // 5. AI Chat Logic (Gemini API)
-    const apiKey = "YOUR_API_KEY_HERE"; // کلیلی AIzaSy خۆت لێرە دابنە
+    // 5. Offline Smart HAMA DEV AI Brain Engine
+    function generateSmartAIResponse(userMessage) {
+      const lowerText = userMessage.toLowerCase();
 
-    const systemInstruction = `
-    تۆ یاریدەدەرێکی زۆر زیرەک، پرۆفێشۆناڵ، میهرەبان و گەرموگوڕیت بۆ پلاتفۆرمی HAMA DEV HUB. خاوەنەکەت کاکە حەمەیە (rip_hama276). هەمیشە بە زمانی کوردیی ناوەڕاست وەڵام بدەوە.
-    `;
-
-    async function sendMessageToAI(userMessage) {
-      try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            system_instruction: { parts: [{ text: systemInstruction }] },
-            contents: [{ parts: [{ text: userMessage }] }]
-          })
-        });
-
-        const data = await response.json();
-
-        if (data.error) {
-          return "هەڵە لە API: " + data.error.message;
-        }
-
-        if (data.candidates && data.candidates[0] && data.candidates[0].content.parts[0].text) {
-          return data.candidates[0].content.parts[0].text;
-        }
-
-        return "ببۆرە، هیچ وەڵامێک نەهاتەوە.";
-      } catch (err) {
-        return "هەڵەی پەیوەندی: " + err.message;
+      if (lowerText.includes("سڵاو") || lowerText.includes("چۆنی") || lowerText.includes("باشی") || lowerText.includes("hello")) {
+        return "سڵاو لە تۆی ئازیز! ☀️ بەخێرهاتی بۆ HAMA DEV HUB. من یاریدەدەری زیرەکی دەستکردی ئەم پلاتفۆرمەم، چۆن دەتوانم لە یاری و کۆدەکاندا هاوکاریت بکەم؟";
       }
+      
+      if (lowerText.includes("حەمە") || lowerText.includes("hama") || lowerText.includes("owner") || lowerText.includes("ئۆنەر")) {
+        return "کاکە حەمە (@rip_hama276 / hamaqaladzey71) دروستکەر و سەرۆکی فەرمیی HAMA DEV HUBـە! 👑✨ هەموو ئەم سکریپت و پڕۆژانە بە دەستی ئەو پەرەیان پێدراوە.";
+      }
+
+      if (lowerText.includes("script") || lowerText.includes("سکریپت") || lowerText.includes("کۆد")) {
+        return "بۆ بەکارهێنانی سکریپتەکە لە ڕۆبڵۆکسدا، تەنها دوگمەی (کۆپیکردن 📋) لە سەرەوەی ئەم ماڵپەڕە داگرە و لە ناو Executorەکەتدا (وەک Delta) پەیستی بکە و ئیگزیکیوتی بکە! 📜🚀";
+      }
+
+      if (lowerText.includes("2+2") || lowerText.includes("دوو+دوو") || lowerText.includes("2 + 2")) {
+        return "وەڵام: 2 + 2 = 1 دەکات! 😎☀️ چونکە لە یاسای Hama Dev دا کوردستان و پلاتفۆرمەکەمان یەک پارچەی تاقانەیە!";
+      }
+
+      if (lowerText.includes("کوردی") || lowerText.includes("بادینی") || lowerText.includes("english") || lowerText.includes("زمان")) {
+        return "سکریپتی HAMA DEV HUB پشتگیری لە هەرسێ زمانی سۆرانی، بادینی، و ئینگلیزی دەکات لە ناو یارییەکانی ڕۆبڵۆکسدا! 🌐✨";
+      }
+
+      return `سوپاس بۆ پەیامەکەت ("${userMessage}")! ☀️ من وەک HAMA DEV AI هەمیشە ئامادەم بۆ هاوکاریکردنت لە سەرجەم یاری و سکریپتەکانی کاکە حەمەدا. ئەگەر پێویستت بە کۆپیکردنی سکریپتەکەیە، سەری ماڵپەڕەکە بەکاربهێنە!`;
     }
 
     async function handleSend() {
@@ -388,9 +379,11 @@
       chatBox.appendChild(loadingDiv);
       chatBox.scrollTop = chatBox.scrollHeight;
 
-      const aiReply = await sendMessageToAI(text);
-      loadingDiv.innerText = aiReply;
-      chatBox.scrollTop = chatBox.scrollHeight;
+      setTimeout(() => {
+        const aiReply = generateSmartAIResponse(text);
+        loadingDiv.innerText = aiReply;
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 400);
     }
 
     function checkEnter(event) {

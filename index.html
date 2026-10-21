@@ -6,41 +6,111 @@
   <title>HAMA DEV HUB</title>
   
   <style>
+    * { box-sizing: border-box; font-family: system-ui, sans-serif; }
     body {
       background-color: #0f172a;
       color: #ffffff;
-      font-family: sans-serif;
-      text-align: center;
-      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 15px;
     }
     .card {
       background: #1e293b;
-      padding: 20px;
-      border-radius: 12px;
+      padding: 25px;
+      border-radius: 16px;
+      width: 100%;
       max-width: 400px;
-      margin: 50px auto;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      text-align: center;
     }
-    .status {
-      color: #38bdf8;
+    h2 { color: #38bdf8; margin-bottom: 20px; }
+    
+    .btn-google {
+      background: #ffffff;
+      color: #000000;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
       font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: 0.2s;
+    }
+    .btn-google:hover { background: #e2e8f0; }
+    
+    .chat-box {
+      display: none;
+      text-align: right;
+    }
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+      background: #0f172a;
+      padding: 10px;
+      border-radius: 10px;
+    }
+    .user-profile img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    .logout-btn {
+      background: #f87171;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
     }
   </style>
 
-  <!-- بەستنەوەی فایربەیز بە شێوازی CDN -->
+  <!-- فایربەیز SDK -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 </head>
 <body>
 
   <div class="card">
     <h2>HAMA DEV HUB</h2>
-    <p id="status-text" class="status">چاوەڕوان بە... دەستپێکردنی فایربەیز</p>
+
+    <!-- بەشی چوونەژوورەوە بە گووگڵ -->
+    <div id="login-section">
+      <p style="color: #94a3b8; margin-bottom: 20px;">تکایە بە گووگڵ بچۆ ژوورەوە بۆ بەکارهێنانی ئەپەکە:</p>
+      <button class="btn-google" onclick="loginWithGoogle()">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
+        چوونەژوورەوە بە Google
+      </button>
+    </div>
+
+    <!-- بەشی ناوەوەی ئەپەکە دوای چوونەژوورەوە -->
+    <div id="app-section" class="chat-box">
+      <div class="user-profile">
+        <img id="user-img" src="" alt="Profile">
+        <div style="flex: 1;">
+          <strong id="user-name" style="display: block; font-size: 14px;"></strong>
+          <span id="user-email" style="font-size: 12px; color: #94a3b8;"></span>
+        </div>
+        <button class="logout-btn" onclick="logout()">دەرچوون</button>
+      </div>
+      
+      <p style="color: #4ade80; text-align: center;">بەخێر بێیت! بە سەرکەوتوویی لە ڕێگەی گووگڵەوە چوویتە ژوورەوە. 🚀</p>
+    </div>
+
+    <div id="msg" style="margin-top: 15px; color: #f87171; font-size: 14px;"></div>
   </div>
 
   <script>
-    // زانیارییە تایبەتەکانی فایربەیزەکەت
+    // زانیارییەکانی فایربەیزەکەت
     const firebaseConfig = {
       apiKey: "AIzaSyAD2e4pTOekwessoPpsa1zgwJx4eeq9VD0c",
       authDomain: "alzasy-2e889.firebaseapp.com",
@@ -51,15 +121,36 @@
       measurementId: "G-NCXRC9F2EW"
     };
 
-    // چالاککردنی فایربەیز
-    try {
-      firebase.initializeApp(firebaseConfig);
-      document.getElementById("status-text").innerText = "فایربەیز بە سەرکەوتوویی بەستراوە! 🚀";
-      document.getElementById("status-text").style.color = "#4ade80";
-    } catch (error) {
-      document.getElementById("status-text").innerText = "هەڵە ڕوویدا: " + error.message;
-      document.getElementById("status-text").style.color = "#f87171";
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // چوونەژوورەوە بە گووگڵ
+    function loginWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .catch((error) => {
+          document.getElementById("msg").innerText = "هەڵە: " + error.message;
+        });
     }
+
+    // دەرچوون
+    function logout() {
+      auth.signOut();
+    }
+
+    // پشکنینی باری ئەکاونت
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        document.getElementById("login-section").style.display = "none";
+        document.getElementById("app-section").style.display = "block";
+        document.getElementById("user-name").innerText = user.displayName;
+        document.getElementById("user-email").innerText = user.email;
+        document.getElementById("user-img").src = user.photoURL || "https://via.placeholder.com/40";
+      } else {
+        document.getElementById("login-section").style.display = "block";
+        document.getElementById("app-section").style.display = "none";
+      }
+    });
   </script>
 
 </body>

@@ -124,14 +124,16 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // چوونەژوورەوە بە گووگڵ
+    // چوونەژوورەوە بە شێوازی Redirect (بۆ مۆبایل زۆر خاوێن و بێ کێشەیە)
     function loginWithGoogle() {
       const provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithPopup(provider)
-        .catch((error) => {
-          document.getElementById("msg").innerText = "هەڵە: " + error.message;
-        });
+      auth.signInWithRedirect(provider);
     }
+
+    // وەرگرتنی ئەنجامی چوونەژوورەوە دوای گەڕانەوە
+    auth.getRedirectResult().catch((error) => {
+      document.getElementById("msg").innerText = "هەڵە: " + error.message;
+    });
 
     // دەرچوون
     function logout() {

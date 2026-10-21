@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HAMA DEV HUB</title>
   
-  <!-- بەستەری فایلی مانیفێست بۆ PWA و داگرتنی ئەپ -->
   <link rel="manifest" href="manifest.json">
   
   <style>
@@ -77,7 +76,6 @@
     }
   </style>
 
-  <!-- فایربەیز SDK -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 </head>
@@ -86,7 +84,6 @@
   <div class="card">
     <h2>HAMA DEV HUB</h2>
 
-    <!-- بەشی چوونەژوورەوە بە گووگڵ -->
     <div id="login-section">
       <p style="color: #94a3b8; margin-bottom: 20px;">تکایە بە گووگڵ بچۆ ژوورەوە بۆ بەکارهێنانی ئەپەکە:</p>
       <button class="btn-google" onclick="loginWithGoogle()">
@@ -95,7 +92,6 @@
       </button>
     </div>
 
-    <!-- بەشی ناوەوەی ئەپەکە دوای چوونەژوورەوە -->
     <div id="app-section" class="chat-box">
       <div class="user-profile">
         <img id="user-img" src="" alt="Profile">
@@ -105,15 +101,14 @@
         </div>
         <button class="logout-btn" onclick="logout()">دەرچوون</button>
       </div>
-      
       <p style="color: #4ade80; text-align: center;">بەخێر بێیت! بە سەرکەوتوویی لە ڕێگەی گووگڵەوە چوویتە ژوورەوە. 🚀</p>
     </div>
 
-    <div id="msg" style="margin-top: 15px; color: #f87171; font-size: 14px;"></div>
+    <!-- شوێنی نیشدانی هەڵەکان -->
+    <div id="msg" style="margin-top: 15px; color: #f87171; font-size: 14px; word-break: break-all;"></div>
   </div>
 
   <script>
-    // زانیارییەکانی فایربەیزەکەت
     const firebaseConfig = {
       apiKey: "AIzaSyAD2e4pTOekwessoPpsa1zgwJx4eeq9VD0c",
       authDomain: "alzasy-2e889.firebaseapp.com",
@@ -124,26 +119,22 @@
       measurementId: "G-NCXRC9F2EW"
     };
 
-    firebase.initializeApp(firebaseConfig);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
     const auth = firebase.auth();
 
-    // چوونەژوورەوە بە شێوازی Redirect بۆ مۆبایل
     function loginWithGoogle() {
       const provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithRedirect(provider);
+      auth.signInWithPopup(provider).catch((error) => {
+        document.getElementById("msg").innerText = "هەڵە: " + error.code + " - " + error.message;
+      });
     }
 
-    // وەرگرتنی ئەنجامی چوونەژوورەوە دوای گەڕانەوە
-    auth.getRedirectResult().catch((error) => {
-      document.getElementById("msg").innerText = "هەڵە: " + error.message;
-    });
-
-    // دەرچوون
     function logout() {
       auth.signOut();
     }
 
-    // پشکنینی باری ئەکاونت
     auth.onAuthStateChanged((user) => {
       if (user) {
         document.getElementById("login-section").style.display = "none";

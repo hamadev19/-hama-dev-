@@ -108,14 +108,15 @@
   </div>
 
   <script>
+    // زانیارییە نوێ و ڕاستەکان کە لە پڕۆژەکەت کۆپی کردووە
     const firebaseConfig = {
-      apiKey: "AIzaSyAD2e4pTOekwessoPpsa1zgwJx4eeq9VD0c",
-      authDomain: "alzasy-2e889.firebaseapp.com",
-      projectId: "alzasy-2e889",
-      storageBucket: "alzasy-2e889.appspot.com",
+      apiKey: "AIzaSyAD2e4pTOekwessoPpsa1zgwJx4eeq9vD0c",
+      authDomain: "aizasy-2e889.firebaseapp.com",
+      projectId: "aizasy-2e889",
+      storageBucket: "aizasy-2e889.firebasestorage.app",
       messagingSenderId: "503323472309",
-      appId: "1:503323472309:web:7bf28bd9d9121030dd29fc",
-      measurementId: "G-NCXRC9F2EW"
+      appId: "1:503323472309:web:fd96d5b509e87d79dd29fc",
+      measurementId: "G-9FYSRE936Q"
     };
 
     if (!firebase.apps.length) {
@@ -123,7 +124,6 @@
     }
     const auth = firebase.auth();
 
-    // بەکارهێنانی Redirect لە جیاتی Popup بۆ مۆبایل
     function loginWithGoogle() {
       const provider = new firebase.auth.GoogleAuthProvider();
       auth.signInWithRedirect(provider).catch((error) => {
@@ -131,7 +131,6 @@
       });
     }
 
-    // وەرگرتنی ئەنجامی چوونەژوورەوە دوای گەڕانەوە
     auth.getRedirectResult().catch((error) => {
       document.getElementById("msg").innerText = "هەڵە: " + error.code + " - " + error.message;
     });

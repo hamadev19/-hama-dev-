@@ -74,14 +74,15 @@
       signOut 
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-    // زانیارییەکانی فایربەیزەکەت (دڵنیا ببەوە apiKeyـی ڕاستەقینەی خۆت لێرەدایە)
+    // زانیارییەکانی فایربەیزەکەی تۆ (بە دروستی لێرە جێگیر کراون)
     const firebaseConfig = {
-      apiKey: "لێرە_ئای_کەیی_ڕاستەقینەکەی_خۆت_دانێ",
+      apiKey: "AIzaSyAD2e4pTOekwessoPpsa1zgwJx4eq9vD0c",
       authDomain: "aizasy-2e889.firebaseapp.com",
       projectId: "aizasy-2e889",
-      storageBucket: "aizasy-2e889.appspot.com",
-      messagingSenderId: "123456789",
-      appId: "1:123456789:web:abcdef"
+      storageBucket: "aizasy-2e889.firebasestorage.app",
+      messagingSenderId: "503323472309",
+      appId: "1:503323472309:web:7bf28bd9d9121030dd29fc",
+      measurementId: "G-NCXRC9F2EW"
     };
 
     const app = initializeApp(firebaseConfig);
@@ -92,7 +93,7 @@
     const userInfo = document.getElementById('user-info');
     const authContainer = document.getElementById('auth-container');
 
-    // کاتێک کلیک لە دوگمەکە دەکرێت، ڕاستەوخۆ دەگوازرێتەوە بۆ لاپەڕەی گووگڵ
+    // کاتێک کلیک لە دوگمەکە دەکرێت
     googleBtn.addEventListener('click', () => {
       signInWithRedirect(auth, provider);
     });

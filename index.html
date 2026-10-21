@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HAMA DEV HUB</title>
   
+  <!-- بەستەری فایلی مانیفێست بۆ PWA و داگرتنی ئەپ -->
+  <link rel="manifest" href="manifest.json">
+  
   <style>
     * { box-sizing: border-box; font-family: system-ui, sans-serif; }
     body {
@@ -124,7 +127,7 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // چوونەژوورەوە بە شێوازی Redirect (بۆ مۆبایل زۆر خاوێن و بێ کێشەیە)
+    // چوونەژوورەوە بە شێوازی Redirect بۆ مۆبایل
     function loginWithGoogle() {
       const provider = new firebase.auth.GoogleAuthProvider();
       auth.signInWithRedirect(provider);

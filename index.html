@@ -85,12 +85,6 @@
         button:hover {
             background-color: #00b388;
         }
-        #status {
-            font-size: 12px;
-            color: #888;
-            text-align: center;
-            margin-bottom: 5px;
-        }
     </style>
 </head>
 <body>
@@ -98,68 +92,17 @@
     <div class="header">حەمە دەڤ هاب - AI Assistant</div>
 
     <div class="chat-container">
-        <div id="status">سەرقاڵی چوونەژوورەوەی خۆکار وەکو میوان...</div>
-        
         <div id="chat-messages">
             <div class="message ai-msg">سڵاو کاکە حەمە! من ئەی ئای (AI)ـم. چۆن دەتوانم یارمەتیت بدەم؟</div>
         </div>
 
         <div class="input-area">
-            <input type="text" id="user-input" placeholder="پەیامەکەت لێرە بنووسە..." disabled>
-            <button id="send-btn" disabled>ناردن</button>
+            <input type="text" id="user-input" placeholder="پەیامەکەت لێرە بنووسە...">
+            <button id="send-btn">ناردن</button>
         </div>
     </div>
 
-    <!-- Firebase SDKs -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { 
-            getAuth, 
-            signInAnonymously, 
-            onAuthStateChanged 
-        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-
-        // زانیارییە ڕاستەقینەکانی پڕۆژەکەت
-        const firebaseConfig = {
-            apiKey: "AIzaSyAD2e4pTOekwessoPpsa1zgwJx4eq9vD0c",
-            authDomain: "aizasy-2e889.firebaseapp.com",
-            projectId: "aizasy-2e889",
-            storageBucket: "aizasy-2e889.firebasestorage.app",
-            messagingSenderId: "503323472309",
-            appId: "1:503323472309:web:fd96d5b509e87d79dd29fc",
-            measurementId: "G-9FYSRE936Q"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        // چوونەژوورەوەی خۆکار بە بێدەنگی وەکو میوان (Anonymous)
-        signInAnonymously(auth)
-            .then(() => {
-                console.log("بە سەرکەوتوویی وەکو میوان چووە ژوورەوە");
-            })
-            .catch((error) => {
-                console.error("هەڵە لە چوونەژوورەوە:", error.message);
-                document.getElementById('status').innerText = "هەڵە: " + error.message;
-            });
-
-        // چاودێریکردنی دۆخەکە و چالاککردنی خانەی چات
-        onAuthStateChanged(auth, (user) => {
-            const statusDiv = document.getElementById('status');
-            const userInput = document.getElementById('user-input');
-            const sendBtn = document.getElementById('send-btn');
-
-            if (user) {
-                statusDiv.innerText = "پەیوەست بوو (میوان)";
-                statusDiv.style.color = "#00ffcc";
-                userInput.disabled = false;
-                sendBtn.disabled = false;
-            } else {
-                statusDiv.innerText = "چاوەڕێی چوونەژوورەوە...";
-            }
-        });
-
-        // نموونەی ناردنی پەیام بۆ چات
+    <script>
         document.getElementById('send-btn').addEventListener('click', sendMessage);
         document.getElementById('user-input').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') sendMessage();
@@ -181,7 +124,7 @@
             input.value = '';
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // وەڵامی نموونەیی لەلایەن AI
+            // وەڵامی نموونەیی لەلایەن AI (دەتوانیت دواتر لێرەدا کۆدی پەیوەندیکردن بە APIـی ڕاستەقینەی AI دابنێیت)
             setTimeout(() => {
                 const aiMsgDiv = document.createElement('div');
                 aiMsgDiv.className = 'message ai-msg';

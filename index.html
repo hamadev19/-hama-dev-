@@ -104,7 +104,6 @@
     </div>
 
     <script>
-        // کلیلە نوێیەکەت لێرە جێگیرکراوە
         const apiKey = "AQ.Ab8RN6Ir6LVzVzjuw0Nro6C_dJi7ElM8quqQ23K7UthbK-HYpg";
 
         document.getElementById('send-btn').addEventListener('click', sendMessage);
@@ -134,7 +133,8 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
             try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                // بەکارهێنانی مۆدێلی گونجاو
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

@@ -1,167 +1,60 @@
-<!DOCTYPE html>
-<html lang="ckb" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HAMA DEV HUB - AI Chat</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-        .header {
-            background: #1e1e1e;
-            padding: 15px;
-            text-align: center;
-            border-bottom: 1px solid #333;
-            font-size: 18px;
-            font-weight: bold;
-            color: #00ffcc;
-        }
-        .chat-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        #chat-messages {
-            flex: 1;
-            background: #181818;
-            border-radius: 8px;
-            padding: 15px;
-            overflow-y: auto;
-            margin-bottom: 15px;
-            border: 1px solid #333;
-        }
-        .message {
-            margin-bottom: 12px;
-            padding: 10px 14px;
-            border-radius: 8px;
-            max-width: 75%;
-            line-height: 1.5;
-            word-wrap: break-word;
-        }
-        .ai-msg {
-            background: #2d2d2d;
-            color: #fff;
-            margin-right: auto;
-        }
-        .user-msg {
-            background: #4285f4;
-            color: #fff;
-            margin-left: auto;
-        }
-        .input-area {
-            display: flex;
-            gap: 10px;
-        }
-        input {
-            flex: 1;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #333;
-            background: #1e1e1e;
-            color: #fff;
-            font-size: 16px;
-        }
-        button {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            background-color: #00ffcc;
-            color: #121212;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #00b388;
-        }
-    </style>
-</head>
-<body>
 
-    <div class="header">حەمە دەڤ هاب - AI Assistant</div>
+<script>
+    // ئەم ناونیشانە بە لینکی Worker ـەکەت بگۆڕە
+    const WORKER_URL =
+        "https://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev/api/chat";
 
-    <div class="chat-container">
-        <div id="chat-messages">
-            <div class="message ai-msg">سڵاو کاکە حەمە! من ئەی ئای (AI)ـم. چۆن دەتوانم یارمەتیت بدەم؟</div>
-        </div>
+    const sendButton = document.getElementById("send-btn");
+    const input = document.getElementById("user-input");
+    const chatMessages = document.getElementById("chat-messages");
 
-        <div class="input-area">
-            <input type="text" id="user-input" placeholder="پەیامەکەت لێرە بنووسە...">
-            <button id="send-btn">ناردن</button>
-        </div>
-    </div>
+    sendButton.addEventListener("click", sendMessage);
 
-    <script>
-        const apiKey = "AQ.Ab8RN6Ir6LVzVzjuw0Nro6C_dJi7ElM8quqQ23K7UthbK-HYpg";
+    input.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") sendMessage();
+    });
 
-        document.getElementById('send-btn').addEventListener('click', sendMessage);
-        document.getElementById('user-input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendMessage();
-        });
+    async function sendMessage() {
+        const text = input.value.trim();
+        if (!text) return;
 
-        async function sendMessage() {
-            const input = document.getElementById('user-input');
-            const text = input.value.trim();
-            if (!text) return;
+        input.value = "";
+        sendButton.disabled = true;
 
-            const chatMessages = document.getElementById('chat-messages');
+        const userMsg = document.createElement("div");
+        userMsg.className = "message user-msg";
+        userMsg.innerText = text;
+        chatMessages.appendChild(userMsg);
 
-            const userMsgDiv = document.createElement('div');
-            userMsgDiv.className = 'message user-msg';
-            userMsgDiv.innerText = text;
-            chatMessages.appendChild(userMsgDiv);
+        const aiMsg = document.createElement("div");
+        aiMsg.className = "message ai-msg";
+        aiMsg.innerText = "چاوەڕێ بکە...";
+        chatMessages.appendChild(aiMsg);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            input.value = '';
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+        try {
+            const response = await fetch(WORKER_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ message: text })
+            });
 
-            const aiMsgDiv = document.createElement('div');
-            aiMsgDiv.className = 'message ai-msg';
-            aiMsgDiv.innerText = "...";
-            chatMessages.appendChild(aiMsgDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            const data = await response.json();
 
-            try {
-                // بەکارهێنانی مۆدێلی گونجاو
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        contents: [{
-                            parts: [{ text: text }]
-                        }]
-                    })
-                });
-
-                const data = await response.json();
-                
-                if (data.candidates && data.candidates[0].content && data.candidates[0].content.parts[0].text) {
-                    aiMsgDiv.innerText = data.candidates[0].content.parts[0].text;
-                } else if (data.error) {
-                    aiMsgDiv.innerText = "هەڵە لە سەرچاوە: " + data.error.message;
-                } else {
-                    aiMsgDiv.innerText = "بمبورە، وەڵام نەگەڕایەوە.";
-                }
-            } catch (error) {
-                aiMsgDiv.innerText = "هەڵەی تۆڕ ڕوویدا.";
-                console.error(error);
+            if (!response.ok) {
+                throw new Error(data.error || "هەڵە لە پەیوەندی");
             }
 
+            aiMsg.innerText = data.reply || "وەڵام نەگەڕایەوە.";
+        } catch (error) {
+            aiMsg.innerText =
+                "ببورە کاکە، هەڵەیەک ڕوویدا: " + error.message;
+        } finally {
+            sendButton.disabled = false;
             chatMessages.scrollTop = chatMessages.scrollHeight;
+            input.focus();
         }
-    </script>
-</body>
-</html>
+    }
+</script>

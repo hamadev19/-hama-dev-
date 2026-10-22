@@ -1,139 +1,134 @@
 <!DOCTYPE html>
-<html lang="kmr">
+<html lang="ckb" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HAMA DEV WEB</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #121212;
-      color: #ffffff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .card {
-      background: #1e1e1e;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-      text-align: center;
-      width: 320px;
-    }
-    h2 {
-      margin-bottom: 20px;
-      color: #00e676;
-    }
-    .btn {
-      border: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
-      width: 100%;
-      margin-bottom: 10px;
-    }
-    .btn-google {
-      background-color: #4285f4;
-      color: white;
-    }
-    .btn-guest {
-      background-color: #00e676;
-      color: #121212;
-    }
-    #debug-box {
-      margin-top: 15px;
-      font-size: 13px;
-      color: #ffeb3b;
-      word-break: break-all;
-      background: #2c2c2c;
-      padding: 8px;
-      border-radius: 5px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAMA DEV HUB - چوونەژوورەوە</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .google-btn {
+            background-color: #db4437;
+            color: white;
+        }
+        .google-btn:hover {
+            background-color: #c33d2e;
+        }
+        .guest-btn {
+            background-color: #4285f4;
+            color: white;
+        }
+        .guest-btn:hover {
+            background-color: #3367d6;
+        }
+        #user-info {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #00ffcc;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="card">
-    <h2>HAMA DEV WEB</h2>
-    <div id="auth-container">
-      <button id="google-btn" class="btn btn-google">چوونەژوورەوە بە Google</button>
-      <button id="guest-btn" class="btn btn-guest">چوونەژوورەوە بەبێ ئیمەیڵ (میوان)</button>
+    <div class="container">
+        <h2>حەمە دەڤ هاب</h2>
+        <p>تکایە بۆ بەردەوامبوون یەکێک لە ڕێگاکانی چوونەژوورەوە هەڵبژێرە:</p>
+        
+        <button id="google-login" class="google-btn">چوونەژوورەوە بە گووگڵ</button>
+        <button id="guest-login" class="guest-btn">چوونەژوورەوە وەکو میوان (Anonymous)</button>
+        
+        <div id="user-info"></div>
     </div>
-    <div id="debug-box">دۆخ: چاوەڕوانی...</div>
-  </div>
 
-  <script type="module">
-    const debugBox = document.getElementById('debug-box');
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { 
+            getAuth, 
+            signInWithPopup, 
+            GoogleAuthProvider, 
+            signInAnonymously, 
+            onAuthStateChanged 
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-    try {
-      import("https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js").then(async ({ initializeApp }) => {
-        const { 
-          getAuth, 
-          signInWithRedirect, 
-          signInAnonymously, 
-          GoogleAuthProvider, 
-          onAuthStateChanged, 
-          signOut 
-        } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js");
-
-        // ڕێکخستنی فایربەیز بە API Key نوێیەکەت
+        // زانیارییە تایبەتەکانی پڕۆژەکەت لە فایەربەیس
         const firebaseConfig = {
-          apiKey: "AIzaSyAD2e4pTOekwessoPpsa1zgwJx4eq9vD0c",
-          authDomain: "aizasy-2e889.firebaseapp.com",
-          projectId: "aizasy-2e889",
-          storageBucket: "aizasy-2e889.firebasestorage.app",
-          messagingSenderId: "503323472309",
-          appId: "1:503323472309:web:7bf28bd9d9121030dd29fc",
-          measurementId: "G-NCXRC9F2EW"
+            apiKey: "AIzaSy...", // کلیلی ئەی پی ئای خۆت لێرە دابنێ
+            authDomain: "aizasy-2e889.firebaseapp.com",
+            projectId: "aizasy-2e889",
+            storageBucket: "aizasy-2e889.appspot.com",
+            messagingSenderId: "...",
+            appId: "..."
         };
 
+        // دەستپێپێکردنی فایەربەیس
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
+        const googleProvider = new GoogleAuthProvider();
 
-        debugBox.innerText = "سایتەکە ئامادەیە!";
-
-        // چوونەژوورەوە بە گووگڵ
-        document.getElementById('google-btn').addEventListener('click', async () => {
-          debugBox.innerText = "داواکاری گووگڵ ڕەوانە دەکرێت...";
-          try {
-            await signInWithRedirect(auth, provider);
-          } catch (err) {
-            debugBox.innerText = "هەڵە: " + err.message;
-          }
+        // دوگمەی چوونەژوورەوە بە گووگڵ
+        document.getElementById('google-login').addEventListener('click', () => {
+            signInWithPopup(auth, googleProvider)
+                .then((result) => {
+                    console.log("بە سەرکەوتوویی چووە ژوورەوە:", result.user.displayName);
+                })
+                .catch((error) => {
+                    console.error("هەڵە لە چوونەژوورەوە:", error.message);
+                    alert("هەڵە ڕوویدا: " + error.message);
+                });
         });
 
-        // چوونەژوورەوە بەبێ ئیمەیڵ (میوان)
-        document.getElementById('guest-btn').addEventListener('click', async () => {
-          debugBox.innerText = "چوونەژوورەوە وەک میوان...";
-          try {
-            await signInAnonymously(auth);
-          } catch (err) {
-            debugBox.innerText = "هەڵە: " + err.message;
-          }
-        });
+        // دوگمەی چوونەژوورەوەی میوان
+        document.getElementById('guest-login').addEventListener('click', () => {
+            signInAnonymously(auth)
+                .then(() => {
+                    console.log("بە سەرکەوتوویی وەکو میوان چووە ژوورەوە");
+                })
+                .catch((error) => {
+                    console.error("هەڵە لە چوونەژوورەوەی میوان:", error.message);
+                    alert("هەڵە ڕوویدا: " + error.message);
+                });
+        0});
 
-        // پشکنینی سەرکەوتنی چوونەژوورەوە
+        // چاودێریکردنی دۆخی بەکارهێنەر
         onAuthStateChanged(auth, (user) => {
-          if (user) {
-            document.getElementById('auth-container').style.display = 'none';
-            debugBox.innerText = "بە سەرکەوتوویی چوویتە ژوورەوە! ID: " + user.uid.slice(0, 10);
-          }
+            const userInfoDiv = document.getElementById('user-info');
+            if (user) {
+                const name = user.isAnonymous ? "میوان (Guest)" : (user.displayName || user.email);
+                userInfoDiv.innerHTML = `باری ئێستا: ژوورەوەیە (${name})`;
+            } else {
+                userInfoDiv.innerHTML = "تکایە بچۆرە ژوورەوە";
+            }
         });
-
-      }).catch(err => {
-        debugBox.innerText = "هەڵەی فایربەیز: " + err.message;
-      });
-
-    } catch (e) {
-      debugBox.innerText = "هەڵە: " + e.message;
-    }
-  </script>
-
+    </script>
 </body>
 </html>

@@ -27,16 +27,23 @@
       margin-bottom: 20px;
       color: #00e676;
     }
-    .btn-google {
-      background-color: #4285f4;
-      color: white;
+    .btn {
       border: none;
       padding: 12px 20px;
       border-radius: 6px;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: bold;
       cursor: pointer;
       width: 100%;
+      margin-bottom: 10px;
+    }
+    .btn-google {
+      background-color: #4285f4;
+      color: white;
+    }
+    .btn-guest {
+      background-color: #00e676;
+      color: #121212;
     }
     #debug-box {
       margin-top: 15px;
@@ -54,7 +61,8 @@
   <div class="card">
     <h2>HAMA DEV WEB</h2>
     <div id="auth-container">
-      <button id="google-btn" class="btn-google">چوونەژوورەوە بە Google</button>
+      <button id="google-btn" class="btn btn-google">چوونەژوورەوە بە Google</button>
+      <button id="guest-btn" class="btn btn-guest">چوونەژوورەوە بەبێ ئیمەیڵ (میوان)</button>
     </div>
     <div id="debug-box">دۆخ: چاوەڕوانی...</div>
   </div>
@@ -63,11 +71,17 @@
     const debugBox = document.getElementById('debug-box');
 
     try {
-      debugBox.innerText = "فایربەیز دەستی پێکرد...";
-      
       import("https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js").then(async ({ initializeApp }) => {
-        const { getAuth, signInWithRedirect, GoogleAuthProvider } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js");
+        const { 
+          getAuth, 
+          signInWithRedirect, 
+          signInAnonymously, 
+          GoogleAuthProvider, 
+          onAuthStateChanged, 
+          signOut 
+        } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js");
 
+        // ڕێکخستنی فایربەیز بە API Key نوێیەکەت
         const firebaseConfig = {
           apiKey: "AIzaSyAD2e4pTOekwessoPpsa1zgwJx4eq9vD0c",
           authDomain: "aizasy-2e889.firebaseapp.com",
@@ -82,24 +96,42 @@
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
 
-        debugBox.innerText = "سایتەکە ئامادەیە، کلیک بکە!";
+        debugBox.innerText = "سایتەکە ئامادەیە!";
 
+        // چوونەژوورەوە بە گووگڵ
         document.getElementById('google-btn').addEventListener('click', async () => {
-          debugBox.innerText = "داواکاری ڕەوانە دەکرێت...";
+          debugBox.innerText = "داواکاری گووگڵ ڕەوانە دەکرێت...";
           try {
             await signInWithRedirect(auth, provider);
           } catch (err) {
-            debugBox.innerText = "هەڵە لە کلیک: " + err.message;
-            alert("هەڵە: " + err.message);
+            debugBox.innerText = "هەڵە: " + err.message;
+          }
+        });
+
+        // چوونەژوورەوە بەبێ ئیمەیڵ (میوان)
+        document.getElementById('guest-btn').addEventListener('click', async () => {
+          debugBox.innerText = "چوونەژوورەوە وەک میوان...";
+          try {
+            await signInAnonymously(auth);
+          } catch (err) {
+            debugBox.innerText = "هەڵە: " + err.message;
+          }
+        });
+
+        // پشکنینی سەرکەوتنی چوونەژوورەوە
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            document.getElementById('auth-container').style.display = 'none';
+            debugBox.innerText = "بە سەرکەوتوویی چوویتە ژوورەوە! ID: " + user.uid.slice(0, 10);
           }
         });
 
       }).catch(err => {
-        debugBox.innerText = "هەڵەی لۆدکردنی فایربەیز: " + err.message;
+        debugBox.innerText = "هەڵەی فایربەیز: " + err.message;
       });
 
     } catch (e) {
-      debugBox.innerText = "هەڵەی گشتی: " + e.message;
+      debugBox.innerText = "هەڵە: " + e.message;
     }
   </script>
 

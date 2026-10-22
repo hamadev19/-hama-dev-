@@ -3,70 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HAMA DEV HUB - چوونەژوورەوە</title>
+    <title>HAMA DEV HUB - AI Chat</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #121212;
             color: #ffffff;
+            margin: 0;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
             height: 100vh;
-            margin: 0;
         }
-        .container {
+        .header {
             background: #1e1e1e;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            padding: 15px;
             text-align: center;
-            width: 90%;
-            max-width: 400px;
+            border-bottom: 1px solid #333;
+            font-size: 18px;
+            font-weight: bold;
+            color: #00ffcc;
+        }
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        #chat-messages {
+            flex: 1;
+            background: #181818;
+            border-radius: 8px;
+            padding: 15px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+        }
+        .message {
+            margin-bottom: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            max-width: 75%;
+            line-height: 1.5;
+        }
+        .ai-msg {
+            background: #2d2d2d;
+            color: #fff;
+            margin-right: auto;
+        }
+        .user-msg {
+            background: #4285f4;
+            color: #fff;
+            margin-left: auto;
+        }
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+        input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background: #1e1e1e;
+            color: #fff;
+            font-size: 16px;
         }
         button {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
+            padding: 12px 20px;
             border: none;
             border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
+            background-color: #00ffcc;
+            color: #121212;
             font-weight: bold;
-            transition: 0.3s;
+            cursor: pointer;
+            font-size: 16px;
         }
-        .google-btn {
-            background-color: #db4437;
-            color: white;
+        button:hover {
+            background-color: #00b388;
         }
-        .google-btn:hover {
-            background-color: #c33d2e;
-        }
-        .guest-btn {
-            background-color: #4285f4;
-            color: white;
-        }
-        .guest-btn:hover {
-            background-color: #3367d6;
-        }
-        #user-info {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #00ffcc;
+        #status {
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+            margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2>حەمە دەڤ هاب</h2>
-        <p>تکایە بۆ بەردەوامبوون یەکێک لە ڕێگاکانی چوونەژوورەوە هەڵبژێرە:</p>
+    <div class="header">حەمە دەڤ هاب - AI Assistant</div>
+
+    <div class="chat-container">
+        <div id="status">سەرقاڵی چوونەژوورەوەی خۆکار وەکو میوان...</div>
         
-        <button id="google-login" class="google-btn">چوونەژوورەوە بە گووگڵ</button>
-        <button id="guest-login" class="guest-btn">چوونەژوورەوە وەکو میوان (Anonymous)</button>
-        
-        <div id="user-info"></div>
+        <div id="chat-messages">
+            <div class="message ai-msg">سڵاو کاکە حەمە! من ئەی ئای (AI)ـم. چۆن دەتوانم یارمەتیت بدەم؟</div>
+        </div>
+
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="پەیامەکەت لێرە بنووسە..." disabled>
+            <button id="send-btn" disabled>ناردن</button>
+        </div>
     </div>
 
     <!-- Firebase SDKs -->
@@ -74,13 +115,11 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { 
             getAuth, 
-            signInWithPopup, 
-            GoogleAuthProvider, 
             signInAnonymously, 
             onAuthStateChanged 
         } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // زانیارییە نوێ و ڕاستەقینەکانی پڕۆژەکەت لە فایەربەیس
+        // زانیارییە ڕاستەقینەکانی پڕۆژەکەت
         const firebaseConfig = {
             apiKey: "AIzaSyAD2e4pTOekwessoPpsa1zgwJx4eq9vD0c",
             authDomain: "aizasy-2e889.firebaseapp.com",
@@ -91,45 +130,66 @@
             measurementId: "G-9FYSRE936Q"
         };
 
-        // دەستپێپێکردنی فایەربەیس
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const googleProvider = new GoogleAuthProvider();
 
-        // دوگمەی چوونەژوورەوە بە گووگڵ
-        document.getElementById('google-login').addEventListener('click', () => {
-            signInWithPopup(auth, googleProvider)
-                .then((result) => {
-                    console.log("بە سەرکەوتوویی چووە ژوورەوە:", result.user.displayName);
-                })
-                .catch((error) => {
-                    console.error("هەڵە لە چوونەژوورەوە:", error.message);
-                    alert("هەڵە ڕوویدا: " + error.message);
-                });
-        });
+        // چوونەژوورەوەی خۆکار بە بێدەنگی وەکو میوان (Anonymous)
+        signInAnonymously(auth)
+            .then(() => {
+                console.log("بە سەرکەوتوویی وەکو میوان چووە ژوورەوە");
+            })
+            .catch((error) => {
+                console.error("هەڵە لە چوونەژوورەوە:", error.message);
+                document.getElementById('status').innerText = "هەڵە: " + error.message;
+            });
 
-        // دوگمەی چوونەژوورەوەی میوان
-        document.getElementById('guest-login').addEventListener('click', () => {
-            signInAnonymously(auth)
-                .then(() => {
-                    console.log("بە سەرکەوتوویی وەکو میوان چووە ژوورەوە");
-                })
-                .catch((error) => {
-                    console.error("هەڵە لە چوونەژوورەوەی میوان:", error.message);
-                    alert("هەڵە ڕوویدا: " + error.message);
-                });
-        });
-
-        // چاودێریکردنی دۆخی بەکارهێنەر
+        // چاودێریکردنی دۆخەکە و چالاککردنی خانەی چات
         onAuthStateChanged(auth, (user) => {
-            const userInfoDiv = document.getElementById('user-info');
+            const statusDiv = document.getElementById('status');
+            const userInput = document.getElementById('user-input');
+            const sendBtn = document.getElementById('send-btn');
+
             if (user) {
-                const name = user.isAnonymous ? "میوان (Guest)" : (user.displayName || user.email);
-                userInfoDiv.innerHTML = `باری ئێستا: ژوورەوەیە (${name})`;
+                statusDiv.innerText = "پەیوەست بوو (میوان)";
+                statusDiv.style.color = "#00ffcc";
+                userInput.disabled = false;
+                sendBtn.disabled = false;
             } else {
-                userInfoDiv.innerHTML = "تکایە بچۆرە ژوورەوە";
+                statusDiv.innerText = "چاوەڕێی چوونەژوورەوە...";
             }
         });
+
+        // نموونەی ناردنی پەیام بۆ چات
+        document.getElementById('send-btn').addEventListener('click', sendMessage);
+        document.getElementById('user-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        function sendMessage() {
+            const input = document.getElementById('user-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const chatMessages = document.getElementById('chat-messages');
+
+            // نیشاندانی پەیامی بەکارهێنەر
+            const userMsgDiv = document.createElement('div');
+            userMsgDiv.className = 'message user-msg';
+            userMsgDiv.innerText = text;
+            chatMessages.appendChild(userMsgDiv);
+
+            input.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // وەڵامی نموونەیی لەلایەن AI
+            setTimeout(() => {
+                const aiMsgDiv = document.createElement('div');
+                aiMsgDiv.className = 'message ai-msg';
+                aiMsgDiv.innerText = "سوپاس بۆ پەیامەکەت! من لە خزمەتتم کاکە حەمە.";
+                chatMessages.appendChild(aiMsgDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000);
+        }
     </script>
 </body>
 </html>

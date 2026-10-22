@@ -80,14 +80,15 @@
             onAuthStateChanged 
         } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // زانیارییە تایبەتەکانی پڕۆژەکەت لە فایەربەیس
+        // زانیارییە ڕاستەقینەکانی پڕۆژەکەی خۆت
         const firebaseConfig = {
-            apiKey: "AIzaSy...", // کلیلی ئەی پی ئای خۆت لێرە دابنێ
+            apiKey: "AIzaSyAD2e4pTOekwessoPpsa1zgwJx4eq9vD0c",
             authDomain: "aizasy-2e889.firebaseapp.com",
             projectId: "aizasy-2e889",
-            storageBucket: "aizasy-2e889.appspot.com",
-            messagingSenderId: "...",
-            appId: "..."
+            storageBucket: "aizasy-2e889.firebasestorage.app",
+            messagingSenderId: "503323472309",
+            appId: "1:503323472309:web:7bf28bd9d9121030dd29fc",
+            measurementId: "G-NCXRC9F2EW"
         };
 
         // دەستپێپێکردنی فایەربەیس
@@ -117,7 +118,7 @@
                     console.error("هەڵە لە چوونەژوورەوەی میوان:", error.message);
                     alert("هەڵە ڕوویدا: " + error.message);
                 });
-        0});
+        });
 
         // چاودێریکردنی دۆخی بەکارهێنەر
         onAuthStateChanged(auth, (user) => {

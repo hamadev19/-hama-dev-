@@ -1,60 +1,63 @@
-
-<script>
-    // ئەم ناونیشانە بە لینکی Worker ـەکەت بگۆڕە
-    const WORKER_URL =
-        "https://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev/api/chat";
-
-    const sendButton = document.getElementById("send-btn");
-    const input = document.getElementById("user-input");
-    const chatMessages = document.getElementById("chat-messages");
-
-    sendButton.addEventListener("click", sendMessage);
-
-    input.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") sendMessage();
-    });
-
-    async function sendMessage() {
-        const text = input.value.trim();
-        if (!text) return;
-
-        input.value = "";
-        sendButton.disabled = true;
-
-        const userMsg = document.createElement("div");
-        userMsg.className = "message user-msg";
-        userMsg.innerText = text;
-        chatMessages.appendChild(userMsg);
-
-        const aiMsg = document.createElement("div");
-        aiMsg.className = "message ai-msg";
-        aiMsg.innerText = "چاوەڕێ بکە...";
-        chatMessages.appendChild(aiMsg);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-
-        try {
-            const response = await fetch(WORKER_URL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ message: text })
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.error || "هەڵە لە پەیوەندی");
-            }
-
-            aiMsg.innerText = data.reply || "وەڵام نەگەڕایەوە.";
-        } catch (error) {
-            aiMsg.innerText =
-                "ببورە کاکە، هەڵەیەک ڕوویدا: " + error.message;
-        } finally {
-            sendButton.disabled = false;
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            input.focus();
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حەمە دەڤ - AI Assistant</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-    }
-</script>
+        .card {
+            background-color: #1e1e1e;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid #333;
+        }
+        h2 {
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #b0b0b0;
+            margin-bottom: 25px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>سڵاو، کاکە حەمە! 🤖</h2>
+        <p>بۆ بەکارهێنانی ئەم خزمەتگوزارییە و بینینی زانیارییەکان، پێویستە سەردانی سایتی فەرمی بکەیت و لەوێوە درێژە بە کارەکانت بدەیت.</p>
+        <a href="https://soft-sky-e98c.gokarsarok167.workers.dev/?utm_source=chatgpt.com" class="btn" target="_blank">بچووە سایتی فەرمی</a>
+    </div>
+
+</body>
+</html>

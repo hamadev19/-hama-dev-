@@ -3,61 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حەمە دەڤ - AI Assistant</title>
+    <title>سایتی سەرەکی</title>
     <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Tahoma, sans-serif; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
-            margin: 0;
-            padding: 0;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #fff;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            text-align: center;
+            padding: 20px;
         }
         .card {
-            background-color: #1e1e1e;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             max-width: 400px;
-            width: 90%;
-            border: 1px solid #333;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        h2 {
-            color: #4CAF50;
-            margin-bottom: 15px;
-        }
-        p {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #b0b0b0;
-            margin-bottom: 25px;
-        }
+        h1 { font-size: 24px; margin-bottom: 15px; }
+        p { font-size: 16px; margin-bottom: 25px; color: #ddd; }
         .btn {
             display: inline-block;
-            background-color: #4CAF50;
+            background: #ff7e5f;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
             color: white;
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 8px;
+            padding: 12px 30px;
+            font-size: 18px;
             font-weight: bold;
-            transition: background-color 0.3s;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         .btn:hover {
-            background-color: #45a049;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
     </style>
 </head>
 <body>
-
     <div class="card">
-        <h2>سڵاو، کاکە حەمە! 🤖</h2>
-        <p>بۆ بەکارهێنانی ئەم خزمەتگوزارییە و بینینی زانیارییەکان، پێویستە سەردانی سایتی فەرمی بکەیت و لەوێوە درێژە بە کارەکانت بدەیت.</p>
-        <a href="https://soft-sky-e98c.gokarsarok167.workers.dev/?utm_source=chatgpt.com" class="btn" target="_blank">بچووە سایتی فەرمی</a>
+        <h1>بەخێر بێن</h1>
+        <p>ئەمە سایتی سەرەکییە، بۆ وێبسایتێکی گیت هەب</p>
+        <a href="https://soft-sky-e98c.gokarsarok167.workers.dev/" class="btn" target="_blank">سەردانی سایت بکە</a>
     </div>
-
 </body>
 </html>

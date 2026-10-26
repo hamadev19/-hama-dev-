@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Roblox Universe V8 - Steal An Egg</title>
+  <title>Hama Roblox Universe V9</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
@@ -54,11 +54,7 @@
       background: linear-gradient(90deg, #ff4757, #ff6b81); color: white;
       padding: 14px 28px; border-radius: 30px; font-weight: bold; font-size: 16px;
       box-shadow: 0 0 25px rgba(255, 71, 87, 0.8); z-index: 30000;
-      display: none; align-items: center; gap: 12px; animation: popup 0.4s ease-out;
-    }
-    @keyframes popup {
-      0% { transform: translate(-50%, -50px) scale(0.8); opacity: 0; }
-      100% { transform: translate(-50%, 0) scale(1); opacity: 1; }
+      display: none; align-items: center; gap: 12px;
     }
 
     #dashboard { display: none; flex: 1; flex-direction: column; height: 100vh; overflow: hidden; }
@@ -192,7 +188,7 @@
       pointer-events: auto; display: flex; flex-direction: column; overflow: hidden;
     }
     .chat-messages { flex: 1; padding: 8px; overflow-y: auto; font-size: 12px; display: flex; flex-direction: column; gap: 4px; }
-    .chat-msg { background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; }
+    .chat-msg { background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; word-break: break-word; }
     .chat-msg .sender { font-weight: bold; color: var(--primary); }
     .chat-msg .owner { color: #ff4757; }
     .chat-msg .system { color: #00e676; font-weight: bold; }
@@ -291,7 +287,7 @@
         <div id="tab-games" class="tab-content">
           <div class="page-title">
             <i class="fa-solid fa-fire" style="color:#ff4757"></i>
-            <span>یارییەکان (خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-icon"></i>)[span_2](start_span)[span_2](end_span)</span>
+            <span>یارییەکان (خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-icon"></i>)[span_0](start_span)[span_0](end_span)</span>
           </div>
           <div class="games-grid" id="games-container"></div>
         </div>
@@ -333,14 +329,12 @@
     <div class="admin-card">
       <h2><i class="fa-solid fa-shield-halved"></i> بەڕێوەبەری سەرەکی (Admin Panel)</h2>
       
-      <!-- Broadcast -->
       <div class="admin-section">
         <label style="font-size:13px; font-weight:bold;"><i class="fa-solid fa-bullhorn"></i> ناردنی پەیام بۆ سەر شاشەی هەمووان:</label>
         <input type="text" id="broadcast-input" placeholder="پەیامێک بنووسە...">
         <button class="admin-action-btn" style="background:#e67e22;" onclick="sendGlobalAnnouncement()">ناردنی پەیام (Broadcast)</button>
       </div>
 
-      <!-- Add / Update Games -->
       <div class="admin-section">
         <label style="font-size:13px; font-weight:bold;"><i class="fa-solid fa-gamepad"></i> زیادکردن یان ئەپدەیتی یاری:</label>
         <input type="text" id="new-game-title" placeholder="ناوی یاری (نموونە: Steal An Egg 🥚)">
@@ -348,7 +342,6 @@
         <button class="admin-action-btn" onclick="addNewGame()">➕ زیادکردنی یاری بۆ سەخە</button>
       </div>
 
-      <!-- Spawn 5 Mutations -->
       <div class="admin-section">
         <label style="font-size:13px; font-weight:bold;"><i class="fa-solid fa-wand-magic-sparkles"></i> سپاوینکردنی موتیەیشن (Mutations):</label>
         <button class="admin-action-btn" style="background:#00a2ff; color:white;" onclick="spawnMutationsFromAdmin()">✨ 5 Mutations سپاون بکە لە ناو یارییەکەدا</button>
@@ -377,7 +370,7 @@
 
       <div class="game-chat">
         <div class="chat-messages" id="chat-messages-box">
-          <div class="chat-msg"><span class="sender owner">rip_hama276 <i class="fa-solid fa-circle-check verified-icon"></i> (Owner):</span> بەخێربێن بۆ Steal An Egg[span_3](start_span)[span_3](end_span)!</div>
+          <div class="chat-msg"><span class="sender owner">rip_hama276 <i class="fa-solid fa-circle-check verified-icon"></i> (Owner):</span> بەخێربێن بۆ Steal An Egg[span_1](start_span)[span_1](end_span)!</div>
         </div>
         <div class="chat-input-box">
           <input type="text" id="chat-input" placeholder="!donate username amount" onkeypress="if(event.key==='Enter') sendChatMessage()">
@@ -485,7 +478,6 @@
       renderFriendsList();
     }
 
-    // --- Admin Panel Functions ---
     function openAdminPanel() {
       const listEl = document.getElementById('admin-users-list');
       listEl.innerHTML = '';
@@ -513,7 +505,7 @@
       const color = document.getElementById('new-game-color').value.trim() || '#e1b12c';
       if (!title) { alert('ناوی یاری بنووسە!'); return; }
 
-      const newGame = { id: 'game_' + Date.now(), title: title, creator: 'rip_hama276', playing: '1.5K', color: color };[span_4](start_span)[span_4](end_span)
+      const newGame = { id: 'game_' + Date.now(), title: title, creator: 'rip_hama276', playing: '1.5K', color: color };[span_2](start_span)[span_2](end_span)
       gamesList.push(newGame);
       localStorage.setItem('hama_roblox_games', JSON.stringify(gamesList));
       renderGames(gamesList);
@@ -560,7 +552,7 @@
           <div class="friend-card">
             <div class="friend-info">
               <div class="avatar-btn" style="width:30px; height:30px; font-size:12px;">${uname.charAt(0).toUpperCase()}</div>
-              <span>${uname} ${isVerified ? '<i class="fa-solid fa-circle-check verified-icon"></i>' : ''}[span_5](start_span)[span_5](end_span)</span>
+              <span>${uname} ${isVerified ? '<i class="fa-solid fa-circle-check verified-icon"></i>' : ''}</span>[span_3](start_span)[span_3](end_span)
             </div>
             <button class="add-friend-btn" style="background:${isFriend ? '#2ed573' : 'var(--primary)'}" onclick="toggleFriend('${uname}')">
               ${isFriend ? 'برادەرە ✓' : '+ ناردنی داواکاری'}
@@ -590,7 +582,7 @@
             </div>
             <div class="game-info">
               <div class="game-title">${game.title}</div>
-              <div class="game-creator"><i class="fa-solid fa-circle-check verified-icon"></i> ${game.creator}[span_6](start_span)[span_6](end_span)</div>
+              <div class="game-creator"><i class="fa-solid fa-circle-check verified-icon"></i> ${game.creator}</div>[span_4](start_span)[span_4](end_span)
             </div>
           </div>
         `;
@@ -611,7 +603,7 @@
 
     function buyItem(itemKey, price) {
       const uData = usersDB[currentUser];
-      if (currentUser === 'rip_hama276') { alert('تۆ خاوەنی یارییەکەیت و هەموو شتێکت بەڕوڕایی هەیە!'); return;[span_7](start_span)[span_7](end_span) }
+      if (currentUser === 'rip_hama276') { alert('تۆ خاوەنی یارییەکەیت و هەموو شتێکت بەڕوڕایی هەیە!'); return; }[span_5](start_span)[span_5](end_span)
       if (uData.robux < price) { alert('بڕی کافی ڕوبوکس (Robux)ت پێنییە!'); return; }
       if (uData.inventory.includes(itemKey)) { alert('ئەمەیان پێشتر کڕیوە!'); return; }
       uData.robux -= price;
@@ -621,7 +613,6 @@
       alert('بەسەرکەوتوویی کڕرا!');
     }
 
-    // --- 3D Roblox Engine with Steal An Egg Theme ---
     let scene, camera, renderer, player, leftArm, rightArm, leftLeg, rightLeg, animationId;
     let animTime = 0;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
@@ -661,7 +652,7 @@
       scene.add(new THREE.AmbientLight(0x404040));
 
       player = new THREE.Group();
-      let shirtColor = (currentUser === 'rip_hama276') ? 0xce1126 : 0x00a2ff;[span_8](start_span)[span_8](end_span)
+      let shirtColor = (currentUser === 'rip_hama276') ? 0xce1126 : 0x00a2ff;[span_6](start_span)[span_6](end_span)
       const torso = new THREE.Mesh(new THREE.BoxGeometry(1, 1.2, 0.6), new THREE.MeshLambertMaterial({ color: shirtColor }));
       torso.position.y = 1.2; player.add(torso);
 
@@ -684,13 +675,12 @@
       floor.rotation.x = -Math.PI / 2;
       scene.add(floor);
 
-      // Spawn 5 Egg Mutations if active from Admin Panel
-      mutationMeshes.forEach(m => scene.remove(m));
+      mutationMeshes.forEach(m => { if(m) scene.remove(m); });
       mutationMeshes = [];
       if (activeMutationsCount > 0) {
         for (let i = 0; i < 5; i++) {
           const eggGeo = new THREE.SphereGeometry(0.5, 16, 16);
-          eggGeo.scale(1, 1.3, 1); // Egg shape
+          eggGeo.scale(1, 1.3, 1);
           const eggMat = new THREE.MeshLambertMaterial({ color: 0xf1c40f, emissive: 0xf1c40f });
           const egg = new THREE.Mesh(eggGeo, eggMat);
           egg.position.set((Math.random() - 0.5) * 15, 1, -Math.random() * 20 - 5);
@@ -737,7 +727,6 @@
       if (player.position.y > 1.0) player.position.y -= 0.12;
       else player.position.y = 1.0;
 
-      // Check collision with eggs
       mutationMeshes.forEach((egg, idx) => {
         if (egg && player.position.distanceTo(egg.position) < 1.5) {
           scene.remove(egg);
@@ -777,9 +766,14 @@
       if (!text) return;
       const box = document.getElementById('chat-messages-box');
       
-      const isOwner = currentUser === 'rip_hama276';[span_9](start_span)[span_9](end_span)
-      const verifiedTag = isOwner ? '<i class="fa-solid fa-circle-check verified-icon"></i>' : '';
-      box.innerHTML += `<div class="chat-msg"><span class="sender ${isOwner ? 'owner' : ''}">${currentUser} ${verifiedTag}${isOwner ? ' (Owner)' : ''}:</span> ${text}</div>`;[span_10](start_span)[span_10](end_span)
+      const isOwner = (currentUser === 'rip_hama276');[span_7](start_span)[span_7](end_span)
+      const verifiedHTML = isOwner ? '<i class="fa-solid fa-circle-check verified-icon"></i> (Owner)' : '';
+      
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'chat-msg';
+      msgDiv.innerHTML = `<span class="sender ${isOwner ? 'owner' : ''}">${currentUser} ${verifiedHTML}:</span> ${text}`;[span_8](start_span)[span_8](end_span)
+      box.appendChild(msgDiv);
+
       input.value = '';
       box.scrollTop = box.scrollHeight;
     }

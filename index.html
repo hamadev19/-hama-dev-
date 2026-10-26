@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Roblox Universe V7</title>
+  <title>Hama Roblox Universe V8 - Steal An Egg</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
@@ -343,8 +343,8 @@
       <!-- Add / Update Games -->
       <div class="admin-section">
         <label style="font-size:13px; font-weight:bold;"><i class="fa-solid fa-gamepad"></i> زیادکردن یان ئەپدەیتی یاری:</label>
-        <input type="text" id="new-game-title" placeholder="ناوی یاری (نموونە: Tower Defense 🏰)">
-        <input type="text" id="new-game-color" placeholder="ڕەنگی باکگراوند (نموونە: #8e44ad)">
+        <input type="text" id="new-game-title" placeholder="ناوی یاری (نموونە: Steal An Egg 🥚)">
+        <input type="text" id="new-game-color" placeholder="ڕەنگی باکگراوند (نموونە: #e1b12c)">
         <button class="admin-action-btn" onclick="addNewGame()">➕ زیادکردنی یاری بۆ سەخە</button>
       </div>
 
@@ -371,13 +371,13 @@
         <button class="exit-game-btn" onclick="exitGame()"><i class="fa-solid fa-door-open"></i> دەرهاتن</button>
         <div class="game-stats">
           <span>خاڵ: <span id="game-score">0</span></span>
-          <span>💎 mutations: <span id="mutations-count">0</span>/5</span>
+          <span>🥚 mutations: <span id="mutations-count">0</span>/5</span>
         </div>
       </div>
 
       <div class="game-chat">
         <div class="chat-messages" id="chat-messages-box">
-          <div class="chat-msg"><span class="sender owner">rip_hama276 <i class="fa-solid fa-circle-check verified-icon"></i> (Owner):</span> بەخێربێن[span_3](start_span)[span_3](end_span)!</div>
+          <div class="chat-msg"><span class="sender owner">rip_hama276 <i class="fa-solid fa-circle-check verified-icon"></i> (Owner):</span> بەخێربێن بۆ Steal An Egg[span_3](start_span)[span_3](end_span)!</div>
         </div>
         <div class="chat-input-box">
           <input type="text" id="chat-input" placeholder="!donate username amount" onkeypress="if(event.key==='Enter') sendChatMessage()">
@@ -400,9 +400,9 @@
     let usersDB = JSON.parse(localStorage.getItem('hama_roblox_users') || '{}');
     let bannedDB = JSON.parse(localStorage.getItem('hama_roblox_banned') || '[]');
     let gamesList = JSON.parse(localStorage.getItem('hama_roblox_games') || JSON.stringify([
+      { id: 'steal_egg', title: 'Steal An Egg 🥚', creator: 'rip_hama276', playing: '3.5K', color: '#e1b12c' },
       { id: 'obby', title: 'Kurdish Obby Parkour 🏃‍♂️', creator: 'rip_hama276', playing: '1.2K', color: '#ff4757' },
-      { id: 'speed', title: 'City Speed Simulator ⚡', creator: 'rip_hama276', playing: '850', color: '#2ed573' },
-      { id: 'sword', title: 'Sword Battles Arena ⚔️', creator: 'rip_hama276', playing: '2.4K', color: '#1e90ff' }
+      { id: 'speed', title: 'City Speed Simulator ⚡', creator: 'rip_hama276', playing: '850', color: '#2ed573' }
     ]));
     
     usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, inventory: ['kurd_flag', 'cap', 'sword'], friends: [] };
@@ -510,10 +510,10 @@
 
     function addNewGame() {
       const title = document.getElementById('new-game-title').value.trim();
-      const color = document.getElementById('new-game-color').value.trim() || '#3498db';
+      const color = document.getElementById('new-game-color').value.trim() || '#e1b12c';
       if (!title) { alert('ناوی یاری بنووسە!'); return; }
 
-      const newGame = { id: 'game_' + Date.now(), title: title, creator: 'rip_hama276', playing: '500', color: color };[span_4](start_span)[span_4](end_span)
+      const newGame = { id: 'game_' + Date.now(), title: title, creator: 'rip_hama276', playing: '1.5K', color: color };[span_4](start_span)[span_4](end_span)
       gamesList.push(newGame);
       localStorage.setItem('hama_roblox_games', JSON.stringify(gamesList));
       renderGames(gamesList);
@@ -537,7 +537,7 @@
     function spawnMutationsFromAdmin() {
       activeMutationsCount = 5;
       document.getElementById('mutations-count').innerText = activeMutationsCount;
-      alert('✨ 5 موتیەیشن لە ناو یارییەکەدا سپاون بوون! بە کارەکتەرەکەت بچۆ سەر ئەڵماسەکان تا کۆیان بکەیتەوە.');
+      alert('✨ 5 هێلکەی تایبەت (Mutations) لە ناو یارییەکەدا سپاون بوون!');
       closeAdminPanel();
     }
 
@@ -611,7 +611,7 @@
 
     function buyItem(itemKey, price) {
       const uData = usersDB[currentUser];
-      if (currentUser === 'rip_hama276') { alert('تۆ خاوەنی یارییەکەیت و هەموو شتێک بەڕوڕایی هەیە!'); return;[span_7](start_span)[span_7](end_span) }
+      if (currentUser === 'rip_hama276') { alert('تۆ خاوەنی یارییەکەیت و هەموو شتێکت بەڕوڕایی هەیە!'); return;[span_7](start_span)[span_7](end_span) }
       if (uData.robux < price) { alert('بڕی کافی ڕوبوکس (Robux)ت پێنییە!'); return; }
       if (uData.inventory.includes(itemKey)) { alert('ئەمەیان پێشتر کڕیوە!'); return; }
       uData.robux -= price;
@@ -621,7 +621,7 @@
       alert('بەسەرکەوتوویی کڕرا!');
     }
 
-    // --- 3D Roblox Engine with Mutations Spawning ---
+    // --- 3D Roblox Engine with Steal An Egg Theme ---
     let scene, camera, renderer, player, leftArm, rightArm, leftLeg, rightLeg, animationId;
     let animTime = 0;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
@@ -684,17 +684,18 @@
       floor.rotation.x = -Math.PI / 2;
       scene.add(floor);
 
-      // Spawn 5 Mutations if active from Admin Panel
+      // Spawn 5 Egg Mutations if active from Admin Panel
       mutationMeshes.forEach(m => scene.remove(m));
       mutationMeshes = [];
       if (activeMutationsCount > 0) {
         for (let i = 0; i < 5; i++) {
-          const mutGeo = new THREE.OctahedronGeometry(0.6);
-          const mutMat = new THREE.MeshLambertMaterial({ color: 0x00e676, emissive: 0x00e676 });
-          const mutation = new THREE.Mesh(mutGeo, mutMat);
-          mutation.position.set((Math.random() - 0.5) * 15, 1, -Math.random() * 20 - 5);
-          scene.add(mutation);
-          mutationMeshes.push(mutation);
+          const eggGeo = new THREE.SphereGeometry(0.5, 16, 16);
+          eggGeo.scale(1, 1.3, 1); // Egg shape
+          const eggMat = new THREE.MeshLambertMaterial({ color: 0xf1c40f, emissive: 0xf1c40f });
+          const egg = new THREE.Mesh(eggGeo, eggMat);
+          egg.position.set((Math.random() - 0.5) * 15, 1, -Math.random() * 20 - 5);
+          scene.add(egg);
+          mutationMeshes.push(egg);
         }
       }
 
@@ -736,12 +737,12 @@
       if (player.position.y > 1.0) player.position.y -= 0.12;
       else player.position.y = 1.0;
 
-      // Check collision with mutations
-      mutationMeshes.forEach((mut, idx) => {
-        if (mut && player.position.distanceTo(mut.position) < 1.5) {
-          scene.remove(mut);
+      // Check collision with eggs
+      mutationMeshes.forEach((egg, idx) => {
+        if (egg && player.position.distanceTo(egg.position) < 1.5) {
+          scene.remove(egg);
           mutationMeshes[idx] = null;
-          gameScore += 100;
+          gameScore += 250;
           activeMutationsCount = Math.max(0, activeMutationsCount - 1);
           document.getElementById('game-score').innerText = gameScore;
           document.getElementById('mutations-count').innerText = activeMutationsCount;

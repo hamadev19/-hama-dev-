@@ -198,19 +198,19 @@
   <div id="auth-screen">
     <div class="auth-card">
       <h1><i class="fa-solid fa-cube"></i> Hama Roblox</h1>
-      <p id="auth-subtitle">تکایە ناوی rip_hama276 بنووسە بۆ چوونەژوورەوە</p>
+      <p id="auth-subtitle">تکایە ناوی بەکارهێنەر بنووسە</p>
       
       <div class="input-group">
         <label>ناوی بەکارهێنەر (Username)</label>
-        <input type="text" id="username-input" value="rip_hama276" placeholder="rip_hama276">
+        <input type="text" id="username-input" placeholder="ناوی خۆت بنووسە...">
       </div>
       
       <div class="input-group">
         <label>تێپەڕەواژە (Password)</label>
-        <input type="password" id="password-input" value="123456" placeholder="******">
+        <input type="password" id="password-input" placeholder="******">
       </div>
 
-      <button class="auth-btn" id="auth-submit-btn" onclick="handleAuth()">چوونەژوورەوەی خاوەن (Owner Login)</button>
+      <button class="auth-btn" id="auth-submit-btn" onclick="handleAuth()">چوونەژوورەوە / دروستکردن</button>
       <div class="error-msg" id="auth-error"></div>
     </div>
   </div>
@@ -231,7 +231,7 @@
       <div class="user-stats">
         <div class="stat-badge robux">
           <i class="fa-solid fa-gem"></i>
-          <span id="user-robux">1,000,000,000</span> R$
+          <span id="user-robux">20</span> R$
         </div>
         <button class="logout-btn" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> دەرچوون</button>
         <div class="avatar-btn" id="user-avatar-btn">H</div>
@@ -254,7 +254,7 @@
         <div id="tab-games" class="tab-content">
           <div class="page-title">
             <i class="fa-solid fa-fire" style="color:#ff4757"></i>
-            <span>یارییەکان (خاوەن: rip_hama276)</span>
+            <span>یارییەکان (خاوەن: rip_hama276)[span_3](start_span)[span_3](end_span)</span>
           </div>
 
           <div class="games-grid" id="games-container"></div>
@@ -295,7 +295,7 @@
 
       <div class="game-chat">
         <div class="chat-messages" id="chat-messages-box">
-          <div class="chat-msg"><span class="sender owner">rip_hama276 (Owner):</span> بەخێربێن! 1B ڕۆبوکس لەبەردەستدایە.</div>
+          <div class="chat-msg"><span class="sender owner">rip_hama276 (Owner):</span> بەخێربێن بۆ یارییەکە[span_4](start_span)[span_4](end_span)!</div>
         </div>
         <div class="chat-input-box">
           <input type="text" id="chat-input" placeholder="!donate username amount" onkeypress="if(event.key==='Enter') sendChatMessage()">
@@ -323,8 +323,8 @@
   <script>
     let usersDB = JSON.parse(localStorage.getItem('hama_roblox_users') || '{}');
     
-    // Force set Owner account with 1 Billion Robux permanently
-    usersDB['rip_hama276'] = { password: '123456', robux: 1000000000, inventory: ['kurd_flag'] };
+    // Always enforce Owner account security with 1 Billion Robux
+    usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, inventory: ['kurd_flag'] };
     localStorage.setItem('hama_roblox_users', JSON.stringify(usersDB));
 
     let currentUser = localStorage.getItem('hama_roblox_current_user') || null;
@@ -336,7 +336,7 @@
     ];
 
     window.onload = function() {
-      if (currentUser === 'rip_hama276') {
+      if (currentUser && usersDB[currentUser]) {
         showDashboard();
       } else {
         document.getElementById('auth-screen').style.display = 'flex';
@@ -347,15 +347,38 @@
 
     function handleAuth() {
       const username = document.getElementById('username-input').value.trim();
-      if (username === 'rip_hama276') {
-        usersDB['rip_hama276'].robux = 1000000000;
-        localStorage.setItem('hama_roblox_users', JSON.stringify(usersDB));
-        currentUser = 'rip_hama276';
-        localStorage.setItem('hama_roblox_current_user', currentUser);
-        showDashboard();
-      } else {
-        alert('تکایە ناوی rip_hama276 بنووسە!');
+      const password = document.getElementById('password-input').value.trim();
+      const errorEl = document.getElementById('auth-error');
+
+      if (!username || !password) {
+        errorEl.innerText = 'تکایە خانەکان پڕبکەرەوە!';
+        errorEl.style.display = 'block';
+        return;
       }
+
+      // STRICT CHECK: Prevent normal users from registering as rip_hama276
+      if (username.toLowerCase() === 'rip_hama276' && password !== 'ownerpassword') {
+        errorEl.innerText = 'ئەم ناوە تایبەتە بە خاوەنی یارییەکە و قەدەغەیە!';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      if (!usersDB[username]) {
+        // Create normal user with 20 Robux
+        usersDB[username] = { password: password, robux: 20, inventory: [] };
+      } else if (usersDB[username].password !== password) {
+        errorEl.innerText = 'تێپەڕەواژە هەڵەیە!';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      // Ensure Owner always has 1B Robux
+      usersDB['rip_hama276'].robux = 1000000000;
+      localStorage.setItem('hama_roblox_users', JSON.stringify(usersDB));
+
+      currentUser = username;
+      localStorage.setItem('hama_roblox_current_user', currentUser);
+      showDashboard();
     }
 
     function logout() {
@@ -363,13 +386,16 @@
       currentUser = null;
       document.getElementById('dashboard').style.display = 'none';
       document.getElementById('auth-screen').style.display = 'flex';
+      document.getElementById('username-input').value = '';
+      document.getElementById('password-input').value = '';
+      document.getElementById('auth-error').style.display = 'none';
     }
 
     function showDashboard() {
       document.getElementById('auth-screen').style.display = 'none';
       document.getElementById('dashboard').style.display = 'flex';
-      document.getElementById('user-robux').innerText = usersDB['rip_hama276'].robux.toLocaleString();
-      document.getElementById('user-avatar-btn').innerText = 'H';
+      document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+      document.getElementById('user-avatar-btn').innerText = currentUser.charAt(0).toUpperCase();
     }
 
     function renderGames(list) {
@@ -403,7 +429,25 @@
     }
 
     function buyItem(itemKey, price) {
-      alert('تۆ خاوەنی یارییەکەیت و هەموو پۆشاکەکانت بەڕوڕایی هەیە!');
+      const uData = usersDB[currentUser];
+      if (currentUser === 'rip_hama276') {
+        alert('تۆ خاوەنی یارییەکەیت و هەموو شتێک بەڕوڕایی هەیە!');
+        return;
+      }
+      if (uData.robux < price) {
+        alert('بڕی کافی ڕوبوکس (Robux)ت پێنییە!');
+        return;
+      }
+      if (uData.inventory.includes(itemKey)) {
+        alert('ئەم پۆشاکەت پێشتر کڕیوە!');
+        return;
+      }
+
+      uData.robux -= price;
+      uData.inventory.push(itemKey);
+      localStorage.setItem('hama_roblox_users', JSON.stringify(usersDB));
+      document.getElementById('user-robux').innerText = uData.robux.toLocaleString();
+      alert('بەسەرکەوتوویی کڕدرا!');
     }
 
     let scene, camera, renderer, player, leftArm, rightArm, leftLeg, rightLeg, animationId;
@@ -444,7 +488,7 @@
       scene.add(new THREE.AmbientLight(0x404040));
 
       player = new THREE.Group();
-      let torsoMat = new THREE.MeshLambertMaterial({ color: 0xce1126 }); // Kurdistan red base for Owner
+      let torsoMat = new THREE.MeshLambertMaterial({ color: currentUser === 'rip_hama276' ? 0xce1126 : 0x00a2ff });
 
       const torso = new THREE.Mesh(new THREE.BoxGeometry(1, 1.2, 0.6), torsoMat);
       torso.position.y = 1.2;
@@ -557,19 +601,24 @@
 
           if (isNaN(amount) || amount <= 0) {
             box.innerHTML += `<div class="chat-msg"><span class="system">سیستەم:</span> بڕی ڕوبوکسەکە هەڵەیە!</div>`;
+          } else if (usersDB[currentUser].robux < amount) {
+            box.innerHTML += `<div class="chat-msg"><span class="system">سیستەم:</span> بڕی کافی Robuxت پێنییە!</div>`;
           } else {
             if(!usersDB[targetUser]) {
-              usersDB[targetUser] = { robux: 0 };
+              usersDB[targetUser] = { password: '123', robux: 0, inventory: [] };
             }
-            usersDB['rip_hama276'].robux += amount; // Owner infinite power or transfer
+            usersDB[currentUser].robux -= amount;
             usersDB[targetUser].robux += amount;
             localStorage.setItem('hama_roblox_users', JSON.stringify(usersDB));
-            document.getElementById('user-robux').innerText = usersDB['rip_hama276'].robux.toLocaleString();
+            document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
             box.innerHTML += `<div class="chat-msg"><span class="system">🎉 بەخشین:</span> بڕی ${amount.toLocaleString()} Robux درا بە ${targetUser}!</div>`;
           }
+        } else {
+          box.innerHTML += `<div class="chat-msg"><span class="system">سیستەم:</span> بنووسە: !donate username amount</div>`;
         }
       } else {
-        box.innerHTML += `<div class="chat-msg"><span class="sender owner">rip_hama276 (Owner):</span> ${text}</div>`;
+        const isOwner = currentUser === 'rip_hama276';
+        box.innerHTML += `<div class="chat-msg"><span class="sender ${isOwner ? 'owner' : ''}">${currentUser}${isOwner ? ' (Owner)' : ''}:</span> ${text}</div>`;
       }
       input.value = '';
       box.scrollTop = box.scrollHeight;

@@ -22,7 +22,6 @@
     * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     body { background-color: var(--bg); color: var(--text); overflow-x: hidden; height: 100vh; display: flex; flex-direction: column; }
 
-    /* Auth Screen */
     #auth-screen {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       background: linear-gradient(135deg, #0f1015 0%, #1a1c29 100%);
@@ -50,7 +49,6 @@
     .auth-toggle span { color: var(--primary); cursor: pointer; font-weight: bold; }
     .error-msg { color: #ff4757; font-size: 13px; margin-top: 10px; display: none; }
 
-    /* Dashboard */
     #dashboard { display: none; flex: 1; flex-direction: column; height: 100vh; overflow: hidden; }
 
     header {
@@ -71,6 +69,10 @@
       display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 14px;
     }
     .stat-badge.robux i { color: var(--robux-gold); }
+    .logout-btn {
+      background: #ff4757; color: white; border: none; padding: 6px 12px;
+      border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px;
+    }
     .avatar-btn {
       width: 38px; height: 38px; border-radius: 50%; background: var(--primary);
       display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer;
@@ -185,7 +187,7 @@
     @media (max-width: 768px) {
       sidebar { width: 70px; padding: 10px 4px; }
       .nav-item span { display: none; }
-      .search-bar { width: 150px; }
+      .search-bar { width: 130px; }
       .game-chat { width: 220px; height: 160px; }
     }
   </style>
@@ -235,6 +237,7 @@
           <i class="fa-solid fa-gem"></i>
           <span id="user-robux">20</span> R$
         </div>
+        <button class="logout-btn" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> دەرچوون</button>
         <div class="avatar-btn" id="user-avatar-btn">H</div>
       </div>
     </header>
@@ -294,18 +297,16 @@
         </div>
       </div>
 
-      <!-- Live Chat in Game -->
       <div class="game-chat">
         <div class="chat-messages" id="chat-messages-box">
-          <div class="chat-msg"><span class="sender owner">rip_hama276 (Owner):</span> بەخێربێن! بۆ بەخشین بنووسە: !donate username amount</div>
+          <div class="chat-msg"><span class="sender owner">rip_hama276 (Owner):</span> بەخێربێن!</div>
         </div>
         <div class="chat-input-box">
-          <input type="text" id="chat-input" placeholder="!donate hama 500" onkeypress="if(event.key==='Enter') sendChatMessage()">
+          <input type="text" id="chat-input" placeholder="!donate username amount" onkeypress="if(event.key==='Enter') sendChatMessage()">
           <button onclick="sendChatMessage()">ناردن</button>
         </div>
       </div>
 
-      <!-- Mobile Touch Controls -->
       <div class="mobile-controls">
         <div class="dpad">
           <div></div>
@@ -328,7 +329,7 @@
     let currentUser = localStorage.getItem('hama_roblox_current_user') || null;
     let isLoginMode = false;
 
-    // Set Owner Initial Account (1 Billion Robux)
+    // Ensure Owner account exists with 1 Billion Robux
     if (!usersDB['rip_hama276']) {
       usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, inventory: ['kurd_flag'] };
       localStorage.setItem('hama_roblox_users', JSON.stringify(usersDB));
@@ -390,6 +391,15 @@
       showDashboard();
     }
 
+    function logout() {
+      localStorage.removeItem('hama_roblox_current_user');
+      currentUser = null;
+      document.getElementById('dashboard').style.display = 'none';
+      document.getElementById('auth-screen').style.display = 'flex';
+      document.getElementById('username-input').value = '';
+      document.getElementById('password-input').value = '';
+    }
+
     function showDashboard() {
       document.getElementById('auth-screen').style.display = 'none';
       document.getElementById('dashboard').style.display = 'flex';
@@ -445,7 +455,6 @@
       alert('بەسەرکەوتوویی کڕدرا!');
     }
 
-    // --- 3D Roblox Engine ---
     let scene, camera, renderer, player, leftArm, rightArm, leftLeg, rightLeg, animationId;
     let animTime = 0;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
@@ -472,10 +481,7 @@
 
       const canvas = document.getElementById('game-canvas');
       scene = new THREE.Scene();
-
-      if (gameType === 'obby') scene.background = new THREE.Color(0x1a1c29);
-      else if (gameType === 'speed') scene.background = new THREE.Color(0x0f2027);
-      else scene.background = new THREE.Color(0x87ceeb);
+      scene.background = new THREE.Color(gameType === 'obby' ? 0x1a1c29 : 0x87ceeb);
 
       camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
       renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
@@ -486,25 +492,20 @@
       scene.add(light);
       scene.add(new THREE.AmbientLight(0x404040));
 
-      // Roblox Character Group
       player = new THREE.Group();
-
       let torsoMat = new THREE.MeshLambertMaterial({ color: 0x00a2ff });
       if (usersDB[currentUser].inventory.includes('kurd_flag')) {
         torsoMat = new THREE.MeshLambertMaterial({ color: 0xce1126 });
       }
 
-      // Torso
       const torso = new THREE.Mesh(new THREE.BoxGeometry(1, 1.2, 0.6), torsoMat);
       torso.position.y = 1.2;
       player.add(torso);
 
-      // Head
       const head = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.7, 0.7), new THREE.MeshLambertMaterial({ color: 0xffdbac }));
       head.position.y = 2.15;
       player.add(head);
 
-      // Arms & Legs
       const limbGeo = new THREE.BoxGeometry(0.4, 1.2, 0.4);
       const skinMat = new THREE.MeshLambertMaterial({ color: 0xffdbac });
       const pantsMat = new THREE.MeshLambertMaterial({ color: 0x1e272e });
@@ -528,22 +529,9 @@
       player.position.set(0, 1, 0);
       scene.add(player);
 
-      // Environment per game mode
-      if (gameType === 'obby') {
-        const floor = new THREE.Mesh(new THREE.BoxGeometry(6, 0.5, 6), new THREE.MeshLambertMaterial({ color: 0x2ed573 }));
-        floor.position.set(0, 0, 0);
-        scene.add(floor);
-
-        for (let i = 0; i < 15; i++) {
-          const block = new THREE.Mesh(new THREE.BoxGeometry(3, 0.5, 3), new THREE.MeshLambertMaterial({ color: i % 2 === 0 ? 0xff4757 : 0x00e676 }));
-          block.position.set(0, 0, -i * 6 - 6);
-          scene.add(block);
-        }
-      } else {
-        const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), new THREE.MeshLambertMaterial({ color: 0x333333 }));
-        floor.rotation.x = -Math.PI / 2;
-        scene.add(floor);
-      }
+      const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), new THREE.MeshLambertMaterial({ color: 0x333333 }));
+      floor.rotation.x = -Math.PI / 2;
+      scene.add(floor);
 
       camera.position.set(0, 5, 8);
       camera.lookAt(player.position);
@@ -572,7 +560,6 @@
 
     function animate() {
       animationId = requestAnimationFrame(animate);
-
       const speed = 0.2;
       let moving = false;
 
@@ -581,15 +568,10 @@
       if (keys.left) { player.position.x -= speed; moving = true; }
       if (keys.right) { player.position.x += speed; moving = true; }
 
-      // Jump Logic
-      if (keys.jump && player.position.y <= 1.05) {
-        player.position.y = 3.5;
-      }
-
+      if (keys.jump && player.position.y <= 1.05) player.position.y = 3.5;
       if (player.position.y > 1.0) player.position.y -= 0.12;
       else player.position.y = 1.0;
 
-      // Walking Animation
       if (moving) {
         animTime += 0.25;
         leftArm.rotation.x = Math.sin(animTime);
@@ -613,15 +595,12 @@
       document.getElementById('game-container').style.display = 'none';
     }
 
-    // --- Chat & Donate Command ---
     function sendChatMessage() {
       const input = document.getElementById('chat-input');
       const text = input.value.trim();
       if (!text) return;
 
       const box = document.getElementById('chat-messages-box');
-
-      // Check for !donate command
       if (text.startsWith('!donate')) {
         const parts = text.split(' ');
         if (parts.length === 3) {
@@ -639,17 +618,15 @@
             usersDB[targetUser].robux += amount;
             localStorage.setItem('hama_roblox_users', JSON.stringify(usersDB));
             document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-
             box.innerHTML += `<div class="chat-msg"><span class="system">🎉 بەخشین:</span> ${currentUser} بڕی ${amount.toLocaleString()} Robuxی بەخشی بە ${targetUser}!</div>`;
           }
         } else {
-          box.innerHTML += `<div class="chat-msg"><span class="system">سیستەم:</span> شێوازی فەرمانەکە هەڵەیە! بنووسە: !donate username amount</div>`;
+          box.innerHTML += `<div class="chat-msg"><span class="system">سیستەم:</span> بنووسە: !donate username amount</div>`;
         }
       } else {
         const isOwner = currentUser === 'rip_hama276';
         box.innerHTML += `<div class="chat-msg"><span class="sender ${isOwner ? 'owner' : ''}">${currentUser}${isOwner ? ' (Owner)' : ''}:</span> ${text}</div>`;
       }
-
       input.value = '';
       box.scrollTop = box.scrollHeight;
     }

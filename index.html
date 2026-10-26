@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Roblox Universe V4</title>
+  <title>Hama Roblox Universe V6</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
@@ -17,11 +17,14 @@
       --text-muted: #b8b8b8;
       --border: #393b3d;
       --robux-gold: #00e676;
+      --admin-red: #ff4757;
+      --verified-blue: #00a2ff;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     body { background-color: var(--bg); color: var(--text); overflow-x: hidden; height: 100vh; display: flex; flex-direction: column; }
 
+    /* Auth Screen */
     #auth-screen {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       background: linear-gradient(135deg, #0f1015 0%, #1a1c29 100%);
@@ -45,10 +48,22 @@
       color: white; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 10px;
     }
     .auth-btn:hover { background: var(--primary-dark); }
-    .auth-toggle { margin-top: 18px; font-size: 14px; color: var(--text-muted); }
-    .auth-toggle span { color: var(--primary); cursor: pointer; font-weight: bold; }
     .error-msg { color: #ff4757; font-size: 13px; margin-top: 10px; display: none; }
 
+    /* Global Screen Announcement Banner overlay */
+    #global-announcement-banner {
+      position: fixed; top: 15px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(90deg, #ff4757, #ff6b81); color: white;
+      padding: 14px 28px; border-radius: 30px; font-weight: bold; font-size: 16px;
+      box-shadow: 0 0 25px rgba(255, 71, 87, 0.8); z-index: 30000;
+      display: none; align-items: center; gap: 12px; animation: popup 0.4s ease-out;
+    }
+    @keyframes popup {
+      0% { transform: translate(-50%, -50px) scale(0.8); opacity: 0; }
+      100% { transform: translate(-50%, 0) scale(1); opacity: 1; }
+    }
+
+    /* Dashboard Layout */
     #dashboard { display: none; flex: 1; flex-direction: column; height: 100vh; overflow: hidden; }
 
     header {
@@ -57,26 +72,32 @@
     }
     .brand { display: flex; align-items: center; gap: 12px; font-weight: bold; font-size: 18px; }
     .brand i { color: var(--primary); font-size: 24px; }
-    .search-bar { position: relative; width: 320px; }
+    .search-bar { position: relative; width: 280px; }
     .search-bar input {
       width: 100%; padding: 8px 36px 8px 14px; background: #191b1d; border: 1px solid var(--border);
       border-radius: 20px; color: white; font-size: 14px; outline: none;
     }
     .search-bar i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
-    .user-stats { display: flex; align-items: center; gap: 16px; }
+    
+    .user-stats { display: flex; align-items: center; gap: 12px; }
     .stat-badge {
-      background: #141517; padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border);
-      display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 14px;
+      background: #141517; padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border);
+      display: flex; align-items: center; gap: 6px; font-weight: bold; font-size: 13px;
     }
     .stat-badge.robux i { color: var(--robux-gold); }
+    .admin-badge-btn {
+      background: var(--admin-red); color: white; border: none; padding: 6px 12px;
+      border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; display: none; align-items: center; gap: 5px;
+    }
     .logout-btn {
-      background: #ff4757; color: white; border: none; padding: 6px 12px;
-      border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px;
+      background: #333; color: white; border: none; padding: 6px 10px;
+      border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer;
     }
     .avatar-btn {
-      width: 38px; height: 38px; border-radius: 50%; background: var(--primary);
-      display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer;
+      width: 36px; height: 36px; border-radius: 50%; background: var(--primary);
+      display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; position: relative;
     }
+    .verified-icon { color: var(--verified-blue); margin-right: 4px; font-size: 14px; }
 
     .app-body { display: flex; flex: 1; overflow: hidden; }
 
@@ -94,6 +115,7 @@
     main { flex: 1; padding: 24px; overflow-y: auto; }
     .page-title { font-size: 24px; font-weight: bold; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
 
+    /* Games Grid */
     .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
     .game-card {
       background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px;
@@ -109,8 +131,8 @@
     .game-info { padding: 14px; }
     .game-title { font-size: 16px; font-weight: bold; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .game-creator { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
-    .game-creator i { color: var(--primary); }
 
+    /* Shop Grid */
     .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
     .shop-item {
       background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;
@@ -130,6 +152,38 @@
       border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s;
     }
 
+    /* Friends List */
+    .friends-container { display: flex; flex-direction: column; gap: 12px; max-width: 600px; }
+    .friend-card {
+      background: var(--card-bg); border: 1px solid var(--border); padding: 12px 18px;
+      border-radius: 10px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .friend-info { display: flex; align-items: center; gap: 12px; font-weight: bold; }
+    .add-friend-btn { background: var(--primary); color: white; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+
+    /* Admin Modal */
+    #admin-modal {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.85); z-index: 20000; display: none; align-items: center; justify-content: center; padding: 20px;
+    }
+    .admin-card {
+      background: var(--card-bg); border: 1px solid var(--admin-red); border-radius: 14px;
+      width: 100%; max-width: 520px; padding: 24px; display: flex; flex-direction: column; gap: 16px;
+    }
+    .admin-card h2 { color: var(--admin-red); display: flex; align-items: center; gap: 8px; }
+    .broadcast-box { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--border); padding-top: 12px; }
+    .broadcast-box input {
+      padding: 10px; background: #141517; border: 1px solid var(--border); border-radius: 8px; color: white; outline: none;
+    }
+    .broadcast-btn {
+      background: #e67e22; color: white; border: none; padding: 8px 14px; border-radius: 6px; font-weight: bold; cursor: pointer;
+    }
+    .user-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+    .admin-action-btns { display: flex; gap: 6px; }
+    .kick-btn { background: #f39c12; color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; }
+    .ban-btn { background: var(--admin-red); color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; }
+
+    /* 3D Game Canvas Overlay */
     #game-container {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       background: #000; z-index: 9999; display: none; flex-direction: column;
@@ -167,9 +221,7 @@
       display: flex; justify-content: space-between; align-items: flex-end;
       pointer-events: auto; z-index: 10000;
     }
-    .dpad {
-      display: grid; grid-template-columns: repeat(3, 50px); grid-template-rows: repeat(3, 50px); gap: 4px;
-    }
+    .dpad { display: grid; grid-template-columns: repeat(3, 50px); grid-template-rows: repeat(3, 50px); gap: 4px; }
     .dpad-btn {
       background: rgba(255, 255, 255, 0.25); border: 1px solid rgba(255, 255, 255, 0.4);
       border-radius: 8px; display: flex; align-items: center; justify-content: center;
@@ -188,11 +240,16 @@
       sidebar { width: 70px; padding: 10px 4px; }
       .nav-item span { display: none; }
       .search-bar { width: 130px; }
-      .game-chat { width: 220px; height: 160px; }
     }
   </style>
 </head>
 <body>
+
+  <!-- Broadcast Top Banner Notification -->
+  <div id="global-announcement-banner">
+    <i class="fa-solid fa-bullhorn" style="font-size: 20px; color:#ffeaa7;"></i>
+    <span id="announcement-text">پەیامی فەرمی خاوەنی یارییەکە</span>
+  </div>
 
   <!-- Auth Screen -->
   <div id="auth-screen">
@@ -210,7 +267,7 @@
         <input type="password" id="password-input" placeholder="******">
       </div>
 
-      <button class="auth-btn" id="auth-submit-btn" onclick="handleAuth()">چوونەژوورەوە / دروستکردن</button>
+      <button class="auth-btn" onclick="handleAuth()">چوونەژوورەوە / دروستکردن</button>
       <div class="error-msg" id="auth-error"></div>
     </div>
   </div>
@@ -229,11 +286,12 @@
       </div>
 
       <div class="user-stats">
+        <button class="admin-badge-btn" id="admin-panel-btn" onclick="openAdminPanel()"><i class="fa-solid fa-shield-halved"></i> Admin Panel</button>
         <div class="stat-badge robux">
           <i class="fa-solid fa-gem"></i>
           <span id="user-robux">20</span> R$
         </div>
-        <button class="logout-btn" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> دەرچوون</button>
+        <button class="logout-btn" onclick="logout()">دەرچوون</button>
         <div class="avatar-btn" id="user-avatar-btn">H</div>
       </div>
     </header>
@@ -248,54 +306,94 @@
           <i class="fa-solid fa-shirt"></i>
           <span>دوکانی پۆشاک</span>
         </div>
+        <div class="nav-item" onclick="switchTab('friends', this)">
+          <i class="fa-solid fa-user-group"></i>
+          <span>برادەران</span>
+        </div>
       </sidebar>
 
       <main>
+        <!-- Games Tab -->
         <div id="tab-games" class="tab-content">
           <div class="page-title">
             <i class="fa-solid fa-fire" style="color:#ff4757"></i>
-            <span>یارییەکان (خاوەن: rip_hama276)[span_3](start_span)[span_3](end_span)</span>
+            <span>یارییەکان (گەشەپێدەر: rip_hama276 <i class="fa-solid fa-circle-check verified-icon"></i>)</span>
           </div>
-
           <div class="games-grid" id="games-container"></div>
         </div>
 
+        <!-- Shop Tab -->
         <div id="tab-shop" class="tab-content" style="display:none;">
           <div class="page-title">
             <i class="fa-solid fa-store" style="color:var(--robux-gold)"></i>
             <span>دوکانی کەسایەتی (Avatar Shop)</span>
           </div>
-
           <div class="shop-grid">
             <div class="shop-item">
               <div class="shop-item-preview" style="background:#ce1126; color:white;">☀️</div>
               <div class="shop-item-name">ئاڵای پیرۆزی کوردستان</div>
               <div class="shop-item-price">20 R$</div>
-              <button class="buy-btn" onclick="buyItem('kurd_flag', 20)">کڕین</button>
+              <button class="buy-btn" onclick="buyItem('kurd_flag', 20)">کڕین و لەبەرکردن</button>
+            </div>
+            <div class="shop-item">
+              <div class="shop-item-preview">🧢</div>
+              <div class="shop-item-name">کڵاوی هاوینە</div>
+              <div class="shop-item-price">15 R$</div>
+              <button class="buy-btn" onclick="buyItem('cap', 15)">کڕین و لەبەرکردن</button>
+            </div>
+            <div class="shop-item">
+              <div class="shop-item-preview">⚔️</div>
+              <div class="shop-item-name">شمشێری زێڕین</div>
+              <div class="shop-item-price">50 R$</div>
+              <button class="buy-btn" onclick="buyItem('sword', 50)">کڕین و لەبەرکردن</button>
             </div>
           </div>
+        </div>
+
+        <!-- Friends Tab -->
+        <div id="tab-friends" class="tab-content" style="display:none;">
+          <div class="page-title">
+            <i class="fa-solid fa-user-plus"></i>
+            <span>برادەران و یاریزانەکان</span>
+          </div>
+          <div class="friends-container" id="friends-list-container"></div>
         </div>
       </main>
     </div>
   </div>
 
-  <!-- 3D Game Modal Canvas -->
+  <!-- Admin Panel Modal -->
+  <div id="admin-modal">
+    <div class="admin-card">
+      <h2><i class="fa-solid fa-shield-halved"></i> بەڕێوەبەری سەرەکی (Admin Panel)</h2>
+      
+      <!-- Broadcast announcement on all screens -->
+      <div class="broadcast-box">
+        <label style="font-size:13px; font-weight:bold;"><i class="fa-solid fa-bullhorn"></i> ناردنی پەیام بۆ سەر شاشەی هەمووان:</label>
+        <input type="text" id="broadcast-input" placeholder="پەیامێک بنووسە بۆ سەر شاشەی هەموو یاریزانەکان...">
+        <button class="broadcast-btn" onclick="sendGlobalAnnouncement()">ناردنی پەیام (Broadcast)</button>
+      </div>
+
+      <p style="font-size: 13px; color: var(--text-muted); margin-top:10px;">بەڕێوەبردنی یاریزانەکان:</p>
+      <div id="admin-users-list" style="max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;"></div>
+      <button class="auth-btn" style="background: var(--admin-red);" onclick="closeAdminPanel()">داخستنی پەنێڵ</button>
+    </div>
+  </div>
+
+  <!-- 3D Game Canvas Overlay -->
   <div id="game-container">
     <canvas id="game-canvas"></canvas>
-
     <div class="game-ui-overlay">
       <div class="game-top-bar">
         <button class="exit-game-btn" onclick="exitGame()">
           <i class="fa-solid fa-door-open"></i> دەرهاتن
         </button>
-        <div class="game-stats">
-          خاڵ: <span id="game-score">0</span>
-        </div>
+        <div class="game-stats">خاڵ: <span id="game-score">0</span></div>
       </div>
 
       <div class="game-chat">
         <div class="chat-messages" id="chat-messages-box">
-          <div class="chat-msg"><span class="sender owner">rip_hama276 (Owner):</span> بەخێربێن بۆ یارییەکە[span_4](start_span)[span_4](end_span)!</div>
+          <div class="chat-msg"><span class="sender owner">rip_hama276 <i class="fa-solid fa-circle-check verified-icon"></i> (Owner):</span> بەخێربێن بۆ یارییەکە!</div>
         </div>
         <div class="chat-input-box">
           <input type="text" id="chat-input" placeholder="!donate username amount" onkeypress="if(event.key==='Enter') sendChatMessage()">
@@ -305,15 +403,9 @@
 
       <div class="mobile-controls">
         <div class="dpad">
-          <div></div>
-          <div class="dpad-btn" id="btn-up"><i class="fa-solid fa-arrow-up"></i></div>
-          <div></div>
-          <div class="dpad-btn" id="btn-left"><i class="fa-solid fa-arrow-left"></i></div>
-          <div></div>
-          <div class="dpad-btn" id="btn-right"><i class="fa-solid fa-arrow-right"></i></div>
-          <div></div>
-          <div class="dpad-btn" id="btn-down"><i class="fa-solid fa-arrow-down"></i></div>
-          <div></div>
+          <div></div><div class="dpad-btn" id="btn-up"><i class="fa-solid fa-arrow-up"></i></div><div></div>
+          <div class="dpad-btn" id="btn-left"><i class="fa-solid fa-arrow-left"></i></div><div></div><div class="dpad-btn" id="btn-right"><i class="fa-solid fa-arrow-right"></i></div>
+          <div></div><div class="dpad-btn" id="btn-down"><i class="fa-solid fa-arrow-down"></i></div><div></div>
         </div>
         <div class="jump-btn-touch" id="btn-jump"><i class="fa-solid fa-angles-up"></i></div>
       </div>
@@ -322,9 +414,10 @@
 
   <script>
     let usersDB = JSON.parse(localStorage.getItem('hama_roblox_users') || '{}');
+    let bannedDB = JSON.parse(localStorage.getItem('hama_roblox_banned') || '[]');
     
-    // Always enforce Owner account security with 1 Billion Robux
-    usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, inventory: ['kurd_flag'] };
+    // Ensure Owner account exists with 1 Billion Robux
+    usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, inventory: ['kurd_flag', 'cap', 'sword'], friends: [] };
     localStorage.setItem('hama_roblox_users', JSON.stringify(usersDB));
 
     let currentUser = localStorage.getItem('hama_roblox_current_user') || null;
@@ -337,6 +430,11 @@
 
     window.onload = function() {
       if (currentUser && usersDB[currentUser]) {
+        if (bannedDB.includes(currentUser)) {
+          alert('ئەم ئەژمارە باند کراوە!');
+          logout();
+          return;
+        }
         showDashboard();
       } else {
         document.getElementById('auth-screen').style.display = 'flex';
@@ -356,7 +454,12 @@
         return;
       }
 
-      // STRICT CHECK: Prevent normal users from registering as rip_hama276
+      if (bannedDB.includes(username)) {
+        errorEl.innerText = 'ئەم ئەژمارە باند کراوە لەم سێرڤەرە!';
+        errorEl.style.display = 'block';
+        return;
+      }
+
       if (username.toLowerCase() === 'rip_hama276' && password !== 'ownerpassword') {
         errorEl.innerText = 'ئەم ناوە تایبەتە بە خاوەنی یارییەکە و قەدەغەیە!';
         errorEl.style.display = 'block';
@@ -364,15 +467,13 @@
       }
 
       if (!usersDB[username]) {
-        // Create normal user with 20 Robux
-        usersDB[username] = { password: password, robux: 20, inventory: [] };
+        usersDB[username] = { password: password, robux: 20, inventory: [], friends: [] };
       } else if (usersDB[username].password !== password) {
         errorEl.innerText = 'تێپەڕەواژە هەڵەیە!';
         errorEl.style.display = 'block';
         return;
       }
 
-      // Ensure Owner always has 1B Robux
       usersDB['rip_hama276'].robux = 1000000000;
       localStorage.setItem('hama_roblox_users', JSON.stringify(usersDB));
 
@@ -388,14 +489,118 @@
       document.getElementById('auth-screen').style.display = 'flex';
       document.getElementById('username-input').value = '';
       document.getElementById('password-input').value = '';
-      document.getElementById('auth-error').style.display = 'none';
     }
 
     function showDashboard() {
       document.getElementById('auth-screen').style.display = 'none';
       document.getElementById('dashboard').style.display = 'flex';
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      document.getElementById('user-avatar-btn').innerText = currentUser.charAt(0).toUpperCase();
+
+      const avatarEl = document.getElementById('user-avatar-btn');
+      avatarEl.innerText = currentUser.charAt(0).toUpperCase();
+
+      if (currentUser === 'rip_hama276') {
+        document.getElementById('admin-panel-btn').style.display = 'flex';
+      } else {
+        document.getElementById('admin-panel-btn').style.display = 'none';
+      }
+      renderFriendsList();
+    }
+
+    // --- Admin Panel Functions ---
+    function openAdminPanel() {
+      const listEl = document.getElementById('admin-users-list');
+      listEl.innerHTML = '';
+      for (let uname in usersDB) {
+        if (uname === 'rip_hama276') continue;
+        listEl.innerHTML += `
+          <div class="user-row">
+            <span><b>${uname}</b> (${usersDB[uname].robux} R$)</span>
+            <div class="admin-action-btns">
+              <button class="kick-btn" onclick="kickUser('${uname}')">لابردن (Kick)</button>
+              <button class="ban-btn" onclick="banUser('${uname}')">باند (Ban)</button>
+            </div>
+          </div>
+        `;
+      }
+      document.getElementById('admin-modal').style.display = 'flex';
+    }
+
+    function closeAdminPanel() {
+      document.getElementById('admin-modal').style.display = 'none';
+    }
+
+    // BROADCAST ANNOUNCEMENT TO ALL SCREENS
+    function sendGlobalAnnouncement() {
+      const msg = document.getElementById('broadcast-input').value.trim();
+      if (!msg) return;
+
+      const banner = document.getElementById('global-announcement-banner');
+      const bannerText = document.getElementById('announcement-text');
+      
+      bannerText.innerText = "🚨 پەیامی فەرمی بەڕێوەبەر: " + msg;
+      banner.style.display = 'flex';
+
+      // Also add to game chat
+      const chatBox = document.getElementById('chat-messages-box');
+      if (chatBox) {
+        chatBox.innerHTML += `<div class="chat-msg" style="background:rgba(255,71,87,0.3); border:1px solid #ff4757;"><span class="system">📢 پەیامی گشتی Admin:</span> ${msg}</div>`;
+      }
+
+      document.getElementById('broadcast-input').value = '';
+
+      setTimeout(() => {
+        banner.style.display = 'none';
+      }, 7000);
+
+      closeAdminPanel();
+    }
+
+    function kickUser(uname) {
+      alert(uname + ' لە سێرڤەرەکە دەرکرا!');
+      closeAdminPanel();
+    }
+
+    function banUser(uname) {
+      bannedDB.push(uname);
+      localStorage.setItem('hama_roblox_banned', JSON.stringify(bannedDB));
+      alert(uname + ' باند کرا!');
+      openAdminPanel();
+    }
+
+    // --- Friends System ---
+    function renderFriendsList() {
+      const container = document.getElementById('friends-list-container');
+      container.innerHTML = '';
+      for (let uname in usersDB) {
+        if (uname === currentUser) continue;
+        const isFriend = usersDB[currentUser].friends && usersDB[currentUser].friends.includes(uname);
+        const isVerified = uname === 'rip_hama276';
+        container.innerHTML += `
+          <div class="friend-card">
+            <div class="friend-info">
+              <div class="avatar-btn" style="width:30px; height:30px; font-size:12px;">${uname.charAt(0).toUpperCase()}</div>
+              <span>${uname} ${isVerified ? '<i class="fa-solid fa-circle-check verified-icon"></i>' : ''}</span>
+            </div>
+            <button class="add-friend-btn" style="background:${isFriend ? '#2ed573' : 'var(--primary)'}" onclick="toggleFriend('${uname}')">
+              ${isFriend ? 'برادەرە ✓' : '+ ناردنی داواکاری'}
+            </button>
+          </div>
+        `;
+      }
+    }
+
+    function toggleFriend(uname) {
+      if (!usersDB[currentUser].friends) usersDB[currentUser].friends = [];
+      const idx = usersDB[currentUser].friends.indexOf(uname);
+      if (idx > -1) {
+        usersDB[currentUser].friends.splice(idx, 1);
+      } else {
+        usersDB[currentUser].friends.push(uname);
+        alert('داواکاری برادەرایەتی نێردرا بۆ ' + uname);
+      }
+      localStorage.setItem('hama_roblox_users', JSON.stringify(usersDB));
+      renderFriendsList();
     }
 
     function renderGames(list) {
@@ -409,7 +614,7 @@
             </div>
             <div class="game-info">
               <div class="game-title">${game.title}</div>
-              <div class="game-creator"><i class="fa-solid fa-circle-check"></i> ${game.creator}</div>
+              <div class="game-creator"><i class="fa-solid fa-circle-check verified-icon"></i> ${game.creator}</div>
             </div>
           </div>
         `;
@@ -431,7 +636,7 @@
     function buyItem(itemKey, price) {
       const uData = usersDB[currentUser];
       if (currentUser === 'rip_hama276') {
-        alert('تۆ خاوەنی یارییەکەیت و هەموو شتێک بەڕوڕایی هەیە!');
+        alert('تۆ خاوەنی یارییەکەیت و هەموو پۆشاکەکانت بەڕوڕایی هەیە!');
         return;
       }
       if (uData.robux < price) {
@@ -447,9 +652,10 @@
       uData.inventory.push(itemKey);
       localStorage.setItem('hama_roblox_users', JSON.stringify(usersDB));
       document.getElementById('user-robux').innerText = uData.robux.toLocaleString();
-      alert('بەسەرکەوتوویی کڕدرا!');
+      alert('بەسەرکەوتوویی کڕرا و لەبەرکرا!');
     }
 
+    // --- 3D Roblox Engine ---
     let scene, camera, renderer, player, leftArm, rightArm, leftLeg, rightLeg, animationId;
     let animTime = 0;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
@@ -463,7 +669,6 @@
         btn.addEventListener('mousedown', () => { keys[keyName] = true; });
         btn.addEventListener('mouseup', () => { keys[keyName] = false; });
       };
-
       bindTouch('btn-up', 'up');
       bindTouch('btn-down', 'down');
       bindTouch('btn-left', 'left');
@@ -473,7 +678,6 @@
 
     function startGame(gameType) {
       document.getElementById('game-container').style.display = 'flex';
-
       const canvas = document.getElementById('game-canvas');
       scene = new THREE.Scene();
       scene.background = new THREE.Color(gameType === 'obby' ? 0x1a1c29 : 0x87ceeb);
@@ -488,9 +692,10 @@
       scene.add(new THREE.AmbientLight(0x404040));
 
       player = new THREE.Group();
-      let torsoMat = new THREE.MeshLambertMaterial({ color: currentUser === 'rip_hama276' ? 0xce1126 : 0x00a2ff });
+      let shirtColor = 0x00a2ff;
+      if (usersDB[currentUser].inventory && usersDB[currentUser].inventory.includes('kurd_flag')) shirtColor = 0xce1126;
 
-      const torso = new THREE.Mesh(new THREE.BoxGeometry(1, 1.2, 0.6), torsoMat);
+      const torso = new THREE.Mesh(new THREE.BoxGeometry(1, 1.2, 0.6), new THREE.MeshLambertMaterial({ color: shirtColor }));
       torso.position.y = 1.2;
       player.add(torso);
 
@@ -502,21 +707,10 @@
       const skinMat = new THREE.MeshLambertMaterial({ color: 0xffdbac });
       const pantsMat = new THREE.MeshLambertMaterial({ color: 0x1e272e });
 
-      leftArm = new THREE.Mesh(limbGeo, skinMat);
-      leftArm.position.set(-0.7, 1.2, 0);
-      player.add(leftArm);
-
-      rightArm = new THREE.Mesh(limbGeo, skinMat);
-      rightArm.position.set(0.7, 1.2, 0);
-      player.add(rightArm);
-
-      leftLeg = new THREE.Mesh(limbGeo, pantsMat);
-      leftLeg.position.set(-0.3, 0.4, 0);
-      player.add(leftLeg);
-
-      rightLeg = new THREE.Mesh(limbGeo, pantsMat);
-      rightLeg.position.set(0.3, 0.4, 0);
-      player.add(rightLeg);
+      leftArm = new THREE.Mesh(limbGeo, skinMat); leftArm.position.set(-0.7, 1.2, 0); player.add(leftArm);
+      rightArm = new THREE.Mesh(limbGeo, skinMat); rightArm.position.set(0.7, 1.2, 0); player.add(rightArm);
+      leftLeg = new THREE.Mesh(limbGeo, pantsMat); leftLeg.position.set(-0.3, 0.4, 0); player.add(leftLeg);
+      rightLeg = new THREE.Mesh(limbGeo, pantsMat); rightLeg.position.set(0.3, 0.4, 0); player.add(rightLeg);
 
       player.position.set(0, 1, 0);
       scene.add(player);
@@ -530,7 +724,6 @@
 
       window.addEventListener('keydown', onKeyDown);
       window.addEventListener('keyup', onKeyUp);
-
       animate();
     }
 
@@ -578,7 +771,6 @@
       camera.position.x = player.position.x;
       camera.position.z = player.position.z + 8;
       camera.lookAt(player.position);
-
       renderer.render(scene, camera);
     }
 
@@ -591,34 +783,28 @@
       const input = document.getElementById('chat-input');
       const text = input.value.trim();
       if (!text) return;
-
       const box = document.getElementById('chat-messages-box');
+      
       if (text.startsWith('!donate')) {
         const parts = text.split(' ');
         if (parts.length === 3) {
           const targetUser = parts[1];
           const amount = parseInt(parts[2]);
-
-          if (isNaN(amount) || amount <= 0) {
-            box.innerHTML += `<div class="chat-msg"><span class="system">سیستەم:</span> بڕی ڕوبوکسەکە هەڵەیە!</div>`;
-          } else if (usersDB[currentUser].robux < amount) {
+          if (usersDB[currentUser].robux < amount) {
             box.innerHTML += `<div class="chat-msg"><span class="system">سیستەم:</span> بڕی کافی Robuxت پێنییە!</div>`;
           } else {
-            if(!usersDB[targetUser]) {
-              usersDB[targetUser] = { password: '123', robux: 0, inventory: [] };
-            }
+            if(!usersDB[targetUser]) usersDB[targetUser] = { password: '123', robux: 0, inventory: [], friends: [] };
             usersDB[currentUser].robux -= amount;
             usersDB[targetUser].robux += amount;
             localStorage.setItem('hama_roblox_users', JSON.stringify(usersDB));
             document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
             box.innerHTML += `<div class="chat-msg"><span class="system">🎉 بەخشین:</span> بڕی ${amount.toLocaleString()} Robux درا بە ${targetUser}!</div>`;
           }
-        } else {
-          box.innerHTML += `<div class="chat-msg"><span class="system">سیستەم:</span> بنووسە: !donate username amount</div>`;
         }
       } else {
         const isOwner = currentUser === 'rip_hama276';
-        box.innerHTML += `<div class="chat-msg"><span class="sender ${isOwner ? 'owner' : ''}">${currentUser}${isOwner ? ' (Owner)' : ''}:</span> ${text}</div>`;
+        const verifiedTag = isOwner ? '<i class="fa-solid fa-circle-check verified-icon"></i>' : '';
+        box.innerHTML += `<div class="chat-msg"><span class="sender ${isOwner ? 'owner' : ''}">${currentUser} ${verifiedTag}${isOwner ? ' (Owner)' : ''}:</span> ${text}</div>`;
       }
       input.value = '';
       box.scrollTop = box.scrollHeight;

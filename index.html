@@ -1,90 +1,9 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سایتی سەرەکی</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Tahoma, sans-serif; }
-        body {
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-        }
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            padding: 40px 30px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-            max-width: 420px;
-            width: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            transition: transform 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        .icon {
-            font-size: 50px;
-            margin-bottom: 20px;
-        }
-        h1 { 
-            font-size: 28px; 
-            margin-bottom: 15px; 
-            letter-spacing: 0.5px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        p { 
-            font-size: 16px; 
-            margin-bottom: 30px; 
-            color: #e0e0e0; 
-            line-height: 1.6;
-        }
-        .btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #ff416c, #ff4b2b);
-            color: white;
-            padding: 14px 32px;
-            font-size: 16px;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(255, 65, 108, 0.4);
-        }
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 65, 108, 0.6);
-            background: linear-gradient(135deg, #ff4b2b, #ff416c);
-        }
-        .btn:active {
-            transform: translateY(-1px);
-        }
-    </style>
-</head>
-<body>
-    <div class="card">
-        <div class="icon">✨</div>
-        <h1>بەخێر بێن</h1>
-        <p>ئەمە سایتی سەرەکییە، دەتوانن کلیک لە خوارەوە بکەن بۆ سەردانیکردنی وێبسایتەکە.</p>
-        <a href="https://soft-sky-e98c.gokarsarok167.workers.dev/" class="btn" target="_blank">سەردانی سایت بکە</a>
-    </div>
-</body>
-</html>
-<!DOCTYPE html>
 <html lang="ckb" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Hama Roblox Universe</title>
-  <!-- Font Awesome Icons & Three.js Engine -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
@@ -103,7 +22,6 @@
     * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     body { background-color: var(--bg); color: var(--text); overflow-x: hidden; height: 100vh; display: flex; flex-direction: column; }
 
-    /* Auth Screen */
     #auth-screen {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       background: linear-gradient(135deg, #0f1015 0%, #1a1c29 100%);
@@ -131,10 +49,8 @@
     .auth-toggle span { color: var(--primary); cursor: pointer; font-weight: bold; }
     .error-msg { color: #ff4757; font-size: 13px; margin-top: 10px; display: none; }
 
-    /* Main Dashboard Layout */
     #dashboard { display: none; flex: 1; flex-direction: column; height: 100vh; overflow: hidden; }
 
-    /* Top Navbar */
     header {
       height: 60px; background: var(--sidebar-bg); border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 100;
@@ -158,10 +74,8 @@
       display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer;
     }
 
-    /* Content Area */
     .app-body { display: flex; flex: 1; overflow: hidden; }
 
-    /* Sidebar */
     sidebar {
       width: 220px; background: var(--sidebar-bg); border-left: 1px solid var(--border);
       padding: 16px 10px; display: flex; flex-direction: column; gap: 6px;
@@ -173,11 +87,9 @@
     .nav-item:hover, .nav-item.active { background: #232527; color: white; }
     .nav-item i { width: 20px; text-align: center; }
 
-    /* Main View Area */
     main { flex: 1; padding: 24px; overflow-y: auto; }
     .page-title { font-size: 24px; font-weight: bold; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
 
-    /* Games Grid */
     .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
     .game-card {
       background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px;
@@ -195,7 +107,6 @@
     .game-creator { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
     .game-creator i { color: var(--primary); }
 
-    /* Shop Grid */
     .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
     .shop-item {
       background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;
@@ -214,9 +125,7 @@
       width: 100%; padding: 8px; background: var(--robux-gold); color: #000; border: none;
       border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s;
     }
-    .buy-btn:hover { opacity: 0.9; }
 
-    /* Game View Modal / Canvas Container */
     #game-container {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       background: #000; z-index: 9999; display: none; flex-direction: column;
@@ -233,9 +142,8 @@
     }
     .game-stats { background: rgba(0,0,0,0.7); padding: 8px 16px; border-radius: 20px; font-weight: bold; }
 
-    /* In-Game Chat Box */
     .game-chat {
-      position: absolute; top: 70px; right: 20px; width: 280px; height: 200px;
+      position: absolute; top: 70px; right: 20px; width: 260px; height: 180px;
       background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
       pointer-events: auto; display: flex; flex-direction: column; overflow: hidden;
     }
@@ -249,21 +157,34 @@
     }
     .chat-input-box button { background: var(--primary); border: none; color: white; padding: 0 12px; cursor: pointer; }
 
-    /* Touch Controls for Mobile */
-    .touch-controls {
-      display: none; justify-content: space-between; align-items: flex-end; width: 100%; pointer-events: auto;
+    /* Touch Pad Controls */
+    .mobile-controls {
+      position: absolute; bottom: 25px; left: 25px; right: 25px;
+      display: flex; justify-content: space-between; align-items: flex-end;
+      pointer-events: auto; z-index: 10000;
     }
-    .joystick-zone { width: 120px; height: 120px; background: rgba(255,255,255,0.1); border-radius: 50%; position: relative; }
-    .jump-btn {
-      width: 70px; height: 70px; background: rgba(255,255,255,0.2); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; border: 2px solid rgba(255,255,255,0.3);
+    .dpad {
+      display: grid; grid-template-columns: repeat(3, 50px); grid-template-rows: repeat(3, 50px); gap: 4px;
     }
+    .dpad-btn {
+      background: rgba(255, 255, 255, 0.25); border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 20px; touch-action: manipulation;
+    }
+    .dpad-btn:active { background: rgba(0, 162, 255, 0.8); }
+    .jump-btn-touch {
+      width: 75px; height: 75px; background: rgba(0, 162, 255, 0.6);
+      border: 2px solid white; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; color: white; font-size: 26px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5); touch-action: manipulation;
+    }
+    .jump-btn-touch:active { background: rgba(0, 230, 118, 0.9); }
 
     @media (max-width: 768px) {
       sidebar { width: 70px; padding: 10px 4px; }
       .nav-item span { display: none; }
-      .search-bar { width: 160px; }
-      .touch-controls { display: flex; }
+      .search-bar { width: 150px; }
+      .game-chat { width: 200px; height: 140px; }
     }
   </style>
 </head>
@@ -296,7 +217,6 @@
 
   <!-- Main Dashboard -->
   <div id="dashboard">
-    <!-- Navbar -->
     <header>
       <div class="brand">
         <i class="fa-solid fa-cube"></i>
@@ -318,13 +238,8 @@
     </header>
 
     <div class="app-body">
-      <!-- Sidebar -->
       <sidebar>
-        <div class="nav-item active" onclick="switchTab('home', this)">
-          <i class="fa-solid fa-house"></i>
-          <span>سەرەکی</span>
-        </div>
-        <div class="nav-item" onclick="switchTab('games', this)">
+        <div class="nav-item active" onclick="switchTab('games', this)">
           <i class="fa-solid fa-gamepad"></i>
           <span>یارییەکان</span>
         </div>
@@ -332,27 +247,18 @@
           <i class="fa-solid fa-shirt"></i>
           <span>دوکانی پۆشاک</span>
         </div>
-        <div class="nav-item" onclick="switchTab('avatar', this)">
-          <i class="fa-solid fa-user-gear"></i>
-          <span>کەسایەتی</span>
-        </div>
       </sidebar>
 
-      <!-- Main Section -->
       <main>
-        <!-- Home / Games Tab -->
         <div id="tab-games" class="tab-content">
           <div class="page-title">
             <i class="fa-solid fa-fire" style="color:#ff4757"></i>
             <span>یارییە سەرەکییەکان (گەشەپێدەر: rip_hama276)</span>
           </div>
 
-          <div class="games-grid" id="games-container">
-            <!-- Dynamic Games Output -->
-          </div>
+          <div class="games-grid" id="games-container"></div>
         </div>
 
-        <!-- Shop Tab -->
         <div id="tab-shop" class="tab-content" style="display:none;">
           <div class="page-title">
             <i class="fa-solid fa-store" style="color:var(--robux-gold)"></i>
@@ -366,28 +272,7 @@
               <div class="shop-item-price">20 R$</div>
               <button class="buy-btn" onclick="buyItem('kurd_flag', 20)">کڕین</button>
             </div>
-            <div class="shop-item">
-              <div class="shop-item-preview">🧢</div>
-              <div class="shop-item-name">کڵاوی هاوینە</div>
-              <div class="shop-item-price">15 R$</div>
-              <button class="buy-btn" onclick="buyItem('cap', 15)">کڕین</button>
-            </div>
-            <div class="shop-item">
-              <div class="shop-item-preview">⚔️</div>
-              <div class="shop-item-name">شمشێری زێڕین</div>
-              <div class="shop-item-price">50 R$</div>
-              <button class="buy-btn" onclick="buyItem('sword', 50)">کڕین</button>
-            </div>
           </div>
-        </div>
-
-        <!-- Avatar Editor Tab -->
-        <div id="tab-avatar" class="tab-content" style="display:none;">
-          <div class="page-title">
-            <i class="fa-solid fa-user-astronaut"></i>
-            <span>ڕێکخستنی کەسایەتی 3D</span>
-          </div>
-          <p style="color:var(--text-muted)">دەتوانیت پۆشاکی کڕدراو لێرە بپۆشیت.</p>
         </div>
       </main>
     </div>
@@ -400,17 +285,17 @@
     <div class="game-ui-overlay">
       <div class="game-top-bar">
         <button class="exit-game-btn" onclick="exitGame()">
-          <i class="fa-solid fa-door-open"></i> دەرهاتن لە یاری
+          <i class="fa-solid fa-door-open"></i> دەرهاتن
         </button>
         <div class="game-stats">
-          سکە: <span id="game-score">0</span>
+          خاڵ: <span id="game-score">0</span>
         </div>
       </div>
 
       <!-- Live Chat in Game -->
       <div class="game-chat">
         <div class="chat-messages" id="chat-messages-box">
-          <div class="chat-msg"><span class="sender owner">rip_hama276 (Owner):</span> بەخێربێن بۆ یارییەکە!</div>
+          <div class="chat-msg"><span class="sender owner">rip_hama276 (Owner):</span> بەخێربێن!</div>
         </div>
         <div class="chat-input-box">
           <input type="text" id="chat-input" placeholder="نامەیەک بنووسە..." onkeypress="if(event.key==='Enter') sendChatMessage()">
@@ -418,49 +303,35 @@
         </div>
       </div>
 
-      <!-- Touch Controls -->
-      <div class="touch-controls">
-        <div class="joystick-zone" id="joystick"></div>
-        <div class="jump-btn" id="mobile-jump-btn"><i class="fa-solid fa-arrow-up"></i></div>
+      <!-- Mobile Touch Buttons -->
+      <div class="mobile-controls">
+        <div class="dpad">
+          <div></div>
+          <div class="dpad-btn" id="btn-up"><i class="fa-solid fa-arrow-up"></i></div>
+          <div></div>
+          <div class="dpad-btn" id="btn-left"><i class="fa-solid fa-arrow-left"></i></div>
+          <div></div>
+          <div class="dpad-btn" id="btn-right"><i class="fa-solid fa-arrow-right"></i></div>
+          <div></div>
+          <div class="dpad-btn" id="btn-down"><i class="fa-solid fa-arrow-down"></i></div>
+          <div></div>
+        </div>
+        <div class="jump-btn-touch" id="btn-jump"><i class="fa-solid fa-angles-up"></i></div>
       </div>
     </div>
   </div>
 
   <script>
-    // --- Database / Persistent State ---
     let usersDB = JSON.parse(localStorage.getItem('hama_roblox_users') || '{}');
     let currentUser = localStorage.getItem('hama_roblox_current_user') || null;
     let isLoginMode = false;
 
-    // --- Games Database (Owner: rip_hama276) ---
     const gamesList = [
-      {
-        id: 'obby',
-        title: 'Kurdish Obby Parkour 🏃‍♂️',
-        creator: 'rip_hama276',
-        playing: '1.2K',
-        color: '#ff4757',
-        type: 'obby'
-      },
-      {
-        id: 'speed',
-        title: 'City Speed Simulator ⚡',
-        creator: 'rip_hama276',
-        playing: '850',
-        color: '#2ed573',
-        type: 'speed'
-      },
-      {
-        id: 'sword',
-        title: 'Sword Battles Arena ⚔️',
-        creator: 'rip_hama276',
-        playing: '2.4K',
-        color: '#1e90ff',
-        type: 'sword'
-      }
+      { id: 'obby', title: 'Kurdish Obby Parkour 🏃‍♂️', creator: 'rip_hama276', playing: '1.2K', color: '#ff4757' },
+      { id: 'speed', title: 'City Speed Simulator ⚡', creator: 'rip_hama276', playing: '850', color: '#2ed573' },
+      { id: 'sword', title: 'Sword Battles Arena ⚔️', creator: 'rip_hama276', playing: '2.4K', color: '#1e90ff' }
     ];
 
-    // --- Init App ---
     window.onload = function() {
       if (currentUser && usersDB[currentUser]) {
         showDashboard();
@@ -468,9 +339,9 @@
         document.getElementById('auth-screen').style.display = 'flex';
       }
       renderGames(gamesList);
+      setupMobileTouchEvents();
     };
 
-    // --- Auth Handlers ---
     function toggleAuthMode() {
       isLoginMode = !isLoginMode;
       document.getElementById('auth-subtitle').innerText = isLoginMode ? 'چوونەژوورەوە بۆ ئەژمارەکەت' : 'تکایە ئەژمارەکەت دروست بکە بۆ یاری کردن';
@@ -491,22 +362,14 @@
       }
 
       if (!isLoginMode) {
-        // Unique username check
         if (usersDB[username]) {
           errorEl.innerText = 'ئەم ناوە پێشتر بەکارهاتووە! ناواێکی تر هەڵبژێرە.';
           errorEl.style.display = 'block';
           return;
         }
-
-        // Create user with 20 Robux initial
-        usersDB[username] = {
-          password: password,
-          robux: 20,
-          inventory: []
-        };
+        usersDB[username] = { password: password, robux: 20, inventory: [] };
         localStorage.setItem('hama_roblox_users', JSON.stringify(usersDB));
       } else {
-        // Login check
         if (!usersDB[username] || usersDB[username].password !== password) {
           errorEl.innerText = 'ناوی بەکارهێنەر یان تێپەڕەواژە هەڵەیە!';
           errorEl.style.display = 'block';
@@ -526,7 +389,6 @@
       document.getElementById('user-avatar-btn').innerText = currentUser.charAt(0).toUpperCase();
     }
 
-    // --- Games Grid Rendering ---
     function renderGames(list) {
       const container = document.getElementById('games-container');
       container.innerHTML = '';
@@ -550,7 +412,6 @@
       renderGames(filtered);
     }
 
-    // --- Navigation Tabs ---
     function switchTab(tabName, el) {
       document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
       el.classList.add('active');
@@ -558,7 +419,6 @@
       document.getElementById('tab-' + tabName).style.display = 'block';
     }
 
-    // --- Shop System ---
     function buyItem(itemKey, price) {
       const uData = usersDB[currentUser];
       if (uData.robux < price) {
@@ -566,7 +426,7 @@
         return;
       }
       if (uData.inventory.includes(itemKey)) {
-        alert('ئەم یارییە/پۆشاکەت پێشتر کڕیوە!');
+        alert('ئەم پۆشاکەت پێشتر کڕیوە!');
         return;
       }
 
@@ -577,15 +437,31 @@
       alert('بەسەرکەوتوویی کڕدرا!');
     }
 
-    // --- 3D Roblox Game Engine (Three.js) ---
+    // --- 3D Roblox Engine ---
     let scene, camera, renderer, player, animationId;
     let score = 0;
-    let keys = {};
+    let keys = { up: false, down: false, left: false, right: false, jump: false };
+
+    function setupMobileTouchEvents() {
+      const bindTouch = (id, keyName) => {
+        const btn = document.getElementById(id);
+        if(!btn) return;
+        btn.addEventListener('touchstart', (e) => { e.preventDefault(); keys[keyName] = true; });
+        btn.addEventListener('touchend', (e) => { e.preventDefault(); keys[keyName] = false; });
+        btn.addEventListener('mousedown', () => { keys[keyName] = true; });
+        btn.addEventListener('mouseup', () => { keys[keyName] = false; });
+      };
+
+      bindTouch('btn-up', 'up');
+      bindTouch('btn-down', 'down');
+      bindTouch('btn-left', 'left');
+      bindTouch('btn-right', 'right');
+      bindTouch('btn-jump', 'jump');
+    }
 
     function startGame(gameType) {
       document.getElementById('game-container').style.display = 'flex';
       score = 0;
-      document.getElementById('game-score').innerText = score;
 
       const canvas = document.getElementById('game-canvas');
       scene = new THREE.Scene();
@@ -595,26 +471,22 @@
       renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
       renderer.setSize(window.innerWidth, window.innerHeight);
 
-      // Light
       const light = new THREE.DirectionalLight(0xffffff, 1);
       light.position.set(10, 20, 10);
       scene.add(light);
       scene.add(new THREE.AmbientLight(0x404040));
 
-      // Player Block (Roblox Style)
       const playerGroup = new THREE.Group();
       const bodyGeo = new THREE.BoxGeometry(1, 1.5, 0.8);
       
-      // Check if user has Kurdistan Flag Shirt
       let bodyMat = new THREE.MeshLambertMaterial({ color: 0x00a2ff });
       if (usersDB[currentUser].inventory.includes('kurd_flag')) {
-        bodyMat = new THREE.MeshLambertMaterial({ color: 0xce1126 }); // Kurdistan red base
+        bodyMat = new THREE.MeshLambertMaterial({ color: 0xce1126 });
       }
 
       const bodyMesh = new THREE.Mesh(bodyGeo, bodyMat);
       playerGroup.add(bodyMesh);
 
-      // Head
       const headGeo = new THREE.BoxGeometry(0.8, 0.8, 0.8);
       const headMat = new THREE.MeshLambertMaterial({ color: 0xffdbac });
       const headMesh = new THREE.Mesh(headGeo, headMat);
@@ -625,63 +497,70 @@
       player.position.set(0, 2, 0);
       scene.add(player);
 
-      // Ground/World according to game type
-      if (gameType === 'obby') {
-        createObbyWorld();
-      } else {
-        createGeneralWorld();
-      }
-
-      camera.position.set(0, 5, 8);
-      camera.lookAt(player.position);
-
-      // Input
-      window.addEventListener('keydown', onKeyDown);
-      window.addEventListener('keyup', onKeyUp);
-
-      animate();
-    }
-
-    function createObbyWorld() {
-      // Obby Blocks
-      for (let i = 0; i < 15; i++) {
-        const platform = new THREE.Mesh(
-          new THREE.BoxGeometry(3, 0.5, 3),
-          new THREE.MeshLambertMaterial({ color: i % 2 === 0 ? 0xff4757 : 0x2ed573 })
-        );
-        platform.position.set(0, 0, -i * 5);
-        scene.add(platform);
-      }
-    }
-
-    function createGeneralWorld() {
+      // Floor & Obby Blocks
       const floor = new THREE.Mesh(
         new THREE.PlaneGeometry(100, 100),
         new THREE.MeshLambertMaterial({ color: 0x333333 })
       );
       floor.rotation.x = -Math.PI / 2;
       scene.add(floor);
+
+      for (let i = 0; i < 10; i++) {
+        const block = new THREE.Mesh(
+          new THREE.BoxGeometry(3, 0.5, 3),
+          new THREE.MeshLambertMaterial({ color: i % 2 === 0 ? 0xff4757 : 0x00e676 })
+        );
+        block.position.set(0, 0.2, -i * 6 - 5);
+        scene.add(block);
+      }
+
+      camera.position.set(0, 5, 8);
+      camera.lookAt(player.position);
+
+      window.addEventListener('keydown', onKeyDown);
+      window.addEventListener('keyup', onKeyUp);
+
+      animate();
     }
 
-    function onKeyDown(e) { keys[e.code] = true; }
-    function onKeyUp(e) { keys[e.code] = false; }
+    function onKeyDown(e) {
+      if (e.code === 'KeyW' || e.code === 'ArrowUp') keys.up = true;
+      if (e.code === 'KeyS' || e.code === 'ArrowDown') keys.down = true;
+      if (e.code === 'KeyA' || e.code === 'ArrowLeft') keys.left = true;
+      if (e.code === 'KeyD' || e.code === 'ArrowRight') keys.right = true;
+      if (e.code === 'Space') keys.jump = true;
+    }
+
+    function onKeyUp(e) {
+      if (e.code === 'KeyW' || e.code === 'ArrowUp') keys.up = false;
+      if (e.code === 'KeyS' || e.code === 'ArrowDown') keys.down = false;
+      if (e.code === 'KeyA' || e.code === 'ArrowLeft') keys.left = false;
+      if (e.code === 'KeyD' || e.code === 'ArrowRight') keys.right = false;
+      if (e.code === 'Space') keys.jump = false;
+    }
 
     function animate() {
       animationId = requestAnimationFrame(animate);
 
-      // Movement
-      if (keys['KeyW'] || keys['ArrowUp']) player.position.z -= 0.15;
-      if (keys['KeyS'] || keys['ArrowDown']) player.position.z += 0.15;
-      if (keys['KeyA'] || keys['ArrowLeft']) player.position.x -= 0.15;
-      if (keys['KeyD'] || keys['ArrowRight']) player.position.x += 0.15;
-      if (keys['Space']) player.position.y = Math.min(player.position.y + 0.1, 5);
-      
-      // Gravity simulation
-      if (player.position.y > 1) player.position.y -= 0.05;
+      const speed = 0.2;
+      if (keys.up) player.position.z -= speed;
+      if (keys.down) player.position.z += speed;
+      if (keys.left) player.position.x -= speed;
+      if (keys.right) player.position.x += speed;
 
-      // Camera Follow
+      if (keys.jump && player.position.y <= 1.05) {
+        player.position.y = 3.5;
+      }
+
+      // Gravity
+      if (player.position.y > 1.0) {
+        player.position.y -= 0.12;
+      } else {
+        player.position.y = 1.0;
+      }
+
       camera.position.x = player.position.x;
-      camera.position.z = player.position.z + 7;
+      camera.position.z = player.position.z + 8;
       camera.lookAt(player.position);
 
       renderer.render(scene, camera);
@@ -692,7 +571,6 @@
       document.getElementById('game-container').style.display = 'none';
     }
 
-    // --- Chat System ---
     function sendChatMessage() {
       const input = document.getElementById('chat-input');
       const text = input.value.trim();

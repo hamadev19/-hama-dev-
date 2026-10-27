@@ -184,7 +184,7 @@
     }
     .game-stats { background: rgba(0,0,0,0.85); padding: 8px 16px; border-radius: 20px; font-weight: bold; display: flex; gap: 16px; color: #fff; font-size:14px; border:1px solid #444; }
 
-    /* Game Shops Overlay */
+    /* In-game Upgrades Shops */
     .in-game-shops {
       position: absolute; top: 75px; left: 20px; display: flex; flex-direction: column; gap: 10px; pointer-events: auto; z-index: 10005;
     }
@@ -336,7 +336,7 @@
       </div>
 
       <div class="admin-section">
-        <label style="font-size:13px; font-weight:bold;"><i class="fa-solid fa-wand-magic-sparkles"></i> سپاون کردنی هێلکەکان:</label>
+        <label style="font-size:13px; font-weight:bold;"><i class="fa-solid fa-wand-magic-sparkles"></i> سپاون کردنی 5 هێلکەی ڕەنگاوڕەنگ:</label>
         <button class="admin-action-btn" style="background:var(--roblox-red); color:white;" onclick="spawnMutationsFromAdmin()">✨ 5 Mutations سپاون بکە لە ناو یارییەکەدا</button>
       </div>
 
@@ -357,7 +357,7 @@
         <button class="exit-game-btn" onclick="exitGame()"><i class="fa-solid fa-door-open"></i> دەرچوون (Leave)</button>
         <div class="game-stats">
           <span>خاڵ: <span id="game-score">0</span></span>
-          <span>🥚 هێلکەی ڕادەکێشرێت: <span id="carried-count">0</span>/<span id="max-capacity">1</span></span>
+          <span>🥚 هێلکە: <span id="carried-count">0</span>/<span id="max-capacity">1</span></span>
           <span>⚡ خێرایی: <span id="speed-display">25</span></span>
         </div>
       </div>
@@ -386,7 +386,7 @@
 
       <div class="game-chat">
         <div class="chat-messages" id="chat-messages-box">
-          <div class="chat-msg"><span class="sender owner">rip_hama276 (Owner):</span> بەخێربێن بۆ Steal An Egg! دیاری هێلکەکان ببەرەوە.</div>
+          <div class="chat-msg"><span class="sender owner">rip_hama276 (Owner):</span> بەخێربێن بۆ Steal An Egg! هێلکەکان بگوێزەوە بنکە.</div>
         </div>
         <div class="chat-input-box">
           <input type="text" id="chat-input" placeholder="نوسینی پەیام..." onkeydown="if(event.key==='Enter') sendGameChatMessage()">
@@ -526,6 +526,12 @@
 
       usersDB[targetUser].robux += amount;
       localStorage.setItem('roblox_kur_users', JSON.stringify(usersDB));
+      
+      // Update UI if current user received Robux
+      if (currentUser === targetUser) {
+        document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+      }
+
       alert(`بەسەرکەوتوویی ${amount} R$ بەخشرا بە ${targetUser}!`);
       document.getElementById('robux-target-user').value = '';
       document.getElementById('robux-target-amount').value = '';
@@ -543,8 +549,10 @@
       closeAdminPanel();
     }
 
+    let mutationsActiveFromAdmin = false;
     function spawnMutationsFromAdmin() {
-      alert('✨ 5 هێلکەی زێڕین سپاون کران!');
+      mutationsActiveFromAdmin = true;
+      alert('✨ 5 هێلکەی ڕەنگاوڕەنگ و بەنرخ سپاون کران!');
       closeAdminPanel();
     }
 
@@ -581,7 +589,7 @@
       document.getElementById('tab-' + tabName).style.display = 'block';
     }
 
-    /* --- 3D Steal An Egg Engine with Chicken & Rotation & Shops --- */
+    /* --- 3D Steal An Egg Engine --- */
     let scene, camera, renderer, player, leftArm, rightArm, leftLeg, rightLeg, chickenGuard, animationId;
     let animTime = 0;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
@@ -627,7 +635,7 @@
 
     function startGame(gameType) {
       document.getElementById('game-container').style.display = 'flex';
-      gameScore = 0; carriedEggs = 0;
+      gameScore = 0; carriedEggs = 0; isChasing = false;
       document.getElementById('game-score').innerText = gameScore;
       document.getElementById('carried-count').innerText = carriedEggs;
 
@@ -644,7 +652,7 @@
       scene.add(light);
       scene.add(new THREE.AmbientLight(0x505050));
 
-      // Player Roblox Avatar Mesh
+      // Player Avatar
       player = new THREE.Group();
       let shirtColor = (currentUser === 'rip_hama276') ? 0xe21b1b : 0x00a2ff;
       const torso = new THREE.Mesh(new THREE.BoxGeometry(1, 1.2, 0.6), new THREE.MeshLambertMaterial({ color: shirtColor }));
@@ -665,7 +673,7 @@
       player.position.set(0, 1, 12);
       scene.add(player);
 
-      // AI Guard Chicken Mesh
+      // AI Guard Chicken
       chickenGuard = new THREE.Group();
       const chBody = new THREE.Mesh(new THREE.SphereGeometry(0.8, 16, 16), new THREE.MeshLambertMaterial({ color: 0xffffff }));
       chBody.position.y = 0.8; chickenGuard.add(chBody);
@@ -674,23 +682,25 @@
       const chComb = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.4, 0.4), new THREE.MeshLambertMaterial({ color: 0xe74c3c }));
       chComb.position.set(0, 1.6, 0); chickenGuard.add(chComb);
 
-      chickenGuard.position.set(0, 0, -5);
+      chickenGuard.position.set(0, 0, -6);
       scene.add(chickenGuard);
 
       // Floor & Home Base
-      const floor = new THREE.Mesh(new THREE.PlaneGeometry(80, 80), new THREE.MeshLambertMaterial({ color: 0x27ae60 }));
+      const floor = new THREE.Mesh(new THREE.PlaneGeometry(90, 90), new THREE.MeshLambertMaterial({ color: 0x27ae60 }));
       floor.rotation.x = -Math.PI / 2; scene.add(floor);
 
-      const homeBase = new THREE.Mesh(new THREE.CylinderGeometry(3, 3, 0.1, 32), new THREE.MeshLambertMaterial({ color: 0x2980b9 }));
+      const homeBase = new THREE.Mesh(new THREE.CylinderGeometry(3.5, 3.5, 0.1, 32), new THREE.MeshLambertMaterial({ color: 0x2980b9 }));
       homeBase.position.set(0, 0.05, 12); scene.add(homeBase);
 
-      // Spawning Eggs
+      // Spawning 5 colorful eggs
       eggsList.forEach(e => scene.remove(e));
       eggsList = [];
-      for (let i = 0; i < 6; i++) {
-        const eggGeo = new THREE.SphereGeometry(0.4, 16, 16); eggGeo.scale(1, 1.3, 1);
-        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: 0xf1c40f }));
-        egg.position.set((Math.random() - 0.5) * 20, 0.5, -Math.random() * 15);
+      const eggColors = [0xf1c40f, 0x9b59b6, 0xe74c3c, 0x3498db, 0x2ecc71];
+      for (let i = 0; i < 5; i++) {
+        const eggGeo = new THREE.SphereGeometry(0.45, 16, 16); eggGeo.scale(1, 1.3, 1);
+        const eggMat = new THREE.MeshLambertMaterial({ color: eggColors[i], emissive: eggColors[i], emissiveIntensity: 0.3 });
+        const egg = new THREE.Mesh(eggGeo, eggMat);
+        egg.position.set((Math.random() - 0.5) * 22, 0.5, -Math.random() * 18 - 2);
         scene.add(egg);
         eggsList.push(egg);
       }
@@ -752,18 +762,18 @@
 
       // Picking Eggs Logic
       eggsList.forEach((egg, idx) => {
-        if (egg && carriedEggs < maxCapacity && player.position.distanceTo(egg.position) < 1.3) {
+        if (egg && carriedEggs < maxCapacity && player.position.distanceTo(egg.position) < 1.4) {
           scene.remove(egg);
           eggsList[idx] = null;
           carriedEggs++;
           document.getElementById('carried-count').innerText = carriedEggs;
-          isChasing = true; // Trigger AI Chicken Chase!
+          isChasing = true;
         }
       });
 
-      // Depositing Eggs at Home Base (0, 1, 12)
-      if (carriedEggs > 0 && player.position.distanceTo(new THREE.Vector3(0, 1, 12)) < 2.5) {
-        gameScore += carriedEggs * 200;
+      // Depositing at Home Base (0, 1, 12)
+      if (carriedEggs > 0 && player.position.distanceTo(new THREE.Vector3(0, 1, 12)) < 3.0) {
+        gameScore += carriedEggs * 250;
         carriedEggs = 0;
         isChasing = false;
         document.getElementById('game-score').innerText = gameScore;
@@ -773,15 +783,14 @@
       // AI Chicken Chase Logic
       if (isChasing && carriedEggs > 0) {
         chickenGuard.lookAt(player.position);
-        chickenGuard.translateZ(0.18); // Chasing speed
+        chickenGuard.translateZ(0.19);
 
-        // If Chicken Catches Player
         if (chickenGuard.position.distanceTo(player.position) < 1.4) {
-          alert('🐔 مریشکی پاسەوان گرتیتی! هێلکەکەی لێ وەرگرتیتەوە.');
+          alert('🐔 مریشکی پاسەوان گرتیتی و هێلکەکەی لێ وەرگرتیتەوە!');
           carriedEggs = 0;
           isChasing = false;
           player.position.set(0, 1, 12);
-          chickenGuard.position.set(0, 0, -5);
+          chickenGuard.position.set(0, 0, -6);
           document.getElementById('carried-count').innerText = carriedEggs;
         }
       }

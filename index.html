@@ -166,11 +166,11 @@
     .kick-btn { background: #f39c12; color: white; border: none; padding: 4px 6px; border-radius: 4px; cursor: pointer; font-size: 11px; }
     .ban-btn { background: var(--admin-red); color: white; border: none; padding: 4px 6px; border-radius: 4px; cursor: pointer; font-size: 11px; }
 
-    /* In-Game 3D Shop Modal / Popup */
+    /* In-Game 3D Shop Modal */
     #shop-modal {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
       background: rgba(25, 27, 31, 0.95); border: 2px solid var(--robux-gold); border-radius: 16px;
-      width: 320px; padding: 20px; z-index: 10008; display: none; flex-direction: column; gap: 14px; pointer-events: auto;
+      width: 340px; max-height: 80vh; overflow-y: auto; padding: 20px; z-index: 10008; display: none; flex-direction: column; gap: 14px; pointer-events: auto;
       box-shadow: 0 10px 30px rgba(0,0,0,0.8);
     }
     .shop-modal-header { display: flex; justify-content: space-between; align-items: center; color: var(--robux-gold); font-weight: bold; font-size: 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
@@ -354,37 +354,26 @@
   <div id="game-container">
     <canvas id="game-canvas"></canvas>
     
-    <!-- 3D Shop In-Game Modal (Appears when player touches the shop booth on the map) -->
+    <!-- 3D Shop In-Game Modal -->
     <div id="shop-modal">
       <div class="shop-modal-header">
         <span><i class="fa-solid fa-store"></i> شۆپی فەرمی Steal An Egg</span>
         <button class="shop-close-btn" onclick="closeShopModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="shop-items-list">
-        <div class="shop-item-row">
-          <span>⚡ خێرایی 28 (10 R$)</span>
-          <button class="shop-buy-action-btn" onclick="buySpeed(28, 10)">کڕین</button>
-        </div>
-        <div class="shop-item-row">
-          <span>⚡ خێرایی 29 (20 R$)</span>
-          <button class="shop-buy-action-btn" onclick="buySpeed(29, 20)">کڕین</button>
-        </div>
-        <div class="shop-item-row">
-          <span>⚡ خێرایی 30 (35 R$)</span>
-          <button class="shop-buy-action-btn" onclick="buySpeed(30, 35)">کڕین</button>
-        </div>
-        <div class="shop-item-row">
-          <span>⚡ خێرایی 40 (50 R$)</span>
-          <button class="shop-buy-action-btn" onclick="buySpeed(40, 50)">کڕین</button>
-        </div>
-        <div class="shop-item-row">
-          <span>🥚 2 هێلکە (15 R$)</span>
-          <button class="shop-buy-action-btn" onclick="buyCapacity(2, 15)">کڕین</button>
-        </div>
-        <div class="shop-item-row">
-          <span>🥚 3 هێلکە (30 R$)</span>
-          <button class="shop-buy-action-btn" onclick="buyCapacity(3, 30)">کڕین</button>
-        </div>
+        <div style="font-weight:bold; color:var(--robux-gold); font-size:12px; margin-top:4px;">⚡ بەرزکردنەوەی خێرایی (Up to 100 Speed):</div>
+        <div class="shop-item-row"><span>⚡ خێرایی 28</span><button class="shop-buy-action-btn" onclick="buySpeed(28, 10)">10 R$</button></div>
+        <div class="shop-item-row"><span>⚡ خێرایی 30</span><button class="shop-buy-action-btn" onclick="buySpeed(30, 20)">20 R$</button></div>
+        <div class="shop-item-row"><span>⚡ خێرایی 40</span><button class="shop-buy-action-btn" onclick="buySpeed(40, 35)">35 R$</button></div>
+        <div class="shop-item-row"><span>⚡ خێرایی 60</span><button class="shop-buy-action-btn" onclick="buySpeed(60, 50)">50 R$</button></div>
+        <div class="shop-item-row"><span>⚡ خێرایی 80</span><button class="shop-buy-action-btn" onclick="buySpeed(80, 75)">75 R$</button></div>
+        <div class="shop-item-row"><span>⚡ خێرایی 100</span><button class="shop-buy-action-btn" onclick="buySpeed(100, 100)">100 R$</button></div>
+        
+        <div style="font-weight:bold; color:var(--robux-gold); font-size:12px; margin-top:8px;">🥚 هەڵگرتنی هێلکە (Up to 5 Eggs):</div>
+        <div class="shop-item-row"><span>🥚 2 هێلکە</span><button class="shop-buy-action-btn" onclick="buyCapacity(2, 15)">15 R$</button></div>
+        <div class="shop-item-row"><span>🥚 3 هێلکە</span><button class="shop-buy-action-btn" onclick="buyCapacity(3, 30)">30 R$</button></div>
+        <div class="shop-item-row"><span>🥚 4 هێلکە</span><button class="shop-buy-action-btn" onclick="buyCapacity(4, 50)">50 R$</button></div>
+        <div class="shop-item-row"><span>🥚 5 هێلکە</span><button class="shop-buy-action-btn" onclick="buyCapacity(5, 80)">80 R$</button></div>
       </div>
     </div>
 
@@ -400,7 +389,7 @@
 
       <div class="game-chat">
         <div class="chat-messages" id="chat-messages-box">
-          <div class="chat-msg"><span class="sender owner">rip_hama276 (Owner):</span> بەخێربێن بۆ Steal An Egg! بڕۆ ناو شۆپەکە بۆ کڕینی خێرایی و توانای هێلکە.</div>
+          <div class="chat-msg"><span class="sender owner">rip_hama276 (Owner):</span> بەخێربێن بۆ Steal An Egg! ناوچەی زێڕینی 2X بپشکنە!</div>
         </div>
         <div class="chat-input-box">
           <input type="text" id="chat-input" placeholder="نوسینی پەیام..." onkeydown="if(event.key==='Enter') sendGameChatMessage()">
@@ -578,10 +567,9 @@
       closeAdminPanel();
     }
 
-    let mutationsActiveFromAdmin = false;
     function spawnMutationsFromAdmin() {
-      mutationsActiveFromAdmin = true;
-      alert('✨ 5 هێلکەی ڕەنگاوڕەنگ و بەنرخ سپاون کران!');
+      if(typeof spawnAllEggs === 'function') spawnAllEggs();
+      alert('✨ 5 هێلکەی بەنرخی زێڕین و ڕەنگاوڕەنگ سپاون کران!');
       closeAdminPanel();
     }
 
@@ -618,13 +606,14 @@
       document.getElementById('tab-' + tabName).style.display = 'block';
     }
 
-    /* --- 3D Steal An Egg Engine with 3D Physical Shop Booth --- */
+    /* --- 3D Steal An Egg Engine --- */
     let scene, camera, renderer, player, leftArm, rightArm, leftLeg, rightLeg, chickenGuard, shopBooth, animationId;
     let animTime = 0;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
     
     let gameScore = 0;
     let carriedEggs = 0;
+    let carriedValueMultiplier = 1;
     let maxCapacity = 1;
     let playerSpeed = 0.25;
     let eggsList = [];
@@ -651,11 +640,9 @@
         alert('ڕووبوکس (Robux)ت پێنییە بۆ کڕینی توانای هەڵگرتن!'); 
         return; 
       }
-      if (robuxCost > 0) {
-        usersDB[currentUser].robux -= robuxCost;
-        localStorage.setItem('roblox_kur_users', JSON.stringify(usersDB));
-        document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      }
+      usersDB[currentUser].robux -= robuxCost;
+      localStorage.setItem('roblox_kur_users', JSON.stringify(usersDB));
+      document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
 
       maxCapacity = capVal;
       document.getElementById('max-capacity').innerText = maxCapacity;
@@ -682,9 +669,37 @@
       bindTouch('btn-jump', 'jump');
     }
 
+    function spawnAllEggs() {
+      eggsList.forEach(e => { if(e) scene.remove(e); });
+      eggsList = [];
+      const eggColors = [0xf1c40f, 0x9b59b6, 0xe74c3c, 0x3498db, 0x2ecc71];
+      
+      // Normal Zone Eggs (1X Value)
+      for (let i = 0; i < 3; i++) {
+        const eggGeo = new THREE.SphereGeometry(0.45, 16, 16); eggGeo.scale(1, 1.3, 1);
+        const eggMat = new THREE.MeshLambertMaterial({ color: eggColors[i], emissive: eggColors[i], emissiveIntensity: 0.3 });
+        const egg = new THREE.Mesh(eggGeo, eggMat);
+        egg.position.set((Math.random() - 0.5) * 20, 0.5, -Math.random() * 10 - 2);
+        egg.userData = { is2X: false };
+        scene.add(egg);
+        eggsList.push(egg);
+      }
+
+      // Golden 2X Zone Eggs (2X Robux/Points Value)
+      for (let i = 3; i < 5; i++) {
+        const eggGeo = new THREE.SphereGeometry(0.55, 16, 16); eggGeo.scale(1, 1.3, 1);
+        const eggMat = new THREE.MeshLambertMaterial({ color: 0xffd700, emissive: 0xffa500, emissiveIntensity: 0.6 });
+        const egg = new THREE.Mesh(eggGeo, eggMat);
+        egg.position.set((Math.random() - 0.5) * 12, 0.5, -Math.random() * 8 - 20); // Deep in 2X Zone
+        egg.userData = { is2X: true };
+        scene.add(egg);
+        eggsList.push(egg);
+      }
+    }
+
     function startGame(gameType) {
       document.getElementById('game-container').style.display = 'flex';
-      gameScore = 0; carriedEggs = 0; isChasing = false; shopOpen = false;
+      gameScore = 0; carriedEggs = 0; carriedValueMultiplier = 1; isChasing = false; shopOpen = false;
       document.getElementById('game-score').innerText = gameScore;
       document.getElementById('carried-count').innerText = carriedEggs;
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
@@ -735,7 +750,7 @@
       chickenGuard.position.set(0, 0, -6);
       scene.add(chickenGuard);
 
-      // 3D Physical Shop Booth on the map
+      // 3D Physical Shop Booth
       shopBooth = new THREE.Group();
       const boothBase = new THREE.Mesh(new THREE.BoxGeometry(3, 1.5, 2), new THREE.MeshLambertMaterial({ color: 0xe67e22 }));
       boothBase.position.y = 0.75; shopBooth.add(boothBase);
@@ -748,21 +763,14 @@
       const floor = new THREE.Mesh(new THREE.PlaneGeometry(90, 90), new THREE.MeshLambertMaterial({ color: 0x27ae60 }));
       floor.rotation.x = -Math.PI / 2; scene.add(floor);
 
+      // Golden 2X Zone Floor (New Area)
+      const zone2X = new THREE.Mesh(new THREE.PlaneGeometry(30, 20), new THREE.MeshLambertMaterial({ color: 0xd4af37 }));
+      zone2X.rotation.x = -Math.PI / 2; zone2X.position.set(0, 0.02, -24); scene.add(zone2X);
+
       const homeBase = new THREE.Mesh(new THREE.CylinderGeometry(3.5, 3.5, 0.1, 32), new THREE.MeshLambertMaterial({ color: 0x2980b9 }));
       homeBase.position.set(0, 0.05, 12); scene.add(homeBase);
 
-      // Spawning 5 colorful eggs
-      eggsList.forEach(e => scene.remove(e));
-      eggsList = [];
-      const eggColors = [0xf1c40f, 0x9b59b6, 0xe74c3c, 0x3498db, 0x2ecc71];
-      for (let i = 0; i < 5; i++) {
-        const eggGeo = new THREE.SphereGeometry(0.45, 16, 16); eggGeo.scale(1, 1.3, 1);
-        const eggMat = new THREE.MeshLambertMaterial({ color: eggColors[i], emissive: eggColors[i], emissiveIntensity: 0.3 });
-        const egg = new THREE.Mesh(eggGeo, eggMat);
-        egg.position.set((Math.random() - 0.5) * 22, 0.5, -Math.random() * 18 - 2);
-        scene.add(egg);
-        eggsList.push(egg);
-      }
+      spawnAllEggs();
 
       camera.position.set(0, 6, 20);
       camera.lookAt(player.position);
@@ -818,7 +826,7 @@
       if (player.position.y > 1.0) player.position.y -= 0.12;
       else player.position.y = 1.0;
 
-      // Check if player enters Shop Booth area (-8, 5)
+      // Check if player enters Shop Booth
       if (!shopOpen && player.position.distanceTo(shopBooth.position) < 2.5) {
         shopOpen = true;
         document.getElementById('shop-modal').style.display = 'flex';
@@ -826,8 +834,12 @@
         closeShopModal();
       }
 
+      // Picking Eggs Logic
       eggsList.forEach((egg, idx) => {
         if (egg && carriedEggs < maxCapacity && player.position.distanceTo(egg.position) < 1.4) {
+          if (egg.userData && egg.userData.is2X) {
+            carriedValueMultiplier = 2; // Double points for 2X golden zone egg!
+          }
           scene.remove(egg);
           eggsList[idx] = null;
           carriedEggs++;
@@ -836,12 +848,27 @@
         }
       });
 
+      // Automatic Respawn Loop when all eggs picked
+      if (eggsList.length > 0 && eggsList.every(e => e === null)) {
+        spawnAllEggs();
+      }
+
+      // Depositing at Home Base (0, 1, 12)
       if (carriedEggs > 0 && player.position.distanceTo(new THREE.Vector3(0, 1, 12)) < 3.0) {
-        gameScore += carriedEggs * 250;
+        let pointsEarned = carriedEggs * 250 * carriedValueMultiplier;
+        let robuxEarned = carriedEggs * 5 * carriedValueMultiplier;
+        
+        gameScore += pointsEarned;
+        usersDB[currentUser].robux += robuxEarned;
+        localStorage.setItem('roblox_kur_users', JSON.stringify(usersDB));
+
         carriedEggs = 0;
+        carriedValueMultiplier = 1;
         isChasing = false;
+
         document.getElementById('game-score').innerText = gameScore;
         document.getElementById('carried-count').innerText = carriedEggs;
+        document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
       }
 
       if (isChasing && carriedEggs > 0) {
@@ -851,6 +878,7 @@
         if (chickenGuard.position.distanceTo(player.position) < 1.4) {
           alert('🐔 مریشکی پاسەوان گرتیتی و هێلکەکەی لێ وەرگرتیتەوە!');
           carriedEggs = 0;
+          carriedValueMultiplier = 1;
           isChasing = false;
           player.position.set(0, 1, 12);
           chickenGuard.position.set(0, 0, -6);

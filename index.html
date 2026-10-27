@@ -144,8 +144,6 @@
     .ai-input-area input {
       flex: 1; background: #141518; border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; color: white; font-size: 14px; outline: none;
     }
-    .ai-tool-btn { background: transparent; border: none; color: var(--text-muted); font-size: 18px; cursor: pointer; padding: 6px; }
-    .ai-tool-btn:hover { color: var(--roblox-red); }
 
     /* Admin Modal */
     #admin-modal {
@@ -168,6 +166,20 @@
     .kick-btn { background: #f39c12; color: white; border: none; padding: 4px 6px; border-radius: 4px; cursor: pointer; font-size: 11px; }
     .ban-btn { background: var(--admin-red); color: white; border: none; padding: 4px 6px; border-radius: 4px; cursor: pointer; font-size: 11px; }
 
+    /* In-Game 3D Shop Modal / Popup */
+    #shop-modal {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: rgba(25, 27, 31, 0.95); border: 2px solid var(--robux-gold); border-radius: 16px;
+      width: 320px; padding: 20px; z-index: 10008; display: none; flex-direction: column; gap: 14px; pointer-events: auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+    .shop-modal-header { display: flex; justify-content: space-between; align-items: center; color: var(--robux-gold); font-weight: bold; font-size: 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+    .shop-close-btn { background: transparent; border: none; color: white; font-size: 18px; cursor: pointer; }
+    .shop-items-list { display: flex; flex-direction: column; gap: 8px; }
+    .shop-item-row { display: flex; justify-content: space-between; align-items: center; background: #141518; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 13px; }
+    .shop-buy-action-btn { background: var(--robux-gold); color: #000; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 12px; }
+    .shop-buy-action-btn:hover { background: #00c853; }
+
     /* Game Canvas Container & UI Overlay */
     #game-container {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -184,20 +196,6 @@
       border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px;
     }
     .game-stats { background: rgba(0,0,0,0.85); padding: 8px 16px; border-radius: 20px; font-weight: bold; display: flex; gap: 16px; color: #fff; font-size:14px; border:1px solid #444; }
-
-    /* In-game Upgrades Robux Shops */
-    .in-game-shops {
-      position: absolute; top: 75px; left: 20px; display: flex; flex-direction: column; gap: 10px; pointer-events: auto; z-index: 10005;
-    }
-    .shop-box {
-      background: rgba(25, 27, 31, 0.95); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; color: white; width: 220px;
-    }
-    .shop-box h4 { font-size: 13px; margin-bottom: 6px; color: var(--robux-gold); display: flex; align-items: center; gap: 6px; }
-    .shop-btn-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
-    .shop-buy-btn {
-      background: #2b2e38; border: 1px solid var(--border); color: white; padding: 6px; border-radius: 6px; font-size: 11px; cursor: pointer; text-align: center;
-    }
-    .shop-buy-btn:hover { background: var(--robux-gold); color: #000; }
 
     .game-chat {
       position: absolute; top: 75px; right: 20px; width: 280px; height: 180px;
@@ -310,7 +308,6 @@
             </div>
             <div class="ai-input-area">
               <input type="text" id="ai-input" placeholder="لێرە نوسین یان پرسیارەکەت بنووسە..." onkeydown="if(event.key==='Enter') sendAIMessage()">
-              <button class="auth-btn" style="width: auto; padding: 10px 20px;" onclick="sendAIMessage()">ناردن</button>
             </div>
           </div>
         </div>
@@ -356,6 +353,41 @@
   <!-- Game Canvas Container -->
   <div id="game-container">
     <canvas id="game-canvas"></canvas>
+    
+    <!-- 3D Shop In-Game Modal (Appears when player touches the shop booth on the map) -->
+    <div id="shop-modal">
+      <div class="shop-modal-header">
+        <span><i class="fa-solid fa-store"></i> شۆپی فەرمی Steal An Egg</span>
+        <button class="shop-close-btn" onclick="closeShopModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="shop-items-list">
+        <div class="shop-item-row">
+          <span>⚡ خێرایی 28 (10 R$)</span>
+          <button class="shop-buy-action-btn" onclick="buySpeed(28, 10)">کڕین</button>
+        </div>
+        <div class="shop-item-row">
+          <span>⚡ خێرایی 29 (20 R$)</span>
+          <button class="shop-buy-action-btn" onclick="buySpeed(29, 20)">کڕین</button>
+        </div>
+        <div class="shop-item-row">
+          <span>⚡ خێرایی 30 (35 R$)</span>
+          <button class="shop-buy-action-btn" onclick="buySpeed(30, 35)">کڕین</button>
+        </div>
+        <div class="shop-item-row">
+          <span>⚡ خێرایی 40 (50 R$)</span>
+          <button class="shop-buy-action-btn" onclick="buySpeed(40, 50)">کڕین</button>
+        </div>
+        <div class="shop-item-row">
+          <span>🥚 2 هێلکە (15 R$)</span>
+          <button class="shop-buy-action-btn" onclick="buyCapacity(2, 15)">کڕین</button>
+        </div>
+        <div class="shop-item-row">
+          <span>🥚 3 هێلکە (30 R$)</span>
+          <button class="shop-buy-action-btn" onclick="buyCapacity(3, 30)">کڕین</button>
+        </div>
+      </div>
+    </div>
+
     <div class="game-ui-overlay">
       <div class="game-top-bar">
         <button class="exit-game-btn" onclick="exitGame()"><i class="fa-solid fa-door-open"></i> دەرچوون (Leave)</button>
@@ -366,31 +398,9 @@
         </div>
       </div>
 
-      <!-- In-game Robux Upgrades Shops -->
-      <div class="in-game-shops">
-        <div class="shop-box">
-          <h4><i class="fa-solid fa-bolt"></i> شۆپی خێرایی (بە ڕۆبوکس)</h4>
-          <div class="shop-btn-grid">
-            <button class="shop-buy-btn" onclick="buySpeed(28, 10)">⚡ 28 (10 R$)</button>
-            <button class="shop-buy-btn" onclick="buySpeed(29, 20)">⚡ 29 (20 R$)</button>
-            <button class="shop-buy-btn" onclick="buySpeed(30, 35)">⚡ 30 (35 R$)</button>
-            <button class="shop-buy-btn" onclick="buySpeed(40, 50)">⚡ 40 (50 R$)</button>
-          </div>
-        </div>
-
-        <div class="shop-box">
-          <h4><i class="fa-solid fa-egg"></i> شۆپی هەڵگرتن (بە ڕۆبوکس)</h4>
-          <div class="shop-btn-grid">
-            <button class="shop-buy-btn" onclick="buyCapacity(1, 0)">🥚 1 هێلکە (ڕوڕایی)</button>
-            <button class="shop-buy-btn" onclick="buyCapacity(2, 15)">🥚 2 هێلکە (15 R$)</button>
-            <button class="shop-buy-btn" onclick="buyCapacity(3, 30)">🥚 3 هێلکە (30 R$)</button>
-          </div>
-        </div>
-      </div>
-
       <div class="game-chat">
         <div class="chat-messages" id="chat-messages-box">
-          <div class="chat-msg"><span class="sender owner">rip_hama276 (Owner):</span> بەخێربێن بۆ Steal An Egg! هێلکەکان بگوێزەوە بنکە.</div>
+          <div class="chat-msg"><span class="sender owner">rip_hama276 (Owner):</span> بەخێربێن بۆ Steal An Egg! بڕۆ ناو شۆپەکە بۆ کڕینی خێرایی و توانای هێلکە.</div>
         </div>
         <div class="chat-input-box">
           <input type="text" id="chat-input" placeholder="نوسینی پەیام..." onkeydown="if(event.key==='Enter') sendGameChatMessage()">
@@ -608,8 +618,8 @@
       document.getElementById('tab-' + tabName).style.display = 'block';
     }
 
-    /* --- 3D Steal An Egg Engine with Robux Shop Purchases --- */
-    let scene, camera, renderer, player, leftArm, rightArm, leftLeg, rightLeg, chickenGuard, animationId;
+    /* --- 3D Steal An Egg Engine with 3D Physical Shop Booth --- */
+    let scene, camera, renderer, player, leftArm, rightArm, leftLeg, rightLeg, chickenGuard, shopBooth, animationId;
     let animTime = 0;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
     
@@ -619,6 +629,7 @@
     let playerSpeed = 0.25;
     let eggsList = [];
     let isChasing = false;
+    let shopOpen = false;
 
     function buySpeed(speedVal, robuxCost) {
       if (usersDB[currentUser].robux < robuxCost) { 
@@ -631,7 +642,8 @@
 
       playerSpeed = speedVal / 100;
       document.getElementById('speed-display').innerText = speedVal;
-      alert(`⚡ خێرایی بەسەرکەوتوویی بەرزکرایەوە بۆ ${speedVal} بە بڕی ${robuxCost} R$!`);
+      alert(`⚡ خێرایی بەسەرکەوتوویی بەرزکرایەوە بۆ ${speedVal}!`);
+      closeShopModal();
     }
 
     function buyCapacity(capVal, robuxCost) {
@@ -648,6 +660,12 @@
       maxCapacity = capVal;
       document.getElementById('max-capacity').innerText = maxCapacity;
       alert(`🥚 توانای هەڵگرتنی هێلکە بوو بە ${capVal}!`);
+      closeShopModal();
+    }
+
+    function closeShopModal() {
+      document.getElementById('shop-modal').style.display = 'none';
+      shopOpen = false;
     }
 
     function setupMobileTouchEvents() {
@@ -666,7 +684,7 @@
 
     function startGame(gameType) {
       document.getElementById('game-container').style.display = 'flex';
-      gameScore = 0; carriedEggs = 0; isChasing = false;
+      gameScore = 0; carriedEggs = 0; isChasing = false; shopOpen = false;
       document.getElementById('game-score').innerText = gameScore;
       document.getElementById('carried-count').innerText = carriedEggs;
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
@@ -716,6 +734,15 @@
 
       chickenGuard.position.set(0, 0, -6);
       scene.add(chickenGuard);
+
+      // 3D Physical Shop Booth on the map
+      shopBooth = new THREE.Group();
+      const boothBase = new THREE.Mesh(new THREE.BoxGeometry(3, 1.5, 2), new THREE.MeshLambertMaterial({ color: 0xe67e22 }));
+      boothBase.position.y = 0.75; shopBooth.add(boothBase);
+      const boothSign = new THREE.Mesh(new THREE.BoxGeometry(3.2, 0.6, 0.2), new THREE.MeshLambertMaterial({ color: 0xf1c40f }));
+      boothSign.position.set(0, 1.8, 0); shopBooth.add(boothSign);
+      shopBooth.position.set(-8, 0, 5);
+      scene.add(shopBooth);
 
       // Floor & Home Base
       const floor = new THREE.Mesh(new THREE.PlaneGeometry(90, 90), new THREE.MeshLambertMaterial({ color: 0x27ae60 }));
@@ -790,6 +817,14 @@
       if (keys.jump && player.position.y <= 1.05) player.position.y = 3.5;
       if (player.position.y > 1.0) player.position.y -= 0.12;
       else player.position.y = 1.0;
+
+      // Check if player enters Shop Booth area (-8, 5)
+      if (!shopOpen && player.position.distanceTo(shopBooth.position) < 2.5) {
+        shopOpen = true;
+        document.getElementById('shop-modal').style.display = 'flex';
+      } else if (shopOpen && player.position.distanceTo(shopBooth.position) > 3.5) {
+        closeShopModal();
+      }
 
       eggsList.forEach((egg, idx) => {
         if (egg && carriedEggs < maxCapacity && player.position.distanceTo(egg.position) < 1.4) {

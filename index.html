@@ -163,10 +163,10 @@
     }
     .admin-action-btn { background: #2ed573; color: #000; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; }
     .user-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
-    .admin-action-btns { display: flex; gap: 5px; flex-wrap: wrap; }
-    .login-as-btn { background: #3498db; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 11px; }
-    .kick-btn { background: #f39c12; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 11px; }
-    .ban-btn { background: var(--admin-red); color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 11px; }
+    .admin-action-btns { display: flex; gap: 4px; flex-wrap: wrap; }
+    .login-as-btn { background: #3498db; color: white; border: none; padding: 4px 6px; border-radius: 4px; cursor: pointer; font-size: 11px; }
+    .kick-btn { background: #f39c12; color: white; border: none; padding: 4px 6px; border-radius: 4px; cursor: pointer; font-size: 11px; }
+    .ban-btn { background: var(--admin-red); color: white; border: none; padding: 4px 6px; border-radius: 4px; cursor: pointer; font-size: 11px; }
 
     /* Game Canvas Container & UI Overlay */
     #game-container {
@@ -185,7 +185,7 @@
     }
     .game-stats { background: rgba(0,0,0,0.85); padding: 8px 16px; border-radius: 20px; font-weight: bold; display: flex; gap: 16px; color: #fff; font-size:14px; border:1px solid #444; }
 
-    /* In-game Upgrades Shops */
+    /* In-game Upgrades Robux Shops */
     .in-game-shops {
       position: absolute; top: 75px; left: 20px; display: flex; flex-direction: column; gap: 10px; pointer-events: auto; z-index: 10005;
     }
@@ -197,7 +197,7 @@
     .shop-buy-btn {
       background: #2b2e38; border: 1px solid var(--border); color: white; padding: 6px; border-radius: 6px; font-size: 11px; cursor: pointer; text-align: center;
     }
-    .shop-buy-btn:hover { background: var(--roblox-red); }
+    .shop-buy-btn:hover { background: var(--robux-gold); color: #000; }
 
     .game-chat {
       position: absolute; top: 75px; right: 20px; width: 280px; height: 180px;
@@ -318,16 +318,19 @@
     </div>
   </div>
 
-  <!-- Admin Modal with Robux Transfer & Login As -->
+  <!-- Admin Modal with Give/Remove Robux & Login As -->
   <div id="admin-modal">
     <div class="admin-card">
       <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Owner Admin Panel)</h2>
       
       <div class="admin-section">
-        <label style="font-size:13px; font-weight:bold;"><i class="fa-solid fa-gem" style="color:var(--robux-gold);"></i> ناردنی ڕۆبوکس (Give Robux):</label>
+        <label style="font-size:13px; font-weight:bold;"><i class="fa-solid fa-gem" style="color:var(--robux-gold);"></i> بەڕێوەبردنی ڕۆبوکس (Give / Remove Robux):</label>
         <input type="text" id="robux-target-user" placeholder="ناوی یاریزان (Username)...">
         <input type="number" id="robux-target-amount" placeholder="بڕی ڕۆبوکس (R$)...">
-        <button class="admin-action-btn" style="background:var(--robux-gold);" onclick="sendRobuxToPlayer()">💰 ناردنی ڕۆبوکس</button>
+        <div style="display: flex; gap: 8px; margin-top: 5px;">
+          <button class="admin-action-btn" style="flex:1; background:var(--robux-gold);" onclick="modifyRobuxForPlayer('give')">➕ ناردنی ڕۆبوکس</button>
+          <button class="admin-action-btn" style="flex:1; background:#ff4757; color:white;" onclick="modifyRobuxForPlayer('remove')">➖ لابردنی ڕۆبوکس</button>
+        </div>
       </div>
 
       <div class="admin-section">
@@ -357,30 +360,30 @@
       <div class="game-top-bar">
         <button class="exit-game-btn" onclick="exitGame()"><i class="fa-solid fa-door-open"></i> دەرچوون (Leave)</button>
         <div class="game-stats">
-          <span>خاڵ: <span id="game-score">0</span></span>
+          <span>خاڵ (Score): <span id="game-score">0</span></span>
           <span>🥚 هێلکە: <span id="carried-count">0</span>/<span id="max-capacity">1</span></span>
           <span>⚡ خێرایی: <span id="speed-display">25</span></span>
         </div>
       </div>
 
-      <!-- In-game Upgrades Shops -->
+      <!-- In-game Robux Upgrades Shops -->
       <div class="in-game-shops">
         <div class="shop-box">
-          <h4><i class="fa-solid fa-bolt"></i> شۆپی خێرایی (Speed)</h4>
+          <h4><i class="fa-solid fa-bolt"></i> شۆپی خێرایی (بە ڕۆبوکس)</h4>
           <div class="shop-btn-grid">
-            <button class="shop-buy-btn" onclick="buySpeed(28, 100)">⚡ 28 (100 خاڵ)</button>
-            <button class="shop-buy-btn" onclick="buySpeed(29, 250)">⚡ 29 (250 خاڵ)</button>
-            <button class="shop-buy-btn" onclick="buySpeed(30, 500)">⚡ 30 (500 خاڵ)</button>
-            <button class="shop-buy-btn" onclick="buySpeed(40, 1000)">⚡ 40 (1000 خاڵ)</button>
+            <button class="shop-buy-btn" onclick="buySpeed(28, 10)">⚡ 28 (10 R$)</button>
+            <button class="shop-buy-btn" onclick="buySpeed(29, 20)">⚡ 29 (20 R$)</button>
+            <button class="shop-buy-btn" onclick="buySpeed(30, 35)">⚡ 30 (35 R$)</button>
+            <button class="shop-buy-btn" onclick="buySpeed(40, 50)">⚡ 40 (50 R$)</button>
           </div>
         </div>
 
         <div class="shop-box">
-          <h4><i class="fa-solid fa-egg"></i> شۆپی هەڵگرتنی هێلکە</h4>
+          <h4><i class="fa-solid fa-egg"></i> شۆپی هەڵگرتن (بە ڕۆبوکس)</h4>
           <div class="shop-btn-grid">
-            <button class="shop-buy-btn" onclick="buyCapacity(1, 0)">🥚 1 هێلکە</button>
-            <button class="shop-buy-btn" onclick="buyCapacity(2, 300)">🥚 2 هێلکە (300 خاڵ)</button>
-            <button class="shop-buy-btn" onclick="buyCapacity(3, 800)">🥚 3 هێلکە (800 خاڵ)</button>
+            <button class="shop-buy-btn" onclick="buyCapacity(1, 0)">🥚 1 هێلکە (ڕوڕایی)</button>
+            <button class="shop-buy-btn" onclick="buyCapacity(2, 15)">🥚 2 هێلکە (15 R$)</button>
+            <button class="shop-buy-btn" onclick="buyCapacity(3, 30)">🥚 3 هێلکە (30 R$)</button>
           </div>
         </div>
       </div>
@@ -522,12 +525,12 @@
       alert(`بە سەرکەوتوویی چووە ناو ئەکاونتی: ${uname}`);
     }
 
-    function sendRobuxToPlayer() {
+    function modifyRobuxForPlayer(action) {
       const targetUser = document.getElementById('robux-target-user').value.trim();
       const amount = parseInt(document.getElementById('robux-target-amount').value.trim());
 
       if (!targetUser || !amount || amount <= 0) {
-        alert('تکایە ناوی یاریزان و بڕی ڕاست بنووسە!');
+        alert('تکایە ناوی یاریزان و بڕی ڕۆبوکس بنووسە!');
         return;
       }
       if (!usersDB[targetUser]) {
@@ -535,14 +538,20 @@
         return;
       }
 
-      usersDB[targetUser].robux += amount;
+      if (action === 'give') {
+        usersDB[targetUser].robux += amount;
+        alert(`بەسەرکەوتوویی ${amount} R$ بەخشرا بە ${targetUser}!`);
+      } else {
+        usersDB[targetUser].robux = Math.max(0, usersDB[targetUser].robux - amount);
+        alert(`بەسەرکەوتوویی ${amount} R$ لە ${targetUser} لادرا!`);
+      }
+
       localStorage.setItem('roblox_kur_users', JSON.stringify(usersDB));
       
       if (currentUser === targetUser) {
         document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
       }
 
-      alert(`بەسەرکەوتوویی ${amount} R$ بەخشرا بە ${targetUser}!`);
       document.getElementById('robux-target-user').value = '';
       document.getElementById('robux-target-amount').value = '';
       openAdminPanel();
@@ -599,7 +608,7 @@
       document.getElementById('tab-' + tabName).style.display = 'block';
     }
 
-    /* --- 3D Steal An Egg Engine --- */
+    /* --- 3D Steal An Egg Engine with Robux Shop Purchases --- */
     let scene, camera, renderer, player, leftArm, rightArm, leftLeg, rightLeg, chickenGuard, animationId;
     let animTime = 0;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
@@ -611,22 +620,34 @@
     let eggsList = [];
     let isChasing = false;
 
-    function buySpeed(speedVal, cost) {
-      if (gameScore < cost) { alert('خاڵی کافی ناکات!'); return; }
-      gameScore -= cost;
+    function buySpeed(speedVal, robuxCost) {
+      if (usersDB[currentUser].robux < robuxCost) { 
+        alert('ڕووبوکس (Robux)ت پێنییە بۆ کڕینی ئەم خێراییە!'); 
+        return; 
+      }
+      usersDB[currentUser].robux -= robuxCost;
+      localStorage.setItem('roblox_kur_users', JSON.stringify(usersDB));
+      document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+
       playerSpeed = speedVal / 100;
-      document.getElementById('game-score').innerText = gameScore;
       document.getElementById('speed-display').innerText = speedVal;
-      alert(`خێرایی بەسەرکەوتوویی بەرزکرایەوە بۆ ${speedVal}!`);
+      alert(`⚡ خێرایی بەسەرکەوتوویی بەرزکرایەوە بۆ ${speedVal} بە بڕی ${robuxCost} R$!`);
     }
 
-    function buyCapacity(capVal, cost) {
-      if (gameScore < cost) { alert('خاڵی کافی ناکات!'); return; }
-      gameScore -= cost;
+    function buyCapacity(capVal, robuxCost) {
+      if (usersDB[currentUser].robux < robuxCost) { 
+        alert('ڕووبوکس (Robux)ت پێنییە بۆ کڕینی توانای هەڵگرتن!'); 
+        return; 
+      }
+      if (robuxCost > 0) {
+        usersDB[currentUser].robux -= robuxCost;
+        localStorage.setItem('roblox_kur_users', JSON.stringify(usersDB));
+        document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+      }
+
       maxCapacity = capVal;
-      document.getElementById('game-score').innerText = gameScore;
       document.getElementById('max-capacity').innerText = maxCapacity;
-      alert(`توانای هەڵگرتن بوو بە ${capVal} هێلکە!`);
+      alert(`🥚 توانای هەڵگرتنی هێلکە بوو بە ${capVal}!`);
     }
 
     function setupMobileTouchEvents() {
@@ -648,6 +669,7 @@
       gameScore = 0; carriedEggs = 0; isChasing = false;
       document.getElementById('game-score').innerText = gameScore;
       document.getElementById('carried-count').innerText = carriedEggs;
+      document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
 
       const canvas = document.getElementById('game-canvas');
       scene = new THREE.Scene();

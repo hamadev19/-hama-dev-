@@ -71,6 +71,25 @@
       display: none; align-items: center; gap: 10px;
     }
 
+    /* Cinematic Global Trailer Modal Popup */
+    #global-trailer-modal {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.92); z-index: 40000; display: none; align-items: center; justify-content: center; padding: 20px;
+    }
+    .trailer-content-box {
+      background: var(--store-card); border: 2px solid var(--store-primary); border-radius: 20px;
+      width: 100%; max-width: 650px; overflow: hidden; box-shadow: 0 0 50px rgba(16, 185, 129, 0.5); display: flex; flex-direction: column;
+    }
+    .trailer-header {
+      background: #0f172a; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--store-border);
+    }
+    .trailer-header span { color: var(--store-primary); font-weight: bold; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+    .trailer-close-btn { background: #ef4444; color: white; border: none; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+    .trailer-video-wrapper { position: relative; width: 100%; padding-bottom: 56.25%; background: #000; }
+    .trailer-video-wrapper iframe, .trailer-video-wrapper video {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; object-fit: cover;
+    }
+
     /* Play Store Layout */
     #dashboard { display: none; flex: 1; flex-direction: column; height: 100vh; overflow: hidden; }
 
@@ -225,6 +244,19 @@
     <span id="announcement-text">پەیامی فەرمی ئۆنەر</span>
   </div>
 
+  <!-- Global Cinematic Trailer Modal Popup -->
+  <div id="global-trailer-modal">
+    <div class="trailer-content-box">
+      <div class="trailer-header">
+        <span><i class="fa-solid fa-clapperboard"></i> ترەیلەری فەرمی (Hama Dev Trailer)</span>
+        <button class="trailer-close-btn" onclick="closeGlobalTrailer()">داخستن X</button>
+      </div>
+      <div class="trailer-video-wrapper" id="trailer-frame-container">
+        <!-- Video or iframe injected dynamically -->
+      </div>
+    </div>
+  </div>
+
   <!-- Auth Screen -->
   <div id="auth-screen">
     <div class="auth-card">
@@ -324,11 +356,17 @@
     </div>
   </div>
 
-  <!-- Full Owner Admin Panel -->
+  <!-- Full Owner Admin Panel with Trailer Broadcast -->
   <div id="admin-modal">
     <div class="admin-card">
       <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Owner Admin Panel v2.17.0)</h2>
       
+      <div class="admin-section">
+        <label style="font-size:12px; font-weight:bold;"><i class="fa-solid fa-clapperboard" style="color:var(--store-primary);"></i> ناردنی ترەیلەر بۆ شاشەی هەمووان (Broadcast Trailer):</label>
+        <input type="text" id="trailer-url-input" placeholder="لینکی ڤیدیۆ یان ترەیلەر (MP4 یان Youtube)...">
+        <button class="admin-action-btn" style="background:var(--store-primary); color:white;" onclick="sendGlobalTrailer()">🎬 پیشاندانی ترەیلەر بۆ هەمووان</button>
+      </div>
+
       <div class="admin-section">
         <label style="font-size:12px; font-weight:bold;"><i class="fa-solid fa-gem" style="color:var(--robux-gold);"></i> بەڕێوەبردنی ڕۆبوکس بە دەستی:</label>
         <input type="text" id="robux-target-user" placeholder="ناوی یاریزان (Username)...">
@@ -430,6 +468,12 @@
         document.getElementById('auth-screen').style.display = 'flex';
       }
       setupMobileTouchEvents();
+
+      // Check if global trailer is active in localStorage
+      let activeTrailer = localStorage.getItem('hamadev_active_trailer');
+      if(activeTrailer) {
+        showGlobalTrailer(activeTrailer);
+      }
     };
 
     function handleAuth() {
@@ -493,6 +537,37 @@
       el.classList.add('active');
       document.querySelectorAll('.tab-content').forEach(content => content.style.display = 'none');
       document.getElementById('tab-' + tabName).style.display = 'block';
+    }
+
+    /* Cinematic Trailer Functions */
+    function sendGlobalTrailer() {
+      let url = document.getElementById('trailer-url-input').value.trim();
+      if(!url) {
+        // Default sample trailer if empty
+        url = 'https://www.w3schools.com/html/mov_bbb.mp4';
+      }
+      localStorage.setItem('hamadev_active_trailer', url);
+      showGlobalTrailer(url);
+      closeAdminPanel();
+      alert('🎬 ترەیلەرەکە بە سەرکەوتوویی نێردرا بۆ سەر شاشەی هەموو یاریزانەکان!');
+    }
+
+    function showGlobalTrailer(videoUrl) {
+      const container = document.getElementById('trailer-frame-container');
+      container.innerHTML = '';
+      if(videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) {
+        let embedUrl = videoUrl.includes('watch?v=') ? videoUrl.replace('watch?v=', 'embed/') : videoUrl;
+        container.innerHTML = `<iframe src="${embedUrl}?autoplay=1" allow="autoplay" allowfullscreen></iframe>`;
+      } else {
+        container.innerHTML = `<video src="${videoUrl}" controls autoplay playsinline style="width:100%; height:100%;"></video>`;
+      }
+      document.getElementById('global-trailer-modal').style.display = 'flex';
+    }
+
+    function closeGlobalTrailer() {
+      document.getElementById('global-trailer-modal').style.display = 'none';
+      document.getElementById('trailer-frame-container').innerHTML = '';
+      localStorage.removeItem('hamadev_active_trailer');
     }
 
     /* Full Admin Panel Functions */

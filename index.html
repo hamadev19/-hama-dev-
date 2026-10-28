@@ -3,183 +3,119 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Roblox Kurd - Steal An Egg Ultimate Edition</title>
+  <title>Hama Dev Store - Roblox Kurd Ultimate</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
     :root {
-      --roblox-red: #e21b1b;
-      --roblox-dark: #191b1f;
-      --roblox-card: #23252b;
-      --roblox-sidebar: #121316;
+      --store-primary: #10b981;
+      --store-dark: #0f172a;
+      --store-card: #1e293b;
+      --store-border: #334155;
       --text: #ffffff;
-      --text-muted: #9ca3af;
-      --border: #2f333d;
-      --robux-gold: #00e676;
-      --admin-red: #ff4757;
-      --verified-blue: #00a2ff;
+      --text-muted: #94a3b8;
+      --robux-gold: #fbbf24;
+      --admin-red: #ef4444;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background-color: var(--roblox-dark); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+    body { background-color: var(--store-dark); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
     /* Auth Screen */
     #auth-screen {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: linear-gradient(135deg, #0d0e11 0%, #1c1f26 100%);
+      background: linear-gradient(135deg, #090d16 0%, #1e293b 100%);
       z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px;
     }
     .auth-card {
-      background: var(--roblox-card); border: 1px solid var(--border); border-radius: 16px;
-      width: 100%; max-width: 420px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); text-align: center;
+      background: var(--store-card); border: 1px solid var(--store-border); border-radius: 20px;
+      width: 100%; max-width: 420px; padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.8); text-align: center;
     }
-    .auth-card h1 { font-size: 28px; margin-bottom: 8px; color: var(--roblox-red); display: flex; align-items: center; justify-content: center; gap: 10px; }
-    .auth-card p { color: var(--text-muted); font-size: 14px; margin-bottom: 24px; }
-    .input-group { margin-bottom: 16px; text-align: right; }
-    .input-group label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+    .store-logo {
+      width: 90px; height: 90px; border-radius: 50%; object-fit: cover; margin: 0 auto 16px auto;
+      border: 3px solid var(--store-primary); box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+    }
+    .auth-card h1 { font-size: 24px; margin-bottom: 6px; color: #fff; }
+    .auth-card p { color: var(--text-muted); font-size: 13px; margin-bottom: 20px; }
+    .input-group { margin-bottom: 14px; text-align: right; }
+    .input-group label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
     .input-group input {
-      width: 100%; padding: 12px 14px; background: #141518; border: 1px solid var(--border);
-      border-radius: 8px; color: #fff; font-size: 15px; outline: none;
+      width: 100%; padding: 12px; background: #0f172a; border: 1px solid var(--store-border);
+      border-radius: 10px; color: #fff; font-size: 14px; outline: none;
     }
     .auth-btn {
-      width: 100%; padding: 12px; background: var(--roblox-red); border: none; border-radius: 8px;
-      color: white; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.2s;
+      width: 100%; padding: 12px; background: var(--store-primary); border: none; border-radius: 10px;
+      color: white; font-size: 15px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.2s;
     }
-    .auth-btn:hover { background: #c51212; }
-    .error-msg { color: #ff4757; font-size: 13px; margin-top: 10px; display: none; }
+    .auth-btn:hover { background: #059669; }
+    .error-msg { color: var(--admin-red); font-size: 12px; margin-top: 8px; display: none; }
 
-    /* Announcement Banner */
-    #global-announcement-banner {
-      position: fixed; top: 15px; left: 50%; transform: translateX(-50%);
-      background: linear-gradient(90deg, var(--roblox-red), #ff4757); color: white;
-      padding: 14px 28px; border-radius: 30px; font-weight: bold; font-size: 16px;
-      box-shadow: 0 0 25px rgba(226, 27, 27, 0.8); z-index: 30000;
-      display: none; align-items: center; gap: 12px;
-    }
-
-    /* Dashboard Layout */
+    /* Play Store Layout */
     #dashboard { display: none; flex: 1; flex-direction: column; height: 100vh; overflow: hidden; }
 
     header {
-      height: 60px; background: var(--roblox-sidebar); border-bottom: 1px solid var(--border);
+      height: 65px; background: var(--store-card); border-bottom: 1px solid var(--store-border);
       display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 100;
     }
-    .brand { display: flex; align-items: center; gap: 12px; font-weight: bold; font-size: 20px; color: var(--roblox-red); }
-    .brand i { font-size: 24px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 18px; color: #fff; }
+    .brand img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--store-primary); }
     
-    .search-bar { position: relative; width: 280px; }
-    .search-bar input {
-      width: 100%; padding: 8px 36px 8px 14px; background: #141518; border: 1px solid var(--border);
-      border-radius: 20px; color: white; font-size: 14px; outline: none;
+    .store-search { position: relative; width: 300px; }
+    .store-search input {
+      width: 100%; padding: 8px 36px 8px 14px; background: #0f172a; border: 1px solid var(--store-border);
+      border-radius: 20px; color: white; font-size: 13px; outline: none;
     }
-    .search-bar i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+    .store-search i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
     
-    .user-stats { display: flex; align-items: center; gap: 12px; }
+    .user-profile-area { display: flex; align-items: center; gap: 12px; }
     .stat-badge {
-      background: #141518; padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border);
-      display: flex; align-items: center; gap: 6px; font-weight: bold; font-size: 13px;
+      background: #0f172a; padding: 6px 12px; border-radius: 20px; border: 1px solid var(--store-border);
+      display: flex; align-items: center; gap: 6px; font-weight: bold; font-size: 12px; color: var(--robux-gold);
     }
-    .stat-badge.robux i { color: var(--robux-gold); }
-    .admin-badge-btn {
-      background: var(--admin-red); color: white; border: none; padding: 6px 12px;
-      border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; display: none; align-items: center; gap: 5px;
-    }
-    .logout-btn { background: #333; color: white; border: none; padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; }
-    .avatar-btn {
-      width: 36px; height: 36px; border-radius: 50%; background: var(--roblox-red);
-      display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer;
-    }
-    .verified-icon { color: var(--verified-blue); margin-right: 4px; font-size: 14px; }
+    .logout-btn { background: #334155; color: white; border: none; padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; }
 
     .app-body { display: flex; flex: 1; overflow: hidden; }
 
     sidebar {
-      width: 220px; background: var(--roblox-sidebar); border-left: 1px solid var(--border);
+      width: 220px; background: var(--store-card); border-left: 1px solid var(--store-border);
       padding: 16px 10px; display: flex; flex-direction: column; gap: 6px;
     }
     .nav-item {
-      display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 10px;
-      color: var(--text-muted); text-decoration: none; font-size: 15px; cursor: pointer; transition: 0.2s;
+      display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px;
+      color: var(--text-muted); text-decoration: none; font-size: 14px; cursor: pointer; transition: 0.2s;
     }
-    .nav-item:hover, .nav-item.active { background: #23252b; color: white; }
+    .nav-item:hover, .nav-item.active { background: #0f172a; color: var(--store-primary); font-weight: bold; }
     .nav-item i { width: 20px; text-align: center; }
 
-    main { flex: 1; padding: 24px; overflow-y: auto; background: var(--roblox-dark); }
-    .page-title { font-size: 24px; font-weight: bold; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    main { flex: 1; padding: 24px; overflow-y: auto; background: var(--store-dark); }
+    .page-title { font-size: 22px; font-weight: bold; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
 
-    /* Games Grid */
-    .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-    .game-card {
-      background: var(--roblox-card); border: 1px solid var(--border); border-radius: 14px;
-      overflow: hidden; cursor: pointer; transition: 0.3s transform;
+    /* Store App Cards */
+    .store-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+    .store-app-card {
+      background: var(--store-card); border: 1px solid var(--store-border); border-radius: 16px;
+      overflow: hidden; padding: 16px; display: flex; flex-direction: column; gap: 12px; transition: 0.3s;
     }
-    .game-card:hover { transform: translateY(-5px); border-color: var(--roblox-red); }
-    .game-thumb { height: 130px; background-size: cover; background-position: center; position: relative; }
-    .game-thumb .playing-count {
-      position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.75);
-      padding: 4px 8px; border-radius: 12px; font-size: 11px; display: flex; align-items: center; gap: 4px;
+    .store-app-card:hover { transform: translateY(-4px); border-color: var(--store-primary); }
+    .app-card-top { display: flex; gap: 12px; align-items: center; }
+    .app-icon { width: 55px; height: 55px; border-radius: 12px; background: #0f172a; display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--store-primary); border: 1px solid var(--store-border); }
+    .app-info h3 { font-size: 15px; font-weight: bold; color: #fff; }
+    .app-info p { font-size: 11px; color: var(--text-muted); }
+    .install-btn {
+      width: 100%; padding: 10px; background: var(--store-primary); border: none; border-radius: 8px;
+      color: white; font-weight: bold; font-size: 13px; cursor: pointer; text-align: center;
     }
-    .game-info { padding: 14px; }
-    .game-title { font-size: 16px; font-weight: bold; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .game-creator { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
+    .install-btn:hover { background: #059669; }
 
-    /* Hama Dev AI Workspace Tab */
-    .ai-workspace {
-      display: flex; flex-direction: column; height: calc(100vh - 120px); background: var(--roblox-card);
-      border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+    /* Settings View */
+    .settings-card {
+      background: var(--store-card); border: 1px solid var(--store-border); border-radius: 16px;
+      padding: 24px; max-width: 600px; display: flex; flex-direction: column; gap: 16px;
     }
-    .ai-messages-box {
-      flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px;
-    }
-    .ai-msg {
-      max-width: 80%; padding: 12px 16px; border-radius: 12px; font-size: 14px; line-height: 1.6; word-break: break-word;
-    }
-    .ai-msg.user { background: var(--roblox-red); color: white; align-self: flex-start; border-bottom-right-radius: 4px; }
-    .ai-msg.ai { background: #2b2e38; border: 1px solid var(--border); color: #fff; align-self: flex-end; border-bottom-left-radius: 4px; }
+    .settings-card h3 { color: var(--store-primary); font-size: 18px; margin-bottom: 4px; }
+    .verify-box { background: #0f172a; border: 1px solid var(--store-border); padding: 14px; border-radius: 10px; display: none; margin-top: 8px; }
 
-    .ai-input-area {
-      background: var(--roblox-sidebar); border-top: 1px solid var(--border); padding: 12px; display: flex; align-items: center; gap: 10px;
-    }
-    .ai-input-area input {
-      flex: 1; background: #141518; border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; color: white; font-size: 14px; outline: none;
-    }
-
-    /* Admin Modal */
-    #admin-modal {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.85); z-index: 20000; display: none; align-items: center; justify-content: center; padding: 20px;
-    }
-    .admin-card {
-      background: var(--roblox-card); border: 1px solid var(--admin-red); border-radius: 14px;
-      width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 16px;
-    }
-    .admin-card h2 { color: var(--admin-red); display: flex; align-items: center; gap: 8px; font-size: 20px; }
-    .admin-section { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--border); padding-top: 12px; }
-    .admin-section input {
-      padding: 10px; background: #141518; border: 1px solid var(--border); border-radius: 8px; color: white; outline: none; font-size: 14px;
-    }
-    .admin-action-btn { background: #2ed573; color: #000; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-    .user-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
-    .admin-action-btns { display: flex; gap: 4px; flex-wrap: wrap; }
-    .login-as-btn { background: #3498db; color: white; border: none; padding: 4px 6px; border-radius: 4px; cursor: pointer; font-size: 11px; }
-    .kick-btn { background: #f39c12; color: white; border: none; padding: 4px 6px; border-radius: 4px; cursor: pointer; font-size: 11px; }
-    .ban-btn { background: var(--admin-red); color: white; border: none; padding: 4px 6px; border-radius: 4px; cursor: pointer; font-size: 11px; }
-
-    /* In-Game 3D Shop Modal */
-    #shop-modal {
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      background: rgba(25, 27, 31, 0.95); border: 2px solid var(--robux-gold); border-radius: 16px;
-      width: 360px; max-height: 80vh; overflow-y: auto; padding: 20px; z-index: 10008; display: none; flex-direction: column; gap: 14px; pointer-events: auto;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-    }
-    .shop-modal-header { display: flex; justify-content: space-between; align-items: center; color: var(--robux-gold); font-weight: bold; font-size: 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-    .shop-close-btn { background: transparent; border: none; color: white; font-size: 18px; cursor: pointer; }
-    .shop-items-list { display: flex; flex-direction: column; gap: 8px; }
-    .shop-item-row { display: flex; justify-content: space-between; align-items: center; background: #141518; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 13px; }
-    .shop-buy-action-btn { background: var(--robux-gold); color: #000; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 12px; }
-    .shop-buy-action-btn:hover { background: #00c853; }
-
-    /* Game Canvas Container & UI Overlay */
+    /* Game Canvas Container */
     #game-container {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       background: #111; z-index: 9999; display: none; flex-direction: column;
@@ -191,22 +127,21 @@
     }
     .game-top-bar { display: flex; justify-content: space-between; align-items: center; pointer-events: auto; z-index: 10005; }
     .exit-game-btn {
-      background: rgba(226, 27, 27, 0.9); color: white; border: none; padding: 10px 18px;
+      background: rgba(239, 68, 68, 0.9); color: white; border: none; padding: 10px 18px;
       border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px;
     }
-    .game-stats { background: rgba(0,0,0,0.85); padding: 8px 16px; border-radius: 20px; font-weight: bold; display: flex; gap: 16px; color: #fff; font-size:14px; border:1px solid #444; }
+    .game-stats { background: rgba(0,0,0,0.85); padding: 8px 16px; border-radius: 20px; font-weight: bold; display: flex; gap: 16px; color: #fff; font-size:13px; border:1px solid #444; }
 
-    .game-chat {
-      position: absolute; top: 75px; right: 20px; width: 280px; height: 180px;
-      background: rgba(0, 0, 0, 0.85); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 8px;
-      pointer-events: auto; display: flex; flex-direction: column; overflow: hidden; z-index: 10005;
+    /* 3D Shop Modal */
+    #shop-modal {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: rgba(15, 23, 42, 0.95); border: 2px solid var(--store-primary); border-radius: 16px;
+      width: 340px; padding: 20px; z-index: 10008; display: none; flex-direction: column; gap: 14px; pointer-events: auto;
     }
-    .chat-messages { flex: 1; padding: 8px; overflow-y: auto; font-size: 12px; display: flex; flex-direction: column; gap: 4px; }
-    .chat-msg { background: rgba(255, 255, 255, 0.1); padding: 5px 8px; border-radius: 4px; word-break: break-word; color: #fff; }
-    .chat-msg .sender { font-weight: bold; color: var(--roblox-red); }
-    .chat-input-box { display: flex; border-top: 1px solid rgba(255, 255, 255, 0.2); background: #111; }
-    .chat-input-box input { flex: 1; background: transparent; border: none; padding: 8px 10px; color: white; outline: none; font-size: 13px; }
-    .chat-input-box button { background: var(--roblox-red); border: none; color: white; padding: 0 14px; cursor: pointer; font-weight: bold; }
+    .shop-header { display: flex; justify-content: space-between; align-items: center; color: var(--store-primary); font-weight: bold; font-size: 15px; border-bottom: 1px solid var(--store-border); padding-bottom: 8px; }
+    .shop-close { background: transparent; border: none; color: #fff; font-size: 16px; cursor: pointer; }
+    .shop-row { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--store-border); font-size: 13px; margin-bottom: 6px; }
+    .buy-btn { background: var(--robux-gold); color: #000; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 12px; }
 
     .mobile-controls {
       position: absolute; bottom: 25px; left: 25px; right: 25px;
@@ -215,36 +150,31 @@
     }
     .dpad { display: grid; grid-template-columns: repeat(3, 50px); grid-template-rows: repeat(3, 50px); gap: 4px; }
     .dpad-btn {
-      background: rgba(255, 255, 255, 0.3); border: 1px solid rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.4);
       border-radius: 8px; display: flex; align-items: center; justify-content: center;
-      color: white; font-size: 20px; touch-action: manipulation;
+      color: white; font-size: 18px; touch-action: manipulation;
     }
-    .dpad-btn:active { background: rgba(226, 27, 27, 0.9); }
     .jump-btn-touch {
-      width: 75px; height: 75px; background: rgba(226, 27, 27, 0.7);
+      width: 75px; height: 75px; background: rgba(16, 185, 129, 0.8);
       border: 2px solid white; border-radius: 50%; display: flex;
-      align-items: center; justify-content: center; color: white; font-size: 26px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5); touch-action: manipulation;
+      align-items: center; justify-content: center; color: white; font-size: 24px; touch-action: manipulation;
     }
 
     @media (max-width: 768px) {
       sidebar { width: 70px; padding: 10px 4px; }
       .nav-item span { display: none; }
-      .search-bar { width: 130px; }
+      .store-search { width: 140px; }
     }
   </style>
 </head>
 <body>
 
-  <div id="global-announcement-banner">
-    <i class="fa-solid fa-bullhorn" style="font-size: 20px; color:#ffeaa7;"></i>
-    <span id="announcement-text">پەیامی فەرمی ئۆنەر</span>
-  </div>
-
+  <!-- Auth Screen -->
   <div id="auth-screen">
     <div class="auth-card">
-      <h1><i class="fa-solid fa-cube"></i> Roblox Kurd</h1>
-      <p>چوونەژوورەوە بۆ جیهانی ڕۆبلۆکس</p>
+      <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
+      <h1>Hama Dev Play</h1>
+      <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
         <label>ناوی بەکارهێنەر (Username)</label>
@@ -256,57 +186,79 @@
         <input type="password" id="password-input" placeholder="******">
       </div>
 
-      <button class="auth-btn" onclick="handleAuth()">یاری کردن (Play)</button>
+      <button class="auth-btn" onclick="handleAuth()">چوونەژوورەوە (Login)</button>
       <div class="error-msg" id="auth-error"></div>
     </div>
   </div>
 
+  <!-- Play Store Main Dashboard -->
   <div id="dashboard">
     <header>
       <div class="brand">
-        <i class="fa-solid fa-cube"></i>
-        <span>Roblox Kurd</span>
+        <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
+        <span>Hama Dev Store</span>
       </div>
 
-      <div class="search-bar">
+      <div class="store-search">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" placeholder="گەڕان بۆ یارییەکان..." oninput="filterGames(this.value)">
+        <input type="text" placeholder="گەڕان لە ستۆری کوردی...">
       </div>
 
-      <div class="user-stats">
-        <button class="admin-badge-btn" id="admin-panel-btn" onclick="openAdminPanel()"><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر</button>
-        <div class="stat-badge robux">
+      <div class="user-profile-area">
+        <div class="stat-badge">
           <i class="fa-solid fa-gem"></i>
-          <span id="user-robux">20</span> R$
+          <span id="user-robux">250</span> R$
         </div>
         <button class="logout-btn" onclick="logout()">دەرچوون</button>
-        <div class="avatar-btn" id="user-avatar-btn">H</div>
       </div>
     </header>
 
     <div class="app-body">
       <sidebar>
-        <div class="nav-item active" onclick="switchTab('games', this)"><i class="fa-solid fa-gamepad"></i><span>یارییەکان</span></div>
-        <div class="nav-item" onclick="switchTab('ai', this)"><i class="fa-solid fa-brain"></i><span>Hama Dev AI</span></div>
+        <div class="nav-item active" onclick="switchTab('store', this)"><i class="fa-solid fa-store"></i><span>ستۆر (Apps)</span></div>
+        <div class="nav-item" onclick="switchTab('settings', this)"><i class="fa-solid fa-gear"></i><span>سیتینگ (أکانت)</span></div>
       </sidebar>
 
       <main>
-        <div id="tab-games" class="tab-content">
-          <div class="page-title">
-            <i class="fa-solid fa-fire" style="color:var(--roblox-red)"></i>
-            <span>جیهانی یارییەکان (خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-icon"></i>)</span>
+        <!-- Store Apps Tab -->
+        <div id="tab-store" class="tab-content">
+          <div class="page-title"><i class="fa-solid fa-gamepad" style="color:var(--store-primary)"></i><span>یارییە فەرمییەکان بۆ دابەزاندن</span></div>
+          <div class="store-grid">
+            <div class="store-app-card">
+              <div class="app-card-top">
+                <div class="app-icon"><i class="fa-solid fa-egg"></i></div>
+                <div class="app-info">
+                  <h3>Steal An Egg 3D</h3>
+                  <p>خاوەن: rip_hama276</p>
+                  <p style="color:var(--store-primary); margin-top:2px;">⭐ 4.9 (5.2K داگرتن)</p>
+                </div>
+              </div>
+              <button class="install-btn" onclick="startStealAnEggGame()"><i class="fa-solid fa-download"></i> یاری کردن / دابەزاندن</button>
+            </div>
           </div>
-          <div class="games-grid" id="games-container"></div>
         </div>
 
-        <div id="tab-ai" class="tab-content" style="display:none;">
-          <div class="page-title"><i class="fa-solid fa-brain" style="color:var(--roblox-red);"></i><span>Hama Dev AI Assistant</span></div>
-          <div class="ai-workspace">
-            <div class="ai-messages-box" id="ai-messages-box">
-              <div class="ai-msg ai">سڵاو کاکە گیان! من Hama Dev AIـم. پڕۆگرامسازییەکە بە تەواوی ئامادەیە!</div>
+        <!-- Settings / Account & Email Verification Tab -->
+        <div id="tab-settings" class="tab-content" style="display:none;">
+          <div class="page-title"><i class="fa-solid fa-gear" style="color:var(--store-primary)"></i><span>سیتینگ و بەستنەوەی ئیمەیڵ</span></div>
+          <div class="settings-card">
+            <h3>بەستنەوەی ئەژمار بە ئیمەیڵ (Email Link)</h3>
+            <p style="color:var colspan: 1; color:var(--text-muted); font-size:13px;">بۆ پاراستنی ئەکاونتەکەت و ناردنی نامەی دڵنیایی بە زمانی کوردی:</p>
+            
+            <div class="input-group" style="margin-top:10px;">
+              <label>ئیمەیڵی تۆ (Email Address)</label>
+              <input type="email" id="settings-email" placeholder="example@gmail.com">
             </div>
-            <div class="ai-input-area">
-              <input type="text" id="ai-input" placeholder="لێرە نوسین یان پرسیارەکەت بنووسە..." onkeydown="if(event.key==='Enter') sendAIMessage()">
+            <button class="auth-btn" style="padding:10px;" onclick="sendVerificationEmail()">ناردنی کۆدی پشتڕاستکردنەوە (Verify)</button>
+
+            <!-- Verification Code Box in Kurdish -->
+            <div class="verify-box" id="verify-box">
+              <p id="kurdish-mail-notice" style="font-size:13px; color:#38bdf8; margin-bottom:8px; line-height:1.5;"></p>
+              <div class="input-group">
+                <label>کۆدی ٤ ڕەقمی بنووسە</label>
+                <input type="text" id="verify-code-input" placeholder="1234">
+              </div>
+              <button class="auth-btn" style="background:#0284c7; padding:10px;" onclick="confirmVerification()">دڵنیابوونەوەی ڤێریفای</button>
             </div>
           </div>
         </div>
@@ -314,84 +266,37 @@
     </div>
   </div>
 
-  <!-- Admin Modal -->
-  <div id="admin-modal">
-    <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Owner Admin Panel)</h2>
-      
-      <div class="admin-section">
-        <label style="font-size:13px; font-weight:bold;"><i class="fa-solid fa-gem" style="color:var(--robux-gold);"></i> بەڕێوەبردنی ڕۆبوکس (Give / Remove Robux):</label>
-        <input type="text" id="robux-target-user" placeholder="ناوی یاریزان (Username)...">
-        <input type="number" id="robux-target-amount" placeholder="بڕی ڕۆبوکس (R$)...">
-        <div style="display: flex; gap: 8px; margin-top: 5px;">
-          <button class="admin-action-btn" style="flex:1; background:var(--robux-gold);" onclick="modifyRobuxForPlayer('give')">➕ ناردنی ڕۆبوکس</button>
-          <button class="admin-action-btn" style="flex:1; background:#ff4757; color:white;" onclick="modifyRobuxForPlayer('remove')">➖ لابردنی ڕۆبوکس</button>
-        </div>
-      </div>
-
-      <div class="admin-section">
-        <label style="font-size:13px; font-weight:bold;"><i class="fa-solid fa-bullhorn"></i> ناردنی پەیام بۆ سەر شاشەی هەمووان (Broadcast):</label>
-        <input type="text" id="broadcast-input" placeholder="پەیامێک بنووسە...">
-        <button class="admin-action-btn" style="background:#e67e22;" onclick="sendGlobalAnnouncement()">ناردنی پەیام</button>
-      </div>
-
-      <div class="admin-section">
-        <label style="font-size:13px; font-weight:bold;"><i class="fa-solid fa-wand-magic-sparkles"></i> سپاون کردنی هەموو هێلکەکان:</label>
-        <button class="admin-action-btn" style="background:var(--roblox-red); color:white;" onclick="spawnMutationsFromAdmin()">✨ هەموو هێلکەکان سپاون بکە</button>
-      </div>
-
-      <div class="admin-section">
-        <p style="font-size: 13px; color: var(--text-muted);">بەڕێوەبردنی یاریزانەکان (چوونەژوورەوە، لابردن، باند):</p>
-        <div id="admin-users-list" style="max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;"></div>
-      </div>
-
-      <button class="auth-btn" style="background: var(--admin-red); margin-top:10px;" onclick="closeAdminPanel()">داخستنی پەنێڵ</button>
-    </div>
-  </div>
-
-  <!-- Game Canvas Container -->
+  <!-- Game Canvas Container with Dedicated AI & Chicken Guards -->
   <div id="game-container">
     <canvas id="game-canvas"></canvas>
     
     <!-- 3D Shop Modal -->
     <div id="shop-modal">
-      <div class="shop-modal-header">
-        <span><i class="fa-solid fa-store"></i> شۆپی فەرمی Steal An Egg (Ultimate)</span>
-        <button class="shop-close-btn" onclick="closeShopModal()"><i class="fa-solid fa-xmark"></i></button>
+      <div class="shop-header">
+        <span><i class="fa-solid fa-shield-dog"></i> شۆپی پارێزراو (پاسەوانی تایبەت)</span>
+        <button class="shop-close" onclick="closeShopModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <div class="shop-items-list">
-        <div style="font-weight:bold; color:var(--robux-gold); font-size:12px; margin-top:4px;">⚡ بەرزکردنەوەی خێرایی (تا 100 Speed):</div>
-        <div class="shop-item-row"><span>⚡ خێرایی 30</span><button class="shop-buy-action-btn" onclick="buySpeed(30, 10)">10 R$</button></div>
-        <div class="shop-item-row"><span>⚡ خێرایی 40</span><button class="shop-buy-action-btn" onclick="buySpeed(40, 25)">25 R$</button></div>
-        <div class="shop-item-row"><span>⚡ خێرایی 60</span><button class="shop-buy-action-btn" onclick="buySpeed(60, 50)">50 R$</button></div>
-        <div class="shop-item-row"><span>⚡ خێرایی 80</span><button class="shop-buy-action-btn" onclick="buySpeed(80, 80)">80 R$</button></div>
-        <div class="shop-item-row"><span>⚡ خێرایی 100</span><button class="shop-buy-action-btn" onclick="buySpeed(100, 120)">120 R$</button></div>
-        
-        <div style="font-weight:bold; color:var(--robux-gold); font-size:12px; margin-top:8px;">🥚 توانای هەڵگرتن (تا 5 هێلکە):</div>
-        <div class="shop-item-row"><span>🥚 2 هێلکە</span><button class="shop-buy-action-btn" onclick="buyCapacity(2, 15)">15 R$</button></div>
-        <div class="shop-item-row"><span>🥚 3 هێلکە</span><button class="shop-buy-action-btn" onclick="buyCapacity(3, 35)">35 R$</button></div>
-        <div class="shop-item-row"><span>🥚 4 هێلکە</span><button class="shop-buy-action-btn" onclick="buyCapacity(4, 60)">60 R$</button></div>
-        <div class="shop-item-row"><span>🥚 5 هێلکە</span><button class="shop-buy-action-btn" onclick="buyCapacity(5, 100)">100 R$</button></div>
+      <div class="shop-row">
+        <span>⚡ خێرایی 40 (25 R$)</span>
+        <button class="buy-btn" onclick="buySpeed(40, 25)">کڕین</button>
+      </div>
+      <div class="shop-row">
+        <span>⚡ خێرایی 100 (100 R$)</span>
+        <button class="buy-btn" onclick="buySpeed(100, 100)">کڕین</button>
+      </div>
+      <div class="shop-row">
+        <span>🥚 3 هێلکە (35 R$)</span>
+        <button class="buy-btn" onclick="buyCapacity(3, 35)">کڕین</button>
       </div>
     </div>
 
     <div class="game-ui-overlay">
       <div class="game-top-bar">
-        <button class="exit-game-btn" onclick="exitGame()"><i class="fa-solid fa-door-open"></i> دەرچوون (Leave)</button>
+        <button class="exit-game-btn" onclick="exitGame()"><i class="fa-solid fa-door-open"></i> دەرچوون</button>
         <div class="game-stats">
           <span>خاڵ: <span id="game-score">0</span></span>
           <span>🥚 هێلکە: <span id="carried-count">0</span>/<span id="max-capacity">1</span></span>
           <span>⚡ خێرایی: <span id="speed-display">25</span></span>
-        </div>
-      </div>
-
-      <div class="game-chat">
-        <div class="chat-messages" id="chat-messages-box">
-          <div class="chat-msg"><span class="sender owner">rip_hama276 (Owner):</span> بەخێربێن بۆ ڤێرژنی کۆتایی Steal An Egg! ناوچەی لاڤا تاقیکەرەوە!</div>
-        </div>
-        <div class="chat-input-box">
-          <input type="text" id="chat-input" placeholder="نوسینی پەیام..." onkeydown="if(event.key==='Enter') sendGameChatMessage()">
-          <button onclick="sendGameChatMessage()">ناردن</button>
         </div>
       </div>
 
@@ -407,29 +312,19 @@
   </div>
 
   <script>
-    let usersDB = JSON.parse(localStorage.getItem('roblox_kur_users') || '{}');
-    let bannedDB = JSON.parse(localStorage.getItem('roblox_kur_banned') || '[]');
-    let gamesList = JSON.parse(localStorage.getItem('roblox_kur_games') || JSON.stringify([
-      { id: 'steal_egg', title: 'Steal An Egg 🥚 Ultimate', creator: 'rip_hama276', playing: '5.2K', color: '#e1b12c' }
-    ]));
-    
-    usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, inventory: [], friends: [] };
-    localStorage.setItem('roblox_kur_users', JSON.stringify(usersDB));
+    let usersDB = JSON.parse(localStorage.getItem('hamadev_store_users') || '{}');
+    let currentUser = localStorage.getItem('hamadev_store_current') || null;
+    let pendingVerifyCode = null;
 
-    let currentUser = localStorage.getItem('roblox_kur_current') || null;
+    usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, email: 'hama@dev.kur', verified: true };
+    localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
 
     window.onload = function() {
       if (currentUser && usersDB[currentUser]) {
-        if (bannedDB.includes(currentUser)) {
-          alert('ئەم ئەژمارە باند کراوە!');
-          logout();
-          return;
-        }
         showDashboard();
       } else {
         document.getElementById('auth-screen').style.display = 'flex';
       }
-      renderGames(gamesList);
       setupMobileTouchEvents();
     };
 
@@ -443,35 +338,22 @@
         errorEl.style.display = 'block';
         return;
       }
-      if (bannedDB.includes(username)) {
-        errorEl.innerText = 'ئەم ئەژمارە باند کراوە!';
-        errorEl.style.display = 'block';
-        return;
-      }
-      if (username.toLowerCase() === 'rip_hama276' && password !== 'ownerpassword') {
-        errorEl.innerText = 'تێپەڕەواژەی ئۆنەر هەڵەیە!';
-        errorEl.style.display = 'block';
-        return;
-      }
 
       if (!usersDB[username]) {
-        usersDB[username] = { password: password, robux: 250, inventory: [], friends: [] };
+        usersDB[username] = { password: password, robux: 200, email: '', verified: false };
       } else if (usersDB[username].password !== password) {
         errorEl.innerText = 'تێپەڕەواژە هەڵەیە!';
         errorEl.style.display = 'block';
         return;
       }
 
-      usersDB['rip_hama276'].robux = 1000000000;
-      localStorage.setItem('roblox_kur_users', JSON.stringify(usersDB));
-
       currentUser = username;
-      localStorage.setItem('roblox_kur_current', currentUser);
+      localStorage.setItem('hamadev_store_current', currentUser);
       showDashboard();
     }
 
     function logout() {
-      localStorage.removeItem('roblox_kur_current');
+      localStorage.removeItem('hamadev_store_current');
       currentUser = null;
       document.getElementById('dashboard').style.display = 'none';
       document.getElementById('auth-screen').style.display = 'flex';
@@ -481,120 +363,6 @@
       document.getElementById('auth-screen').style.display = 'none';
       document.getElementById('dashboard').style.display = 'flex';
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      document.getElementById('user-avatar-btn').innerText = currentUser.charAt(0).toUpperCase();
-
-      if (currentUser === 'rip_hama276') {
-        document.getElementById('admin-panel-btn').style.display = 'flex';
-      } else {
-        document.getElementById('admin-panel-btn').style.display = 'none';
-      }
-    }
-
-    function openAdminPanel() {
-      const listEl = document.getElementById('admin-users-list');
-      listEl.innerHTML = '';
-      for (let uname in usersDB) {
-        listEl.innerHTML += `
-          <div class="user-row">
-            <span><b>${uname}</b> (${usersDB[uname].robux} R$)</span>
-            <div class="admin-action-btns">
-              <button class="login-as-btn" onclick="loginAsUser('${uname}')">چوونەژوورەوە</button>
-              ${uname !== 'rip_hama276' ? `
-                <button class="kick-btn" onclick="kickUser('${uname}')">لابردن</button>
-                <button class="ban-btn" onclick="banUser('${uname}')">باند</button>
-              ` : ''}
-            </div>
-          </div>
-        `;
-      }
-      document.getElementById('admin-modal').style.display = 'flex';
-    }
-
-    function closeAdminPanel() {
-      document.getElementById('admin-modal').style.display = 'none';
-    }
-
-    function loginAsUser(uname) {
-      currentUser = uname;
-      localStorage.setItem('roblox_kur_current', currentUser);
-      closeAdminPanel();
-      showDashboard();
-      alert(`بە سەرکەوتوویی چووە ناو ئەکاونتی: ${uname}`);
-    }
-
-    function modifyRobuxForPlayer(action) {
-      const targetUser = document.getElementById('robux-target-user').value.trim();
-      const amount = parseInt(document.getElementById('robux-target-amount').value.trim());
-
-      if (!targetUser || !amount || amount <= 0) {
-        alert('تکایە ناوی یاریزان و بڕی ڕۆبوکس بنووسە!');
-        return;
-      }
-      if (!usersDB[targetUser]) {
-        alert('ئەم یاریزانە بوونی نییە!');
-        return;
-      }
-
-      if (action === 'give') {
-        usersDB[targetUser].robux += amount;
-        alert(`بەسەرکەوتوویی ${amount} R$ بەخشرا بە ${targetUser}!`);
-      } else {
-        usersDB[targetUser].robux = Math.max(0, usersDB[targetUser].robux - amount);
-        alert(`بەسەرکەوتوویی ${amount} R$ لە ${targetUser} لادرا!`);
-      }
-
-      localStorage.setItem('roblox_kur_users', JSON.stringify(usersDB));
-      
-      if (currentUser === targetUser) {
-        document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      }
-
-      document.getElementById('robux-target-user').value = '';
-      document.getElementById('robux-target-amount').value = '';
-      openAdminPanel();
-    }
-
-    function sendGlobalAnnouncement() {
-      const msg = document.getElementById('broadcast-input').value.trim();
-      if (!msg) return;
-      const banner = document.getElementById('global-announcement-banner');
-      document.getElementById('announcement-text').innerText = "🚨 پەیامی ئۆنەر: " + msg;
-      banner.style.display = 'flex';
-      setTimeout(() => { banner.style.display = 'none'; }, 7000);
-      document.getElementById('broadcast-input').value = '';
-      closeAdminPanel();
-    }
-
-    function spawnMutationsFromAdmin() {
-      if(typeof spawnAllEggs === 'function') spawnAllEggs();
-      alert('✨ هەموو هێلکەکان بە سەرکەوتوویی سپاون کران!');
-      closeAdminPanel();
-    }
-
-    function kickUser(uname) { alert(uname + ' لە سێرڤەر دەرکرا!'); openAdminPanel(); }
-    function banUser(uname) {
-      bannedDB.push(uname);
-      localStorage.setItem('roblox_kur_banned', JSON.stringify(bannedDB));
-      alert(uname + ' باند کرا!');
-      openAdminPanel();
-    }
-
-    function renderGames(list) {
-      const container = document.getElementById('games-container');
-      container.innerHTML = '';
-      list.forEach(game => {
-        container.innerHTML += `
-          <div class="game-card" onclick="startGame('${game.id}')">
-            <div class="game-thumb" style="background-color: ${game.color};">
-              <div class="playing-count"><i class="fa-solid fa-user"></i> ${game.playing}</div>
-            </div>
-            <div class="game-info">
-              <div class="game-title">${game.title}</div>
-              <div class="game-creator"><i class="fa-solid fa-circle-check verified-icon"></i> ${game.creator}</div>
-            </div>
-          </div>
-        `;
-      });
     }
 
     function switchTab(tabName, el) {
@@ -604,14 +372,41 @@
       document.getElementById('tab-' + tabName).style.display = 'block';
     }
 
-    /* --- 3D Engine with Pets & Lava Zone --- */
-    let scene, camera, renderer, player, leftArm, rightArm, leftLeg, rightLeg, chickenGuard, shopBooth, petObj, animationId;
+    /* Kurdish Email Verification System */
+    function sendVerificationEmail() {
+      const email = document.getElementById('settings-email').value.trim();
+      if (!email || !email.includes('@')) {
+        alert('تکایە ئیمەیڵێکی ڕاست بنووسە!');
+        return;
+      }
+      pendingVerifyCode = Math.floor(1000 + Math.random() * 9000).toString();
+      
+      const noticeBox = document.getElementById('kurdish-mail-notice');
+      noticeBox.innerHTML = `📩 <b>جانامە هات بۆ ئیمەیڵەکەت (${email}):</b><br>سڵاو کاکە! کۆدی ڤێریفای کردن بۆ ئەکاونتی شما: <span style="color:var(--robux-gold); font-size:16px;">${pendingVerifyCode}</span>`;
+      document.getElementById('verify-box').style.display = 'block';
+      alert('نامەی ڤێریفای بە زمانی کوردی سەرکەوتووانە نێردرا بۆ ئیمەیڵەکەت!');
+    }
+
+    function confirmVerification() {
+      const inputCode = document.getElementById('verify-code-input').value.trim();
+      if (inputCode === pendingVerifyCode) {
+        usersDB[currentUser].verified = true;
+        usersDB[currentUser].email = document.getElementById('settings-email').value.trim();
+        localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+        alert('🎉 پیرۆزە! ئەکاونتەکەت بە سەرکەوتوویی ڤێریفای (Verify) کرا.');
+        document.getElementById('verify-box').style.display = 'none';
+      } else {
+        alert('❌ کۆدەکە هەڵەیە، تکایە دیسان هەوڵ بدە!');
+      }
+    }
+
+    /* --- 3D Steal An Egg Engine with Dedicated Guards for Every Section --- */
+    let scene, camera, renderer, player, leftArm, rightArm, leftLeg, rightLeg, chickenGuard, shopGuard, shopBooth, animationId;
     let animTime = 0;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
     
     let gameScore = 0;
     let carriedEggs = 0;
-    let carriedValueMultiplier = 1;
     let maxCapacity = 1;
     let playerSpeed = 0.25;
     let eggsList = [];
@@ -619,32 +414,24 @@
     let shopOpen = false;
 
     function buySpeed(speedVal, robuxCost) {
-      if (usersDB[currentUser].robux < robuxCost) { 
-        alert('ڕووبوکس (Robux)ت پێنییە بۆ کڕینی ئەم خێراییە!'); 
-        return; 
-      }
+      if (usersDB[currentUser].robux < robuxCost) { alert('ڕۆبوکست نییە!'); return; }
       usersDB[currentUser].robux -= robuxCost;
-      localStorage.setItem('roblox_kur_users', JSON.stringify(usersDB));
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-
       playerSpeed = speedVal / 100;
       document.getElementById('speed-display').innerText = speedVal;
-      alert(`⚡ خێرایی بەسەرکەوتوویی بەرزکرایەوە بۆ ${speedVal}!`);
+      alert(`⚡ خێرایی بوو بە ${speedVal}!`);
       closeShopModal();
     }
 
     function buyCapacity(capVal, robuxCost) {
-      if (usersDB[currentUser].robux < robuxCost) { 
-        alert('ڕووبوکس (Robux)ت پێنییە بۆ کڕینی توانای هەڵگرتن!'); 
-        return; 
-      }
+      if (usersDB[currentUser].robux < robuxCost) { alert('ڕۆبوکست نییە!'); return; }
       usersDB[currentUser].robux -= robuxCost;
-      localStorage.setItem('roblox_kur_users', JSON.stringify(usersDB));
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-
       maxCapacity = capVal;
       document.getElementById('max-capacity').innerText = maxCapacity;
-      alert(`🥚 توانای هەڵگرتنی هێلکە بوو بە ${capVal}!`);
+      alert(`🥚 توانا بوو بە ${capVal} هێلکە!`);
       closeShopModal();
     }
 
@@ -667,77 +454,34 @@
       bindTouch('btn-jump', 'jump');
     }
 
-    function spawnAllEggs() {
-      eggsList.forEach(e => { if(e) scene.remove(e); });
-      eggsList = [];
-      const eggColors = [0xf1c40f, 0x9b59b6, 0xe74c3c, 0x3498db, 0x2ecc71];
-      
-      // Normal Zone Eggs (1X Value)
-      for (let i = 0; i < 3; i++) {
-        const eggGeo = new THREE.SphereGeometry(0.45, 16, 16); eggGeo.scale(1, 1.3, 1);
-        const eggMat = new THREE.MeshLambertMaterial({ color: eggColors[i], emissive: eggColors[i], emissiveIntensity: 0.3 });
-        const egg = new THREE.Mesh(eggGeo, eggMat);
-        egg.position.set((Math.random() - 0.5) * 22, 0.5, -Math.random() * 12 - 2);
-        egg.userData = { is2X: false, isLava: false };
-        scene.add(egg);
-        eggsList.push(egg);
-      }
-
-      // Golden 2X Zone Eggs
-      for (let i = 3; i < 5; i++) {
-        const eggGeo = new THREE.SphereGeometry(0.5, 16, 16); eggGeo.scale(1, 1.3, 1);
-        const eggMat = new THREE.MeshLambertMaterial({ color: 0xffd700, emissive: 0xffa500, emissiveIntensity: 0.6 });
-        const egg = new THREE.Mesh(eggGeo, eggMat);
-        egg.position.set((Math.random() - 0.5) * 14, 0.5, -Math.random() * 10 - 18);
-        egg.userData = { is2X: true, isLava: false };
-        scene.add(egg);
-        eggsList.push(egg);
-      }
-
-      // Lava Vault Zone Eggs (3X Ultra Value)
-      for (let i = 0; i < 2; i++) {
-        const eggGeo = new THREE.SphereGeometry(0.55, 16, 16); eggGeo.scale(1, 1.3, 1);
-        const eggMat = new THREE.MeshLambertMaterial({ color: 0xff4500, emissive: 0xff0000, emissiveIntensity: 0.8 });
-        const egg = new THREE.Mesh(eggGeo, eggMat);
-        egg.position.set((Math.random() - 0.5) * 16, 0.5, -Math.random() * 10 - 32);
-        egg.userData = { is2X: false, isLava: true };
-        scene.add(egg);
-        eggsList.push(egg);
-      }
-    }
-
-    function startGame(gameType) {
+    function startStealAnEggGame() {
       document.getElementById('game-container').style.display = 'flex';
-      gameScore = 0; carriedEggs = 0; carriedValueMultiplier = 1; isChasing = false; shopOpen = false;
+      gameScore = 0; carriedEggs = 0; isChasing = false; shopOpen = false;
       document.getElementById('game-score').innerText = gameScore;
       document.getElementById('carried-count').innerText = carriedEggs;
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
 
       const canvas = document.getElementById('game-canvas');
       scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x191b1f);
+      scene.background = new THREE.Color(0x0f172a);
 
       camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-      renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, powerPreference: "high-performance" });
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
       renderer.setSize(window.innerWidth, window.innerHeight);
 
-      const light = new THREE.DirectionalLight(0xffffff, 1);
-      light.position.set(10, 20, 10);
-      scene.add(light);
+      scene.add(new THREE.DirectionalLight(0xffffff, 1).position.set(10, 20, 10));
       scene.add(new THREE.AmbientLight(0x505050));
 
       // Player Avatar
       player = new THREE.Group();
-      let shirtColor = (currentUser === 'rip_hama276') ? 0xe21b1b : 0x00a2ff;
-      const torso = new THREE.Mesh(new THREE.BoxGeometry(1, 1.2, 0.6), new THREE.MeshLambertMaterial({ color: shirtColor }));
+      const torso = new THREE.Mesh(new THREE.BoxGeometry(1, 1.2, 0.6), new THREE.MeshLambertMaterial({ color: 0x10b981 }));
       torso.position.y = 1.2; player.add(torso);
-
       const head = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.7, 0.7), new THREE.MeshLambertMaterial({ color: 0xffdbac }));
       head.position.y = 2.15; player.add(head);
 
       const limbGeo = new THREE.BoxGeometry(0.4, 1.2, 0.4);
       const skinMat = new THREE.MeshLambertMaterial({ color: 0xffdbac });
-      const pantsMat = new THREE.MeshLambertMaterial({ color: 0x23252b });
+      const pantsMat = new THREE.MeshLambertMaterial({ color: 0x1e293b });
 
       leftArm = new THREE.Mesh(limbGeo, skinMat); leftArm.position.set(-0.7, 1.2, 0); player.add(leftArm);
       rightArm = new THREE.Mesh(limbGeo, skinMat); rightArm.position.set(0.7, 1.2, 0); player.add(rightArm);
@@ -747,45 +491,44 @@
       player.position.set(0, 1, 12);
       scene.add(player);
 
-      // Floating Follower Pet (Golden Tiger Cub)
-      petObj = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.5), new THREE.MeshLambertMaterial({ color: 0xffaa00, emissive: 0xff6600, emissiveIntensity: 0.5 }));
-      scene.add(petObj);
-
-      // AI Guard Chicken
+      // Dedicated Guard 1: Chicken Guard for Eggs
       chickenGuard = new THREE.Group();
       const chBody = new THREE.Mesh(new THREE.SphereGeometry(0.8, 16, 16), new THREE.MeshLambertMaterial({ color: 0xffffff }));
       chBody.position.y = 0.8; chickenGuard.add(chBody);
-      const chBeak = new THREE.Mesh(new THREE.ConeGeometry(0.2, 0.4, 8), new THREE.MeshLambertMaterial({ color: 0xe67e22 }));
-      chBeak.rotation.x = Math.PI / 2; chBeak.position.set(0, 0.9, 0.8); chickenGuard.add(chBeak);
-      const chComb = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.4, 0.4), new THREE.MeshLambertMaterial({ color: 0xe74c3c }));
-      chComb.position.set(0, 1.6, 0); chickenGuard.add(chComb);
-
       chickenGuard.position.set(0, 0, -6);
       scene.add(chickenGuard);
 
-      // 3D Physical Shop Booth
+      // Dedicated Guard 2: Shop Security Guard
+      shopGuard = new THREE.Group();
+      const sBody = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.3, 0.6), new THREE.MeshLambertMaterial({ color: 0xef4444 }));
+      sBody.position.y = 0.8; shopGuard.add(sBody);
+      shopGuard.position.set(-8, 0, 3);
+      scene.add(shopGuard);
+
+      // Physical Shop Booth
       shopBooth = new THREE.Group();
-      const boothBase = new THREE.Mesh(new THREE.BoxGeometry(3, 1.5, 2), new THREE.MeshLambertMaterial({ color: 0xe67e22 }));
+      const boothBase = new THREE.Mesh(new THREE.BoxGeometry(3, 1.5, 2), new THREE.MeshLambertMaterial({ color: 0xfbbf24 }));
       boothBase.position.y = 0.75; shopBooth.add(boothBase);
-      const boothSign = new THREE.Mesh(new THREE.BoxGeometry(3.2, 0.6, 0.2), new THREE.MeshLambertMaterial({ color: 0xf1c40f }));
-      boothSign.position.set(0, 1.8, 0); shopBooth.add(boothSign);
       shopBooth.position.set(-8, 0, 5);
       scene.add(shopBooth);
 
-      // Floor & Zones
-      const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, 120), new THREE.MeshLambertMaterial({ color: 0x27ae60 }));
+      // Floor & Home Base
+      const floor = new THREE.Mesh(new THREE.PlaneGeometry(90, 90), new THREE.MeshLambertMaterial({ color: 0x1e293b }));
       floor.rotation.x = -Math.PI / 2; scene.add(floor);
 
-      const zone2X = new THREE.Mesh(new THREE.PlaneGeometry(35, 22), new THREE.MeshLambertMaterial({ color: 0xd4af37 }));
-      zone2X.rotation.x = -Math.PI / 2; zone2X.position.set(0, 0.02, -22); scene.add(zone2X);
-
-      const lavaZone = new THREE.Mesh(new THREE.PlaneGeometry(35, 22), new THREE.MeshLambertMaterial({ color: 0xc0392b }));
-      lavaZone.rotation.x = -Math.PI / 2; lavaZone.position.set(0, 0.03, -44); scene.add(lavaZone);
-
-      const homeBase = new THREE.Mesh(new THREE.CylinderGeometry(3.5, 3.5, 0.1, 32), new THREE.MeshLambertMaterial({ color: 0x2980b9 }));
+      const homeBase = new THREE.Mesh(new THREE.CylinderGeometry(3.5, 3.5, 0.1, 32), new THREE.MeshLambertMaterial({ color: 0x3b82f6 }));
       homeBase.position.set(0, 0.05, 12); scene.add(homeBase);
 
-      spawnAllEggs();
+      // Spawn Eggs
+      eggsList.forEach(e => scene.remove(e));
+      eggsList = [];
+      for (let i = 0; i < 4; i++) {
+        const eggGeo = new THREE.SphereGeometry(0.45, 16, 16); eggGeo.scale(1, 1.3, 1);
+        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: 0x10b981 }));
+        egg.position.set((Math.random() - 0.5) * 20, 0.5, -Math.random() * 15 - 2);
+        scene.add(egg);
+        eggsList.push(egg);
+      }
 
       camera.position.set(0, 6, 20);
       camera.lookAt(player.position);
@@ -823,31 +566,14 @@
       if (moveX !== 0 || moveZ !== 0) {
         player.position.x += moveX;
         player.position.z += moveZ;
-
-        let angle = Math.atan2(moveX, moveZ);
-        player.rotation.y = angle;
-
-        animTime += 0.25;
-        leftArm.rotation.x = Math.sin(animTime);
-        rightArm.rotation.x = -Math.sin(animTime);
-        leftLeg.rotation.x = -Math.sin(animTime);
-        rightLeg.rotation.x = Math.sin(animTime);
-      } else {
-        leftArm.rotation.x = 0; rightArm.rotation.x = 0;
-        leftLeg.rotation.x = 0; rightLeg.rotation.x = 0;
+        player.rotation.y = Math.atan2(moveX, moveZ);
       }
 
       if (keys.jump && player.position.y <= 1.05) player.position.y = 3.5;
       if (player.position.y > 1.0) player.position.y -= 0.12;
       else player.position.y = 1.0;
 
-      // Smooth Pet Follower Animation
-      if (petObj) {
-        petObj.position.x = player.position.x + Math.sin(Date.now() * 0.005) * 1.5;
-        petObj.position.z = player.position.z + Math.cos(Date.now() * 0.005) * 1.5;
-        petObj.position.y = 1.0 + Math.sin(Date.now() * 0.01) * 0.3;
-      }
-
+      // Shop Guard Patrol & Interaction
       if (!shopOpen && player.position.distanceTo(shopBooth.position) < 2.5) {
         shopOpen = true;
         document.getElementById('shop-modal').style.display = 'flex';
@@ -855,12 +581,9 @@
         closeShopModal();
       }
 
+      // Egg Gathering & Chicken Guard
       eggsList.forEach((egg, idx) => {
         if (egg && carriedEggs < maxCapacity && player.position.distanceTo(egg.position) < 1.4) {
-          if (egg.userData && egg.userData.isLava) carriedValueMultiplier = 3;
-          else if (egg.userData && egg.userData.is2X) carriedValueMultiplier = 2;
-          else carriedValueMultiplier = 1;
-
           scene.remove(egg);
           eggsList[idx] = null;
           carriedEggs++;
@@ -869,35 +592,20 @@
         }
       });
 
-      if (eggsList.length > 0 && eggsList.every(e => e === null)) {
-        spawnAllEggs();
-      }
-
       if (carriedEggs > 0 && player.position.distanceTo(new THREE.Vector3(0, 1, 12)) < 3.0) {
-        let pointsEarned = carriedEggs * 300 * carriedValueMultiplier;
-        let robuxEarned = carriedEggs * 10 * carriedValueMultiplier;
-        
-        gameScore += pointsEarned;
-        usersDB[currentUser].robux += robuxEarned;
-        localStorage.setItem('roblox_kur_users', JSON.stringify(usersDB));
-
+        gameScore += carriedEggs * 200;
         carriedEggs = 0;
-        carriedValueMultiplier = 1;
         isChasing = false;
-
         document.getElementById('game-score').innerText = gameScore;
         document.getElementById('carried-count').innerText = carriedEggs;
-        document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
       }
 
       if (isChasing && carriedEggs > 0) {
         chickenGuard.lookAt(player.position);
-        chickenGuard.translateZ(0.20);
-
+        chickenGuard.translateZ(0.18);
         if (chickenGuard.position.distanceTo(player.position) < 1.4) {
-          alert('🐔 مریشکی پاسەوان گرتیتی و هەموو هێلکەکانت دۆڕاند!');
+          alert('🐔 پاسەوانی مریشک گرتت و هێلکەکەت لێ وەرگرتەوە!');
           carriedEggs = 0;
-          carriedValueMultiplier = 1;
           isChasing = false;
           player.position.set(0, 1, 12);
           chickenGuard.position.set(0, 0, -6);
@@ -915,24 +623,6 @@
     function exitGame() {
       cancelAnimationFrame(animationId);
       document.getElementById('game-container').style.display = 'none';
-    }
-
-    function sendGameChatMessage() {
-      const input = document.getElementById('chat-input');
-      const text = input.value.trim();
-      if (!text) return;
-      const box = document.getElementById('chat-messages-box');
-      
-      const isOwner = (currentUser === 'rip_hama276');
-      const verifiedHTML = isOwner ? '<i class="fa-solid fa-circle-check verified-icon"></i> (Owner)' : '';
-      
-      const msgDiv = document.createElement('div');
-      msgDiv.className = 'chat-msg';
-      msgDiv.innerHTML = `<span class="sender ${isOwner ? 'owner' : ''}">${currentUser} ${verifiedHTML}:</span> ${text}`;
-      box.appendChild(msgDiv);
-
-      input.value = '';
-      box.scrollTop = box.scrollHeight;
     }
   </script>
 </body>

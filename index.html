@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Roblox Kurd - Steal An Egg & Admin Panel</title>
+  <title>Roblox Kurd - Steal An Egg Ultimate Edition</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
@@ -123,7 +123,7 @@
     .game-title { font-size: 16px; font-weight: bold; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .game-creator { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
 
-    /* Hama Dev AI Integrated Workspace Tab */
+    /* Hama Dev AI Workspace Tab */
     .ai-workspace {
       display: flex; flex-direction: column; height: calc(100vh - 120px); background: var(--roblox-card);
       border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
@@ -136,7 +136,6 @@
     }
     .ai-msg.user { background: var(--roblox-red); color: white; align-self: flex-start; border-bottom-right-radius: 4px; }
     .ai-msg.ai { background: #2b2e38; border: 1px solid var(--border); color: #fff; align-self: flex-end; border-bottom-left-radius: 4px; }
-    .ai-msg pre { background: #0d0d10; padding: 10px; border-radius: 6px; margin-top: 8px; overflow-x: auto; font-family: monospace; color: var(--robux-gold); }
 
     .ai-input-area {
       background: var(--roblox-sidebar); border-top: 1px solid var(--border); padding: 12px; display: flex; align-items: center; gap: 10px;
@@ -170,7 +169,7 @@
     #shop-modal {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
       background: rgba(25, 27, 31, 0.95); border: 2px solid var(--robux-gold); border-radius: 16px;
-      width: 340px; max-height: 80vh; overflow-y: auto; padding: 20px; z-index: 10008; display: none; flex-direction: column; gap: 14px; pointer-events: auto;
+      width: 360px; max-height: 80vh; overflow-y: auto; padding: 20px; z-index: 10008; display: none; flex-direction: column; gap: 14px; pointer-events: auto;
       box-shadow: 0 10px 30px rgba(0,0,0,0.8);
     }
     .shop-modal-header { display: flex; justify-content: space-between; align-items: center; color: var(--robux-gold); font-weight: bold; font-size: 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
@@ -304,7 +303,7 @@
           <div class="page-title"><i class="fa-solid fa-brain" style="color:var(--roblox-red);"></i><span>Hama Dev AI Assistant</span></div>
           <div class="ai-workspace">
             <div class="ai-messages-box" id="ai-messages-box">
-              <div class="ai-msg ai">سڵاو کاکە گیان! من Hama Dev AIـم. دەتوانیت بۆ هەر پرسیارێک یان کۆدێک ڕاوێژم پێ بکەیت!</div>
+              <div class="ai-msg ai">سڵاو کاکە گیان! من Hama Dev AIـم. پڕۆگرامسازییەکە بە تەواوی ئامادەیە!</div>
             </div>
             <div class="ai-input-area">
               <input type="text" id="ai-input" placeholder="لێرە نوسین یان پرسیارەکەت بنووسە..." onkeydown="if(event.key==='Enter') sendAIMessage()">
@@ -315,7 +314,7 @@
     </div>
   </div>
 
-  <!-- Admin Modal with Give/Remove Robux & Login As -->
+  <!-- Admin Modal -->
   <div id="admin-modal">
     <div class="admin-card">
       <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Owner Admin Panel)</h2>
@@ -337,8 +336,8 @@
       </div>
 
       <div class="admin-section">
-        <label style="font-size:13px; font-weight:bold;"><i class="fa-solid fa-wand-magic-sparkles"></i> سپاون کردنی 5 هێلکەی ڕەنگاوڕەنگ:</label>
-        <button class="admin-action-btn" style="background:var(--roblox-red); color:white;" onclick="spawnMutationsFromAdmin()">✨ 5 Mutations سپاون بکە لە ناو یارییەکەدا</button>
+        <label style="font-size:13px; font-weight:bold;"><i class="fa-solid fa-wand-magic-sparkles"></i> سپاون کردنی هەموو هێلکەکان:</label>
+        <button class="admin-action-btn" style="background:var(--roblox-red); color:white;" onclick="spawnMutationsFromAdmin()">✨ هەموو هێلکەکان سپاون بکە</button>
       </div>
 
       <div class="admin-section">
@@ -354,26 +353,25 @@
   <div id="game-container">
     <canvas id="game-canvas"></canvas>
     
-    <!-- 3D Shop In-Game Modal -->
+    <!-- 3D Shop Modal -->
     <div id="shop-modal">
       <div class="shop-modal-header">
-        <span><i class="fa-solid fa-store"></i> شۆپی فەرمی Steal An Egg</span>
+        <span><i class="fa-solid fa-store"></i> شۆپی فەرمی Steal An Egg (Ultimate)</span>
         <button class="shop-close-btn" onclick="closeShopModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="shop-items-list">
-        <div style="font-weight:bold; color:var(--robux-gold); font-size:12px; margin-top:4px;">⚡ بەرزکردنەوەی خێرایی (Up to 100 Speed):</div>
-        <div class="shop-item-row"><span>⚡ خێرایی 28</span><button class="shop-buy-action-btn" onclick="buySpeed(28, 10)">10 R$</button></div>
-        <div class="shop-item-row"><span>⚡ خێرایی 30</span><button class="shop-buy-action-btn" onclick="buySpeed(30, 20)">20 R$</button></div>
-        <div class="shop-item-row"><span>⚡ خێرایی 40</span><button class="shop-buy-action-btn" onclick="buySpeed(40, 35)">35 R$</button></div>
+        <div style="font-weight:bold; color:var(--robux-gold); font-size:12px; margin-top:4px;">⚡ بەرزکردنەوەی خێرایی (تا 100 Speed):</div>
+        <div class="shop-item-row"><span>⚡ خێرایی 30</span><button class="shop-buy-action-btn" onclick="buySpeed(30, 10)">10 R$</button></div>
+        <div class="shop-item-row"><span>⚡ خێرایی 40</span><button class="shop-buy-action-btn" onclick="buySpeed(40, 25)">25 R$</button></div>
         <div class="shop-item-row"><span>⚡ خێرایی 60</span><button class="shop-buy-action-btn" onclick="buySpeed(60, 50)">50 R$</button></div>
-        <div class="shop-item-row"><span>⚡ خێرایی 80</span><button class="shop-buy-action-btn" onclick="buySpeed(80, 75)">75 R$</button></div>
-        <div class="shop-item-row"><span>⚡ خێرایی 100</span><button class="shop-buy-action-btn" onclick="buySpeed(100, 100)">100 R$</button></div>
+        <div class="shop-item-row"><span>⚡ خێرایی 80</span><button class="shop-buy-action-btn" onclick="buySpeed(80, 80)">80 R$</button></div>
+        <div class="shop-item-row"><span>⚡ خێرایی 100</span><button class="shop-buy-action-btn" onclick="buySpeed(100, 120)">120 R$</button></div>
         
-        <div style="font-weight:bold; color:var(--robux-gold); font-size:12px; margin-top:8px;">🥚 هەڵگرتنی هێلکە (Up to 5 Eggs):</div>
+        <div style="font-weight:bold; color:var(--robux-gold); font-size:12px; margin-top:8px;">🥚 توانای هەڵگرتن (تا 5 هێلکە):</div>
         <div class="shop-item-row"><span>🥚 2 هێلکە</span><button class="shop-buy-action-btn" onclick="buyCapacity(2, 15)">15 R$</button></div>
-        <div class="shop-item-row"><span>🥚 3 هێلکە</span><button class="shop-buy-action-btn" onclick="buyCapacity(3, 30)">30 R$</button></div>
-        <div class="shop-item-row"><span>🥚 4 هێلکە</span><button class="shop-buy-action-btn" onclick="buyCapacity(4, 50)">50 R$</button></div>
-        <div class="shop-item-row"><span>🥚 5 هێلکە</span><button class="shop-buy-action-btn" onclick="buyCapacity(5, 80)">80 R$</button></div>
+        <div class="shop-item-row"><span>🥚 3 هێلکە</span><button class="shop-buy-action-btn" onclick="buyCapacity(3, 35)">35 R$</button></div>
+        <div class="shop-item-row"><span>🥚 4 هێلکە</span><button class="shop-buy-action-btn" onclick="buyCapacity(4, 60)">60 R$</button></div>
+        <div class="shop-item-row"><span>🥚 5 هێلکە</span><button class="shop-buy-action-btn" onclick="buyCapacity(5, 100)">100 R$</button></div>
       </div>
     </div>
 
@@ -381,7 +379,7 @@
       <div class="game-top-bar">
         <button class="exit-game-btn" onclick="exitGame()"><i class="fa-solid fa-door-open"></i> دەرچوون (Leave)</button>
         <div class="game-stats">
-          <span>خاڵ (Score): <span id="game-score">0</span></span>
+          <span>خاڵ: <span id="game-score">0</span></span>
           <span>🥚 هێلکە: <span id="carried-count">0</span>/<span id="max-capacity">1</span></span>
           <span>⚡ خێرایی: <span id="speed-display">25</span></span>
         </div>
@@ -389,7 +387,7 @@
 
       <div class="game-chat">
         <div class="chat-messages" id="chat-messages-box">
-          <div class="chat-msg"><span class="sender owner">rip_hama276 (Owner):</span> بەخێربێن بۆ Steal An Egg! ناوچەی زێڕینی 2X بپشکنە!</div>
+          <div class="chat-msg"><span class="sender owner">rip_hama276 (Owner):</span> بەخێربێن بۆ ڤێرژنی کۆتایی Steal An Egg! ناوچەی لاڤا تاقیکەرەوە!</div>
         </div>
         <div class="chat-input-box">
           <input type="text" id="chat-input" placeholder="نوسینی پەیام..." onkeydown="if(event.key==='Enter') sendGameChatMessage()">
@@ -412,7 +410,7 @@
     let usersDB = JSON.parse(localStorage.getItem('roblox_kur_users') || '{}');
     let bannedDB = JSON.parse(localStorage.getItem('roblox_kur_banned') || '[]');
     let gamesList = JSON.parse(localStorage.getItem('roblox_kur_games') || JSON.stringify([
-      { id: 'steal_egg', title: 'Steal An Egg 🥚', creator: 'rip_hama276', playing: '3.5K', color: '#e1b12c' }
+      { id: 'steal_egg', title: 'Steal An Egg 🥚 Ultimate', creator: 'rip_hama276', playing: '5.2K', color: '#e1b12c' }
     ]));
     
     usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, inventory: [], friends: [] };
@@ -457,7 +455,7 @@
       }
 
       if (!usersDB[username]) {
-        usersDB[username] = { password: password, robux: 200, inventory: [], friends: [] };
+        usersDB[username] = { password: password, robux: 250, inventory: [], friends: [] };
       } else if (usersDB[username].password !== password) {
         errorEl.innerText = 'تێپەڕەواژە هەڵەیە!';
         errorEl.style.display = 'block';
@@ -569,7 +567,7 @@
 
     function spawnMutationsFromAdmin() {
       if(typeof spawnAllEggs === 'function') spawnAllEggs();
-      alert('✨ 5 هێلکەی بەنرخی زێڕین و ڕەنگاوڕەنگ سپاون کران!');
+      alert('✨ هەموو هێلکەکان بە سەرکەوتوویی سپاون کران!');
       closeAdminPanel();
     }
 
@@ -606,8 +604,8 @@
       document.getElementById('tab-' + tabName).style.display = 'block';
     }
 
-    /* --- 3D Steal An Egg Engine --- */
-    let scene, camera, renderer, player, leftArm, rightArm, leftLeg, rightLeg, chickenGuard, shopBooth, animationId;
+    /* --- 3D Engine with Pets & Lava Zone --- */
+    let scene, camera, renderer, player, leftArm, rightArm, leftLeg, rightLeg, chickenGuard, shopBooth, petObj, animationId;
     let animTime = 0;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
     
@@ -679,19 +677,30 @@
         const eggGeo = new THREE.SphereGeometry(0.45, 16, 16); eggGeo.scale(1, 1.3, 1);
         const eggMat = new THREE.MeshLambertMaterial({ color: eggColors[i], emissive: eggColors[i], emissiveIntensity: 0.3 });
         const egg = new THREE.Mesh(eggGeo, eggMat);
-        egg.position.set((Math.random() - 0.5) * 20, 0.5, -Math.random() * 10 - 2);
-        egg.userData = { is2X: false };
+        egg.position.set((Math.random() - 0.5) * 22, 0.5, -Math.random() * 12 - 2);
+        egg.userData = { is2X: false, isLava: false };
         scene.add(egg);
         eggsList.push(egg);
       }
 
-      // Golden 2X Zone Eggs (2X Robux/Points Value)
+      // Golden 2X Zone Eggs
       for (let i = 3; i < 5; i++) {
-        const eggGeo = new THREE.SphereGeometry(0.55, 16, 16); eggGeo.scale(1, 1.3, 1);
+        const eggGeo = new THREE.SphereGeometry(0.5, 16, 16); eggGeo.scale(1, 1.3, 1);
         const eggMat = new THREE.MeshLambertMaterial({ color: 0xffd700, emissive: 0xffa500, emissiveIntensity: 0.6 });
         const egg = new THREE.Mesh(eggGeo, eggMat);
-        egg.position.set((Math.random() - 0.5) * 12, 0.5, -Math.random() * 8 - 20); // Deep in 2X Zone
-        egg.userData = { is2X: true };
+        egg.position.set((Math.random() - 0.5) * 14, 0.5, -Math.random() * 10 - 18);
+        egg.userData = { is2X: true, isLava: false };
+        scene.add(egg);
+        eggsList.push(egg);
+      }
+
+      // Lava Vault Zone Eggs (3X Ultra Value)
+      for (let i = 0; i < 2; i++) {
+        const eggGeo = new THREE.SphereGeometry(0.55, 16, 16); eggGeo.scale(1, 1.3, 1);
+        const eggMat = new THREE.MeshLambertMaterial({ color: 0xff4500, emissive: 0xff0000, emissiveIntensity: 0.8 });
+        const egg = new THREE.Mesh(eggGeo, eggMat);
+        egg.position.set((Math.random() - 0.5) * 16, 0.5, -Math.random() * 10 - 32);
+        egg.userData = { is2X: false, isLava: true };
         scene.add(egg);
         eggsList.push(egg);
       }
@@ -738,6 +747,10 @@
       player.position.set(0, 1, 12);
       scene.add(player);
 
+      // Floating Follower Pet (Golden Tiger Cub)
+      petObj = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.5), new THREE.MeshLambertMaterial({ color: 0xffaa00, emissive: 0xff6600, emissiveIntensity: 0.5 }));
+      scene.add(petObj);
+
       // AI Guard Chicken
       chickenGuard = new THREE.Group();
       const chBody = new THREE.Mesh(new THREE.SphereGeometry(0.8, 16, 16), new THREE.MeshLambertMaterial({ color: 0xffffff }));
@@ -759,13 +772,15 @@
       shopBooth.position.set(-8, 0, 5);
       scene.add(shopBooth);
 
-      // Floor & Home Base
-      const floor = new THREE.Mesh(new THREE.PlaneGeometry(90, 90), new THREE.MeshLambertMaterial({ color: 0x27ae60 }));
+      // Floor & Zones
+      const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, 120), new THREE.MeshLambertMaterial({ color: 0x27ae60 }));
       floor.rotation.x = -Math.PI / 2; scene.add(floor);
 
-      // Golden 2X Zone Floor (New Area)
-      const zone2X = new THREE.Mesh(new THREE.PlaneGeometry(30, 20), new THREE.MeshLambertMaterial({ color: 0xd4af37 }));
-      zone2X.rotation.x = -Math.PI / 2; zone2X.position.set(0, 0.02, -24); scene.add(zone2X);
+      const zone2X = new THREE.Mesh(new THREE.PlaneGeometry(35, 22), new THREE.MeshLambertMaterial({ color: 0xd4af37 }));
+      zone2X.rotation.x = -Math.PI / 2; zone2X.position.set(0, 0.02, -22); scene.add(zone2X);
+
+      const lavaZone = new THREE.Mesh(new THREE.PlaneGeometry(35, 22), new THREE.MeshLambertMaterial({ color: 0xc0392b }));
+      lavaZone.rotation.x = -Math.PI / 2; lavaZone.position.set(0, 0.03, -44); scene.add(lavaZone);
 
       const homeBase = new THREE.Mesh(new THREE.CylinderGeometry(3.5, 3.5, 0.1, 32), new THREE.MeshLambertMaterial({ color: 0x2980b9 }));
       homeBase.position.set(0, 0.05, 12); scene.add(homeBase);
@@ -826,7 +841,13 @@
       if (player.position.y > 1.0) player.position.y -= 0.12;
       else player.position.y = 1.0;
 
-      // Check if player enters Shop Booth
+      // Smooth Pet Follower Animation
+      if (petObj) {
+        petObj.position.x = player.position.x + Math.sin(Date.now() * 0.005) * 1.5;
+        petObj.position.z = player.position.z + Math.cos(Date.now() * 0.005) * 1.5;
+        petObj.position.y = 1.0 + Math.sin(Date.now() * 0.01) * 0.3;
+      }
+
       if (!shopOpen && player.position.distanceTo(shopBooth.position) < 2.5) {
         shopOpen = true;
         document.getElementById('shop-modal').style.display = 'flex';
@@ -834,12 +855,12 @@
         closeShopModal();
       }
 
-      // Picking Eggs Logic
       eggsList.forEach((egg, idx) => {
         if (egg && carriedEggs < maxCapacity && player.position.distanceTo(egg.position) < 1.4) {
-          if (egg.userData && egg.userData.is2X) {
-            carriedValueMultiplier = 2; // Double points for 2X golden zone egg!
-          }
+          if (egg.userData && egg.userData.isLava) carriedValueMultiplier = 3;
+          else if (egg.userData && egg.userData.is2X) carriedValueMultiplier = 2;
+          else carriedValueMultiplier = 1;
+
           scene.remove(egg);
           eggsList[idx] = null;
           carriedEggs++;
@@ -848,15 +869,13 @@
         }
       });
 
-      // Automatic Respawn Loop when all eggs picked
       if (eggsList.length > 0 && eggsList.every(e => e === null)) {
         spawnAllEggs();
       }
 
-      // Depositing at Home Base (0, 1, 12)
       if (carriedEggs > 0 && player.position.distanceTo(new THREE.Vector3(0, 1, 12)) < 3.0) {
-        let pointsEarned = carriedEggs * 250 * carriedValueMultiplier;
-        let robuxEarned = carriedEggs * 5 * carriedValueMultiplier;
+        let pointsEarned = carriedEggs * 300 * carriedValueMultiplier;
+        let robuxEarned = carriedEggs * 10 * carriedValueMultiplier;
         
         gameScore += pointsEarned;
         usersDB[currentUser].robux += robuxEarned;
@@ -873,10 +892,10 @@
 
       if (isChasing && carriedEggs > 0) {
         chickenGuard.lookAt(player.position);
-        chickenGuard.translateZ(0.19);
+        chickenGuard.translateZ(0.20);
 
         if (chickenGuard.position.distanceTo(player.position) < 1.4) {
-          alert('🐔 مریشکی پاسەوان گرتیتی و هێلکەکەی لێ وەرگرتیتەوە!');
+          alert('🐔 مریشکی پاسەوان گرتیتی و هەموو هێلکەکانت دۆڕاند!');
           carriedEggs = 0;
           carriedValueMultiplier = 1;
           isChasing = false;

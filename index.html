@@ -7,35 +7,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <!-- PWA Installation Setup for Mobile Chrome -->
+  <!-- PWA Manifest & Service Worker Registration -->
+  <link rel="manifest" href="manifest.json">
   <script>
-    const manifestData = {
-      "name": "Hama Dev Store",
-      "short_name": "HamaDev",
-      "start_url": "./",
-      "display": "standalone",
-      "background_color": "#0f172a",
-      "theme_color": "#10b981",
-      "icons": [
-        { "src": "701.jpg", "sizes": "192x192", "type": "image/jpeg" },
-        { "src": "701.jpg", "sizes": "512x512", "type": "image/jpeg" }
-      ]
-    };
-    const manifestBlob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
-    const manifestURL = URL.createObjectURL(manifestBlob);
-    const link = document.createElement('link');
-    link.rel = 'manifest';
-    link.href = manifestURL;
-    document.head.appendChild(link);
-
     if ('serviceWorker' in navigator) {
-      const swCode = `
-        self.addEventListener('install', e => self.skipWaiting());
-        self.addEventListener('fetch', e => e.respondWith(fetch(e.request)));
-      `;
-      const swBlob = new Blob([swCode], { type: 'text/javascript' });
-      const swURL = URL.createObjectURL(swBlob);
-      navigator.serviceWorker.register(swURL).catch(err => console.log('SW error:', err));
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('Service Worker Registered Successfully'))
+        .catch(err => console.log('SW registration failed:', err));
     }
   </script>
 
@@ -432,7 +410,6 @@
     let currentUser = localStorage.getItem('hamadev_store_current') || null;
     let pendingVerifyCode = null;
 
-    // Seed Owner & Initial Players
     usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, email: 'rip_hama@dev.kur', verified: true };
     if(!usersDB['Ahmad_Gamer']) usersDB['Ahmad_Gamer'] = { password: '123', robux: 1200, email: 'ahmad@mail.com', verified: true };
     if(!usersDB['Kurd_Pro99']) usersDB['Kurd_Pro99'] = { password: '123', robux: 850, email: 'kurdpro@mail.com', verified: false };

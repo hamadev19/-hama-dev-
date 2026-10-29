@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.17.0</title>
+  <title>Hama Dev Store - Roblox Kurd v2.17.0 Ultimate</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -71,7 +71,7 @@
       display: none; align-items: center; gap: 10px;
     }
 
-    /* Cinematic Global Trailer Modal Popup */
+    /* Cinematic Global Trailer & Audio Modal Popup */
     #global-trailer-modal {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       background: rgba(0, 0, 0, 0.92); z-index: 40000; display: none; align-items: center; justify-content: center; padding: 20px;
@@ -244,15 +244,15 @@
     <span id="announcement-text">پەیامی فەرمی ئۆنەر</span>
   </div>
 
-  <!-- Global Cinematic Trailer Modal Popup -->
+  <!-- Global Cinematic Trailer & Audio Modal Popup -->
   <div id="global-trailer-modal">
     <div class="trailer-content-box">
       <div class="trailer-header">
-        <span><i class="fa-solid fa-clapperboard"></i> ترەیلەری فەرمی (Hama Dev Trailer)</span>
+        <span><i class="fa-solid fa-clapperboard"></i> ترەیلەر و دەنگی فەرمی (Hama Dev Broadcast)</span>
         <button class="trailer-close-btn" onclick="closeGlobalTrailer()">داخستن X</button>
       </div>
       <div class="trailer-video-wrapper" id="trailer-frame-container">
-        <!-- Video or iframe injected dynamically -->
+        <!-- Video, Audio or iframe injected dynamically -->
       </div>
     </div>
   </div>
@@ -356,15 +356,18 @@
     </div>
   </div>
 
-  <!-- Full Owner Admin Panel with Trailer Broadcast -->
+  <!-- Full Owner Admin Panel with Trailer & Audio Broadcast -->
   <div id="admin-modal">
     <div class="admin-card">
       <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Owner Admin Panel v2.17.0)</h2>
       
       <div class="admin-section">
-        <label style="font-size:12px; font-weight:bold;"><i class="fa-solid fa-clapperboard" style="color:var(--store-primary);"></i> ناردنی ترەیلەر بۆ شاشەی هەمووان (Broadcast Trailer):</label>
-        <input type="text" id="trailer-url-input" placeholder="لینکی ڤیدیۆ یان ترەیلەر (MP4 یان Youtube)...">
-        <button class="admin-action-btn" style="background:var(--store-primary); color:white;" onclick="sendGlobalTrailer()">🎬 پیشاندانی ترەیلەر بۆ هەمووان</button>
+        <label style="font-size:12px; font-weight:bold;"><i class="fa-solid fa-clapperboard" style="color:var(--store-primary);"></i> ناردنی ترەیلەر یان گۆرانی/دەنگ بۆ هەمووان (Broadcast Media):</label>
+        <input type="text" id="trailer-url-input" placeholder="لینکی ڤیدیۆ، یوتیوب، یان فایلی دەنگی MP3...">
+        <div style="display: flex; gap: 8px; margin-top: 5px;">
+          <button class="admin-action-btn" style="flex:1; background:var(--store-primary); color:white;" onclick="sendGlobalTrailer()">🎬 پیشاندانی ڤیدیۆ بۆ هەمووان</button>
+          <button class="admin-action-btn" style="flex:1; background:var(--robux-gold); color:#000;" onclick="sendGlobalAudio()">🎵 لێدانی دەنگ/گۆرانی بۆ هەمووان</button>
+        </div>
       </div>
 
       <div class="admin-section">
@@ -469,7 +472,7 @@
       }
       setupMobileTouchEvents();
 
-      // Check if global trailer is active in localStorage
+      // Check if global trailer or audio broadcast is active
       let activeTrailer = localStorage.getItem('hamadev_active_trailer');
       if(activeTrailer) {
         showGlobalTrailer(activeTrailer);
@@ -539,27 +542,39 @@
       document.getElementById('tab-' + tabName).style.display = 'block';
     }
 
-    /* Cinematic Trailer Functions */
+    /* Cinematic Trailer & Audio Broadcast Functions */
     function sendGlobalTrailer() {
       let url = document.getElementById('trailer-url-input').value.trim();
-      if(!url) {
-        // Default sample trailer if empty
-        url = 'https://www.w3schools.com/html/mov_bbb.mp4';
-      }
+      if(!url) url = 'https://www.w3schools.com/html/mov_bbb.mp4';
       localStorage.setItem('hamadev_active_trailer', url);
       showGlobalTrailer(url);
       closeAdminPanel();
-      alert('🎬 ترەیلەرەکە بە سەرکەوتوویی نێردرا بۆ سەر شاشەی هەموو یاریزانەکان!');
+      alert('🎬 ترەیلەری ڤیدیۆیی بە سەرکەوتوویی نێردرا بۆ هەمووان!');
     }
 
-    function showGlobalTrailer(videoUrl) {
+    function sendGlobalAudio() {
+      let url = document.getElementById('trailer-url-input').value.trim();
+      if(!url) url = 'https://www.w3schools.com/html/horse.ogg';
+      localStorage.setItem('hamadev_active_trailer', url);
+      showGlobalTrailer(url);
+      closeAdminPanel();
+      alert('🎵 دەنگ و گۆرانی بە سەرکەوتوویی بۆ هەمووان لێدرا!');
+    }
+
+    function showGlobalTrailer(mediaUrl) {
       const container = document.getElementById('trailer-frame-container');
       container.innerHTML = '';
-      if(videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) {
-        let embedUrl = videoUrl.includes('watch?v=') ? videoUrl.replace('watch?v=', 'embed/') : videoUrl;
+      if(mediaUrl.includes('youtube.com') || mediaUrl.includes('youtu.be')) {
+        let embedUrl = mediaUrl.includes('watch?v=') ? mediaUrl.replace('watch?v=', 'embed/') : mediaUrl;
         container.innerHTML = `<iframe src="${embedUrl}?autoplay=1" allow="autoplay" allowfullscreen></iframe>`;
+      } else if(mediaUrl.endsWith('.mp3') || mediaUrl.endsWith('.ogg') || mediaUrl.includes('horse.ogg')) {
+        container.innerHTML = `<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; padding:30px; gap:15px; color:#fff;">
+          <i class="fa-solid fa-music" style="font-size:50px; color:var(--robux-gold);"></i>
+          <h3>گۆرانی / دەنگی لێدراو لەلایەن ئۆنەرەوە</h3>
+          <audio src="${mediaUrl}" controls autoplay style="width:100%;"></audio>
+        </div>`;
       } else {
-        container.innerHTML = `<video src="${videoUrl}" controls autoplay playsinline style="width:100%; height:100%;"></video>`;
+        container.innerHTML = `<video src="${mediaUrl}" controls autoplay playsinline style="width:100%; height:100%;"></video>`;
       }
       document.getElementById('global-trailer-modal').style.display = 'flex';
     }

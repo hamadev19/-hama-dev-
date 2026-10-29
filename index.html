@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.20.0 Mega Fixed</title>
+  <title>Hama Dev Store - Roblox Kurd v2.21.0 Ultimate Fix</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -274,7 +274,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.20.0 Mega Fixed</div>
+      <div class="version-tag">v2.21.0 Ultimate Fix</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -297,7 +297,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.20.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.21.0</span></span>
       </div>
 
       <div class="store-search">
@@ -332,9 +332,9 @@
               <div class="app-card-top">
                 <div class="app-icon"><i class="fa-solid fa-egg"></i></div>
                 <div class="app-info">
-                  <h3>Steal An Egg Mega Ultimate</h3>
+                  <h3>Steal An Egg Ultimate Fix</h3>
                   <p>خاوەن: rip_hama276</p>
-                  <p style="color:var(--store-primary); margin-top:2px;">⭐ 5.0 (25K داگرتن) - v2.20.0</p>
+                  <p style="color:var(--store-primary); margin-top:2px;">⭐ 5.0 (30K داگرتن) - v2.21.0</p>
                 </div>
               </div>
               <button class="install-btn" onclick="startStealAnEggGame()"><i class="fa-solid fa-download"></i> یاری کردن / دابەزاندن</button>
@@ -406,7 +406,7 @@
 
         <!-- Settings / Account & Email Verification Tab -->
         <div id="tab-settings" class="tab-content" style="display:none;">
-          <div class="page-title"><i class="fa-solid fa-gear" style="color:var(--store-primary)"></i><span>سیتینگ و بەستنەوەی ئیمەیڵ (v2.20.0)</span></div>
+          <div class="page-title"><i class="fa-solid fa-gear" style="color:var(--store-primary)"></i><span>سیتینگ و بەستنەوەی ئیمەیڵ (v2.21.0)</span></div>
           <div class="settings-card">
             <h3>بەستنەوەی ئەژمار بە ئیمەیڵ (Email Link)</h3>
             <p style="color:var(--text-muted); font-size:13px;">بۆ پاراستنی ئەکاونتەکەت و ناردنی نامەی دڵنیایی بە زمانی کوردی:</p>
@@ -435,7 +435,7 @@
   <!-- Full Owner Admin Panel with Mega Features -->
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Owner Admin Panel v2.20.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Owner Admin Panel v2.21.0)</h2>
       
       <div class="admin-section">
         <label style="font-size:12px; font-weight:bold;"><i class="fa-solid fa-clapperboard" style="color:var(--store-primary);"></i> ناردنی ترەیلەر یان گۆرانی/دەنگ بۆ هەمووان (Broadcast Media):</label>
@@ -533,9 +533,9 @@
     let pendingVerifyCode = null;
 
     usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, email: 'rip_hama@dev.kur', verified: true, hasVIP: true, hasSpeed: true, hasShield: true, hasGoldenPet: true };
-    if(!usersDB['Ahmad_Gamer']) usersDB['Ahmad_Gamer'] = { password: '123', robux: 1200, email: 'ahmad@mail.com', verified: true };
-    if(!usersDB['Kurd_Pro99']) usersDB['Kurd_Pro99'] = { password: '123', robux: 850, email: 'kurdpro@mail.com', verified: false };
-    if(!usersDB['Hama_Player']) usersDB['Hama_Player'] = { password: '123', robux: 400, email: 'hama@mail.com', verified: true };
+    if(!usersDB['Ahmad_Gamer']) usersDB['Ahmad_Gamer'] = { password: '123', robux: 1200, email: 'ahmad@mail.com', verified: true, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false };
+    if(!usersDB['Kurd_Pro99']) usersDB['Kurd_Pro99'] = { password: '123', robux: 850, email: 'kurdpro@mail.com', verified: false, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false };
+    if(!usersDB['Hama_Player']) usersDB['Hama_Player'] = { password: '123', robux: 400, email: 'hama@mail.com', verified: true, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false };
 
     localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
 
@@ -620,10 +620,12 @@
       document.getElementById('tab-' + tabName).style.display = 'block';
     }
 
-    /* Store Online Item Purchase Connected Directly to 3D Game */
+    /* Fixed Store Online Item Purchase Connected Directly to 3D Game */
     function buyStoreItem(itemName, cost) {
+      if(!usersDB[currentUser]) return;
+
       if(usersDB[currentUser].robux < cost) {
-        alert('❌ ڕووبوکس (Robux)ی تەواوت پێنییە!');
+        alert('❌ ڕووبوکس (Robux)ی تەواوت پێنییە بۆ کڕینی ئەم بڕگەیە!');
         return;
       }
 
@@ -631,20 +633,21 @@
 
       if(itemName === 'VIP Rank') {
         usersDB[currentUser].hasVIP = true;
-        alert('👑 پیرۆزە! تاج و پلەی VIP بۆ ئەکاونتەکەت چالاک بوو لە ناو یاری!');
+        alert('👑 پیرۆزە! تاج و پلەی VIP بۆ ئەکاونتەکەت لە شۆپەکەدا چالاک بوو!');
       } else if(itemName === 'Speed Booster') {
         usersDB[currentUser].hasSpeed = true;
-        alert('⚡ پیرۆزە! خێرایی یاریزانەکەت لە ناو یاری بوو بە ۳٠٪ زیاتر!');
+        alert('⚡ پیرۆزە! خێرایی ۳٠٪ بۆ ئەکاونتەکەت لە شۆپەکەدا چالاک بوو!');
       } else if(itemName === 'Guard Shield') {
         usersDB[currentUser].hasShield = true;
-        alert('🛡️ پیرۆزە! سپەری پاراستن لە ناو یاری بۆ چالاک بوو!');
+        alert('🛡️ پیرۆزە! سپەری پاراستن بۆ ئەکاونتەکەت لە شۆپەکەدا چالاک بوو!');
       } else if(itemName === 'Golden Pet') {
         usersDB[currentUser].hasGoldenPet = true;
-        alert('🐾 پیرۆزە! پێتی زێڕینی تایبەت بۆ چالاک بوو لە ناو یاری!');
+        alert('🐾 پیرۆزە! پێتی زێڕین بۆ ئەکاونتەکەت لە شۆپەکەدا چالاک بوو!');
       }
 
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+      renderChatMessages();
     }
 
     /* Global Chat Functions */
@@ -926,7 +929,6 @@
       document.getElementById('game-score').innerText = gameScore;
       document.getElementById('carried-count').innerText = carriedEggs;
 
-      // Apply Purchased Store Features Directly to Player Speed
       let userObj = usersDB[currentUser] || {};
       playerSpeed = userObj.hasSpeed ? 0.35 : 0.25;
       document.getElementById('speed-display').innerText = Math.round(playerSpeed * 100);
@@ -949,13 +951,11 @@
       const head = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.7, 0.7), new THREE.MeshLambertMaterial({ color: 0xffdbac }));
       head.position.y = 2.15; player.add(head);
 
-      // VIP Crown Accessory
       if(userObj.hasVIP || currentUser === 'rip_hama276') {
         crownMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.3, 0.25, 8), new THREE.MeshLambertMaterial({ color: 0xffd700 }));
         crownMesh.position.y = 2.65; player.add(crownMesh);
       }
 
-      // Guard Shield Accessory
       if(userObj.hasShield) {
         shieldMesh = new THREE.Mesh(new THREE.SphereGeometry(1.6, 16, 16), new THREE.MeshLambertMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.35 }));
         shieldMesh.position.y = 1.2; player.add(shieldMesh);
@@ -973,7 +973,6 @@
       player.position.set(0, 1, 12);
       scene.add(player);
 
-      // Pet Accessory
       let petColor = userObj.hasGoldenPet ? 0xffd700 : 0xffaa00;
       petObj = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.5), new THREE.MeshLambertMaterial({ color: petColor, emissive: petColor, emissiveIntensity: 0.5 }));
       scene.add(petObj);
@@ -1096,7 +1095,6 @@
         document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
       }
 
-      // Guard Chase & Guard Shield Protection
       let userObj = usersDB[currentUser] || {};
       if (isChasing && carriedEggs > 0 && !userObj.hasShield) {
         chickenGuard.lookAt(player.position);

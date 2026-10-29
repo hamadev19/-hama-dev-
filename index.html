@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.22.0 10-Eggs & Custom Guards</title>
+  <title>Hama Dev Store - Roblox Kurd v2.23.0 New Ice Zone & 4 Custom Guards</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -274,7 +274,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.22.0 10-Eggs & Custom Guards</div>
+      <div class="version-tag">v2.23.0 New Ice Zone</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -297,7 +297,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.22.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.23.0</span></span>
       </div>
 
       <div class="store-search">
@@ -330,11 +330,11 @@
           <div class="store-grid">
             <div class="store-app-card">
               <div class="app-card-top">
-                <div class="app-icon"><i class="fa-solid fa-egg"></i></div>
+                <div class="app-icon"><i class="fa-solid fa-snowflake"></i></div>
                 <div class="app-info">
-                  <h3>Steal An Egg 10-Capacity</h3>
+                  <h3>Steal An Egg (Ice Zone)</h3>
                   <p>خاوەن: rip_hama276</p>
-                  <p style="color:var(--store-primary); margin-top:2px;">⭐ 5.0 (35K داگرتن) - v2.22.0</p>
+                  <p style="color:var(--store-primary); margin-top:2px;">⭐ 5.0 (40K داگرتن) - v2.23.0</p>
                 </div>
               </div>
               <button class="install-btn" onclick="startStealAnEggGame()"><i class="fa-solid fa-download"></i> یاری کردن / دابەزاندن</button>
@@ -344,7 +344,7 @@
 
         <!-- Store Online Items Shop Tab Direct Connected to Game -->
         <div id="tab-items" class="tab-content" style="display:none;">
-          <div class="page-title"><i class="fa-solid fa-bag-shopping" style="color:var(--robux-gold)"></i><span>شۆپی ئۆنلاینی ستۆر (ڕاستەوخۆ کار بۆ یاری دەکات)</span></div>
+          <div class="page-title"><i class="fa-solid fa-bag-shopping" style="color:var(--robux-gold)"></i><span>شۆپی ئۆنلاینی ستۆر</span></div>
           <div class="store-grid">
             <div class="store-app-card">
               <div class="app-card-top">
@@ -404,9 +404,9 @@
           </div>
         </div>
 
-        <!-- Settings / Account & Email Verification Tab -->
+        <!-- Settings / Account Verification Tab -->
         <div id="tab-settings" class="tab-content" style="display:none;">
-          <div class="page-title"><i class="fa-solid fa-gear" style="color:var(--store-primary)"></i><span>سیتینگ و بەستنەوەی ئیمەیڵ (v2.22.0)</span></div>
+          <div class="page-title"><i class="fa-solid fa-gear" style="color:var(--store-primary)"></i><span>سیتینگ و بەستنەوەی ئیمەیڵ</span></div>
           <div class="settings-card">
             <h3>بەستنەوەی ئەژمار بە ئیمەیڵ (Email Link)</h3>
             <p style="color:var(--text-muted); font-size:13px;">بۆ پاراستنی ئەکاونتەکەت و ناردنی نامەی دڵنیایی بە زمانی کوردی:</p>
@@ -417,7 +417,6 @@
             </div>
             <button class="auth-btn" style="padding:10px;" onclick="sendVerificationEmail()">ناردنی کۆدی پشتڕاستکردنەوە (Verify)</button>
 
-            <!-- Verification Code Box in Kurdish -->
             <div class="verify-box" id="verify-box">
               <p id="kurdish-mail-notice" style="font-size:13px; color:#38bdf8; margin-bottom:8px; line-height:1.5;"></p>
               <div class="input-group">
@@ -432,13 +431,13 @@
     </div>
   </div>
 
-  <!-- Full Owner Admin Panel with Mega Features -->
+  <!-- Full Owner Admin Panel -->
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Owner Admin Panel v2.22.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Owner Admin Panel v2.23.0)</h2>
       
       <div class="admin-section">
-        <label style="font-size:12px; font-weight:bold;"><i class="fa-solid fa-clapperboard" style="color:var(--store-primary);"></i> ناردنی ترەیلەر یان گۆرانی/دەنگ بۆ هەمووان (Broadcast Media):</label>
+        <label style="font-size:12px; font-weight:bold;"><i class="fa-solid fa-clapperboard" style="color:var(--store-primary);"></i> ناردنی ترەیلەر یان گۆرانی/دەنگ بۆ هەمووان:</label>
         <input type="text" id="trailer-url-input" placeholder="لینکی ڤیدیۆ، یوتیوب، یان فایلی دەنگی MP3...">
         <div style="display: flex; gap: 8px; margin-top: 5px;">
           <button class="admin-action-btn" style="flex:1; background:var(--store-primary); color:white;" onclick="sendGlobalTrailer()">🎬 پیشاندانی ڤیدیۆ بۆ هەمووان</button>
@@ -472,7 +471,7 @@
       </div>
 
       <div class="admin-section">
-        <p style="font-size: 12px; color: var(--text-muted); font-weight:bold;">لیستی سەرجەم یاریزانەکان (چوونەژوورەوە، +R$، باند و لابردنی باند):</p>
+        <p style="font-size: 12px; color: var(--text-muted); font-weight:bold;">لیستی سەرجەم یاریزانەکان:</p>
         <div id="admin-users-list" style="max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;"></div>
       </div>
 
@@ -480,11 +479,11 @@
     </div>
   </div>
 
-  <!-- Game Canvas Container with Up to 10 Eggs Capacity & Custom Guards -->
+  <!-- Game Canvas Container -->
   <div id="game-container">
     <canvas id="game-canvas"></canvas>
     
-    <!-- 3D Shop Modal with Capacity up to 10 -->
+    <!-- 3D Shop Modal -->
     <div id="shop-modal">
       <div class="shop-header">
         <span><i class="fa-solid fa-shield-dog"></i> شۆپی پارێزراو (توانای تا 10 هێلکە)</span>
@@ -845,9 +844,9 @@
       } else { alert('❌ کۆدەکە هەڵەیە، تکایە دیسان هەوڵ بدە!'); }
     }
 
-    /* 3D Game Engine with Custom Guards for Each Zone & Up to 10 Eggs Capacity */
+    /* 3D Game Engine with 4 Zones including Ice Zone and 4 Custom Guards */
     let scene, camera, renderer, player, leftArm, rightArm, leftLeg, rightLeg, crownMesh, shieldMesh, shopBooth, petObj, animationId;
-    let normalGuard, goldenGuard, lavaGuard;
+    let normalGuard, goldenGuard, lavaGuard, frostGuard;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
     let gameScore = 0, carriedEggs = 0, carriedValueMultiplier = 1, maxCapacity = 1, playerSpeed = 0.25, eggsList = [], shopOpen = false;
 
@@ -894,28 +893,36 @@
       eggsList = [];
       const eggColors = [0xf1c40f, 0x9b59b6, 0xe74c3c, 0x3498db, 0x2ecc71];
       
-      // Normal Zone Eggs (Z: 0 to -20)
+      // 1. Normal Zone Eggs (Z: 0 to -20)
       for (let i = 0; i < 4; i++) {
         const eggGeo = new THREE.SphereGeometry(0.45, 16, 16); eggGeo.scale(1, 1.3, 1);
         const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: eggColors[i], emissive: eggColors[i], emissiveIntensity: 0.3 }));
         egg.position.set((Math.random() - 0.5) * 24, 0.5, -Math.random() * 16 - 2);
-        egg.userData = { zone: 'normal', is2X: false, isLava: false };
+        egg.userData = { mult: 1 };
         scene.add(egg); eggsList.push(egg);
       }
-      // Golden Zone Eggs (Z: -22 to -42)
+      // 2. Golden Zone Eggs (Z: -22 to -42)
       for (let i = 0; i < 3; i++) {
         const eggGeo = new THREE.SphereGeometry(0.5, 16, 16); eggGeo.scale(1, 1.3, 1);
         const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: 0xffd700, emissive: 0xffa500, emissiveIntensity: 0.6 }));
         egg.position.set((Math.random() - 0.5) * 24, 0.5, -Math.random() * 16 - 22);
-        egg.userData = { zone: 'golden', is2X: true, isLava: false };
+        egg.userData = { mult: 2 };
         scene.add(egg); eggsList.push(egg);
       }
-      // Lava Zone Eggs (Z: -44 to -64)
+      // 3. Lava Zone Eggs (Z: -44 to -64)
       for (let i = 0; i < 3; i++) {
         const eggGeo = new THREE.SphereGeometry(0.55, 16, 16); eggGeo.scale(1, 1.3, 1);
         const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: 0xff4500, emissive: 0xff0000, emissiveIntensity: 0.8 }));
         egg.position.set((Math.random() - 0.5) * 24, 0.5, -Math.random() * 16 - 44);
-        egg.userData = { zone: 'lava', is2X: false, isLava: true };
+        egg.userData = { mult: 3 };
+        scene.add(egg); eggsList.push(egg);
+      }
+      // 4. NEW ICE ZONE EGGS (Z: -66 to -88) - 5X Multiplier
+      for (let i = 0; i < 3; i++) {
+        const eggGeo = new THREE.SphereGeometry(0.6, 16, 16); eggGeo.scale(1, 1.3, 1);
+        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: 0x38bdf8, emissive: 0x0284c7, emissiveIntensity: 0.9 }));
+        egg.position.set((Math.random() - 0.5) * 24, 0.5, -Math.random() * 16 - 66);
+        egg.userData = { mult: 5 };
         scene.add(egg); eggsList.push(egg);
       }
     }
@@ -975,24 +982,27 @@
       petObj = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.5), new THREE.MeshLambertMaterial({ color: petColor, emissive: petColor, emissiveIntensity: 0.5 }));
       scene.add(petObj);
 
-      // Custom Guards for Each Zone
+      // 4 Custom Guards for Each Zone
       normalGuard = new THREE.Group();
       let nBody = new THREE.Mesh(new THREE.SphereGeometry(0.8, 16, 16), new THREE.MeshLambertMaterial({ color: 0xffffff }));
       nBody.position.y = 0.8; normalGuard.add(nBody);
-      normalGuard.position.set(0, 0, -10);
-      scene.add(normalGuard);
+      normalGuard.position.set(0, 0, -10); scene.add(normalGuard);
 
       goldenGuard = new THREE.Group();
       let gBody = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.4, 0.6), new THREE.MeshLambertMaterial({ color: 0xd4af37 }));
       gBody.position.y = 0.8; goldenGuard.add(gBody);
-      goldenGuard.position.set(0, 0, -32);
-      scene.add(goldenGuard);
+      goldenGuard.position.set(0, 0, -32); scene.add(goldenGuard);
 
       lavaGuard = new THREE.Group();
       let lBody = new THREE.Mesh(new THREE.ConeGeometry(0.8, 1.6, 16), new THREE.MeshLambertMaterial({ color: 0xff4500, emissive: 0xff0000, emissiveIntensity: 0.5 }));
       lBody.position.y = 0.8; lavaGuard.add(lBody);
-      lavaGuard.position.set(0, 0, -54);
-      scene.add(lavaGuard);
+      lavaGuard.position.set(0, 0, -54); scene.add(lavaGuard);
+
+      // NEW FROST GUARD FOR ICE ZONE
+      frostGuard = new THREE.Group();
+      let fBody = new THREE.Mesh(new THREE.OctahedronGeometry(0.9, 2), new THREE.MeshLambertMaterial({ color: 0x38bdf8, emissive: 0x0284c7, emissiveIntensity: 0.7 }));
+      fBody.position.y = 0.9; frostGuard.add(fBody);
+      frostGuard.position.set(0, 0, -76); scene.add(frostGuard);
 
       shopBooth = new THREE.Group();
       const boothBase = new THREE.Mesh(new THREE.BoxGeometry(3, 1.5, 2), new THREE.MeshLambertMaterial({ color: 0xfbbf24 }));
@@ -1000,14 +1010,19 @@
       shopBooth.position.set(-8, 0, 5);
       scene.add(shopBooth);
 
-      const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, 150), new THREE.MeshLambertMaterial({ color: 0x1e293b }));
-      floor.rotation.x = -Math.PI / 2; floor.position.z = -20; scene.add(floor);
+      // 4 Zone Grounds Extended
+      const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, 200), new THREE.MeshLambertMaterial({ color: 0x1e293b }));
+      floor.rotation.x = -Math.PI / 2; floor.position.z = -35; scene.add(floor);
 
       const zone2X = new THREE.Mesh(new THREE.PlaneGeometry(35, 25), new THREE.MeshLambertMaterial({ color: 0xd4af37 }));
       zone2X.rotation.x = -Math.PI / 2; zone2X.position.set(0, 0.02, -32); scene.add(zone2X);
 
       const lavaZone = new THREE.Mesh(new THREE.PlaneGeometry(35, 25), new THREE.MeshLambertMaterial({ color: 0xc0392b }));
       lavaZone.rotation.x = -Math.PI / 2; lavaZone.position.set(0, 0.03, -54); scene.add(lavaZone);
+
+      // NEW ICE ZONE GROUND
+      const iceZone = new THREE.Mesh(new THREE.PlaneGeometry(35, 25), new THREE.MeshLambertMaterial({ color: 0x0284c7 }));
+      iceZone.rotation.x = -Math.PI / 2; iceZone.position.set(0, 0.04, -76); scene.add(iceZone);
 
       const homeBase = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 0.1, 32), new THREE.MeshLambertMaterial({ color: 0x3b82f6 }));
       homeBase.position.set(0, 0.05, 15); scene.add(homeBase);
@@ -1072,10 +1087,7 @@
 
       eggsList.forEach((egg, idx) => {
         if (egg && carriedEggs < maxCapacity && player.position.distanceTo(egg.position) < 1.4) {
-          if (egg.userData && egg.userData.isLava) carriedValueMultiplier = 3;
-          else if (egg.userData && egg.userData.is2X) carriedValueMultiplier = 2;
-          else carriedValueMultiplier = 1;
-
+          carriedValueMultiplier = egg.userData ? egg.userData.mult : 1;
           scene.remove(egg);
           eggsList[idx] = null;
           carriedEggs++;
@@ -1099,13 +1111,14 @@
         document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
       }
 
-      // Custom Guards Active Tracking Based on Player Zone
+      // Tracking Custom Guards Active According to Player Z Position
       let userObj = usersDB[currentUser] || {};
       if (!userObj.hasShield) {
         let activeGuard = null;
         if (player.position.z > -21) activeGuard = normalGuard;
         else if (player.position.z > -43) activeGuard = goldenGuard;
-        else activeGuard = lavaGuard;
+        else if (player.position.z > -65) activeGuard = lavaGuard;
+        else activeGuard = frostGuard;
 
         if (activeGuard) {
           activeGuard.lookAt(player.position);
@@ -1117,6 +1130,7 @@
             normalGuard.position.set(0, 0, -10);
             goldenGuard.position.set(0, 0, -32);
             lavaGuard.position.set(0, 0, -54);
+            frostGuard.position.set(0, 0, -76);
             document.getElementById('carried-count').innerText = carriedEggs;
           }
         }

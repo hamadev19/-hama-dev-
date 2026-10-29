@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.17.0 Ultimate</title>
+  <title>Hama Dev Store - Roblox Kurd v2.19.0 Mega Ultimate</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -27,6 +27,7 @@
       --text-muted: #94a3b8;
       --robux-gold: #fbbf24;
       --admin-red: #ef4444;
+      --purple-vip: #8b5cf6;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -90,7 +91,7 @@
       position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; object-fit: cover;
     }
 
-    /* Play Store Layout */
+    /* Dashboard Layout */
     #dashboard { display: none; flex: 1; flex-direction: column; height: 100vh; overflow: hidden; }
 
     header {
@@ -134,7 +135,7 @@
     main { flex: 1; padding: 24px; overflow-y: auto; background: var(--store-dark); }
     .page-title { font-size: 22px; font-weight: bold; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
 
-    /* Store Grid */
+    /* Store Grid & Items */
     .store-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
     .store-app-card {
       background: var(--store-card); border: 1px solid var(--store-border); border-radius: 16px;
@@ -151,6 +152,17 @@
     }
     .install-btn:hover { background: #059669; }
 
+    /* Mega Chat Box */
+    .chat-box {
+      background: var(--store-card); border: 1px solid var(--store-border); border-radius: 16px;
+      padding: 16px; max-width: 600px; display: flex; flex-direction: column; height: 420px;
+    }
+    .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; padding-right: 5px; }
+    .chat-msg { background: #0f172a; padding: 8px 12px; border-radius: 10px; font-size: 13px; border: 1px solid var(--store-border); }
+    .chat-msg .sender { font-weight: bold; color: var(--store-primary); margin-bottom: 2px; }
+    .chat-input-area { display: flex; gap: 8px; }
+    .chat-input-area input { flex: 1; padding: 10px; background: #0f172a; border: 1px solid var(--store-border); border-radius: 8px; color: white; outline: none; }
+
     /* Settings View */
     .settings-card {
       background: var(--store-card); border: 1px solid var(--store-border); border-radius: 16px;
@@ -166,7 +178,7 @@
     }
     .admin-card {
       background: var(--store-card); border: 1px solid var(--admin-red); border-radius: 16px;
-      width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 14px;
+      width: 100%; max-width: 650px; max-height: 90vh; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 14px;
     }
     .admin-card h2 { color: var(--admin-red); display: flex; align-items: center; gap: 8px; font-size: 18px; }
     .admin-section { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--store-border); padding-top: 12px; }
@@ -262,7 +274,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.17.0 Ultimate App</div>
+      <div class="version-tag">v2.19.0 Mega Ultimate</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -285,7 +297,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.17.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.19.0</span></span>
       </div>
 
       <div class="store-search">
@@ -306,6 +318,8 @@
     <div class="app-body">
       <sidebar>
         <div class="nav-item active" onclick="switchTab('store', this)"><i class="fa-solid fa-store"></i><span>ستۆر (Apps)</span></div>
+        <div class="nav-item" onclick="switchTab('items', this)"><i class="fa-solid fa-bag-shopping"></i><span>شۆپی بڕگەکان</span></div>
+        <div class="nav-item" onclick="switchTab('chat', this)"><i class="fa-solid fa-comments"></i><span>چاتی گشتی</span></div>
         <div class="nav-item" onclick="switchTab('settings', this)"><i class="fa-solid fa-gear"></i><span>سیتینگ (ئەکاونت)</span></div>
       </sidebar>
 
@@ -318,9 +332,9 @@
               <div class="app-card-top">
                 <div class="app-icon"><i class="fa-solid fa-egg"></i></div>
                 <div class="app-info">
-                  <h3>Steal An Egg Ultimate</h3>
+                  <h3>Steal An Egg Mega Ultimate</h3>
                   <p>خاوەن: rip_hama276</p>
-                  <p style="color:var(--store-primary); margin-top:2px;">⭐ 5.0 (12K داگرتن) - v2.17.0</p>
+                  <p style="color:var(--store-primary); margin-top:2px;">⭐ 5.0 (20K داگرتن) - v2.19.0</p>
                 </div>
               </div>
               <button class="install-btn" onclick="startStealAnEggGame()"><i class="fa-solid fa-download"></i> یاری کردن / دابەزاندن</button>
@@ -328,9 +342,71 @@
           </div>
         </div>
 
+        <!-- Store Online Items Shop Tab -->
+        <div id="tab-items" class="tab-content" style="display:none;">
+          <div class="page-title"><i class="fa-solid fa-bag-shopping" style="color:var(--robux-gold)"></i><span>شۆپی ئۆنلاینی ستۆر (کڕین بە ڕۆبوکس)</span></div>
+          <div class="store-grid">
+            <div class="store-app-card">
+              <div class="app-card-top">
+                <div class="app-icon" style="color:var(--robux-gold);"><i class="fa-solid fa-crown"></i></div>
+                <div class="app-info">
+                  <h3>VIP Rank Badge</h3>
+                  <p>پلەی تایبەتی VIP لەگەڵ ڕەنگی زێڕین</p>
+                </div>
+              </div>
+              <button class="install-btn" style="background:var(--robux-gold); color:#000;" onclick="buyStoreItem('VIP Rank', 500)">کڕین بە 500 R$</button>
+            </div>
+
+            <div class="store-app-card">
+              <div class="app-card-top">
+                <div class="app-icon" style="color:#38bdf8;"><i class="fa-solid fa-bolt"></i></div>
+                <div class="app-info">
+                  <h3>Speed Booster Pack</h3>
+                  <p>خێرایی هەمیشەیی +50 لە یاری</p>
+                </div>
+              </div>
+              <button class="install-btn" style="background:#38bdf8; color:#000;" onclick="buyStoreItem('Speed Booster', 300)">کڕین بە 300 R$</button>
+            </div>
+
+            <div class="store-app-card">
+              <div class="app-card-top">
+                <div class="app-icon" style="color:#ef4444;"><i class="fa-solid fa-shield-dog"></i></div>
+                <div class="app-info">
+                  <h3>Guard Shield Pass</h3>
+                  <p>پاراستن لە پاسەوانی مریشک بۆ ١ کاتژمێر</p>
+                </div>
+              </div>
+              <button class="install-btn" style="background:#ef4444; color:#fff;" onclick="buyStoreItem('Guard Shield', 150)">کڕین بە 150 R$</button>
+            </div>
+
+            <div class="store-app-card">
+              <div class="app-card-top">
+                <div class="app-icon" style="color:#8b5cf6;"><i class="fa-solid fa-hat-wizard"></i></div>
+                <div class="app-info">
+                  <h3>Golden Pet Companion</h3>
+                  <p>پێتی زێڕینی تایبەت بۆ بەدواداگەڕانی هێلکە</p>
+                </div>
+              </div>
+              <button class="install-btn" style="background:#8b5cf6; color:#fff;" onclick="buyStoreItem('Golden Pet', 800)">کڕین بە 800 R$</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Global Live Chat Tab -->
+        <div id="tab-chat" class="tab-content" style="display:none;">
+          <div class="page-title"><i class="fa-solid fa-comments" style="color:var(--store-primary)"></i><span>چاتی ڕاستەوخۆی یاریزانان</span></div>
+          <div class="chat-box">
+            <div class="chat-messages" id="chat-messages-box"></div>
+            <div class="chat-input-area">
+              <input type="text" id="chat-input" placeholder="پەیامێک بۆ هەمووان بنووسە...">
+              <button class="auth-btn" style="width: auto; padding: 10px 20px; margin: 0;" onclick="sendChatMessage()">ناردن</button>
+            </div>
+          </div>
+        </div>
+
         <!-- Settings / Account & Email Verification Tab -->
         <div id="tab-settings" class="tab-content" style="display:none;">
-          <div class="page-title"><i class="fa-solid fa-gear" style="color:var(--store-primary)"></i><span>سیتینگ و بەستنەوەی ئیمەیڵ (v2.17.0)</span></div>
+          <div class="page-title"><i class="fa-solid fa-gear" style="color:var(--store-primary)"></i><span>سیتینگ و بەستنەوەی ئیمەیڵ (v2.19.0)</span></div>
           <div class="settings-card">
             <h3>بەستنەوەی ئەژمار بە ئیمەیڵ (Email Link)</h3>
             <p style="color:var(--text-muted); font-size:13px;">بۆ پاراستنی ئەکاونتەکەت و ناردنی نامەی دڵنیایی بە زمانی کوردی:</p>
@@ -356,10 +432,10 @@
     </div>
   </div>
 
-  <!-- Full Owner Admin Panel with Trailer & Audio Broadcast -->
+  <!-- Full Owner Admin Panel with Mega Features -->
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Owner Admin Panel v2.17.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Owner Admin Panel v2.19.0)</h2>
       
       <div class="admin-section">
         <label style="font-size:12px; font-weight:bold;"><i class="fa-solid fa-clapperboard" style="color:var(--store-primary);"></i> ناردنی ترەیلەر یان گۆرانی/دەنگ بۆ هەمووان (Broadcast Media):</label>
@@ -371,13 +447,14 @@
       </div>
 
       <div class="admin-section">
-        <label style="font-size:12px; font-weight:bold;"><i class="fa-solid fa-gem" style="color:var(--robux-gold);"></i> بەڕێوەبردنی ڕۆبوکس بە دەستی:</label>
+        <label style="font-size:12px; font-weight:bold;"><i class="fa-solid fa-gem" style="color:var(--robux-gold);"></i> بەڕێوەبردنی ڕۆبوکس و بەخشین:</label>
         <input type="text" id="robux-target-user" placeholder="ناوی یاریزان (Username)...">
         <input type="number" id="robux-target-amount" placeholder="بڕی ڕۆبوکس (R$)...">
         <div style="display: flex; gap: 8px; margin-top: 5px;">
           <button class="admin-action-btn" style="flex:1; background:var(--robux-gold); color:#000;" onclick="modifyRobuxForPlayer('give')">➕ ناردنی ڕۆبوکس</button>
           <button class="admin-action-btn" style="flex:1; background:#ef4444; color:white;" onclick="modifyRobuxForPlayer('remove')">➖ لابردنی ڕۆبوکس</button>
         </div>
+        <button class="admin-action-btn" style="background:#8b5cf6; color:white; margin-top:5px;" onclick="giveawayToAll()">🎁 بەخشینی 5,000 R$ بۆ هەموو یاریزانەکان</button>
       </div>
 
       <div class="admin-section">
@@ -387,13 +464,16 @@
       </div>
 
       <div class="admin-section">
-        <label style="font-size:12px; font-weight:bold;"><i class="fa-solid fa-wand-magic-sparkles"></i> سپاون کردنی هەموو هێلکەکان لە یاری:</label>
-        <button class="admin-action-btn" style="background:var(--store-primary); color:white;" onclick="spawnMutationsFromAdmin()">✨ هەموو هێلکەکان سپاون بکە</button>
+        <label style="font-size:12px; font-weight:bold;"><i class="fa-solid fa-comments"></i> کۆنترۆڵی چات و یاری:</label>
+        <div style="display: flex; gap: 8px;">
+          <button class="admin-action-btn" style="flex:1; background:#ef4444;" onclick="clearGlobalChat()">🧹 پاککردنەوەی چات</button>
+          <button class="admin-action-btn" style="flex:1; background:var(--store-primary);" onclick="spawnMutationsFromAdmin()">✨ سپاون کردنی هێلکەکان</button>
+        </div>
       </div>
 
       <div class="admin-section">
         <p style="font-size: 12px; color: var(--text-muted); font-weight:bold;">لیستی سەرجەم یاریزانەکان (چوونەژوورەوە، +R$، باند و لابردنی باند):</p>
-        <div id="admin-users-list" style="max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;"></div>
+        <div id="admin-users-list" style="max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;"></div>
       </div>
 
       <button class="auth-btn" style="background: var(--admin-red); margin-top:5px;" onclick="closeAdminPanel()">داخستنی پەنێڵ</button>
@@ -448,6 +528,7 @@
   <script>
     let usersDB = JSON.parse(localStorage.getItem('hamadev_store_users') || '{}');
     let bannedDB = JSON.parse(localStorage.getItem('hamadev_store_banned') || '[]');
+    let chatDB = JSON.parse(localStorage.getItem('hamadev_global_chat') || '[]');
     let currentUser = localStorage.getItem('hamadev_store_current') || null;
     let pendingVerifyCode = null;
 
@@ -471,12 +552,10 @@
         document.getElementById('auth-screen').style.display = 'flex';
       }
       setupMobileTouchEvents();
+      renderChatMessages();
 
-      // Check if global trailer or audio broadcast is active
       let activeTrailer = localStorage.getItem('hamadev_active_trailer');
-      if(activeTrailer) {
-        showGlobalTrailer(activeTrailer);
-      }
+      if(activeTrailer) showGlobalTrailer(activeTrailer);
     };
 
     function handleAuth() {
@@ -542,7 +621,63 @@
       document.getElementById('tab-' + tabName).style.display = 'block';
     }
 
-    /* Cinematic Trailer & Audio Broadcast Functions */
+    /* Store Online Item Purchase */
+    function buyStoreItem(itemName, cost) {
+      if(usersDB[currentUser].robux < cost) {
+        alert('❌ ڕووبوکس (Robux)ی تەواوت پێنییە!');
+        return;
+      }
+      usersDB[currentUser].robux -= cost;
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+      alert(`🎉 بە سەرکەوتوویی بڕگەی ${itemName}ـت کڕی بە ${cost} R$!`);
+    }
+
+    /* Global Chat Functions */
+    function sendChatMessage() {
+      const input = document.getElementById('chat-input');
+      const text = input.value.trim();
+      if(!text) return;
+
+      chatDB.push({ sender: currentUser, text: text, time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) });
+      localStorage.setItem('hamadev_global_chat', JSON.stringify(chatDB));
+      input.value = '';
+      renderChatMessages();
+    }
+
+    function renderChatMessages() {
+      const container = document.getElementById('chat-messages-box');
+      if(!container) return;
+      container.innerHTML = '';
+      chatDB.forEach(msg => {
+        container.innerHTML += `<div class="chat-msg">
+          <div class="sender">${msg.sender === 'rip_hama276' ? '👑 ' + msg.sender + ' (Owner)' : msg.sender} <span style="font-size:10px; color:var(--text-muted);">[${msg.time}]</span></div>
+          <div>${msg.text}</div>
+        </div>`;
+      });
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function clearGlobalChat() {
+      chatDB = [];
+      localStorage.setItem('hamadev_global_chat', JSON.stringify(chatDB));
+      renderChatMessages();
+      alert('🧹 چاتی گشتی بە سەرکەوتوویی پاککرایەوە!');
+      closeAdminPanel();
+    }
+
+    /* Giveaway Function */
+    function giveawayToAll() {
+      for(let uname in usersDB) {
+        usersDB[uname].robux += 5000;
+      }
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+      alert('🎁 بە سەرکەوتوویی 5,000 R$ دیاری بەخشرا بە سەرجەم یاریزانەکان!');
+      closeAdminPanel();
+    }
+
+    /* Media Broadcast */
     function sendGlobalTrailer() {
       let url = document.getElementById('trailer-url-input').value.trim();
       if(!url) url = 'https://www.w3schools.com/html/mov_bbb.mp4';
@@ -585,7 +720,7 @@
       localStorage.removeItem('hamadev_active_trailer');
     }
 
-    /* Full Admin Panel Functions */
+    /* Admin Panel Core */
     function openAdminPanel() {
       const listEl = document.getElementById('admin-users-list');
       listEl.innerHTML = '';
@@ -620,7 +755,7 @@
 
     function loginAsUser(uname) {
       if (bannedDB.includes(uname)) {
-        alert('ئەم یاریزانە باند کراوە، ناتوانیت بچیتە سەری تا باندی لەسەر لانەبەیت!');
+        alert('ئەم یاریزانە باند کراوە!');
         return;
       }
       currentUser = uname;
@@ -643,29 +778,14 @@
       const targetUser = document.getElementById('robux-target-user').value.trim();
       const amount = parseInt(document.getElementById('robux-target-amount').value.trim());
 
-      if (!targetUser || !amount || amount <= 0) {
-        alert('تکایە ناوی یاریزان و بڕی ڕۆبوکس بنووسە!');
-        return;
-      }
-      if (!usersDB[targetUser]) {
-        alert('ئەم یاریزانە بوونی نییە!');
-        return;
-      }
+      if (!targetUser || !amount || amount <= 0) { alert('تکایە خانەکان بە دروستی پڕ بکەرەوە!'); return; }
+      if (!usersDB[targetUser]) { alert('ئەم یاریزانە بوونی نییە!'); return; }
 
-      if (action === 'give') {
-        usersDB[targetUser].robux += amount;
-        alert(`بەسەرکەوتوویی ${amount} R$ بەخشرا بە ${targetUser}!`);
-      } else {
-        usersDB[targetUser].robux = Math.max(0, usersDB[targetUser].robux - amount);
-        alert(`بەسەرکەوتوویی ${amount} R$ لە ${targetUser} لادرا!`);
-      }
+      if (action === 'give') usersDB[targetUser].robux += amount;
+      else usersDB[targetUser].robux = Math.max(0, usersDB[targetUser].robux - amount);
 
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-      if (currentUser === targetUser) {
-        document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      }
-      document.getElementById('robux-target-user').value = '';
-      document.getElementById('robux-target-amount').value = '';
+      if (currentUser === targetUser) document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
       openAdminPanel();
     }
 
@@ -686,40 +806,26 @@
       closeAdminPanel();
     }
 
-    function kickUser(uname) { 
-      alert(uname + ' لە سێرڤەر دەرکرا!'); 
-      openAdminPanel(); 
-    }
-
+    function kickUser(uname) { alert(uname + ' لە سێرڤەر دەرکرا!'); openAdminPanel(); }
     function banUser(uname) {
-      if(!bannedDB.includes(uname)) {
-        bannedDB.push(uname);
-        localStorage.setItem('hamadev_store_banned', JSON.stringify(bannedDB));
-      }
-      alert(uname + ' باند کرا!');
-      openAdminPanel();
+      if(!bannedDB.includes(uname)) { bannedDB.push(uname); localStorage.setItem('hamadev_store_banned', JSON.stringify(bannedDB)); }
+      alert(uname + ' باند کرا!'); openAdminPanel();
     }
-
     function unbanUser(uname) {
       bannedDB = bannedDB.filter(u => u !== uname);
       localStorage.setItem('hamadev_store_banned', JSON.stringify(bannedDB));
-      alert(uname + ' باندی لەسەر لادرا!');
-      openAdminPanel();
+      alert(uname + ' باندی لەسەر لادرا!'); openAdminPanel();
     }
 
-    /* Kurdish Email Verification System */
+    /* Email Verification System */
     function sendVerificationEmail() {
       const email = document.getElementById('settings-email').value.trim();
-      if (!email || !email.includes('@')) {
-        alert('تکایە ئیمەیڵێکی ڕاست بنووسە!');
-        return;
-      }
+      if (!email || !email.includes('@')) { alert('تکایە ئیمەیڵێکی ڕاست بنووسە!'); return; }
       pendingVerifyCode = Math.floor(1000 + Math.random() * 9000).toString();
-      
       const noticeBox = document.getElementById('kurdish-mail-notice');
       noticeBox.innerHTML = `📩 <b>جانامە هات بۆ ئیمەیڵەکەت (${email}):</b><br>سڵاو کاکە! کۆدی ڤێریفای کردن بۆ ئەکاونتی شما: <span style="color:var(--robux-gold); font-size:16px;"><b>${pendingVerifyCode}</b></span>`;
       document.getElementById('verify-box').style.display = 'block';
-      alert('نامەی ڤێریفای بە زمانی کوردی سەرکەوتووانە نێردرا بۆ ئیمەیڵەکەت!');
+      alert('نامەی ڤێریفای بە زمانی کوردی سەرکەوتووانە نێردرا!');
     }
 
     function confirmVerification() {
@@ -730,24 +836,13 @@
         localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
         alert('🎉 پیرۆزە! ئەکاونتەکەت بە سەرکەوتوویی ڤێریفای (Verify) کرا.');
         document.getElementById('verify-box').style.display = 'none';
-      } else {
-        alert('❌ کۆدەکە هەڵەیە، تکایە دیسان هەوڵ بدە!');
-      }
+      } else { alert('❌ کۆدەکە هەڵەیە، تکایە دیسان هەوڵ بدە!'); }
     }
 
-    /* --- 3D Engine with Pets, Zones, and Dedicated Guards --- */
+    /* 3D Game Engine */
     let scene, camera, renderer, player, leftArm, rightArm, leftLeg, rightLeg, chickenGuard, shopGuard, shopBooth, petObj, animationId;
-    let animTime = 0;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
-    
-    let gameScore = 0;
-    let carriedEggs = 0;
-    let carriedValueMultiplier = 1;
-    let maxCapacity = 1;
-    let playerSpeed = 0.25;
-    let eggsList = [];
-    let isChasing = false;
-    let shopOpen = false;
+    let gameScore = 0, carriedEggs = 0, carriedValueMultiplier = 1, maxCapacity = 1, playerSpeed = 0.25, eggsList = [], isChasing = false, shopOpen = false;
 
     function buySpeed(speedVal, robuxCost) {
       if (usersDB[currentUser].robux < robuxCost) { alert('ڕووبوکس (Robux)ت پێنییە!'); return; }
@@ -771,10 +866,7 @@
       closeShopModal();
     }
 
-    function closeShopModal() {
-      document.getElementById('shop-modal').style.display = 'none';
-      shopOpen = false;
-    }
+    function closeShopModal() { document.getElementById('shop-modal').style.display = 'none'; shopOpen = false; }
 
     function setupMobileTouchEvents() {
       const bindTouch = (id, keyName) => {
@@ -795,34 +887,26 @@
       eggsList = [];
       const eggColors = [0xf1c40f, 0x9b59b6, 0xe74c3c, 0x3498db, 0x2ecc71];
       
-      // Normal Zone Eggs (1X)
       for (let i = 0; i < 3; i++) {
         const eggGeo = new THREE.SphereGeometry(0.45, 16, 16); eggGeo.scale(1, 1.3, 1);
         const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: eggColors[i], emissive: eggColors[i], emissiveIntensity: 0.3 }));
         egg.position.set((Math.random() - 0.5) * 22, 0.5, -Math.random() * 12 - 2);
         egg.userData = { is2X: false, isLava: false };
-        scene.add(egg);
-        eggsList.push(egg);
+        scene.add(egg); eggsList.push(egg);
       }
-
-      // Golden 2X Zone Eggs
       for (let i = 3; i < 5; i++) {
         const eggGeo = new THREE.SphereGeometry(0.5, 16, 16); eggGeo.scale(1, 1.3, 1);
         const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: 0xffd700, emissive: 0xffa500, emissiveIntensity: 0.6 }));
         egg.position.set((Math.random() - 0.5) * 14, 0.5, -Math.random() * 10 - 18);
         egg.userData = { is2X: true, isLava: false };
-        scene.add(egg);
-        eggsList.push(egg);
+        scene.add(egg); eggsList.push(egg);
       }
-
-      // Lava Vault Zone Eggs (3X Ultra)
       for (let i = 0; i < 2; i++) {
         const eggGeo = new THREE.SphereGeometry(0.55, 16, 16); eggGeo.scale(1, 1.3, 1);
         const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: 0xff4500, emissive: 0xff0000, emissiveIntensity: 0.8 }));
         egg.position.set((Math.random() - 0.5) * 16, 0.5, -Math.random() * 10 - 32);
         egg.userData = { is2X: false, isLava: true };
-        scene.add(egg);
-        eggsList.push(egg);
+        scene.add(egg); eggsList.push(egg);
       }
     }
 
@@ -831,7 +915,6 @@
       gameScore = 0; carriedEggs = 0; carriedValueMultiplier = 1; isChasing = false; shopOpen = false;
       document.getElementById('game-score').innerText = gameScore;
       document.getElementById('carried-count').innerText = carriedEggs;
-      document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
 
       const canvas = document.getElementById('game-canvas');
       scene = new THREE.Scene();
@@ -844,7 +927,6 @@
       scene.add(new THREE.DirectionalLight(0xffffff, 1).position.set(10, 20, 10));
       scene.add(new THREE.AmbientLight(0x505050));
 
-      // Player Avatar
       player = new THREE.Group();
       let shirtColor = (currentUser === 'rip_hama276') ? 0xef4444 : 0x10b981;
       const torso = new THREE.Mesh(new THREE.BoxGeometry(1, 1.2, 0.6), new THREE.MeshLambertMaterial({ color: shirtColor }));
@@ -864,32 +946,27 @@
       player.position.set(0, 1, 12);
       scene.add(player);
 
-      // Floating Follower Pet
       petObj = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.5), new THREE.MeshLambertMaterial({ color: 0xffaa00, emissive: 0xff6600, emissiveIntensity: 0.5 }));
       scene.add(petObj);
 
-      // Guard 1: Chicken Guard for Eggs
       chickenGuard = new THREE.Group();
       const chBody = new THREE.Mesh(new THREE.SphereGeometry(0.8, 16, 16), new THREE.MeshLambertMaterial({ color: 0xffffff }));
       chBody.position.y = 0.8; chickenGuard.add(chBody);
       chickenGuard.position.set(0, 0, -6);
       scene.add(chickenGuard);
 
-      // Guard 2: Shop Security Guard
       shopGuard = new THREE.Group();
       const sBody = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.3, 0.6), new THREE.MeshLambertMaterial({ color: 0xef4444 }));
       sBody.position.y = 0.8; shopGuard.add(sBody);
       shopGuard.position.set(-8, 0, 3);
       scene.add(shopGuard);
 
-      // Shop Booth
       shopBooth = new THREE.Group();
       const boothBase = new THREE.Mesh(new THREE.BoxGeometry(3, 1.5, 2), new THREE.MeshLambertMaterial({ color: 0xfbbf24 }));
       boothBase.position.y = 0.75; shopBooth.add(boothBase);
       shopBooth.position.set(-8, 0, 5);
       scene.add(shopBooth);
 
-      // Floor & Zones
       const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, 120), new THREE.MeshLambertMaterial({ color: 0x1e293b }));
       floor.rotation.x = -Math.PI / 2; scene.add(floor);
 
@@ -947,14 +1024,12 @@
       if (player.position.y > 1.0) player.position.y -= 0.12;
       else player.position.y = 1.0;
 
-      // Pet animation
       if (petObj) {
         petObj.position.x = player.position.x + Math.sin(Date.now() * 0.005) * 1.5;
         petObj.position.z = player.position.z + Math.cos(Date.now() * 0.005) * 1.5;
         petObj.position.y = 1.0 + Math.sin(Date.now() * 0.01) * 0.3;
       }
 
-      // Shop opening
       if (!shopOpen && player.position.distanceTo(shopBooth.position) < 2.5) {
         shopOpen = true;
         document.getElementById('shop-modal').style.display = 'flex';
@@ -962,7 +1037,6 @@
         closeShopModal();
       }
 
-      // Eggs gathering
       eggsList.forEach((egg, idx) => {
         if (egg && carriedEggs < maxCapacity && player.position.distanceTo(egg.position) < 1.4) {
           if (egg.userData && egg.userData.isLava) carriedValueMultiplier = 3;
@@ -977,12 +1051,8 @@
         }
       });
 
-      // Respawn loop when all eggs collected
-      if (eggsList.length > 0 && eggsList.every(e => e === null)) {
-        spawnAllEggs();
-      }
+      if (eggsList.length > 0 && eggsList.every(e => e === null)) spawnAllEggs();
 
-      // Deposit at Home Base
       if (carriedEggs > 0 && player.position.distanceTo(new THREE.Vector3(0, 1, 12)) < 3.0) {
         let pointsEarned = carriedEggs * 300 * carriedValueMultiplier;
         let robuxEarned = carriedEggs * 10 * carriedValueMultiplier;
@@ -991,10 +1061,7 @@
         usersDB[currentUser].robux += robuxEarned;
         localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
 
-        carriedEggs = 0;
-        carriedValueMultiplier = 1;
-        isChasing = false;
-
+        carriedEggs = 0; carriedValueMultiplier = 1; isChasing = false;
         document.getElementById('game-score').innerText = gameScore;
         document.getElementById('carried-count').innerText = carriedEggs;
         document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
@@ -1005,9 +1072,7 @@
         chickenGuard.translateZ(0.20);
         if (chickenGuard.position.distanceTo(player.position) < 1.4) {
           alert('🐔 پاسەوانی مریشک گرتت و هێلکەکانت دۆڕاند!');
-          carriedEggs = 0;
-          carriedValueMultiplier = 1;
-          isChasing = false;
+          carriedEggs = 0; carriedValueMultiplier = 1; isChasing = false;
           player.position.set(0, 1, 12);
           chickenGuard.position.set(0, 0, -6);
           document.getElementById('carried-count').innerText = carriedEggs;

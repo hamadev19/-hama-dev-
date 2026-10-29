@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.24.0 Divine Mega Update</title>
+  <title>Hama Dev Store - Roblox Kurd v2.25.0 Perfect Zones & Divine</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -273,7 +273,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.24.0 Divine & Password Update</div>
+      <div class="version-tag">v2.25.0 Full Zones & Divine</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -296,7 +296,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.24.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.25.0</span></span>
       </div>
 
       <div class="store-search">
@@ -331,9 +331,9 @@
               <div class="app-card-top">
                 <div class="app-icon"><i class="fa-solid fa-dice-d6"></i></div>
                 <div class="app-info">
-                  <h3>Steal An Egg (Divine Multiplayer)</h3>
+                  <h3>Steal An Egg (Full Zones & Divine)</h3>
                   <p>خاوەن: rip_hama276</p>
-                  <p style="color:var(--divine-purple); margin-top:2px;">⭐ 5.0 (Multiplayer Sێرڤەری یەک)</p>
+                  <p style="color:var(--divine-purple); margin-top:2px;">⭐ 5.0 (Multiplayer & 4 Zones)</p>
                 </div>
               </div>
               <button class="install-btn" onclick="startStealAnEggGame()"><i class="fa-solid fa-download"></i> یاری کردن / دابەزاندن</button>
@@ -442,7 +442,7 @@
   <!-- Full Owner Admin Panel with Divine Spawn -->
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Owner Admin Panel v2.24.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Owner Admin Panel v2.25.0)</h2>
       
       <div class="admin-section">
         <label style="font-size:12px; font-weight:bold; color:var(--divine-purple);"><i class="fa-solid fa-dice-d6"></i> سپاون کردنی دیڤاین بۆ بردنی ١٠٩٠ ڕۆبۆکس (Divine Spawn):</label>
@@ -484,7 +484,7 @@
     </div>
   </div>
 
-  <!-- Game Canvas Container with Multiplayer & Divine Egg -->
+  <!-- Game Canvas Container with All 4 Zones & Divine -->
   <div id="game-container">
     <canvas id="game-canvas"></canvas>
     
@@ -719,6 +719,7 @@
       banner.style.display = 'flex';
       alert('✨ دیڤاین بە سەرکەوتوویی سپاون کرا و لە شاشەی هەمووان نیشان درا!');
       closeAdminPanel();
+      if(typeof spawnAllEggs === 'function') spawnAllEggs();
     }
 
     function sendGlobalTrailer() {
@@ -799,8 +800,8 @@
       } else { alert('❌ کۆدەکە هەڵەیە!'); }
     }
 
-    /* 3D Game Engine with Multiplayer & Divine Egg */
-    let scene, camera, renderer, player, otherPlayers = {}, crownMesh, shieldMesh, shopBooth, petObj, divineEggObj, animationId;
+    /* 3D Game Engine with Full 4 Zones, Guards & Divine */
+    let scene, camera, renderer, player, otherPlayers = {}, crownMesh, shieldMesh, shopBooth, petObj, animationId;
     let normalGuard, goldenGuard, lavaGuard, frostGuard;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
     let gameScore = 0, carriedEggs = 0, carriedValueMultiplier = 1, maxCapacity = 1, playerSpeed = 0.25, eggsList = [], shopOpen = false;
@@ -846,6 +847,7 @@
       eggsList = [];
       const eggColors = [0xf1c40f, 0x9b59b6, 0xe74c3c, 0x3498db, 0x2ecc71];
       
+      // 1. Normal Zone Eggs (Z: 0 to -20)
       for (let i = 0; i < 4; i++) {
         const eggGeo = new THREE.SphereGeometry(0.45, 16, 16); eggGeo.scale(1, 1.3, 1);
         const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: eggColors[i], emissive: eggColors[i], emissiveIntensity: 0.3 }));
@@ -853,13 +855,37 @@
         egg.userData = { mult: 1, isDivine: false };
         scene.add(egg); eggsList.push(egg);
       }
+      // 2. Golden Zone Eggs (Z: -22 to -42)
+      for (let i = 0; i < 3; i++) {
+        const eggGeo = new THREE.SphereGeometry(0.5, 16, 16); eggGeo.scale(1, 1.3, 1);
+        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: 0xffd700, emissive: 0xffa500, emissiveIntensity: 0.6 }));
+        egg.position.set((Math.random() - 0.5) * 24, 0.5, -Math.random() * 16 - 22);
+        egg.userData = { mult: 2, isDivine: false };
+        scene.add(egg); eggsList.push(egg);
+      }
+      // 3. Lava Zone Eggs (Z: -44 to -64)
+      for (let i = 0; i < 3; i++) {
+        const eggGeo = new THREE.SphereGeometry(0.55, 16, 16); eggGeo.scale(1, 1.3, 1);
+        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: 0xff4500, emissive: 0xff0000, emissiveIntensity: 0.8 }));
+        egg.position.set((Math.random() - 0.5) * 24, 0.5, -Math.random() * 16 - 44);
+        egg.userData = { mult: 3, isDivine: false };
+        scene.add(egg); eggsList.push(egg);
+      }
+      // 4. Ice Zone Eggs (Z: -66 to -88)
+      for (let i = 0; i < 3; i++) {
+        const eggGeo = new THREE.SphereGeometry(0.6, 16, 16); eggGeo.scale(1, 1.3, 1);
+        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: 0x38bdf8, emissive: 0x0284c7, emissiveIntensity: 0.9 }));
+        egg.position.set((Math.random() - 0.5) * 24, 0.5, -Math.random() * 16 - 66);
+        egg.userData = { mult: 5, isDivine: false };
+        scene.add(egg); eggsList.push(egg);
+      }
 
-      // Spawn Divine Egg if triggered by admin
+      // Divine Egg Spawn Check
       if(localStorage.getItem('hamadev_divine_spawned') === 'true') {
         const divGeo = new THREE.SphereGeometry(0.7, 16, 16); divGeo.scale(1, 1.4, 1);
-        divineEggObj = new THREE.Mesh(divGeo, new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xfbbf24, emissiveIntensity: 1.0 }));
+        const divineEggObj = new THREE.Mesh(divGeo, new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xfbbf24, emissiveIntensity: 1.0 }));
         divineEggObj.position.set(0, 0.6, -40);
-        divineEggObj.userData = { isDivine: true };
+        divineEggObj.userData = { mult: 10, isDivine: true };
         scene.add(divineEggObj); eggsList.push(divineEggObj);
       }
     }
@@ -915,7 +941,7 @@
       player.position.set(0, 1, 15);
       scene.add(player);
 
-      // Spawn Other Online Multiplayer Players in Same Server
+      // Other Multiplayer Players
       let otherNames = Object.keys(usersDB).filter(n => n !== currentUser);
       otherNames.forEach((uname, index) => {
         let op = new THREE.Group();
@@ -932,10 +958,26 @@
       petObj = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.5), new THREE.MeshLambertMaterial({ color: petColor, emissive: petColor, emissiveIntensity: 0.5 }));
       scene.add(petObj);
 
+      // 4 Zone Guards
       normalGuard = new THREE.Group();
       let nBody = new THREE.Mesh(new THREE.SphereGeometry(0.8, 16, 16), new THREE.MeshLambertMaterial({ color: 0xffffff }));
       nBody.position.y = 0.8; normalGuard.add(nBody);
       normalGuard.position.set(0, 0, -10); scene.add(normalGuard);
+
+      goldenGuard = new THREE.Group();
+      let gBody = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.4, 0.6), new THREE.MeshLambertMaterial({ color: 0xd4af37 }));
+      gBody.position.y = 0.8; goldenGuard.add(gBody);
+      goldenGuard.position.set(0, 0, -32); scene.add(goldenGuard);
+
+      lavaGuard = new THREE.Group();
+      let lBody = new THREE.Mesh(new THREE.ConeGeometry(0.8, 1.6, 16), new THREE.MeshLambertMaterial({ color: 0xff4500, emissive: 0xff0000, emissiveIntensity: 0.5 }));
+      lBody.position.y = 0.8; lavaGuard.add(lBody);
+      lavaGuard.position.set(0, 0, -54); scene.add(lavaGuard);
+
+      frostGuard = new THREE.Group();
+      let fBody = new THREE.Mesh(new THREE.OctahedronGeometry(0.9, 2), new THREE.MeshLambertMaterial({ color: 0x38bdf8, emissive: 0x0284c7, emissiveIntensity: 0.7 }));
+      fBody.position.y = 0.9; frostGuard.add(fBody);
+      frostGuard.position.set(0, 0, -76); scene.add(frostGuard);
 
       shopBooth = new THREE.Group();
       const boothBase = new THREE.Mesh(new THREE.BoxGeometry(3, 1.5, 2), new THREE.MeshLambertMaterial({ color: 0xfbbf24 }));
@@ -943,8 +985,18 @@
       shopBooth.position.set(-8, 0, 5);
       scene.add(shopBooth);
 
-      const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, 150), new THREE.MeshLambertMaterial({ color: 0x1e293b }));
-      floor.rotation.x = -Math.PI / 2; floor.position.z = -25; scene.add(floor);
+      // Full 4 Zone Floors
+      const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, 200), new THREE.MeshLambertMaterial({ color: 0x1e293b }));
+      floor.rotation.x = -Math.PI / 2; floor.position.z = -35; scene.add(floor);
+
+      const zone2X = new THREE.Mesh(new THREE.PlaneGeometry(35, 25), new THREE.MeshLambertMaterial({ color: 0xd4af37 }));
+      zone2X.rotation.x = -Math.PI / 2; zone2X.position.set(0, 0.02, -32); scene.add(zone2X);
+
+      const lavaZone = new THREE.Mesh(new THREE.PlaneGeometry(35, 25), new THREE.MeshLambertMaterial({ color: 0xc0392b }));
+      lavaZone.rotation.x = -Math.PI / 2; lavaZone.position.set(0, 0.03, -54); scene.add(lavaZone);
+
+      const iceZone = new THREE.Mesh(new THREE.PlaneGeometry(35, 25), new THREE.MeshLambertMaterial({ color: 0x0284c7 }));
+      iceZone.rotation.x = -Math.PI / 2; iceZone.position.set(0, 0.04, -76); scene.add(iceZone);
 
       const homeBase = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 0.1, 32), new THREE.MeshLambertMaterial({ color: 0x3b82f6 }));
       homeBase.position.set(0, 0.05, 15); scene.add(homeBase);
@@ -1043,15 +1095,26 @@
       }
 
       let userObj = usersDB[currentUser] || {};
-      if (!userObj.hasShield && normalGuard) {
-        normalGuard.lookAt(player.position);
-        normalGuard.translateZ(0.18);
-        if (normalGuard.position.distanceTo(player.position) < 1.4) {
-          alert('🚨 پاسەوان گرتت و هێلکەکانت دۆڕاند!');
-          carriedEggs = 0; carriedValueMultiplier = 1;
-          player.position.set(0, 1, 15);
-          normalGuard.position.set(0, 0, -10);
-          document.getElementById('carried-count').innerText = carriedEggs;
+      if (!userObj.hasShield) {
+        let activeGuard = null;
+        if (player.position.z > -21) activeGuard = normalGuard;
+        else if (player.position.z > -43) activeGuard = goldenGuard;
+        else if (player.position.z > -65) activeGuard = lavaGuard;
+        else activeGuard = frostGuard;
+
+        if (activeGuard) {
+          activeGuard.lookAt(player.position);
+          activeGuard.translateZ(0.18);
+          if (activeGuard.position.distanceTo(player.position) < 1.4) {
+            alert('🚨 پاسەوانی ناوچەکە گرتت و هێلکەکانت دۆڕاند!');
+            carriedEggs = 0; carriedValueMultiplier = 1;
+            player.position.set(0, 1, 15);
+            normalGuard.position.set(0, 0, -10);
+            goldenGuard.position.set(0, 0, -32);
+            lavaGuard.position.set(0, 0, -54);
+            frostGuard.position.set(0, 0, -76);
+            document.getElementById('carried-count').innerText = carriedEggs;
+          }
         }
       }
 

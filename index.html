@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.27.0 Ultra Admin Update</title>
+  <title>Hama Dev Store - Roblox Kurd v2.28.0 Fixed Game HUD & Admin Messages</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -62,7 +62,7 @@
     .auth-btn:hover { background: #059669; }
     .error-msg { color: var(--admin-red); font-size: 12px; margin-top: 8px; display: none; }
 
-    /* Divine Global Alert Banner */
+    /* Divine & Broadcast Global Alert Banner */
     #global-announcement-banner {
       position: fixed; top: 15px; left: 50%; transform: translateX(-50%);
       background: linear-gradient(90deg, var(--divine-purple), var(--robux-gold)); color: white;
@@ -214,6 +214,14 @@
     }
     .game-stats { background: rgba(0,0,0,0.85); padding: 8px 16px; border-radius: 20px; font-weight: bold; display: flex; gap: 16px; color: #fff; font-size:13px; border:1px solid #444; }
 
+    /* In-Game Admin Floating Message HUD */
+    #in-game-admin-hud {
+      position: absolute; top: 75px; left: 50%; transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.9); border: 2px solid var(--robux-gold); color: #fff;
+      padding: 10px 20px; border-radius: 14px; font-weight: bold; font-size: 14px;
+      z-index: 10006; display: none; text-align: center; box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+    }
+
     /* 3D Shop Modal */
     #shop-modal {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -251,7 +259,7 @@
 </head>
 <body>
 
-  <!-- Divine Global Alert Banner -->
+  <!-- Divine & Broadcast Global Alert Banner -->
   <div id="global-announcement-banner">
     <i class="fa-solid fa-gift" style="font-size: 20px; color:#fde047;"></i>
     <span id="announcement-text">🎁 دیڤاینێک سپاون بوو! ڕابکەن بۆ بردنی 1090 ڕۆبۆکس!</span>
@@ -273,7 +281,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.27.0 Ultra Admin Update</div>
+      <div class="version-tag">v2.28.0 Fixed Game HUD & Admin Messages</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -296,7 +304,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.27.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.28.0</span></span>
       </div>
 
       <div class="store-search">
@@ -331,9 +339,9 @@
               <div class="app-card-top">
                 <div class="app-icon"><i class="fa-solid fa-dice-d6"></i></div>
                 <div class="app-info">
-                  <h3>Steal An Egg (Ultra Admin v2.27)</h3>
+                  <h3>Steal An Egg (Ultra Admin v2.28)</h3>
                   <p>خاوەن: rip_hama276</p>
-                  <p style="color:var(--divine-purple); margin-top:2px;">⭐ 5.0 (God Mode & Sky Changer)</p>
+                  <p style="color:var(--divine-purple); margin-top:2px;">⭐ 5.0 (In-Game HUD & Admin Broadcast)</p>
                 </div>
               </div>
               <button class="install-btn" onclick="startStealAnEggGame()"><i class="fa-solid fa-download"></i> یاری کردن / دابەزاندن</button>
@@ -442,7 +450,7 @@
   <!-- Full Owner Admin Panel with Divine Spawn & Ultra Tools -->
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Ultra Owner Panel v2.27.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Ultra Owner Panel v2.28.0)</h2>
       
       <div class="admin-section">
         <label style="font-size:12px; font-weight:bold; color:var(--divine-purple);"><i class="fa-solid fa-dice-d6"></i> سپاون کردنی دیڤاین بۆ بردنی ١٠٩٠ ڕۆبۆکس (Divine Spawn):</label>
@@ -450,7 +458,7 @@
       </div>
 
       <div class="admin-section">
-        <label style="font-size:12px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid</i><i class="fa-solid fa-wand-magic-sparkles"></i> توانای تایبەتی ئۆنەر (God Powers):</label>
+        <label style="font-size:12px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-wand-magic-sparkles"></i> توانای تایبەتی ئۆنەر (God Powers):</label>
         <div style="display: flex; gap: 8px;">
           <button class="admin-action-btn" style="flex:1; background:#3b82f6;" onclick="adminToggleGodMode()">🛡️ هێزی پاراستنی هەمیشەیی (God Mode)</button>
           <button class="admin-action-btn" style="flex:1; background:#ec4899;" onclick="adminChangeSkyColor()">🌌 گۆڕینی ڕەنگی ئاسمانی یاری</button>
@@ -474,13 +482,13 @@
           <button class="admin-action-btn" style="flex:1; background:var(--robux-gold); color:#000;" onclick="modifyRobuxForPlayer('give')">➕ ناردنی ڕۆبوکس</button>
           <button class="admin-action-btn" style="flex:1; background:#ef4444; color:white;" onclick="modifyRobuxForPlayer('remove')">➖ لابردنی ڕۆبوکس</button>
         </div>
-        <button class="admin-action-btn" style="background:#8b5cf6; color:white; margin-top:5px;" onclick="giveawayToAll()">🎁 بەخشینی 5,000 R$ بۆ هەموو یاریزانەکان[span_1](start_span)[span_1](end_span)</button>
+        <button class="admin-action-btn" style="background:#8b5cf6; color:white; margin-top:5px;" onclick="giveawayToAll()">🎁 بەخشینی 5,000 R$ بۆ هەموو یاریزانەکان[span_0](start_span)[span_0](end_span)</button>
       </div>
 
       <div class="admin-section">
         <label style="font-size:12px; font-weight:bold;"><i class="fa-solid fa-bullhorn"></i> ناردنی پەیام بۆ سەر شاشەی هەمووان (Broadcast):</label>
         <input type="text" id="broadcast-input" placeholder="پەیامێک بنووسە...">
-        <button class="admin-action-btn" style="background:#f59e0b;" onclick="sendGlobalAnnouncement()">ناردنی پەیام</button>
+        <button class="admin-action-btn" style="background:#f59e0b;" onclick="sendGlobalAnnouncement()">ناردنی پەیام بۆ سەر شاشە</button>
       </div>
 
       <div class="admin-section">
@@ -492,10 +500,13 @@
     </div>
   </div>
 
-  <!-- Game Canvas Container with Ultra Admin Powers -->
+  <!-- Game Canvas Container with In-Game Admin HUD Messages -->
   <div id="game-container">
     <canvas id="game-canvas"></canvas>
     
+    <!-- In-Game Admin Floating Message Box -->
+    <div id="in-game-admin-hud">📢 پەیامی ئۆنەر: لێرە دەردەکەوێت</div>
+
     <!-- 3D Shop Modal -->
     <div id="shop-modal">
       <div class="shop-header">
@@ -570,6 +581,11 @@
       let divineActive = localStorage.getItem('hamadev_divine_spawned');
       if(divineActive === 'true') {
         document.getElementById('global-announcement-banner').style.display = 'flex';
+      }
+
+      let activeBroadcast = localStorage.getItem('hamadev_broadcast_msg');
+      if(activeBroadcast) {
+        showInGameAdminMessage(activeBroadcast);
       }
     };
 
@@ -708,7 +724,7 @@
       }
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      alert('🎁 بە سەرکەوتوویی 5,000 R$ دیاری بەخشرا بە سەرجەم یاریزانەکان[span_2](start_span)[span_2](end_span)!');
+      alert('🎁 بە سەرکەوتوویی 5,000 R$ دیاری بەخشرا بە سەرجەم یاریزانەکان[span_1](start_span)[span_1](end_span)!');
       closeAdminPanel();
     }
 
@@ -741,6 +757,25 @@
       alert('✨ دیڤاین بە سەرکەوتوویی سپاون کرا و لە شاشەی هەمووان نیشان درا!');
       closeAdminPanel();
       if(typeof spawnAllEggs === 'function') spawnAllEggs();
+    }
+
+    function sendGlobalAnnouncement() {
+      const msg = document.getElementById('broadcast-input').value.trim();
+      if(!msg) { alert('تکایە پەیامێک بنووسە!'); return; }
+      localStorage.setItem('hamadev_broadcast_msg', msg);
+      document.getElementById('announcement-text').innerText = "📢 " + msg;
+      document.getElementById('global-announcement-banner').style.display = 'flex';
+      showInGameAdminMessage(msg);
+      alert('📢 پەیامەکەت بە سەرکەوتوویی بۆ هەمووان نێردرا!');
+      closeAdminPanel();
+    }
+
+    function showInGameAdminMessage(text) {
+      const hud = document.getElementById('in-game-admin-hud');
+      if(hud) {
+        hud.innerText = "📢 پەیامی ئۆنەر: " + text;
+        hud.style.display = 'block';
+      }
     }
 
     function adminToggleGodMode() {
@@ -838,7 +873,7 @@
       } else { alert('❌ کۆدەکە هەڵەیە!'); }
     }
 
-    /* 3D Game Engine with Ultra Admin Powers */
+    /* 3D Game Engine with In-Game Admin HUD Messages */
     let scene, camera, renderer, player, otherPlayers = {}, crownMesh, shieldMesh, shopBooth, petObj, animationId;
     let normalGuard, goldenGuard, lavaGuard, frostGuard;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
@@ -933,6 +968,11 @@
       let userObj = usersDB[currentUser] || {};
       playerSpeed = userObj.hasSpeed ? 0.35 : 0.25;
       document.getElementById('speed-display').innerText = Math.round(playerSpeed * 100);
+
+      let activeBroadcast = localStorage.getItem('hamadev_broadcast_msg');
+      if(activeBroadcast) {
+        showInGameAdminMessage(activeBroadcast);
+      }
 
       const canvas = document.getElementById('game-canvas');
       scene = new THREE.Scene();
@@ -1157,6 +1197,8 @@
     function exitGame() {
       cancelAnimationFrame(animationId);
       document.getElementById('game-container').style.display = 'none';
+      const hud = document.getElementById('in-game-admin-hud');
+      if(hud) hud.style.display = 'none';
     }
   </script>
 </body>

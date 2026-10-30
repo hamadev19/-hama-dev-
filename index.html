@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.32.0 Auto Trailer & Egg Garden</title>
+  <title>Hama Dev Store - Roblox Kurd v2.33.0 Airplane Trailer & Mutant Pets</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -76,25 +76,6 @@
       display: none; align-items: center; gap: 12px; animation: pulseGlow 1.5s infinite;
     }
     @keyframes pulseGlow { 0% { transform: translateX(-50%) scale(1); } 50% { transform: translateX(-50%) scale(1.05); } 100% { transform: translateX(-50%) scale(1); } }
-
-    /* Global Trailer Modal */
-    #global-trailer-modal {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(0, 0, 0, 0.92); z-index: 40000; display: none; align-items: center; justify-content: center; padding: 20px;
-    }
-    .trailer-content-box {
-      background: var(--store-card); border: 2px solid var(--store-primary); border-radius: 20px;
-      width: 100%; max-width: 650px; overflow: hidden; box-shadow: 0 0 50px rgba(16, 185, 129, 0.5); display: flex; flex-direction: column;
-    }
-    .trailer-header {
-      background: #0f172a; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--store-border);
-    }
-    .trailer-header span { color: var(--store-primary); font-weight: bold; font-size: 16px; display: flex; align-items: center; gap: 8px; }
-    .trailer-close-btn { background: #ef4444; color: white; border: none; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-weight: bold; }
-    .trailer-video-wrapper { position: relative; width: 100%; padding-bottom: 56.25%; background: #000; }
-    .trailer-video-wrapper iframe, .trailer-video-wrapper video {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; object-fit: cover;
-    }
 
     /* Dashboard Layout */
     #dashboard { display: none; flex: 1; flex-direction: column; height: 100vh; overflow: hidden; }
@@ -288,23 +269,12 @@
     <span id="announcement-text">🎁 دیڤاینێک سپاون بوو! ڕابکەن بۆ بردنی 1090 ڕۆبۆکس!</span>
   </div>
 
-  <!-- Global Trailer Modal -->
-  <div id="global-trailer-modal">
-    <div class="trailer-content-box">
-      <div class="trailer-header">
-        <span><i class="fa-solid fa-clapperboard"></i> ترەیلەری یاری (Hama Dev Trailer)</span>
-        <button class="trailer-close-btn" onclick="closeGlobalTrailer()">داخستن X</button>
-      </div>
-      <div class="trailer-video-wrapper" id="trailer-frame-container"></div>
-    </div>
-  </div>
-
   <!-- Auth Screen -->
   <div id="auth-screen">
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.32.0 Auto Trailer & Egg Garden</div>
+      <div class="version-tag">v2.33.0 Airplane Trailer & Mutant Pets</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -327,7 +297,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.32.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.33.0</span></span>
       </div>
 
       <div class="store-search">
@@ -363,9 +333,9 @@
               <div class="app-card-top">
                 <div class="app-icon"><i class="fa-solid fa-dice-d6"></i></div>
                 <div class="app-info">
-                  <h3>Steal An Egg (Auto Trailer & Garden)</h3>
+                  <h3>Steal An Egg (Airplane & Mutant Pets)</h3>
                   <p>خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-badge"></i></p>
-                  <p style="color:var(--divine-purple); margin-top:2px;">⭐ 5.0 (Trailer & Egg Hatching)</p>
+                  <p style="color:var(--divine-purple); margin-top:2px;">⭐ 5.0 (Airplane Trailer & 2x Mutation)</p>
                 </div>
               </div>
               <button class="install-btn" onclick="startStealAnEggGame()"><i class="fa-solid fa-download"></i> یاری کردن / دابەزاندن</button>
@@ -471,10 +441,10 @@
     </div>
   </div>
 
-  <!-- Full Owner Admin Panel with Auto Trailer Trigger -->
+  <!-- Full Owner Admin Panel with Airplane Trailer Trigger -->
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Pro Owner Panel v2.32.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Pro Owner Panel v2.33.0)</h2>
       
       <div class="admin-section">
         <label style="font-size:12px; font-weight:bold; color:var(--divine-purple);"><i class="fa-solid fa-dice-d6"></i> سپاون کردنی دیڤاین بۆ بردنی ١٠٩٠ ڕۆبۆکس (Divine Spawn):</label>
@@ -482,10 +452,10 @@
       </div>
 
       <div class="admin-section">
-        <label style="font-size:12px; font-weight:bold; color:var(--store-primary);"><i class="fa-solid fa-clapperboard"></i> ناردن و پیشاندانی ڕاستەوخۆی ترەیلەر لەسەر شاشە (Auto Trailer):</label>
-        <input type="text" id="trailer-url-input" placeholder="لینکی ڤیدیۆ یان یوتیوب..." value="https://www.w3schools.com/html/mov_bbb.mp4">
+        <label style="font-size:12px; font-weight:bold; color:var(--store-primary);"><i class="fa-solid fa-plane-departure"></i> ناردن و سپاون کردنی فڕۆکەی ترەیلەر لەسەر ماپەکە (Airplane Trailer):</label>
+        <input type="text" id="trailer-banner-text" placeholder="دەق/ناوی ترەیلەر لەسەر فڕۆکە..." value="HAMA DEV AIRPLANE TRAILER ✈️">
         <div style="display: flex; gap: 8px; margin-top: 5px;">
-          <button class="admin-action-btn" style="flex:1; background:var(--store-primary); color:white;" onclick="triggerGlobalTrailerFromAdmin()">🎬 پیشاندانی ڕاستەوخۆ بۆ هەمووان</button>
+          <button class="admin-action-btn" style="flex:1; background:var(--store-primary); color:white;" onclick="triggerAirplaneTrailerFromAdmin()">✈️ ناردنی فڕۆکەی ترەیلەر بۆ ماپەکە</button>
         </div>
       </div>
 
@@ -523,11 +493,11 @@
     </div>
   </div>
 
-  <!-- Game Canvas Container with Egg Hatching Garden Modal -->
+  <!-- Game Canvas Container with Airplane Trailer & Mutant Pets -->
   <div id="game-container">
     <canvas id="game-canvas"></canvas>
     
-    <!-- In-Game Admin Floating Message Box -->
+    <!-- In-Game Admin Floating Message HUD -->
     <div id="in-game-admin-hud">📢 پەیامی ئۆنەر: لێرە دەردەکەوێت</div>
 
     <!-- 3D Shop Modal -->
@@ -553,10 +523,10 @@
     <!-- Egg Hatching Garden Modal -->
     <div id="garden-modal">
       <div class="shop-header">
-        <span><i class="fa-solid fa-seedling" style="color:var(--divine-purple);"></i> باخجەی هێلکەدانان و پێتەکان (Egg Hatching Garden)</span>
+        <span><i class="fa-solid fa-seedling" style="color:var(--divine-purple);"></i> باخجەی هێلکەدانان و پێتەکان (Mutant Pets & 2x)</span>
         <button class="shop-close" onclick="closeGardenModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <p style="font-size:12px; color:var(--text-muted); line-height:1.4;">هێلکەکانت لێرە دابنە، کاتژمێر کار دەکات و پاشان پێت دەردەچێت!</p>
+      <p style="font-size:12px; color:var(--text-muted); line-height:1.4;">هێلکەکانت لێرە دابنە بۆ شکستن و دەرچوونی پێتەکان بە موتەیشنی 2x!</p>
       
       <div style="font-weight:bold; color:var(--store-primary); font-size:13px; margin-top:6px;">🥚 هێلکەکان لە کۆگا:</div>
       <div id="garden-storage-list" style="display:flex; flex-direction:column; gap:6px; max-height:110px; overflow-y:auto;"></div>
@@ -564,7 +534,7 @@
       <div style="font-weight:bold; color:var(--robux-gold); font-size:13px; margin-top:8px;">⏳ سلۆتەکانی هێلکەشکاندن (Hatching Slots):</div>
       <div id="hatching-slots-list" style="display:flex; flex-direction:column; gap:6px; max-height:110px; overflow-y:auto;"></div>
 
-      <div style="font-weight:bold; color:var(--divine-purple); font-size:13px; margin-top:10px;">🐣 پێتە کۆکراوەکان (Collected Pets):</div>
+      <div style="font-weight:bold; color:var(--divine-purple); font-size:13px; margin-top:10px;">🐣 پێتە موتەیتکراوەکان (Mutant Pets 2x):</div>
       <div class="pets-collected-box" id="collected-pets-box"></div>
     </div>
 
@@ -637,14 +607,6 @@
       }
       setupMobileTouchEvents();
       renderChatMessages();
-
-      // Check Auto Trailer
-      setInterval(() => {
-        let activeTrailer = localStorage.getItem('hamadev_active_trailer');
-        if(activeTrailer && document.getElementById('global-trailer-modal').style.display !== 'flex') {
-          showGlobalTrailer(activeTrailer);
-        }
-      }, 1500);
 
       let divineActive = localStorage.getItem('hamadev_divine_spawned');
       if(divineActive === 'true') {
@@ -842,13 +804,13 @@
       closeAdminPanel();
     }
 
-    function triggerGlobalTrailerFromAdmin() {
-      let url = document.getElementById('trailer-url-input').value.trim();
-      if(!url) url = 'https://www.w3schools.com/html/mov_bbb.mp4';
-      localStorage.setItem('hamadev_active_trailer', url);
-      showGlobalTrailer(url);
-      alert('🎬 ترەیلەر بۆ هەموو یاریزانەکان نێردرا و ڕاستەوخۆ کەوتە سەر شاشە!');
+    function triggerAirplaneTrailerFromAdmin() {
+      let bannerText = document.getElementById('trailer-banner-text').value.trim();
+      if(!bannerText) bannerText = "HAMA DEV AIRPLANE TRAILER ✈️";
+      localStorage.setItem('hamadev_airplane_trailer', bannerText);
+      alert('✈️ فڕۆکەی ترەیلەر بە سەرکەوتوویی لە ئاسمانی ماپەکەدا سپاون کرا!');
       closeAdminPanel();
+      if(typeof spawnAirplaneInGame === 'function') spawnAirplaneInGame(bannerText);
     }
 
     function showInGameAdminMessage(text) {
@@ -874,24 +836,6 @@
       if(scene) scene.background = new THREE.Color(skyColors[customSkyColorIndex]);
       alert('🌌 ڕەنگی ئاسمانی یاری گۆڕدرا!');
       closeAdminPanel();
-    }
-
-    function showGlobalTrailer(mediaUrl) {
-      const container = document.getElementById('trailer-frame-container');
-      container.innerHTML = '';
-      if(mediaUrl.includes('youtube.com') || mediaUrl.includes('youtu.be')) {
-        let embedUrl = mediaUrl.includes('watch?v=') ? mediaUrl.replace('watch?v=', 'embed/') : mediaUrl;
-        container.innerHTML = `<iframe src="${embedUrl}?autoplay=1" allow="autoplay" allowfullscreen></iframe>`;
-      } else {
-        container.innerHTML = `<video src="${mediaUrl}" controls autoplay playsinline style="width:100%; height:100%;"></video>`;
-      }
-      document.getElementById('global-trailer-modal').style.display = 'flex';
-    }
-
-    function closeGlobalTrailer() {
-      document.getElementById('global-trailer-modal').style.display = 'none';
-      document.getElementById('trailer-frame-container').innerHTML = '';
-      localStorage.removeItem('hamadev_active_trailer');
     }
 
     function openAdminPanel() {
@@ -938,8 +882,8 @@
       } else { alert('❌ کۆدەکە هەڵەیە!'); }
     }
 
-    /* 3D Game Engine with Egg Hatching Garden & Timer */
-    let scene, camera, renderer, player, otherPlayers = {}, crownMesh, shieldMesh, shopBooth, petObj, animationId;
+    /* 3D Game Engine with Airplane Trailer & Mutant Pets (2x Mutation) */
+    let scene, camera, renderer, player, otherPlayers = {}, crownMesh, shieldMesh, shopBooth, petObj, airplaneMesh, animationId;
     let normalGuard, goldenGuard, lavaGuard, frostGuard;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
     let gameScore = 0, carriedEggs = 0, carriedValueMultiplier = 1, maxCapacity = 1, playerSpeed = 0.25, eggsList = [], shopOpen = false;
@@ -972,7 +916,7 @@
 
     function closeShopModal() { document.getElementById('shop-modal').style.display = 'none'; shopOpen = false; }
 
-    /* Egg Garden Functions */
+    /* Egg Garden & Mutant Pets Functions */
     function openGardenModal() {
       let uObj = usersDB[currentUser];
       if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
@@ -990,7 +934,6 @@
     function renderGardenUI() {
       let uObj = usersDB[currentUser];
       
-      // Storage list
       let storeListEl = document.getElementById('garden-storage-list');
       storeListEl.innerHTML = '';
       if(uObj.inventoryEggs.length === 0) {
@@ -1006,7 +949,6 @@
         });
       }
 
-      // Hatching Slots
       let slotsListEl = document.getElementById('hatching-slots-list');
       slotsListEl.innerHTML = '';
       if(uObj.hatchingSlots.length === 0) {
@@ -1017,14 +959,13 @@
           let timeLeft = Math.max(0, Math.ceil((slot.endTime - now) / 1000));
           slotsListEl.innerHTML += `
             <div class="garden-slot">
-              <span>🥚 ${slot.name}</span>
+              <span>🥚 ${slot.name} ${slot.isMutant ? '⚡ [MUTATED 2x]' : ''}</span>
               <span style="color:var(--robux-gold); font-weight:bold;">${timeLeft > 0 ? '⏳ ' + timeLeft + ' چرکە ماوە' : '✨ شکاوە!'}</span>
             </div>
           `;
         });
       }
 
-      // Collected Pets
       let petsBox = document.getElementById('collected-pets-box');
       petsBox.innerHTML = '';
       if(uObj.collectedPets.length === 0) {
@@ -1034,7 +975,7 @@
           petsBox.innerHTML += `
             <div class="pet-card">
               <b>🐾 ${pet.name}</b><br>
-              <span style="color:var(--robux-gold);">Bonus: +${pet.bonus}x</span>
+              <span style="color:var(--robux-gold);">Bonus: +${pet.bonus}x ${pet.isMutant ? '⚡(MUTANT 2x)' : ''}</span>
             </div>
           `;
         });
@@ -1045,12 +986,13 @@
       let uObj = usersDB[currentUser];
       let egg = uObj.inventoryEggs.splice(index, 1)[0];
       
-      // Hatching Time: Normal = 10s, others more
       let hatchTimeSec = egg.mult === 1 ? 10 : (egg.mult === 2 ? 25 : (egg.mult === 3 ? 45 : 60));
+      let isMutant = Math.random() < 0.35; // 35% chance for 2x Mutation
       
       uObj.hatchingSlots.push({
         name: egg.name,
         mult: egg.mult,
+        isMutant: isMutant,
         endTime: Date.now() + (hatchTimeSec * 1000)
       });
 
@@ -1058,7 +1000,6 @@
       renderGardenUI();
     }
 
-    // Interval to check hatching timers & update UI
     setInterval(() => {
       if(!currentUser || !usersDB[currentUser]) return;
       let uObj = usersDB[currentUser];
@@ -1070,8 +1011,11 @@
       uObj.hatchingSlots = uObj.hatchingSlots.filter(slot => {
         if(now >= slot.endTime) {
           let petNames = ['Doggy', 'Bunny', 'Dragon', 'Phoenix', 'Kurdish Lion'];
-          let randomPetName = petNames[Math.floor(Math.random() * petNames.length)] + ' (x' + slot.mult + ')';
-          uObj.collectedPets.push({ name: randomPetName, bonus: slot.mult * 5 });
+          let baseName = petNames[Math.floor(Math.random() * petNames.length)];
+          let finalMult = slot.isMutant ? slot.mult * 2 : slot.mult;
+          let petFullName = slot.isMutant ? `⚡ Mutant ${baseName} (x${finalMult})` : `${baseName} (x${finalMult})`;
+          
+          uObj.collectedPets.push({ name: petFullName, bonus: finalMult * 10, isMutant: slot.isMutant });
           updated = true;
           return false;
         }
@@ -1171,6 +1115,19 @@
       horn2.position.set(0.55, 2.8, 0);
       horn2.rotation.z = 0.5;
       parentGroup.add(horn2);
+    }
+
+    function spawnAirplaneInGame(bannerText) {
+      if(!scene) return;
+      if(airplaneMesh) scene.remove(airplaneMesh);
+
+      airplaneMesh = new THREE.Group();
+      const body = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.8, 4), new THREE.MeshLambertMaterial({ color: 0x38bdf8 }));
+      const wings = new THREE.Mesh(new THREE.BoxGeometry(6, 0.15, 1.2), new THREE.MeshLambertMaterial({ color: 0xffffff }));
+      wings.position.y = 0.2;
+      airplaneMesh.add(body); airplaneMesh.add(wings);
+      airplaneMesh.position.set(-25, 14, 0);
+      scene.add(airplaneMesh);
     }
 
     function startStealAnEggGame() {
@@ -1289,6 +1246,11 @@
 
       spawnAllEggs();
 
+      let savedAirplane = localStorage.getItem('hamadev_airplane_trailer');
+      if(savedAirplane) {
+        spawnAirplaneInGame(savedAirplane);
+      }
+
       camera.position.set(0, 6, 23);
       camera.lookAt(player.position);
 
@@ -1338,6 +1300,11 @@
         petObj.position.y = 1.0 + Math.sin(Date.now() * 0.01) * 0.3;
       }
 
+      if (airplaneMesh) {
+        airplaneMesh.position.x += 0.15;
+        if(airplaneMesh.position.x > 30) airplaneMesh.position.x = -30;
+      }
+
       if (!shopOpen && player.position.distanceTo(shopBooth.position) < 2.5) {
         shopOpen = true;
         document.getElementById('shop-modal').style.display = 'flex';
@@ -1372,8 +1339,14 @@
       if (eggsList.length > 0 && eggsList.every(e => e === null)) spawnAllEggs();
 
       if (carriedEggs > 0 && player.position.distanceTo(new THREE.Vector3(0, 1, 15)) < 3.5) {
-        let pointsEarned = carriedEggs * 300 * carriedValueMultiplier;
-        let robuxEarned = carriedEggs * 10 * carriedValueMultiplier;
+        let uObj = usersDB[currentUser];
+        let mutantBonusSum = 0;
+        if(uObj.collectedPets) {
+          uObj.collectedPets.forEach(p => { if(p.bonus) mutantBonusSum += p.bonus; });
+        }
+
+        let pointsEarned = (carriedEggs * 300 * carriedValueMultiplier) + mutantBonusSum;
+        let robuxEarned = (carriedEggs * 10 * carriedValueMultiplier) + Math.floor(mutantBonusSum / 10);
         
         gameScore += pointsEarned;
         usersDB[currentUser].robux += robuxEarned;

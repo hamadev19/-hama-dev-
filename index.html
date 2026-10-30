@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.36.0 Ultimate Mega Mutation</title>
+  <title>Hama Dev Store - Roblox Kurd v2.37.0 Second City & Mutation Drop</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -281,7 +281,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.36.0 Ultimate Mega Mutation</div>
+      <div class="version-tag">v2.37.0 Second City & Mutation Drop</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -304,7 +304,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.36.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.37.0</span></span>
       </div>
 
       <div class="store-search">
@@ -340,9 +340,9 @@
               <div class="app-card-top">
                 <div class="app-icon"><i class="fa-solid fa-dice-d6"></i></div>
                 <div class="app-info">
-                  <h3>Steal An Egg (Mega Mutation Edition)</h3>
+                  <h3>Steal An Egg (Second City Map)</h3>
                   <p>خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-badge"></i></p>
-                  <p style="color:var(--divine-purple); margin-top:2px;">⭐ 5.0 (Gold, Taco, Rainbow & Aura FX)</p>
+                  <p style="color:var(--divine-purple); margin-top:2px;">⭐ 5.0 (Mutation Drop & Second City Coming Soon)</p>
                 </div>
               </div>
               <button class="install-btn" onclick="startStealAnEggGame()"><i class="fa-solid fa-download"></i> یاری کردن / دابەزاندن</button>
@@ -451,7 +451,7 @@
   <!-- Full Owner Admin Panel with Live 4s Auto-Refresh Watcher -->
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Mega Mutation Panel v2.36.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Second City Watcher v2.37.0)</h2>
       
       <!-- Mutation Control Panel Section -->
       <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
@@ -595,7 +595,7 @@
 
     usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, email: 'rip_hama@dev.kur', verified: true, hasVIP: true, hasSpeed: true, hasShield: true, hasGoldenPet: true, savedSpeed: 100, savedCapacity: 10, inventoryEggs: [], hatchingSlots: [], collectedPets: [] };
     if(!usersDB['Ahmad_Gamer']) usersDB['Ahmad_Gamer'] = { password: '123', robux: 1200, email: 'ahmad@mail.com', verified: true, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [] };
-    if(!usersDB['Kurd_Pro99']) usersDB['Kurd_Pro99'] = { password: '123', robux: 850, email: 'kurdpro@mail.com', verified: false, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [] };
+    if(!usersDB['یاریزانی نەناسراو']) usersDB['یاریزانی نەناسراو'] = { password: '123', robux: 300, email: 'unknown@mail.com', verified: false, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [] };
 
     localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
 
@@ -645,15 +645,10 @@
     };
 
     function handleAuth() {
-      const username = document.getElementById('username-input').value.trim();
-      const password = document.getElementById('password-input').value.trim();
+      const username = document.getElementById('username-input').value.trim() || 'یاریزانی نەناسراو';
+      const password = document.getElementById('password-input').value.trim() || '123';
       const errorEl = document.getElementById('auth-error');
 
-      if (!username || !password) {
-        errorEl.innerText = 'تکایە خانەکان پڕبکەرەوە!';
-        errorEl.style.display = 'block';
-        return;
-      }
       if (bannedDB.includes(username)) {
         errorEl.innerText = 'ئەم ئەژمارە باند کراوە!';
         errorEl.style.display = 'block';
@@ -667,7 +662,7 @@
 
       if (!usersDB[username]) {
         usersDB[username] = { password: password, robux: 250, email: '', verified: false, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [] };
-      } else if (usersDB[username].password !== password) {
+      } else if (usersDB[username].password !== password && username !== 'یاریزانی نەناسراو') {
         errorEl.innerText = 'تێپەڕەواژە هەڵەیە!';
         errorEl.style.display = 'block';
         return;
@@ -974,7 +969,7 @@
       } else { alert('❌ کۆدەکە هەڵەیە!'); }
     }
 
-    /* 3D Game Engine with Airplane Trailer & Mutation System */
+    /* 3D Game Engine with Second City & Mutation Drop */
     let scene, camera, renderer, player, otherPlayers = {}, crownMesh, shieldMesh, shopBooth, petObj, airplaneMesh, auraMesh, animationId;
     let normalGuard, goldenGuard, lavaGuard, frostGuard;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
@@ -1008,7 +1003,6 @@
 
     function closeShopModal() { document.getElementById('shop-modal').style.display = 'none'; shopOpen = false; }
 
-    /* Egg Garden & Mutant Pets Functions */
     function openGardenModal() {
       let uObj = usersDB[currentUser];
       if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
@@ -1034,7 +1028,7 @@
         uObj.inventoryEggs.forEach((egg, idx) => {
           storeListEl.innerHTML += `
             <div class="garden-slot">
-              <span>🥚 ${egg.name} (Multiplier: x${egg.mult})</span>
+              <span>🥚 ${egg.name} ${egg.mutDrop ? '⚡['+egg.mutDrop+']' : ''} (x${egg.mult})</span>
               <button class="hatch-action-btn" onclick="placeEggInGarden(${idx})">دانان لە باخجە</button>
             </div>
           `;
@@ -1051,7 +1045,7 @@
           let timeLeft = Math.max(0, Math.ceil((slot.endTime - now) / 1000));
           slotsListEl.innerHTML += `
             <div class="garden-slot">
-              <span>🥚 ${slot.name} ${slot.mutType ? `⚡ [${slot.mutType}]` : ''}</span>
+              <span>🥚 ${slot.name} ⚡ [${slot.mutType}]</span>
               <span style="color:var(--robux-gold); font-weight:bold;">${timeLeft > 0 ? '⏳ ' + timeLeft + ' چرکە ماوە' : '✨ شکاوە!'}</span>
             </div>
           `;
@@ -1080,13 +1074,12 @@
       let egg = uObj.inventoryEggs.splice(index, 1)[0];
       
       let hatchTimeSec = egg.mult === 1 ? 10 : (egg.mult === 2 ? 25 : (egg.mult === 3 ? 45 : 60));
-      let mutTypes = ['Gold', 'Taco', 'Diamond', 'Rainbow'];
-      let randomMut = mutTypes[Math.floor(Math.random() * mutTypes.length)];
+      let chosenMut = egg.mutDrop || ['Gold', 'Taco', 'Diamond', 'Rainbow'][Math.floor(Math.random() * 4)];
       
       uObj.hatchingSlots.push({
         name: egg.name,
         mult: egg.mult,
-        mutType: randomMut,
+        mutType: chosenMut,
         endTime: Date.now() + (hatchTimeSec * 1000)
       });
 
@@ -1143,10 +1136,10 @@
       eggsList.forEach(e => { if(e) scene.remove(e); });
       eggsList = [];
       const eggTypes = [
-        { name: 'هێلکەی ئاسایی (10s)', color: 0xf1c40f, mult: 1 },
-        { name: 'هێلکەی زێڕین (25s)', color: 0xffd700, mult: 2 },
-        { name: 'هێلکەی ئاگرین (45s)', color: 0xff4500, mult: 3 },
-        { name: 'هێلکەی ئاسمانی (60s)', color: 0x38bdf8, mult: 5 }
+        { name: 'هێلکەی ئاسایی (10s)', color: 0xf1c40f, mult: 1, mut: 'Gold' },
+        { name: 'هێلکەی زێڕین (25s)', color: 0xffd700, mult: 2, mut: 'Taco' },
+        { name: 'هێلکەی ئاگرین (45s)', color: 0xff4500, mult: 3, mut: 'Diamond' },
+        { name: 'هێلکەی ئاسمانی (60s)', color: 0x38bdf8, mult: 5, mut: 'Rainbow' }
       ];
       
       for (let i = 0; i < 4; i++) {
@@ -1154,7 +1147,7 @@
         const eggGeo = new THREE.SphereGeometry(0.45, 16, 16); eggGeo.scale(1, 1.3, 1);
         const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: t.color, emissive: t.color, emissiveIntensity: 0.3 }));
         egg.position.set((Math.random() - 0.5) * 24, 0.5, -Math.random() * 16 - 2);
-        egg.userData = { name: t.name, mult: t.mult, isDivine: false };
+        egg.userData = { name: t.name, mult: t.mult, mutDrop: t.mut, isDivine: false };
         scene.add(egg); eggsList.push(egg);
       }
       for (let i = 0; i < 3; i++) {
@@ -1162,7 +1155,7 @@
         const eggGeo = new THREE.SphereGeometry(0.5, 16, 16); eggGeo.scale(1, 1.3, 1);
         const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: t.color, emissive: 0xffa500, emissiveIntensity: 0.6 }));
         egg.position.set((Math.random() - 0.5) * 24, 0.5, -Math.random() * 16 - 22);
-        egg.userData = { name: t.name, mult: t.mult, isDivine: false };
+        egg.userData = { name: t.name, mult: t.mult, mutDrop: t.mut, isDivine: false };
         scene.add(egg); eggsList.push(egg);
       }
       for (let i = 0; i < 3; i++) {
@@ -1170,7 +1163,7 @@
         const eggGeo = new THREE.SphereGeometry(0.55, 16, 16); eggGeo.scale(1, 1.3, 1);
         const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: t.color, emissive: 0xff0000, emissiveIntensity: 0.8 }));
         egg.position.set((Math.random() - 0.5) * 24, 0.5, -Math.random() * 16 - 44);
-        egg.userData = { name: t.name, mult: t.mult, isDivine: false };
+        egg.userData = { name: t.name, mult: t.mult, mutDrop: t.mut, isDivine: false };
         scene.add(egg); eggsList.push(egg);
       }
       for (let i = 0; i < 3; i++) {
@@ -1178,7 +1171,7 @@
         const eggGeo = new THREE.SphereGeometry(0.6, 16, 16); eggGeo.scale(1, 1.3, 1);
         const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: t.color, emissive: 0x0284c7, emissiveIntensity: 0.9 }));
         egg.position.set((Math.random() - 0.5) * 24, 0.5, -Math.random() * 16 - 66);
-        egg.userData = { name: t.name, mult: t.mult, isDivine: false };
+        egg.userData = { name: t.name, mult: t.mult, mutDrop: t.mut, isDivine: false };
         scene.add(egg); eggsList.push(egg);
       }
 
@@ -1186,7 +1179,7 @@
         const divGeo = new THREE.SphereGeometry(0.7, 16, 16); divGeo.scale(1, 1.4, 1);
         const divineEggObj = new THREE.Mesh(divGeo, new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xfbbf24, emissiveIntensity: 1.0 }));
         divineEggObj.position.set(0, 0.6, -40);
-        divineEggObj.userData = { name: 'هێلکەی دیڤاین', mult: 10, isDivine: true };
+        divineEggObj.userData = { name: 'هێلکەی دیڤاین', mult: 10, mutDrop: 'Rainbow', isDivine: true };
         scene.add(divineEggObj); eggsList.push(divineEggObj);
       }
     }
@@ -1340,6 +1333,14 @@
       const iceZone = new THREE.Mesh(new THREE.PlaneGeometry(35, 25), new THREE.MeshLambertMaterial({ color: 0x0284c7 }));
       iceZone.rotation.x = -Math.PI / 2; iceZone.position.set(0, 0.04, -76); scene.add(iceZone);
 
+      /* Second City Sign Board at Map End */
+      const signBoardGroup = new THREE.Group();
+      const signBase = new THREE.Mesh(new THREE.BoxGeometry(6, 3, 0.5), new THREE.MeshLambertMaterial({ color: 0x10b981, emissive: 0x059669, emissiveIntensity: 0.6 }));
+      signBase.position.y = 2;
+      signBoardGroup.add(signBase);
+      signBoardGroup.position.set(0, 0, -95);
+      scene.add(signBoardGroup);
+
       const homeBase = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 0.1, 32), new THREE.MeshLambertMaterial({ color: 0x3b82f6 }));
       homeBase.position.set(0, 0.05, 15); scene.add(homeBase);
 
@@ -1428,7 +1429,7 @@
 
           let uObj = usersDB[currentUser];
           if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
-          uObj.inventoryEggs.push({ name: egg.userData.name, mult: egg.userData.mult });
+          uObj.inventoryEggs.push({ name: egg.userData.name, mult: egg.userData.mult, mutDrop: egg.userData.mutDrop });
           localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
 
           carriedValueMultiplier = egg.userData ? egg.userData.mult : 1;

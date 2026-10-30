@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.35.0 Live Admin Watcher</title>
+  <title>Hama Dev Store - Roblox Kurd v2.36.0 Ultimate Mega Mutation</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -281,7 +281,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.35.0 Live Admin Watcher</div>
+      <div class="version-tag">v2.36.0 Ultimate Mega Mutation</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -304,7 +304,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.35.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.36.0</span></span>
       </div>
 
       <div class="store-search">
@@ -340,9 +340,9 @@
               <div class="app-card-top">
                 <div class="app-icon"><i class="fa-solid fa-dice-d6"></i></div>
                 <div class="app-info">
-                  <h3>Steal An Egg (Live 4s Watcher)</h3>
+                  <h3>Steal An Egg (Mega Mutation Edition)</h3>
                   <p>خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-badge"></i></p>
-                  <p style="color:var(--divine-purple); margin-top:2px;">⭐ 5.0 (Live Admin Panel & Auto-Refresh)</p>
+                  <p style="color:var(--divine-purple); margin-top:2px;">⭐ 5.0 (Gold, Taco, Rainbow & Aura FX)</p>
                 </div>
               </div>
               <button class="install-btn" onclick="startStealAnEggGame()"><i class="fa-solid fa-download"></i> یاری کردن / دابەزاندن</button>
@@ -451,7 +451,7 @@
   <!-- Full Owner Admin Panel with Live 4s Auto-Refresh Watcher -->
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Pro Live Admin Panel v2.35.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Mega Mutation Panel v2.36.0)</h2>
       
       <!-- Mutation Control Panel Section -->
       <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
@@ -896,10 +896,8 @@
       updateAdminUsersList();
       document.getElementById('admin-modal').style.display = 'flex';
 
-      // Start 4-second Live Auto-Refresh Watcher for Admin Panel
       if(adminRefreshInterval) clearInterval(adminRefreshInterval);
       adminRefreshInterval = setInterval(() => {
-        // Sync latest storage data
         usersDB = JSON.parse(localStorage.getItem('hamadev_store_users') || '{}');
         bannedDB = JSON.parse(localStorage.getItem('hamadev_store_banned') || '[]');
         mutedDB = JSON.parse(localStorage.getItem('hamadev_store_muted') || '[]');
@@ -977,7 +975,7 @@
     }
 
     /* 3D Game Engine with Airplane Trailer & Mutation System */
-    let scene, camera, renderer, player, otherPlayers = {}, crownMesh, shieldMesh, shopBooth, petObj, airplaneMesh, animationId;
+    let scene, camera, renderer, player, otherPlayers = {}, crownMesh, shieldMesh, shopBooth, petObj, airplaneMesh, auraMesh, animationId;
     let normalGuard, goldenGuard, lavaGuard, frostGuard;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
     let gameScore = 0, carriedEggs = 0, carriedValueMultiplier = 1, maxCapacity = 1, playerSpeed = 0.25, eggsList = [], shopOpen = false;
@@ -1266,6 +1264,11 @@
         createFieryHornsAvatar(player);
       }
 
+      if(userObj.collectedPets && userObj.collectedPets.length > 0) {
+        auraMesh = new THREE.Mesh(new THREE.SphereGeometry(1.8, 16, 16), new THREE.MeshLambertMaterial({ color: 0xfbbf24, transparent: true, opacity: 0.25, wireframe: true }));
+        auraMesh.position.y = 1.2; player.add(auraMesh);
+      }
+
       if(userObj.hasShield) {
         shieldMesh = new THREE.Mesh(new THREE.SphereGeometry(1.6, 16, 16), new THREE.MeshLambertMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.35 }));
         shieldMesh.position.y = 1.2; player.add(shieldMesh);
@@ -1396,6 +1399,10 @@
         petObj.position.y = 1.0 + Math.sin(Date.now() * 0.01) * 0.3;
       }
 
+      if (auraMesh) {
+        auraMesh.rotation.y += 0.03;
+      }
+
       if (airplaneMesh) {
         airplaneMesh.position.x += 0.15;
         if(airplaneMesh.position.x > 30) airplaneMesh.position.x = -30;
@@ -1459,7 +1466,7 @@
         let activeGuard = null;
         if (player.position.z > -21) activeGuard = normalGuard;
         else if (player.position.z > -43) activeGuard = goldenGuard;
-        else if (player.position.z > -65) activeGuard, activeGuard = lavaGuard;
+        else if (player.position.z > -65) activeGuard = lavaGuard;
         else activeGuard = frostGuard;
 
         if (activeGuard) {

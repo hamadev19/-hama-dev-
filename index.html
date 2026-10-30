@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.38.0 Second City Tower</title>
+  <title>Hama Dev Store - Roblox Kurd v2.39.0 First City & Second City Tower</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -281,7 +281,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.38.0 Second City Tower & Mutation</div>
+      <div class="version-tag">v2.39.0 First City & Second City Tower</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -304,7 +304,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.38.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.39.0</span></span>
       </div>
 
       <div class="store-search">
@@ -340,9 +340,9 @@
               <div class="app-card-top">
                 <div class="app-icon"><i class="fa-solid fa-dice-d6"></i></div>
                 <div class="app-info">
-                  <h3>Steal An Egg (Second City Tower)</h3>
+                  <h3>Steal An Egg (First City & Second Tower)</h3>
                   <p>خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-badge"></i></p>
-                  <p style="color:var(--divine-purple); margin-top:2px;">⭐ 5.0 (Second City Coming Soon Tower & Mutations)</p>
+                  <p style="color:var(--divine-purple); margin-top:2px;">⭐ 5.0 (First City Open & Second City Tower)</p>
                 </div>
               </div>
               <button class="install-btn" onclick="startStealAnEggGame()"><i class="fa-solid fa-download"></i> یاری کردن / دابەزاندن</button>
@@ -451,7 +451,7 @@
   <!-- Full Owner Admin Panel with Live 4s Auto-Refresh Watcher -->
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Second City Tower v2.38.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (First City & Second Tower v2.39.0)</h2>
       
       <!-- Mutation Control Panel Section -->
       <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
@@ -516,7 +516,7 @@
     </div>
   </div>
 
-  <!-- Game Canvas Container with Second City Tower & Mutation Drop -->
+  <!-- Game Canvas Container with First City Open & Second City Tower -->
   <div id="game-container">
     <canvas id="game-canvas"></canvas>
     
@@ -970,7 +970,7 @@
       } else { alert('❌ کۆدەکە هەڵەیە!'); }
     }
 
-    /* 3D Game Engine with Second City Tower & Mutation Drop */
+    /* 3D Game Engine with First City Open & Second City Tower */
     let scene, camera, renderer, player, otherPlayers = {}, crownMesh, shieldMesh, shopBooth, petObj, airplaneMesh, auraMesh, animationId;
     let normalGuard, goldenGuard, lavaGuard, frostGuard;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
@@ -1325,6 +1325,10 @@
       const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, 200), new THREE.MeshLambertMaterial({ color: 0x1e293b }));
       floor.rotation.x = -Math.PI / 2; floor.position.z = -35; scene.add(floor);
 
+      /* First City Open Zone (Spawn & Early Game Area) */
+      const firstCityZone = new THREE.Mesh(new THREE.PlaneGeometry(40, 30), new THREE.MeshLambertMaterial({ color: 0x10b981, transparent: true, opacity: 0.3 }));
+      firstCityZone.rotation.x = -Math.PI / 2; firstCityZone.position.set(0, 0.01, 5); scene.add(firstCityZone);
+
       const zone2X = new THREE.Mesh(new THREE.PlaneGeometry(35, 25), new THREE.MeshLambertMaterial({ color: 0xd4af37 }));
       zone2X.rotation.x = -Math.PI / 2; zone2X.position.set(0, 0.02, -32); scene.add(zone2X);
 
@@ -1334,14 +1338,14 @@
       const iceZone = new THREE.Mesh(new THREE.PlaneGeometry(35, 25), new THREE.MeshLambertMaterial({ color: 0x0284c7 }));
       iceZone.rotation.x = -Math.PI / 2; iceZone.position.set(0, 0.04, -76); scene.add(iceZone);
 
-      /* Second City Tall Tower & Banner */
+      /* Second City Tall Tower & Banner at Map End */
       const towerGroup = new THREE.Group();
-      const towerPillar1 = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1, 10, 16), new THREE.MeshLambertMaterial({ color: 0xa855f7 }));
-      towerPillar1.position.set(-3, 5, 0);
-      const towerPillar2 = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1, 10, 16), new THREE.MeshLambertMaterial({ color: 0xa855f7 }));
-      towerPillar2.position.set(3, 5, 0);
-      const towerSign = new THREE.Mesh(new THREE.BoxGeometry(8, 2.5, 0.6), new THREE.MeshLambertMaterial({ color: 0xfbbf24, emissive: 0xfbbf24, emissiveIntensity: 0.8 }));
-      towerSign.position.set(0, 9, 0);
+      const towerPillar1 = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1, 12, 16), new THREE.MeshLambertMaterial({ color: 0xa855f7 }));
+      towerPillar1.position.set(-3.5, 6, 0);
+      const towerPillar2 = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1, 12, 16), new THREE.MeshLambertMaterial({ color: 0xa855f7 }));
+      towerPillar2.position.set(3.5, 6, 0);
+      const towerSign = new THREE.Mesh(new THREE.BoxGeometry(9, 3, 0.6), new THREE.MeshLambertMaterial({ color: 0xfbbf24, emissive: 0xfbbf24, emissiveIntensity: 0.9 }));
+      towerSign.position.set(0, 10.5, 0);
       
       towerGroup.add(towerPillar1);
       towerGroup.add(towerPillar2);

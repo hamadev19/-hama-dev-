@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.39.0 First City & Second City Tower</title>
+  <title>Hama Dev Store - Roblox Kurd v2.40.0 Ultimate Second City Tower</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -281,7 +281,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.39.0 First City & Second City Tower</div>
+      <div class="version-tag">v2.40.0 Ultimate Second City Tower</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -304,7 +304,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.39.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.40.0</span></span>
       </div>
 
       <div class="store-search">
@@ -451,7 +451,7 @@
   <!-- Full Owner Admin Panel with Live 4s Auto-Refresh Watcher -->
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (First City & Second Tower v2.39.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Second City Tower v2.40.0)</h2>
       
       <!-- Mutation Control Panel Section -->
       <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
@@ -1338,17 +1338,22 @@
       const iceZone = new THREE.Mesh(new THREE.PlaneGeometry(35, 25), new THREE.MeshLambertMaterial({ color: 0x0284c7 }));
       iceZone.rotation.x = -Math.PI / 2; iceZone.position.set(0, 0.04, -76); scene.add(iceZone);
 
-      /* Second City Tall Tower & Banner at Map End */
+      /* Second City Tall Tower & Banner at Map End (z = -95) */
       const towerGroup = new THREE.Group();
-      const towerPillar1 = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1, 12, 16), new THREE.MeshLambertMaterial({ color: 0xa855f7 }));
-      towerPillar1.position.set(-3.5, 6, 0);
-      const towerPillar2 = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1, 12, 16), new THREE.MeshLambertMaterial({ color: 0xa855f7 }));
-      towerPillar2.position.set(3.5, 6, 0);
-      const towerSign = new THREE.Mesh(new THREE.BoxGeometry(9, 3, 0.6), new THREE.MeshLambertMaterial({ color: 0xfbbf24, emissive: 0xfbbf24, emissiveIntensity: 0.9 }));
-      towerSign.position.set(0, 10.5, 0);
+      const towerPillar1 = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1, 14, 16), new THREE.MeshLambertMaterial({ color: 0xa855f7 }));
+      towerPillar1.position.set(-4, 7, 0);
+      const towerPillar2 = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1, 14, 16), new THREE.MeshLambertMaterial({ color: 0xa855f7 }));
+      towerPillar2.position.set(4, 7, 0);
+      
+      const towerBeam = new THREE.Mesh(new THREE.BoxGeometry(10, 1.2, 1.2), new THREE.MeshLambertMaterial({ color: 0xfbbf24 }));
+      towerBeam.position.set(0, 13, 0);
+
+      const towerSign = new THREE.Mesh(new THREE.BoxGeometry(10, 3.5, 0.8), new THREE.MeshLambertMaterial({ color: 0xfbbf24, emissive: 0xfbbf24, emissiveIntensity: 1.0 }));
+      towerSign.position.set(0, 11, 0);
       
       towerGroup.add(towerPillar1);
       towerGroup.add(towerPillar2);
+      towerGroup.add(towerBeam);
       towerGroup.add(towerSign);
       towerGroup.position.set(0, 0, -95);
       scene.add(towerGroup);

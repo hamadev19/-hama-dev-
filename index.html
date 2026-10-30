@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.30.0 Pro WebApp & Save</title>
+  <title>Hama Dev Store - Roblox Kurd v2.32.0 Auto Trailer & Egg Garden</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -67,7 +67,7 @@
     /* Verified Badge Icon */
     .verified-badge { color: var(--verified-blue); font-size: 14px; margin-left: 4px; display: inline-flex; align-items: center; justify-content: center; }
 
-    /* Divine & Broadcast Global Alert Banner */
+    /* Global Announcement Banner */
     #global-announcement-banner {
       position: fixed; top: 15px; left: 50%; transform: translateX(-50%);
       background: linear-gradient(90deg, var(--divine-purple), var(--robux-gold)); color: white;
@@ -219,7 +219,11 @@
       background: rgba(239, 68, 68, 0.9); color: white; border: none; padding: 10px 18px;
       border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px;
     }
-    .game-stats { background: rgba(0,0,0,0.85); padding: 8px 16px; border-radius: 20px; font-weight: bold; display: flex; gap: 16px; color: #fff; font-size:13px; border:1px solid #444; }
+    .game-stats { background: rgba(0,0,0,0.85); padding: 8px 16px; border-radius: 20px; font-weight: bold; display: flex; gap: 12px; color: #fff; font-size:12px; border:1px solid #444; align-items: center; }
+    .garden-btn-hud {
+      background: var(--divine-purple); color: white; border: none; padding: 6px 12px;
+      border-radius: 12px; font-weight: bold; cursor: pointer; pointer-events: auto; display: flex; align-items: center; gap: 5px; font-size: 12px;
+    }
 
     /* In-Game Admin Floating Message HUD */
     #in-game-admin-hud {
@@ -239,6 +243,18 @@
     .shop-close { background: transparent; border: none; color: #fff; font-size: 16px; cursor: pointer; }
     .shop-row { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--store-border); font-size: 13px; margin-bottom: 6px; }
     .buy-btn { background: var(--robux-gold); color: #000; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 12px; }
+
+    /* Egg Garden / Hatching Modal */
+    #garden-modal {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: rgba(15, 23, 42, 0.96); border: 2px solid var(--divine-purple); border-radius: 18px;
+      width: 420px; max-height: 85vh; overflow-y: auto; padding: 22px; z-index: 10009; display: none; flex-direction: column; gap: 14px; pointer-events: auto;
+      box-shadow: 0 0 40px rgba(168, 85, 247, 0.5);
+    }
+    .garden-slot { background: #0f172a; border: 1px solid var(--store-border); border-radius: 12px; padding: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 13px; }
+    .hatch-action-btn { background: var(--store-primary); color: white; border: none; padding: 6px 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 12px; }
+    .pets-collected-box { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .pet-card { background: #1e293b; border: 1px solid var(--divine-purple); padding: 8px 12px; border-radius: 10px; font-size: 11px; text-align: center; }
 
     .mobile-controls {
       position: absolute; bottom: 25px; left: 25px; right: 25px;
@@ -266,7 +282,7 @@
 </head>
 <body>
 
-  <!-- Divine & Broadcast Global Alert Banner -->
+  <!-- Global Announcement Banner -->
   <div id="global-announcement-banner">
     <i class="fa-solid fa-gift" style="font-size: 20px; color:#fde047;"></i>
     <span id="announcement-text">🎁 دیڤاینێک سپاون بوو! ڕابکەن بۆ بردنی 1090 ڕۆبۆکس!</span>
@@ -276,7 +292,7 @@
   <div id="global-trailer-modal">
     <div class="trailer-content-box">
       <div class="trailer-header">
-        <span><i class="fa-solid fa-clapperboard"></i> ترەیلەر و دەنگی فەرمی (Hama Dev Broadcast)</span>
+        <span><i class="fa-solid fa-clapperboard"></i> ترەیلەری یاری (Hama Dev Trailer)</span>
         <button class="trailer-close-btn" onclick="closeGlobalTrailer()">داخستن X</button>
       </div>
       <div class="trailer-video-wrapper" id="trailer-frame-container"></div>
@@ -288,7 +304,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.30.0 Pro WebApp & Saved Stats</div>
+      <div class="version-tag">v2.32.0 Auto Trailer & Egg Garden</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -311,7 +327,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.30.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.32.0</span></span>
       </div>
 
       <div class="store-search">
@@ -347,9 +363,9 @@
               <div class="app-card-top">
                 <div class="app-icon"><i class="fa-solid fa-dice-d6"></i></div>
                 <div class="app-info">
-                  <h3>Steal An Egg (Pro Save & 10 Eggs)</h3>
+                  <h3>Steal An Egg (Auto Trailer & Garden)</h3>
                   <p>خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-badge"></i></p>
-                  <p style="color:var(--divine-purple); margin-top:2px;">⭐ 5.0 (Saved Progress & WebApp)</p>
+                  <p style="color:var(--divine-purple); margin-top:2px;">⭐ 5.0 (Trailer & Egg Hatching)</p>
                 </div>
               </div>
               <button class="install-btn" onclick="startStealAnEggGame()"><i class="fa-solid fa-download"></i> یاری کردن / دابەزاندن</button>
@@ -455,14 +471,22 @@
     </div>
   </div>
 
-  <!-- Full Owner Admin Panel with Divine Spawn & Ultra Tools -->
+  <!-- Full Owner Admin Panel with Auto Trailer Trigger -->
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Pro Owner Panel v2.30.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Pro Owner Panel v2.32.0)</h2>
       
       <div class="admin-section">
         <label style="font-size:12px; font-weight:bold; color:var(--divine-purple);"><i class="fa-solid fa-dice-d6"></i> سپاون کردنی دیڤاین بۆ بردنی ١٠٩٠ ڕۆبۆکس (Divine Spawn):</label>
         <button class="admin-action-btn" style="background:var(--divine-purple); color:white; font-size:14px; padding:12px;" onclick="spawnDivineAdmin()">🎁 سپاون کردنی دیڤاین لە یاری (1090 R$)</button>
+      </div>
+
+      <div class="admin-section">
+        <label style="font-size:12px; font-weight:bold; color:var(--store-primary);"><i class="fa-solid fa-clapperboard"></i> ناردن و پیشاندانی ڕاستەوخۆی ترەیلەر لەسەر شاشە (Auto Trailer):</label>
+        <input type="text" id="trailer-url-input" placeholder="لینکی ڤیدیۆ یان یوتیوب..." value="https://www.w3schools.com/html/mov_bbb.mp4">
+        <div style="display: flex; gap: 8px; margin-top: 5px;">
+          <button class="admin-action-btn" style="flex:1; background:var(--store-primary); color:white;" onclick="triggerGlobalTrailerFromAdmin()">🎬 پیشاندانی ڕاستەوخۆ بۆ هەمووان</button>
+        </div>
       </div>
 
       <div class="admin-section">
@@ -474,15 +498,6 @@
       </div>
 
       <div class="admin-section">
-        <label style="font-size:12px; font-weight:bold;"><i class="fa-solid fa-clapperboard" style="color:var(--store-primary);"></i> ناردنی ترەیلەر یان گۆرانی/دەنگ بۆ هەمووان:</label>
-        <input type="text" id="trailer-url-input" placeholder="لینکی ڤیدیۆ، یوتیوب، یان فایلی دەنگی MP3...">
-        <div style="display: flex; gap: 8px; margin-top: 5px;">
-          <button class="admin-action-btn" style="flex:1; background:var(--store-primary); color:white;" onclick="sendGlobalTrailer()">🎬 پیشاندانی ڤیدیۆ بۆ هەمووان</button>
-          <button class="admin-action-btn" style="flex:1; background:var(--robux-gold); color:#000;" onclick="sendGlobalAudio()">🎵 لێدانی دەنگ/گۆرانی بۆ هەمووان</button>
-        </div>
-      </div>
-
-      <div class="admin-section">
         <label style="font-size:12px; font-weight:bold;"><i class="fa-solid fa-gem" style="color:var(--robux-gold);"></i> بەڕێوەبردنی ڕۆبوکس و بەخشین:</label>
         <input type="text" id="robux-target-user" placeholder="ناوی یاریزان (Username)...">
         <input type="number" id="robux-target-amount" placeholder="بڕی ڕۆبوکس (R$)...">
@@ -490,7 +505,7 @@
           <button class="admin-action-btn" style="flex:1; background:var(--robux-gold); color:#000;" onclick="modifyRobuxForPlayer('give')">➕ ناردنی ڕۆبوکس</button>
           <button class="admin-action-btn" style="flex:1; background:#ef4444; color:white;" onclick="modifyRobuxForPlayer('remove')">➖ لابردنی ڕۆبوکس</button>
         </div>
-        <button class="admin-action-btn" style="background:#8b5cf6; color:white; margin-top:5px;" onclick="giveawayToAll()">🎁 بەخشینی 5,000 R$ بۆ هەموو یاریزانەکان[span_1](start_span)[span_1](end_span)</button>
+        <button class="admin-action-btn" style="background:#8b5cf6; color:white; margin-top:5px;" onclick="giveawayToAll()">🎁 بەخشینی 5,000 R$ بۆ هەموو یاریزانەکان[span_0](start_span)[span_0](end_span)</button>
       </div>
 
       <div class="admin-section">
@@ -508,14 +523,14 @@
     </div>
   </div>
 
-  <!-- Game Canvas Container with Permanent Save & 10 Max Capacity -->
+  <!-- Game Canvas Container with Egg Hatching Garden Modal -->
   <div id="game-container">
     <canvas id="game-canvas"></canvas>
     
     <!-- In-Game Admin Floating Message Box -->
     <div id="in-game-admin-hud">📢 پەیامی ئۆنەر: لێرە دەردەکەوێت</div>
 
-    <!-- 3D Shop Modal (Up to 10 Eggs and 100 Speed with Save) -->
+    <!-- 3D Shop Modal -->
     <div id="shop-modal">
       <div class="shop-header">
         <span><i class="fa-solid fa-shield-dog"></i> شۆپی پارێزراو (توانای تا 10 هێلکە و خێرایی 100)</span>
@@ -535,6 +550,24 @@
       <div class="shop-row"><span>🥚 10 هێلکە (مەزنترین)</span><button class="buy-btn" onclick="buyCapacity(10, 150)">150 R$</button></div>
     </div>
 
+    <!-- Egg Hatching Garden Modal -->
+    <div id="garden-modal">
+      <div class="shop-header">
+        <span><i class="fa-solid fa-seedling" style="color:var(--divine-purple);"></i> باخجەی هێلکەدانان و پێتەکان (Egg Hatching Garden)</span>
+        <button class="shop-close" onclick="closeGardenModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <p style="font-size:12px; color:var(--text-muted); line-height:1.4;">هێلکەکانت لێرە دابنە، کاتژمێر کار دەکات و پاشان پێت دەردەچێت!</p>
+      
+      <div style="font-weight:bold; color:var(--store-primary); font-size:13px; margin-top:6px;">🥚 هێلکەکان لە کۆگا:</div>
+      <div id="garden-storage-list" style="display:flex; flex-direction:column; gap:6px; max-height:110px; overflow-y:auto;"></div>
+
+      <div style="font-weight:bold; color:var(--robux-gold); font-size:13px; margin-top:8px;">⏳ سلۆتەکانی هێلکەشکاندن (Hatching Slots):</div>
+      <div id="hatching-slots-list" style="display:flex; flex-direction:column; gap:6px; max-height:110px; overflow-y:auto;"></div>
+
+      <div style="font-weight:bold; color:var(--divine-purple); font-size:13px; margin-top:10px;">🐣 پێتە کۆکراوەکان (Collected Pets):</div>
+      <div class="pets-collected-box" id="collected-pets-box"></div>
+    </div>
+
     <div class="game-ui-overlay">
       <div class="game-top-bar">
         <button class="exit-game-btn" onclick="exitGame()"><i class="fa-solid fa-door-open"></i> دەرچوون</button>
@@ -542,6 +575,7 @@
           <span>خاڵ: <span id="game-score">0</span></span>
           <span>🥚 هێلکە: <span id="carried-count">0</span>/<span id="max-capacity">1</span></span>
           <span>⚡ خێرایی: <span id="speed-display">25</span></span>
+          <button class="garden-btn-hud" onclick="openGardenModal()"><i class="fa-solid fa-seedling"></i> باخجەی هێلکە</button>
         </div>
       </div>
 
@@ -564,9 +598,9 @@
     let pendingVerifyCode = null;
     let deferredPrompt = null;
 
-    usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, email: 'rip_hama@dev.kur', verified: true, hasVIP: true, hasSpeed: true, hasShield: true, hasGoldenPet: true, savedSpeed: 100, savedCapacity: 10 };
-    if(!usersDB['Ahmad_Gamer']) usersDB['Ahmad_Gamer'] = { password: '123', robux: 1200, email: 'ahmad@mail.com', verified: true, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1 };
-    if(!usersDB['Kurd_Pro99']) usersDB['Kurd_Pro99'] = { password: '123', robux: 850, email: 'kurdpro@mail.com', verified: false, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1 };
+    usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, email: 'rip_hama@dev.kur', verified: true, hasVIP: true, hasSpeed: true, hasShield: true, hasGoldenPet: true, savedSpeed: 100, savedCapacity: 10, inventoryEggs: [], hatchingSlots: [], collectedPets: [] };
+    if(!usersDB['Ahmad_Gamer']) usersDB['Ahmad_Gamer'] = { password: '123', robux: 1200, email: 'ahmad@mail.com', verified: true, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [] };
+    if(!usersDB['Kurd_Pro99']) usersDB['Kurd_Pro99'] = { password: '123', robux: 850, email: 'kurdpro@mail.com', verified: false, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [] };
 
     localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
 
@@ -581,7 +615,7 @@
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
-            console.log('User accepted the install prompt');
+            console.log('User accepted install prompt');
           }
           deferredPrompt = null;
         });
@@ -604,8 +638,13 @@
       setupMobileTouchEvents();
       renderChatMessages();
 
-      let activeTrailer = localStorage.getItem('hamadev_active_trailer');
-      if(activeTrailer) showGlobalTrailer(activeTrailer);
+      // Check Auto Trailer
+      setInterval(() => {
+        let activeTrailer = localStorage.getItem('hamadev_active_trailer');
+        if(activeTrailer && document.getElementById('global-trailer-modal').style.display !== 'flex') {
+          showGlobalTrailer(activeTrailer);
+        }
+      }, 1500);
 
       let divineActive = localStorage.getItem('hamadev_divine_spawned');
       if(divineActive === 'true') {
@@ -640,7 +679,7 @@
       }
 
       if (!usersDB[username]) {
-        usersDB[username] = { password: password, robux: 250, email: '', verified: false, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1 };
+        usersDB[username] = { password: password, robux: 250, email: '', verified: false, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [] };
       } else if (usersDB[username].password !== password) {
         errorEl.innerText = 'تێپەڕەواژە هەڵەیە!';
         errorEl.style.display = 'block';
@@ -757,7 +796,7 @@
       }
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      alert('🎁 بە سەرکەوتوویی 5,000 R$ دیاری بەخشرا بە سەرجەم یاریزانەکان[span_2](start_span)[span_2](end_span)!');
+      alert('🎁 بە سەرکەوتوویی 5,000 R$ دیاری بەخشرا بە سەرجەم یاریزانەکان[span_1](start_span)[span_1](end_span)!');
       closeAdminPanel();
     }
 
@@ -803,6 +842,15 @@
       closeAdminPanel();
     }
 
+    function triggerGlobalTrailerFromAdmin() {
+      let url = document.getElementById('trailer-url-input').value.trim();
+      if(!url) url = 'https://www.w3schools.com/html/mov_bbb.mp4';
+      localStorage.setItem('hamadev_active_trailer', url);
+      showGlobalTrailer(url);
+      alert('🎬 ترەیلەر بۆ هەموو یاریزانەکان نێردرا و ڕاستەوخۆ کەوتە سەر شاشە!');
+      closeAdminPanel();
+    }
+
     function showInGameAdminMessage(text) {
       const hud = document.getElementById('in-game-admin-hud');
       if(hud) {
@@ -825,22 +873,6 @@
       customSkyColorIndex = (customSkyColorIndex + 1) % skyColors.length;
       if(scene) scene.background = new THREE.Color(skyColors[customSkyColorIndex]);
       alert('🌌 ڕەنگی ئاسمانی یاری گۆڕدرا!');
-      closeAdminPanel();
-    }
-
-    function sendGlobalTrailer() {
-      let url = document.getElementById('trailer-url-input').value.trim();
-      if(!url) url = 'https://www.w3schools.com/html/mov_bbb.mp4';
-      localStorage.setItem('hamadev_active_trailer', url);
-      showGlobalTrailer(url);
-      closeAdminPanel();
-    }
-
-    function sendGlobalAudio() {
-      let url = document.getElementById('trailer-url-input').value.trim();
-      if(!url) url = 'https://www.w3schools.com/html/horse.ogg';
-      localStorage.setItem('hamadev_active_trailer', url);
-      showGlobalTrailer(url);
       closeAdminPanel();
     }
 
@@ -906,7 +938,7 @@
       } else { alert('❌ کۆدەکە هەڵەیە!'); }
     }
 
-    /* 3D Game Engine with Saved Speed & Capacity (Up to 100 Speed / 10 Eggs) */
+    /* 3D Game Engine with Egg Hatching Garden & Timer */
     let scene, camera, renderer, player, otherPlayers = {}, crownMesh, shieldMesh, shopBooth, petObj, animationId;
     let normalGuard, goldenGuard, lavaGuard, frostGuard;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
@@ -940,6 +972,121 @@
 
     function closeShopModal() { document.getElementById('shop-modal').style.display = 'none'; shopOpen = false; }
 
+    /* Egg Garden Functions */
+    function openGardenModal() {
+      let uObj = usersDB[currentUser];
+      if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
+      if(!uObj.hatchingSlots) uObj.hatchingSlots = [];
+      if(!uObj.collectedPets) uObj.collectedPets = [];
+
+      renderGardenUI();
+      document.getElementById('garden-modal').style.display = 'flex';
+    }
+
+    function closeGardenModal() {
+      document.getElementById('garden-modal').style.display = 'none';
+    }
+
+    function renderGardenUI() {
+      let uObj = usersDB[currentUser];
+      
+      // Storage list
+      let storeListEl = document.getElementById('garden-storage-list');
+      storeListEl.innerHTML = '';
+      if(uObj.inventoryEggs.length === 0) {
+        storeListEl.innerHTML = `<p style="font-size:11px; color:var(--text-muted);">هیچ هێلکەیەک لە کۆگا نییە. هێلکە لە یاری بڕفێنە!</p>`;
+      } else {
+        uObj.inventoryEggs.forEach((egg, idx) => {
+          storeListEl.innerHTML += `
+            <div class="garden-slot">
+              <span>🥚 ${egg.name} (Multiplier: x${egg.mult})</span>
+              <button class="hatch-action-btn" onclick="placeEggInGarden(${idx})">دانان لە باخجە</button>
+            </div>
+          `;
+        });
+      }
+
+      // Hatching Slots
+      let slotsListEl = document.getElementById('hatching-slots-list');
+      slotsListEl.innerHTML = '';
+      if(uObj.hatchingSlots.length === 0) {
+        slotsListEl.innerHTML = `<p style="font-size:11px; color:var(--text-muted);">هیچ هێلکەیەک لەسەر کاتژمێر نییە.</p>`;
+      } else {
+        let now = Date.now();
+        uObj.hatchingSlots.forEach((slot, sIdx) => {
+          let timeLeft = Math.max(0, Math.ceil((slot.endTime - now) / 1000));
+          slotsListEl.innerHTML += `
+            <div class="garden-slot">
+              <span>🥚 ${slot.name}</span>
+              <span style="color:var(--robux-gold); font-weight:bold;">${timeLeft > 0 ? '⏳ ' + timeLeft + ' چرکە ماوە' : '✨ شکاوە!'}</span>
+            </div>
+          `;
+        });
+      }
+
+      // Collected Pets
+      let petsBox = document.getElementById('collected-pets-box');
+      petsBox.innerHTML = '';
+      if(uObj.collectedPets.length === 0) {
+        petsBox.innerHTML = `<span style="font-size:11px; color:var(--text-muted);">هێشتا هیچ پێتێک نەشکاوە.</span>`;
+      } else {
+        uObj.collectedPets.forEach(pet => {
+          petsBox.innerHTML += `
+            <div class="pet-card">
+              <b>🐾 ${pet.name}</b><br>
+              <span style="color:var(--robux-gold);">Bonus: +${pet.bonus}x</span>
+            </div>
+          `;
+        });
+      }
+    }
+
+    function placeEggInGarden(index) {
+      let uObj = usersDB[currentUser];
+      let egg = uObj.inventoryEggs.splice(index, 1)[0];
+      
+      // Hatching Time: Normal = 10s, others more
+      let hatchTimeSec = egg.mult === 1 ? 10 : (egg.mult === 2 ? 25 : (egg.mult === 3 ? 45 : 60));
+      
+      uObj.hatchingSlots.push({
+        name: egg.name,
+        mult: egg.mult,
+        endTime: Date.now() + (hatchTimeSec * 1000)
+      });
+
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      renderGardenUI();
+    }
+
+    // Interval to check hatching timers & update UI
+    setInterval(() => {
+      if(!currentUser || !usersDB[currentUser]) return;
+      let uObj = usersDB[currentUser];
+      if(!uObj.hatchingSlots || uObj.hatchingSlots.length === 0) return;
+
+      let now = Date.now();
+      let updated = false;
+
+      uObj.hatchingSlots = uObj.hatchingSlots.filter(slot => {
+        if(now >= slot.endTime) {
+          let petNames = ['Doggy', 'Bunny', 'Dragon', 'Phoenix', 'Kurdish Lion'];
+          let randomPetName = petNames[Math.floor(Math.random() * petNames.length)] + ' (x' + slot.mult + ')';
+          uObj.collectedPets.push({ name: randomPetName, bonus: slot.mult * 5 });
+          updated = true;
+          return false;
+        }
+        return true;
+      });
+
+      if(updated) {
+        localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      }
+
+      if(document.getElementById('garden-modal').style.display === 'flex') {
+        renderGardenUI();
+      }
+    }, 1000);
+
     function setupMobileTouchEvents() {
       const bindTouch = (id, keyName) => {
         const btn = document.getElementById(id);
@@ -957,34 +1104,43 @@
     function spawnAllEggs() {
       eggsList.forEach(e => { if(e) scene.remove(e); });
       eggsList = [];
-      const eggColors = [0xf1c40f, 0x9b59b6, 0xe74c3c, 0x3498db, 0x2ecc71];
+      const eggTypes = [
+        { name: 'هێلکەی ئاسایی (10s)', color: 0xf1c40f, mult: 1 },
+        { name: 'هێلکەی زێڕین (25s)', color: 0xffd700, mult: 2 },
+        { name: 'هێلکەی ئاگرین (45s)', color: 0xff4500, mult: 3 },
+        { name: 'هێلکەی ئاسمانی (60s)', color: 0x38bdf8, mult: 5 }
+      ];
       
       for (let i = 0; i < 4; i++) {
+        let t = eggTypes[0];
         const eggGeo = new THREE.SphereGeometry(0.45, 16, 16); eggGeo.scale(1, 1.3, 1);
-        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: eggColors[i], emissive: eggColors[i], emissiveIntensity: 0.3 }));
+        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: t.color, emissive: t.color, emissiveIntensity: 0.3 }));
         egg.position.set((Math.random() - 0.5) * 24, 0.5, -Math.random() * 16 - 2);
-        egg.userData = { mult: 1, isDivine: false };
+        egg.userData = { name: t.name, mult: t.mult, isDivine: false };
         scene.add(egg); eggsList.push(egg);
       }
       for (let i = 0; i < 3; i++) {
+        let t = eggTypes[1];
         const eggGeo = new THREE.SphereGeometry(0.5, 16, 16); eggGeo.scale(1, 1.3, 1);
-        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: 0xffd700, emissive: 0xffa500, emissiveIntensity: 0.6 }));
+        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: t.color, emissive: 0xffa500, emissiveIntensity: 0.6 }));
         egg.position.set((Math.random() - 0.5) * 24, 0.5, -Math.random() * 16 - 22);
-        egg.userData = { mult: 2, isDivine: false };
+        egg.userData = { name: t.name, mult: t.mult, isDivine: false };
         scene.add(egg); eggsList.push(egg);
       }
       for (let i = 0; i < 3; i++) {
+        let t = eggTypes[2];
         const eggGeo = new THREE.SphereGeometry(0.55, 16, 16); eggGeo.scale(1, 1.3, 1);
-        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: 0xff4500, emissive: 0xff0000, emissiveIntensity: 0.8 }));
+        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: t.color, emissive: 0xff0000, emissiveIntensity: 0.8 }));
         egg.position.set((Math.random() - 0.5) * 24, 0.5, -Math.random() * 16 - 44);
-        egg.userData = { mult: 3, isDivine: false };
+        egg.userData = { name: t.name, mult: t.mult, isDivine: false };
         scene.add(egg); eggsList.push(egg);
       }
       for (let i = 0; i < 3; i++) {
+        let t = eggTypes[3];
         const eggGeo = new THREE.SphereGeometry(0.6, 16, 16); eggGeo.scale(1, 1.3, 1);
-        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: 0x38bdf8, emissive: 0x0284c7, emissiveIntensity: 0.9 }));
+        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: t.color, emissive: 0x0284c7, emissiveIntensity: 0.9 }));
         egg.position.set((Math.random() - 0.5) * 24, 0.5, -Math.random() * 16 - 66);
-        egg.userData = { mult: 5, isDivine: false };
+        egg.userData = { name: t.name, mult: t.mult, isDivine: false };
         scene.add(egg); eggsList.push(egg);
       }
 
@@ -992,7 +1148,7 @@
         const divGeo = new THREE.SphereGeometry(0.7, 16, 16); divGeo.scale(1, 1.4, 1);
         const divineEggObj = new THREE.Mesh(divGeo, new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xfbbf24, emissiveIntensity: 1.0 }));
         divineEggObj.position.set(0, 0.6, -40);
-        divineEggObj.userData = { mult: 10, isDivine: true };
+        divineEggObj.userData = { name: 'هێلکەی دیڤاین', mult: 10, isDivine: true };
         scene.add(divineEggObj); eggsList.push(divineEggObj);
       }
     }
@@ -1022,8 +1178,6 @@
       gameScore = 0; carriedEggs = 0; carriedValueMultiplier = 1; shopOpen = false;
 
       let userObj = usersDB[currentUser] || {};
-      
-      // Load Saved Speed and Capacity from localStorage
       playerSpeed = (userObj.savedSpeed ? userObj.savedSpeed : 25) / 100;
       maxCapacity = userObj.savedCapacity ? userObj.savedCapacity : 1;
 
@@ -1201,6 +1355,11 @@
             document.getElementById('global-announcement-banner').style.display = 'none';
             alert('🎉 پیرۆزە! تۆ دیڤاینەت بردەوە و ١٠٩٠ ڕۆبۆکس چوە سەر ئەکاونتەکەت!');
           }
+
+          let uObj = usersDB[currentUser];
+          if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
+          uObj.inventoryEggs.push({ name: egg.userData.name, mult: egg.userData.mult });
+          localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
 
           carriedValueMultiplier = egg.userData ? egg.userData.mult : 1;
           scene.remove(egg);

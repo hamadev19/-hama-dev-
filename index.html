@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.28.0 Fixed Game HUD & Admin Messages</title>
+  <title>Hama Dev Store - Roblox Kurd v2.29.0 Verified Avatar Update</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -27,6 +27,7 @@
       --robux-gold: #fbbf24;
       --admin-red: #ef4444;
       --divine-purple: #a855f7;
+      --verified-blue: #00a2ff;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -61,6 +62,11 @@
     }
     .auth-btn:hover { background: #059669; }
     .error-msg { color: var(--admin-red); font-size: 12px; margin-top: 8px; display: none; }
+
+    /* Verified Badge Icon */
+    .verified-badge {
+      color: var(--verified-blue); font-size: 14px; margin-left: 4px; display: inline-flex; align-items: center; justify-content: center;
+    }
 
     /* Divine & Broadcast Global Alert Banner */
     #global-announcement-banner {
@@ -193,9 +199,7 @@
     .admin-action-btns { display: flex; gap: 6px; flex-wrap: wrap; }
     .login-as-btn { background: #3b82f6; color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
     .give-robux-btn { background: var(--robux-gold); color: #000; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
-    .kick-btn { background: #f59e0b; color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
     .ban-btn { background: var(--admin-red); color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
-    .unban-btn { background: #10b981; color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
 
     /* Game Canvas Container */
     #game-container {
@@ -281,7 +285,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.28.0 Fixed Game HUD & Admin Messages</div>
+      <div class="version-tag">v2.29.0 Verified Fiery Horns Update</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -304,7 +308,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.28.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.29.0</span></span>
       </div>
 
       <div class="store-search">
@@ -339,9 +343,9 @@
               <div class="app-card-top">
                 <div class="app-icon"><i class="fa-solid fa-dice-d6"></i></div>
                 <div class="app-info">
-                  <h3>Steal An Egg (Ultra Admin v2.28)</h3>
-                  <p>خاوەن: rip_hama276</p>
-                  <p style="color:var(--divine-purple); margin-top:2px;">⭐ 5.0 (In-Game HUD & Admin Broadcast)</p>
+                  <h3>Steal An Egg (Fiery Horns & Verified)</h3>
+                  <p>خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-badge"></i></p>
+                  <p style="color:var(--divine-purple); margin-top:2px;">⭐ 5.0 (Fiery Avatar & Blue Badge)</p>
                 </div>
               </div>
               <button class="install-btn" onclick="startStealAnEggGame()"><i class="fa-solid fa-download"></i> یاری کردن / دابەزاندن</button>
@@ -450,7 +454,7 @@
   <!-- Full Owner Admin Panel with Divine Spawn & Ultra Tools -->
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Ultra Owner Panel v2.28.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Ultra Owner Panel v2.29.0)</h2>
       
       <div class="admin-section">
         <label style="font-size:12px; font-weight:bold; color:var(--divine-purple);"><i class="fa-solid fa-dice-d6"></i> سپاون کردنی دیڤاین بۆ بردنی ١٠٩٠ ڕۆبۆکس (Divine Spawn):</label>
@@ -710,8 +714,9 @@
       container.innerHTML = '';
       chatDB.forEach(msg => {
         let isVipUser = usersDB[msg.sender] && usersDB[msg.sender].hasVIP;
+        let blueCheck = '<i class="fa-solid fa-circle-check verified-badge"></i>';
         container.innerHTML += `<div class="chat-msg">
-          <div class="sender">${msg.sender === 'rip_hama276' ? '👑 ' + msg.sender + ' (Owner)' : (isVipUser ? '👑 [VIP] ' + msg.sender : msg.sender)} <span style="font-size:10px; color:var(--text-muted);">[${msg.time}]</span></div>
+          <div class="sender">${msg.sender === 'rip_hama276' ? '👑 ' + msg.sender + blueCheck + ' (Owner)' : (isVipUser ? '👑 [VIP] ' + msg.sender + blueCheck : msg.sender + blueCheck)} <span style="font-size:10px; color:var(--text-muted);">[${msg.time}]</span></div>
           <div>${msg.text}</div>
         </div>`;
       });
@@ -873,7 +878,7 @@
       } else { alert('❌ کۆدەکە هەڵەیە!'); }
     }
 
-    /* 3D Game Engine with In-Game Admin HUD Messages */
+    /* 3D Game Engine with Fiery Horns Avatar */
     let scene, camera, renderer, player, otherPlayers = {}, crownMesh, shieldMesh, shopBooth, petObj, animationId;
     let normalGuard, goldenGuard, lavaGuard, frostGuard;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
@@ -958,6 +963,29 @@
       }
     }
 
+    function createFieryHornsAvatar(parentGroup) {
+      // Fire Aura Effect on Head
+      const fireHeadGeo = new THREE.SphereGeometry(0.5, 16, 16);
+      const fireHeadMat = new THREE.MeshLambertMaterial({ color: 0xff8c00, emissive: 0xff4500, emissiveIntensity: 1.0, transparent: true, opacity: 0.8 });
+      const fireHead = new THREE.Mesh(fireHeadGeo, fireHeadMat);
+      fireHead.position.set(0, 2.7, 0);
+      parentGroup.add(fireHead);
+
+      // Horn 1 (Left)
+      const horn1Geo = new THREE.CylinderGeometry(0.08, 0.25, 1.2, 8);
+      const hornMat = new THREE.MeshLambertMaterial({ color: 0x1e293b, emissive: 0xd97706 });
+      const horn1 = new THREE.Mesh(horn1Geo, hornMat);
+      horn1.position.set(-0.55, 2.8, 0);
+      horn1.rotation.z = -0.5;
+      parentGroup.add(horn1);
+
+      // Horn 2 (Right)
+      const horn2 = new THREE.Mesh(horn1Geo, hornMat);
+      horn2.position.set(0.55, 2.8, 0);
+      horn2.rotation.z = 0.5;
+      parentGroup.add(horn2);
+    }
+
     function startStealAnEggGame() {
       document.getElementById('game-container').style.display = 'flex';
       gameScore = 0; carriedEggs = 0; carriedValueMultiplier = 1; shopOpen = false;
@@ -986,15 +1014,15 @@
       scene.add(new THREE.AmbientLight(0x505050));
 
       player = new THREE.Group();
-      let shirtColor = (currentUser === 'rip_hama276' || userObj.hasVIP) ? 0xef4444 : 0x10b981;
+      let shirtColor = (currentUser === 'rip_hama276' || userObj.hasVIP) ? 0x0f172a : 0x10b981;
       const torso = new THREE.Mesh(new THREE.BoxGeometry(1, 1.2, 0.6), new THREE.MeshLambertMaterial({ color: shirtColor }));
       torso.position.y = 1.2; player.add(torso);
       const head = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.7, 0.7), new THREE.MeshLambertMaterial({ color: 0xffdbac }));
       head.position.y = 2.15; player.add(head);
 
-      if(userObj.hasVIP || currentUser === 'rip_hama276') {
-        crownMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.3, 0.25, 8), new THREE.MeshLambertMaterial({ color: 0xffd700 }));
-        crownMesh.position.y = 2.65; player.add(crownMesh);
+      // Create Fiery Horns Avatar for Owner or VIP
+      if(currentUser === 'rip_hama276' || userObj.hasVIP) {
+        createFieryHornsAvatar(player);
       }
 
       if(userObj.hasShield) {

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.41.0 Second City Tower View</title>
+  <title>Hama Dev Store - Roblox Kurd v2.42.0 Second City Coming Soon</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -281,7 +281,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.41.0 Second City Tower View</div>
+      <div class="version-tag">v2.42.0 Second City Coming Soon</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -304,7 +304,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.41.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.42.0</span></span>
       </div>
 
       <div class="store-search">
@@ -336,16 +336,30 @@
         <div id="tab-store" class="tab-content">
           <div class="page-title"><i class="fa-solid fa-gamepad" style="color:var(--store-primary)"></i><span>یارییە فەرمییەکان بۆ دابەزاندن</span></div>
           <div class="store-grid">
+            <!-- Game 1 -->
             <div class="store-app-card">
               <div class="app-card-top">
                 <div class="app-icon"><i class="fa-solid fa-dice-d6"></i></div>
                 <div class="app-info">
-                  <h3>Steal An Egg (Second City Tower View)</h3>
+                  <h3>Steal An Egg (First City)</h3>
                   <p>خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-badge"></i></p>
-                  <p style="color:var(--divine-purple); margin-top:2px;">⭐ 5.0 (First City Open & Giant Tower Ahead)</p>
+                  <p style="color:var(--divine-purple); margin-top:2px;">⭐ 5.0 (First City Open Map)</p>
                 </div>
               </div>
               <button class="install-btn" onclick="startStealAnEggGame()"><i class="fa-solid fa-download"></i> یاری کردن / دابەزاندن</button>
+            </div>
+
+            <!-- Game 2: Steal an Egg - شاری دووەم (بە زووانە) -->
+            <div class="store-app-card" style="border-color: var(--divine-purple);">
+              <div class="app-card-top">
+                <div class="app-icon" style="color: var(--divine-purple); background: #2e1065;"><i class="fa-solid fa-city"></i></div>
+                <div class="app-info">
+                  <h3>Steal an Egg - شاری دووەم (Second City)</h3>
+                  <p>خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-badge"></i></p>
+                  <p style="color:var(--robux-gold); margin-top:2px; font-weight:bold;">🔒 بە زووانە دەکرێتەوە (Coming Soon)</p>
+                </div>
+              </div>
+              <button class="install-btn" style="background:var(--divine-purple); color:white;" onclick="alert('🔒 شاری دووەمی Steal an Egg بە زووانە دەکرێتەوە! لە چاوەڕوانیدا بن بۆ نوێترین ڕیزبەندی و هێلکە ناوازەکان.')"><i class="fa-solid fa-lock"></i> بینینی دۆخ (Coming Soon)</button>
             </div>
           </div>
         </div>
@@ -451,7 +465,7 @@
   <!-- Full Owner Admin Panel with Live 4s Auto-Refresh Watcher -->
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Tower View v2.41.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (v2.42.0 Second City Coming Soon)</h2>
       
       <!-- Mutation Control Panel Section -->
       <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
@@ -495,7 +509,7 @@
           <button class="admin-action-btn" style="flex:1; background:var(--robux-gold); color:#000;" onclick="modifyRobuxForPlayer('give')">➕ ناردنی ڕۆبوکس</button>
           <button class="admin-action-btn" style="flex:1; background:#ef4444; color:white;" onclick="modifyRobuxForPlayer('remove')">➖ لابردنی ڕۆبوکس</button>
         </div>
-        <button class="admin-action-btn" style="background:#8b5cf6; color:white; margin-top:5px;" onclick="giveawayToAll()">🎁 بەخشینی 5,000 R$ بۆ هەموو یاریزانەکان[span_1](start_span)[span_1](end_span)</button>
+        <button class="admin-action-btn" style="background:#8b5cf6; color:white; margin-top:5px;" onclick="giveawayToAll()">🎁 بەخشینی 5,000 R$ بۆ هەموو یاریزانەکان[span_0](start_span)[span_0](end_span)</button>
       </div>
 
       <div class="admin-section">
@@ -516,7 +530,7 @@
     </div>
   </div>
 
-  <!-- Game Canvas Container with Giant Second City Tower Ahead -->
+  <!-- Game Canvas Container with Second City Barrier & Coming Soon Tower -->
   <div id="game-container">
     <canvas id="game-canvas"></canvas>
     
@@ -783,7 +797,7 @@
       }
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      alert('🎁 بە سەرکەوتوویی 5,000 R$ دیاری بەخشرا بە سەرجەم یاریزانەکان[span_2](start_span)[span_2](end_span)!');
+      alert('🎁 بە سەرکەوتوویی 5,000 R$ دیاری بەخشرا بە سەرجەم یاریزانەکان[span_1](start_span)[span_1](end_span)!');
       closeAdminPanel();
     }
 
@@ -970,7 +984,7 @@
       } else { alert('❌ کۆدەکە هەڵەیە!'); }
     }
 
-    /* 3D Game Engine with First City Open & Giant Second City Tower Ahead */
+    /* 3D Game Engine with Second City Coming Soon Tower & Barrier */
     let scene, camera, renderer, player, otherPlayers = {}, crownMesh, shieldMesh, shopBooth, petObj, airplaneMesh, auraMesh, animationId;
     let normalGuard, goldenGuard, lavaGuard, frostGuard;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
@@ -1338,23 +1352,29 @@
       const iceZone = new THREE.Mesh(new THREE.PlaneGeometry(35, 25), new THREE.MeshLambertMaterial({ color: 0x0284c7 }));
       iceZone.rotation.x = -Math.PI / 2; iceZone.position.set(0, 0.04, -76); scene.add(iceZone);
 
-      /* Giant Second City Tower & Banner directly visible ahead at z = -95 */
+      /* Second City Tower & Coming Soon Barrier at z = -95 */
       const towerGroup = new THREE.Group();
       const towerPillar1 = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.5, 18, 16), new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xa855f7, emissiveIntensity: 0.4 }));
-      towerPillar1.position.set(-5, 9, 0);
+      towerPillar1.position.set(-6, 9, 0);
       const towerPillar2 = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.5, 18, 16), new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xa855f7, emissiveIntensity: 0.4 }));
-      towerPillar2.position.set(5, 9, 0);
+      towerPillar2.position.set(6, 9, 0);
       
-      const towerBeam = new THREE.Mesh(new THREE.BoxGeometry(12, 1.5, 1.5), new THREE.MeshLambertMaterial({ color: 0xfbbf24, emissive: 0xfbbf24, emissiveIntensity: 0.8 }));
+      const towerBeam = new THREE.Mesh(new THREE.BoxGeometry(14, 1.5, 1.5), new THREE.MeshLambertMaterial({ color: 0xfbbf24, emissive: 0xfbbf24, emissiveIntensity: 0.8 }));
       towerBeam.position.set(0, 17, 0);
 
-      const towerSign = new THREE.Mesh(new THREE.BoxGeometry(11, 4, 0.8), new THREE.MeshLambertMaterial({ color: 0xfbbf24, emissive: 0xfbbf24, emissiveIntensity: 1.0 }));
-      towerSign.position.set(0, 14, 0);
+      // Giant Golden Sign stating "بە زووانە"
+      const towerSign = new THREE.Mesh(new THREE.BoxGeometry(13, 4.5, 0.8), new THREE.MeshLambertMaterial({ color: 0xfbbf24, emissive: 0xfbbf24, emissiveIntensity: 1.0 }));
+      towerSign.position.set(0, 13.5, 0);
+
+      // Impassable Barrier Wall preventing anyone from climbing or entering Second City yet
+      const secondCityBarrier = new THREE.Mesh(new THREE.BoxGeometry(22, 10, 1), new THREE.MeshLambertMaterial({ color: 0xef4444, transparent: true, opacity: 0.85, wireframe: false }));
+      secondCityBarrier.position.set(0, 5, -2.5);
       
       towerGroup.add(towerPillar1);
       towerGroup.add(towerPillar2);
       towerGroup.add(towerBeam);
       towerGroup.add(towerSign);
+      towerGroup.add(secondCityBarrier);
       towerGroup.position.set(0, 0, -95);
       scene.add(towerGroup);
 
@@ -1402,8 +1422,17 @@
       if (keys.right) moveX += playerSpeed;
 
       if (moveX !== 0 || moveZ !== 0) {
-        player.position.x += moveX;
-        player.position.z += moveZ;
+        let nextX = player.position.x + moveX;
+        let nextZ = player.position.z + moveZ;
+
+        // Strict Collision Barrier for Second City Tower at z = -95 (preventing entry)
+        if (nextZ < -91 && Math.abs(nextX) < 11) {
+          // Block movement past barrier
+          nextZ = player.position.z;
+        }
+
+        player.position.x = nextX;
+        player.position.z = nextZ;
         player.rotation.y = Math.atan2(moveX, moveZ);
       }
 
@@ -1484,7 +1513,7 @@
         let activeGuard = null;
         if (player.position.z > -21) activeGuard = normalGuard;
         else if (player.position.z > -43) activeGuard = goldenGuard;
-        else if (player.position.z > -65) activeGuard = lavaGuard;
+        else if (player.position.z > -65) activeGuard, activeGuard = lavaGuard;
         else activeGuard = frostGuard;
 
         if (activeGuard) {
@@ -1492,7 +1521,7 @@
           activeGuard.translateZ(0.12);
           if (activeGuard.position.distanceTo(player.position) < 1.4) {
             alert('🚨 پاسەوان هێلکەکانی لێسەندوویەوە!');
-            carriedEggs = 0; carriedValueMultiplier, carriedValueMultiplier = 1;
+            carriedEggs = 0; carriedValueMultiplier = 1;
             normalGuard.position.set(0, 0, -10);
             goldenGuard.position.set(0, 0, -32);
             lavaGuard.position.set(0, 0, -54);

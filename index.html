@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.33.0 Airplane Trailer & Mutant Pets</title>
+  <title>Hama Dev Store - Roblox Kurd v2.35.0 Live Admin Watcher</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -29,6 +29,7 @@
       --admin-red: #ef4444;
       --divine-purple: #a855f7;
       --verified-blue: #00a2ff;
+      --taco-orange: #f97316;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -168,7 +169,7 @@
     }
     .admin-card {
       background: var(--store-card); border: 1px solid var(--admin-red); border-radius: 16px;
-      width: 100%; max-width: 650px; max-height: 90vh; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 14px;
+      width: 100%; max-width: 700px; max-height: 90vh; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 14px;
     }
     .admin-card h2 { color: var(--admin-red); display: flex; align-items: center; gap: 8px; font-size: 18px; }
     .admin-section { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--store-border); padding-top: 12px; }
@@ -180,10 +181,16 @@
     .user-info-text { display: flex; flex-direction: column; gap: 2px; }
     .status-active { color: #10b981; font-size: 11px; font-weight: bold; }
     .status-banned { color: #ef4444; font-size: 11px; font-weight: bold; }
-    .admin-action-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+    .status-muted { color: var(--taco-orange); font-size: 11px; font-weight: bold; }
+    .admin-action-btns { display: flex; gap: 5px; flex-wrap: wrap; }
     .login-as-btn { background: #3b82f6; color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
     .give-robux-btn { background: var(--robux-gold); color: #000; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
+    .mute-btn { background: var(--taco-orange); color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
     .ban-btn { background: var(--admin-red); color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
+
+    /* Mutation Admin Grid */
+    .mutation-admin-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 4px; }
+    .mut-btn { padding: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 12px; color: #000; }
 
     /* Game Canvas Container */
     #game-container {
@@ -274,7 +281,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.33.0 Airplane Trailer & Mutant Pets</div>
+      <div class="version-tag">v2.35.0 Live Admin Watcher</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -297,7 +304,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.33.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.35.0</span></span>
       </div>
 
       <div class="store-search">
@@ -333,9 +340,9 @@
               <div class="app-card-top">
                 <div class="app-icon"><i class="fa-solid fa-dice-d6"></i></div>
                 <div class="app-info">
-                  <h3>Steal An Egg (Airplane & Mutant Pets)</h3>
+                  <h3>Steal An Egg (Live 4s Watcher)</h3>
                   <p>خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-badge"></i></p>
-                  <p style="color:var(--divine-purple); margin-top:2px;">⭐ 5.0 (Airplane Trailer & 2x Mutation)</p>
+                  <p style="color:var(--divine-purple); margin-top:2px;">⭐ 5.0 (Live Admin Panel & Auto-Refresh)</p>
                 </div>
               </div>
               <button class="install-btn" onclick="startStealAnEggGame()"><i class="fa-solid fa-download"></i> یاری کردن / دابەزاندن</button>
@@ -441,11 +448,24 @@
     </div>
   </div>
 
-  <!-- Full Owner Admin Panel with Airplane Trailer Trigger -->
+  <!-- Full Owner Admin Panel with Live 4s Auto-Refresh Watcher -->
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Pro Owner Panel v2.33.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Pro Live Admin Panel v2.35.0)</h2>
       
+      <!-- Mutation Control Panel Section -->
+      <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
+        <label style="font-size:13px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-dna"></i> پەنێڵی گشتی موتەیشنەکان (Mutations Control):</label>
+        <p style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">هەر موتەیشنێک هەڵبژێریت دەستبەجێ دەچێتە سەر ئەکاونتەکەت و پێتەکانت دەگۆڕێت!</p>
+        <div class="mutation-admin-grid">
+          <button class="mut-btn" style="background:var(--robux-gold);" onclick="addAdminMutation('Gold', 10)">✨ Gold Mutation (10x)</button>
+          <button class="mut-btn" style="background:var(--taco-orange); color:#fff;" onclick="addAdminMutation('Taco', 15)">🌮 Taco Mutation (15x)</button>
+          <button class="mut-btn" style="background:#38bdf8;" onclick="addAdminMutation('Diamond', 20)">💎 Diamond Mutation (20x)</button>
+          <button class="mut-btn" style="background:linear-gradient(90deg, #ef4444, #3b82f6, #10b981); color:#fff;" onclick="addAdminMutation('Rainbow', 50)">🌈 Rainbow Mutation (50x)</button>
+        </div>
+        <button class="admin-action-btn" style="background:var(--divine-purple); color:white; margin-top:8px;" onclick="addAllMutationsToAdmin()">🚀 پێدانی هەموو موتەیشنەکان (All Mutations 100x)</button>
+      </div>
+
       <div class="admin-section">
         <label style="font-size:12px; font-weight:bold; color:var(--divine-purple);"><i class="fa-solid fa-dice-d6"></i> سپاون کردنی دیڤاین بۆ بردنی ١٠٩٠ ڕۆبۆکس (Divine Spawn):</label>
         <button class="admin-action-btn" style="background:var(--divine-purple); color:white; font-size:14px; padding:12px;" onclick="spawnDivineAdmin()">🎁 سپاون کردنی دیڤاین لە یاری (1090 R$)</button>
@@ -485,15 +505,18 @@
       </div>
 
       <div class="admin-section">
-        <p style="font-size: 12px; color: var(--text-muted); font-weight:bold;">لیستی سەرجەم یاریزانەکان:</p>
-        <div id="admin-users-list" style="max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <p style="font-size: 12px; color: var(--text-muted); font-weight:bold;"><i class="fa-solid fa-users"></i> لیستی ڕاستەوخۆی یاریزانان (نوێدەبێتەوە هەر ٤ چرکەیەک):</p>
+          <span style="font-size: 10px; color: var(--store-primary); font-weight: bold;"><i class="fa-solid fa-rotate fa-spin"></i> Live 4s Active</span>
+        </div>
+        <div id="admin-users-list" style="max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;"></div>
       </div>
 
       <button class="auth-btn" style="background: var(--admin-red); margin-top:5px;" onclick="closeAdminPanel()">داخستنی پەنێڵ</button>
     </div>
   </div>
 
-  <!-- Game Canvas Container with Airplane Trailer & Mutant Pets -->
+  <!-- Game Canvas Container with Airplane Trailer & Mutation System -->
   <div id="game-container">
     <canvas id="game-canvas"></canvas>
     
@@ -520,13 +543,13 @@
       <div class="shop-row"><span>🥚 10 هێلکە (مەزنترین)</span><button class="buy-btn" onclick="buyCapacity(10, 150)">150 R$</button></div>
     </div>
 
-    <!-- Egg Hatching Garden Modal -->
+    <!-- Egg Garden / Hatching Modal -->
     <div id="garden-modal">
       <div class="shop-header">
-        <span><i class="fa-solid fa-seedling" style="color:var(--divine-purple);"></i> باخجەی هێلکەدانان و پێتەکان (Mutant Pets & 2x)</span>
+        <span><i class="fa-solid fa-seedling" style="color:var(--divine-purple);"></i> باخجەی هێلکەدانان و موتەیشنەکان (Mutations & Pets)</span>
         <button class="shop-close" onclick="closeGardenModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <p style="font-size:12px; color:var(--text-muted); line-height:1.4;">هێلکەکانت لێرە دابنە بۆ شکستن و دەرچوونی پێتەکان بە موتەیشنی 2x!</p>
+      <p style="font-size:12px; color:var(--text-muted); line-height:1.4;">هێلکەکانت لێرە دابنە بۆ شکستن و دەرچوونی پێتەکان بە موتەیشنی Gold, Taco & Rainbow!</p>
       
       <div style="font-weight:bold; color:var(--store-primary); font-size:13px; margin-top:6px;">🥚 هێلکەکان لە کۆگا:</div>
       <div id="garden-storage-list" style="display:flex; flex-direction:column; gap:6px; max-height:110px; overflow-y:auto;"></div>
@@ -534,7 +557,7 @@
       <div style="font-weight:bold; color:var(--robux-gold); font-size:13px; margin-top:8px;">⏳ سلۆتەکانی هێلکەشکاندن (Hatching Slots):</div>
       <div id="hatching-slots-list" style="display:flex; flex-direction:column; gap:6px; max-height:110px; overflow-y:auto;"></div>
 
-      <div style="font-weight:bold; color:var(--divine-purple); font-size:13px; margin-top:10px;">🐣 پێتە موتەیتکراوەکان (Mutant Pets 2x):</div>
+      <div style="font-weight:bold; color:var(--divine-purple); font-size:13px; margin-top:10px;">🐣 پێتە موتەیتکراوەکان (Gold, Taco, Diamond & Rainbow):</div>
       <div class="pets-collected-box" id="collected-pets-box"></div>
     </div>
 
@@ -563,10 +586,12 @@
   <script>
     let usersDB = JSON.parse(localStorage.getItem('hamadev_store_users') || '{}');
     let bannedDB = JSON.parse(localStorage.getItem('hamadev_store_banned') || '[]');
+    let mutedDB = JSON.parse(localStorage.getItem('hamadev_store_muted') || '[]');
     let chatDB = JSON.parse(localStorage.getItem('hamadev_global_chat') || '[]');
     let currentUser = localStorage.getItem('hamadev_store_current') || null;
     let pendingVerifyCode = null;
     let deferredPrompt = null;
+    let adminRefreshInterval = null;
 
     usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, email: 'rip_hama@dev.kur', verified: true, hasVIP: true, hasSpeed: true, hasShield: true, hasGoldenPet: true, savedSpeed: 100, savedCapacity: 10, inventoryEggs: [], hatchingSlots: [], collectedPets: [] };
     if(!usersDB['Ahmad_Gamer']) usersDB['Ahmad_Gamer'] = { password: '123', robux: 1200, email: 'ahmad@mail.com', verified: true, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [] };
@@ -727,6 +752,10 @@
     }
 
     function sendChatMessage() {
+      if(mutedDB.includes(currentUser)) {
+        alert('❌ تو میوت کراوەی (Muted) و ناتوانیت پەیام بنێریت!');
+        return;
+      }
       const input = document.getElementById('chat-input');
       const text = input.value.trim();
       if(!text) return;
@@ -759,6 +788,31 @@
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
       alert('🎁 بە سەرکەوتوویی 5,000 R$ دیاری بەخشرا بە سەرجەم یاریزانەکان[span_1](start_span)[span_1](end_span)!');
+      closeAdminPanel();
+    }
+
+    function addAdminMutation(type, multiplier) {
+      let uObj = usersDB[currentUser];
+      if(!uObj.collectedPets) uObj.collectedPets = [];
+      uObj.collectedPets.push({
+        name: `✨ Admin ${type} Pet (${type})`,
+        bonus: multiplier * 15,
+        mutationType: type
+      });
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      alert(`🧬 موتەیشنی ${type} (${multiplier}x) بە سەرکەوتوویی بۆ ئەکاونتەکەت دروست بوو!`);
+      closeAdminPanel();
+    }
+
+    function addAllMutationsToAdmin() {
+      let uObj = usersDB[currentUser];
+      if(!uObj.collectedPets) uObj.collectedPets = [];
+      uObj.collectedPets.push({ name: '✨ Gold Dragon', bonus: 150, mutationType: 'Gold' });
+      uObj.collectedPets.push({ name: '🌮 Taco Cat', bonus: 200, mutationType: 'Taco' });
+      uObj.collectedPets.push({ name: '💎 Diamond Wolf', bonus: 300, mutationType: 'Diamond' });
+      uObj.collectedPets.push({ name: '🌈 Rainbow Phoenix', bonus: 500, mutationType: 'Rainbow' });
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      alert('🚀 سەرجەم موتەیشنەکان (Gold, Taco, Diamond, Rainbow) بۆ ئەکاونتەکەت چالاک بون!');
       closeAdminPanel();
     }
 
@@ -839,31 +893,71 @@
     }
 
     function openAdminPanel() {
+      updateAdminUsersList();
+      document.getElementById('admin-modal').style.display = 'flex';
+
+      // Start 4-second Live Auto-Refresh Watcher for Admin Panel
+      if(adminRefreshInterval) clearInterval(adminRefreshInterval);
+      adminRefreshInterval = setInterval(() => {
+        // Sync latest storage data
+        usersDB = JSON.parse(localStorage.getItem('hamadev_store_users') || '{}');
+        bannedDB = JSON.parse(localStorage.getItem('hamadev_store_banned') || '[]');
+        mutedDB = JSON.parse(localStorage.getItem('hamadev_store_muted') || '[]');
+        updateAdminUsersList();
+      }, 4000);
+    }
+
+    function updateAdminUsersList() {
       const listEl = document.getElementById('admin-users-list');
+      if(!listEl) return;
       listEl.innerHTML = '';
       for (let uname in usersDB) {
         const isBanned = bannedDB.includes(uname);
+        const isMuted = mutedDB.includes(uname);
         listEl.innerHTML += `
           <div class="user-row">
             <div class="user-info-text">
               <span><b>${uname}</b> (${usersDB[uname].robux.toLocaleString()} R$)</span>
-              <span class="${isBanned ? 'status-banned' : 'status-active'}">${isBanned ? '🚫 باندکراوە' : '✅ چالاکە'}</span>
+              <span class="${isBanned ? 'status-banned' : (isMuted ? 'status-muted' : 'status-active')}">
+                ${isBanned ? '🚫 باندکراوە' : (isMuted ? '🔇 میوتکراوە' : '✅ چالاکە')}
+              </span>
             </div>
             <div class="admin-action-btns">
               <button class="login-as-btn" onclick="loginAsUser('${uname}')">چوونەژوورەوە</button>
               <button class="give-robux-btn" onclick="quickGiveRobux('${uname}')">+500 R$</button>
+              <button class="mute-btn" onclick="toggleMuteUser('${uname}')">${isMuted ? 'لابردنی میوت' : 'میوت'}</button>
               ${uname !== 'rip_hama276' ? `<button class="ban-btn" onclick="banUser('${uname}')">باند</button>` : ''}
             </div>
           </div>
         `;
       }
-      document.getElementById('admin-modal').style.display = 'flex';
     }
 
-    function closeAdminPanel() { document.getElementById('admin-modal').style.display = 'none'; }
+    function closeAdminPanel() {
+      if(adminRefreshInterval) clearInterval(adminRefreshInterval);
+      document.getElementById('admin-modal').style.display = 'none';
+    }
+
     function loginAsUser(uname) { currentUser = uname; localStorage.setItem('hamadev_store_current', currentUser); closeAdminPanel(); showDashboard(); }
-    function quickGiveRobux(uname) { usersDB[uname].robux += 500; localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB)); openAdminPanel(); }
-    function banUser(uname) { bannedDB.push(uname); localStorage.setItem('hamadev_store_banned', JSON.stringify(bannedDB)); openAdminPanel(); }
+    function quickGiveRobux(uname) { usersDB[uname].robux += 500; localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB)); updateAdminUsersList(); }
+    
+    function toggleMuteUser(uname) {
+      if(mutedDB.includes(uname)) {
+        mutedDB = mutedDB.filter(u => u !== uname);
+        alert(`🔊 یاریزان ${uname} لە میوت دەرچوو.`);
+      } else {
+        mutedDB.push(uname);
+        alert(`🔇 یاریزان ${uname} میوت کرا.`);
+      }
+      localStorage.setItem('hamadev_store_muted', JSON.stringify(mutedDB));
+      updateAdminUsersList();
+    }
+
+    function banUser(uname) {
+      bannedDB.push(uname);
+      localStorage.setItem('hamadev_store_banned', JSON.stringify(bannedDB));
+      updateAdminUsersList();
+    }
 
     function sendVerificationEmail() {
       const email = document.getElementById('settings-email').value.trim();
@@ -882,7 +976,7 @@
       } else { alert('❌ کۆدەکە هەڵەیە!'); }
     }
 
-    /* 3D Game Engine with Airplane Trailer & Mutant Pets (2x Mutation) */
+    /* 3D Game Engine with Airplane Trailer & Mutation System */
     let scene, camera, renderer, player, otherPlayers = {}, crownMesh, shieldMesh, shopBooth, petObj, airplaneMesh, animationId;
     let normalGuard, goldenGuard, lavaGuard, frostGuard;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
@@ -959,7 +1053,7 @@
           let timeLeft = Math.max(0, Math.ceil((slot.endTime - now) / 1000));
           slotsListEl.innerHTML += `
             <div class="garden-slot">
-              <span>🥚 ${slot.name} ${slot.isMutant ? '⚡ [MUTATED 2x]' : ''}</span>
+              <span>🥚 ${slot.name} ${slot.mutType ? `⚡ [${slot.mutType}]` : ''}</span>
               <span style="color:var(--robux-gold); font-weight:bold;">${timeLeft > 0 ? '⏳ ' + timeLeft + ' چرکە ماوە' : '✨ شکاوە!'}</span>
             </div>
           `;
@@ -972,10 +1066,11 @@
         petsBox.innerHTML = `<span style="font-size:11px; color:var(--text-muted);">هێشتا هیچ پێتێک نەشکاوە.</span>`;
       } else {
         uObj.collectedPets.forEach(pet => {
+          let mutLabel = pet.mutationType ? ` ⚡(${pet.mutationType})` : '';
           petsBox.innerHTML += `
             <div class="pet-card">
               <b>🐾 ${pet.name}</b><br>
-              <span style="color:var(--robux-gold);">Bonus: +${pet.bonus}x ${pet.isMutant ? '⚡(MUTANT 2x)' : ''}</span>
+              <span style="color:var(--robux-gold);">Bonus: +${pet.bonus}x${mutLabel}</span>
             </div>
           `;
         });
@@ -987,12 +1082,13 @@
       let egg = uObj.inventoryEggs.splice(index, 1)[0];
       
       let hatchTimeSec = egg.mult === 1 ? 10 : (egg.mult === 2 ? 25 : (egg.mult === 3 ? 45 : 60));
-      let isMutant = Math.random() < 0.35; // 35% chance for 2x Mutation
+      let mutTypes = ['Gold', 'Taco', 'Diamond', 'Rainbow'];
+      let randomMut = mutTypes[Math.floor(Math.random() * mutTypes.length)];
       
       uObj.hatchingSlots.push({
         name: egg.name,
         mult: egg.mult,
-        isMutant: isMutant,
+        mutType: randomMut,
         endTime: Date.now() + (hatchTimeSec * 1000)
       });
 
@@ -1012,10 +1108,10 @@
         if(now >= slot.endTime) {
           let petNames = ['Doggy', 'Bunny', 'Dragon', 'Phoenix', 'Kurdish Lion'];
           let baseName = petNames[Math.floor(Math.random() * petNames.length)];
-          let finalMult = slot.isMutant ? slot.mult * 2 : slot.mult;
-          let petFullName = slot.isMutant ? `⚡ Mutant ${baseName} (x${finalMult})` : `${baseName} (x${finalMult})`;
+          let finalMult = slot.mult * (slot.mutType === 'Rainbow' ? 50 : (slot.mutType === 'Diamond' ? 20 : (slot.mutType === 'Taco' ? 15 : 10)));
+          let petFullName = `⚡ ${slot.mutType} ${baseName} (x${finalMult})`;
           
-          uObj.collectedPets.push({ name: petFullName, bonus: finalMult * 10, isMutant: slot.isMutant });
+          uObj.collectedPets.push({ name: petFullName, bonus: finalMult * 10, mutationType: slot.mutType });
           updated = true;
           return false;
         }
@@ -1363,7 +1459,7 @@
         let activeGuard = null;
         if (player.position.z > -21) activeGuard = normalGuard;
         else if (player.position.z > -43) activeGuard = goldenGuard;
-        else if (player.position.z > -65) activeGuard = lavaGuard;
+        else if (player.position.z > -65) activeGuard, activeGuard = lavaGuard;
         else activeGuard = frostGuard;
 
         if (activeGuard) {

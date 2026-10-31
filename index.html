@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.350.0 Working Jackia Second City</title>
+  <title>Hama Dev Store - Roblox Kurd v2.400.0 Working Jackia Second City</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -65,10 +65,8 @@
     .auth-btn:hover { background: #059669; }
     .error-msg { color: var(--admin-red); font-size: 12px; margin-top: 8px; display: none; }
 
-    /* Verified Badge Icon */
     .verified-badge { color: var(--verified-blue); font-size: 14px; margin-left: 4px; display: inline-flex; align-items: center; justify-content: center; }
 
-    /* Global Announcement Banner */
     #global-announcement-banner {
       position: fixed; top: 15px; left: 50%; transform: translateX(-50%);
       background: linear-gradient(90deg, var(--divine-purple), var(--robux-gold)); color: white;
@@ -78,7 +76,6 @@
     }
     @keyframes pulseGlow { 0% { transform: translateX(-50%) scale(1); } 50% { transform: translateX(-50%) scale(1.05); } 100% { transform: translateX(-50%) scale(1); } }
 
-    /* Dashboard Layout */
     #dashboard { display: none; flex: 1; flex-direction: column; height: 100vh; overflow: hidden; }
 
     header {
@@ -126,7 +123,6 @@
     main { flex: 1; padding: 24px; overflow-y: auto; background: var(--store-dark); }
     .page-title { font-size: 22px; font-weight: bold; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
 
-    /* Store Grid */
     .store-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
     .store-app-card {
       background: var(--store-card); border: 1px solid var(--store-border); border-radius: 16px;
@@ -143,7 +139,6 @@
     }
     .install-btn:hover { background: #059669; }
 
-    /* Friends Tab Styles */
     .friends-container { display: flex; flex-direction: column; gap: 14px; max-width: 600px; }
     .friend-add-box { background: var(--store-card); border: 1px solid var(--store-border); padding: 16px; border-radius: 14px; display: flex; gap: 10px; }
     .friend-add-box input { flex: 1; padding: 10px; background: #0f172a; border: 1px solid var(--store-border); border-radius: 8px; color: white; outline: none; }
@@ -152,7 +147,6 @@
     .friend-info { display: flex; align-items: center; gap: 10px; }
     .online-dot { width: 10px; height: 10px; background: var(--store-primary); border-radius: 50%; box-shadow: 0 0 8px var(--store-primary); }
 
-    /* Chat Box */
     .chat-box {
       background: var(--store-card); border: 1px solid var(--store-border); border-radius: 16px;
       padding: 16px; max-width: 600px; display: flex; flex-direction: column; height: 420px;
@@ -163,7 +157,6 @@
     .chat-input-area { display: flex; gap: 8px; }
     .chat-input-area input { flex: 1; padding: 10px; background: #0f172a; border: 1px solid var(--store-border); border-radius: 8px; color: white; outline: none; }
 
-    /* Settings View */
     .settings-card {
       background: var(--store-card); border: 1px solid var(--store-border); border-radius: 16px;
       padding: 24px; max-width: 600px; display: flex; flex-direction: column; gap: 16px;
@@ -171,7 +164,6 @@
     .settings-card h3 { color: var(--store-primary); font-size: 18px; margin-bottom: 4px; }
     .verify-box { background: #0f172a; border: 1px solid var(--store-border); padding: 14px; border-radius: 10px; display: none; margin-top: 8px; }
 
-    /* Admin Modal */
     #admin-modal {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       background: rgba(0,0,0,0.85); z-index: 20000; display: none; align-items: center; justify-content: center; padding: 20px;
@@ -197,11 +189,9 @@
     .mute-btn { background: var(--taco-orange); color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
     .ban-btn { background: var(--admin-red); color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
 
-    /* Mutation & Jackia Admin Grid */
     .mutation-admin-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 4px; }
     .mut-btn { padding: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 12px; color: #000; }
 
-    /* Game Canvas Container */
     #game-container {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       background: #111; z-index: 9999; display: none; flex-direction: column;
@@ -226,7 +216,6 @@
       border-radius: 12px; font-weight: bold; cursor: pointer; pointer-events: auto; display: flex; align-items: center; gap: 5px; font-size: 12px;
     }
 
-    /* In-Game Admin Floating Message HUD */
     #in-game-admin-hud {
       position: absolute; top: 75px; left: 50%; transform: translateX(-50%);
       background: rgba(15, 23, 42, 0.9); border: 2px solid var(--robux-gold); color: #fff;
@@ -234,7 +223,6 @@
       z-index: 10006; display: none; text-align: center; box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
     }
 
-    /* 3D Shop Modal */
     #shop-modal {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
       background: rgba(15, 23, 42, 0.95); border: 2px solid var(--store-primary); border-radius: 16px;
@@ -245,7 +233,6 @@
     .shop-row { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--store-border); font-size: 13px; margin-bottom: 6px; }
     .buy-btn { background: var(--robux-gold); color: #000; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 12px; }
 
-    /* Jackia Station Modal */
     #jackia-modal {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
       background: rgba(15, 23, 42, 0.96); border: 2px solid var(--robux-gold); border-radius: 18px;
@@ -253,7 +240,6 @@
       box-shadow: 0 0 40px rgba(251, 191, 36, 0.6);
     }
 
-    /* Egg Garden Modal */
     #garden-modal {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
       background: rgba(15, 23, 42, 0.96); border: 2px solid var(--divine-purple); border-radius: 18px;
@@ -291,18 +277,16 @@
 </head>
 <body>
 
-  <!-- Global Announcement Banner -->
   <div id="global-announcement-banner">
     <i class="fa-solid fa-gift" style="font-size: 20px; color:#fde047;"></i>
     <span id="announcement-text">🎁 دیڤاینێک سپاون بوو! ڕابکەن بۆ بردنی 1090 ڕۆبۆکس!</span>
   </div>
 
-  <!-- Auth Screen -->
   <div id="auth-screen">
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.350.0 Working Jackia Second City</div>
+      <div class="version-tag">v2.400.0 Working Jackia Second City</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -320,12 +304,11 @@
     </div>
   </div>
 
-  <!-- Play Store Main Dashboard -->
   <div id="dashboard">
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.350.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.400.0</span></span>
       </div>
 
       <div class="store-search">
@@ -354,11 +337,9 @@
       </sidebar>
 
       <main>
-        <!-- Store Apps Tab -->
         <div id="tab-store" class="tab-content">
           <div class="page-title"><i class="fa-solid fa-gamepad" style="color:var(--store-primary)"></i><span>یارییە فەرمییەکان بۆ دابەزاندن</span></div>
           <div class="store-grid">
-            <!-- Game 1: First City -->
             <div class="store-app-card">
               <div class="app-card-top">
                 <div class="app-icon"><i class="fa-solid fa-dice-d6"></i></div>
@@ -371,7 +352,6 @@
               <button class="install-btn" onclick="startStealAnEggGame()"><i class="fa-solid fa-download"></i> یاری کردن / دابەزاندن</button>
             </div>
 
-            <!-- Game 2: Second City (VISIBLE ONLY TO OWNER rip_hama276) -->
             <div class="store-app-card" id="owner-second-city-card" style="display:none; border-color: var(--divine-purple);">
               <div class="app-card-top">
                 <div class="app-icon" style="color: var(--divine-purple); background: #2e1065;"><i class="fa-solid fa-city"></i></div>
@@ -386,7 +366,6 @@
           </div>
         </div>
 
-        <!-- Store Online Items Shop Tab -->
         <div id="tab-items" class="tab-content" style="display:none;">
           <div class="page-title"><i class="fa-solid fa-bag-shopping" style="color:var(--robux-gold)"></i><span>شۆپی ئۆنلاینی ستۆر</span></div>
           <div class="store-grid">
@@ -436,7 +415,6 @@
           </div>
         </div>
 
-        <!-- Friends Tab -->
         <div id="tab-friends" class="tab-content" style="display:none;">
           <div class="page-title"><i class="fa-solid fa-user-group" style="color:var(--store-primary)"></i><span>ڕدار و لیستی هاوڕێیان (Friends)</span></div>
           <div class="friends-container">
@@ -448,7 +426,6 @@
           </div>
         </div>
 
-        <!-- Global Live Chat Tab -->
         <div id="tab-chat" class="tab-content" style="display:none;">
           <div class="page-title"><i class="fa-solid fa-comments" style="color:var(--store-primary)"></i><span>چاتی ڕاستەوخۆی یاریزانان</span></div>
           <div class="chat-box">
@@ -460,7 +437,6 @@
           </div>
         </div>
 
-        <!-- Settings / Password Change Tab -->
         <div id="tab-settings" class="tab-content" style="display:none;">
           <div class="page-title"><i class="fa-solid fa-gear" style="color:var(--store-primary)"></i><span>سیتینگ (گۆڕینی پاسوۆرد و ئیمەیڵ)</span></div>
           <div class="settings-card">
@@ -496,12 +472,10 @@
     </div>
   </div>
 
-  <!-- Full Owner Admin Panel with Working Jackia Abuse Controls -->
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (Jackia Working v2.350.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (Jackia Working v2.400.0)</h2>
       
-      <!-- Mutation Control Panel Section -->
       <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
         <label style="font-size:13px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-dna"></i> پەنێڵی گشتی موتەیشنەکان (Mutations Control):</label>
         <p style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">هەر موتەیشنێک هەڵبژێریت دەستبەجێ دەچێتە سەر ئەکاونتەکەت و پێتەکانت دەگۆڕێت!</p>
@@ -514,7 +488,6 @@
         <button class="admin-action-btn" style="background:var(--divine-purple); color:white; margin-top:8px;" onclick="addAllMutationsToAdmin()">🚀 پێدانی هەموو موتەیشنەکان (All Mutations 100x)</button>
       </div>
 
-      <!-- Jackia Station Admin Abuse Controls -->
       <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--robux-gold);">
         <label style="font-size:13px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-dice"></i> کۆنترۆڵی کارای جاکیا (Working Jackia & Jackpot Abuse):</label>
         <div style="display: flex; gap: 8px; margin-top: 6px;">
@@ -573,14 +546,11 @@
     </div>
   </div>
 
-  <!-- Game Canvas Container with 15 Working Jackia Items -->
   <div id="game-container">
     <canvas id="game-canvas"></canvas>
     
-    <!-- In-Game Admin Floating Message HUD -->
     <div id="in-game-admin-hud">📢 پەیامی ئۆنەر: لێرە دەردەکەوێت</div>
 
-    <!-- 3D Shop Modal -->
     <div id="shop-modal">
       <div class="shop-header">
         <span><i class="fa-solid fa-shield-dog"></i> شۆپی پارێزراو (خێرایی 2x و توانای هێلکە)</span>
@@ -597,7 +567,6 @@
       <div class="shop-row"><span>🥚 10 هێلکە (مەزنترین)</span><button class="buy-btn" onclick="buyCapacity(10, 150)">150 R$</button></div>
     </div>
 
-    <!-- Jackia Station Modal (Fully Working) -->
     <div id="jackia-modal">
       <div class="shop-header">
         <span><i class="fa-solid fa-dice" style="color:var(--robux-gold);"></i> وێستگەی کارای جاکیا (Working Jackia Station)</span>
@@ -615,7 +584,6 @@
       <div class="shop-row"><span>🥚 هێلکەی جاکیا ڕەینبۆ (Jackia Rainbow)</span><button class="buy-btn" onclick="buyJackiaEgg('Jackia Rainbow', 1500)">1500 خاڵ</button></div>
     </div>
 
-    <!-- Egg Garden Modal -->
     <div id="garden-modal">
       <div class="shop-header">
         <span><i class="fa-solid fa-seedling" style="color:var(--divine-purple);"></i> باخجەی هێلکەدانان و موتەیشنەکان (Mutations & Pets)</span>
@@ -1102,7 +1070,6 @@
       } else { alert('❌ کۆدەکە هەڵەیە!'); }
     }
 
-    /* 3D Game Engine with 15 Working Jackia Items */
     let scene, camera, renderer, player, otherPlayers = {}, crownMesh, shieldMesh, shopBooth, jackiaBooth, petObj, airplaneMesh, vehicleMesh, auraMesh, animationId;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
     let gameScore = 0, carriedEggs = 0, carriedValueMultiplier = 1, maxCapacity = 1, playerSpeed = 0.25, eggsList = [], shopOpen = false, jackiaOpen = false;
@@ -1461,7 +1428,6 @@
       floor.rotation.x = -Math.PI / 2; floor.position.z = -50; scene.add(floor);
 
       if (isOwnerSecondCityGame) {
-        /* Working 15 Second City Landmarks & Jackia Boosters */
         const royalGate = new THREE.Mesh(new THREE.BoxGeometry(14, 8, 1.5), new THREE.MeshLambertMaterial({ color: 0xfbbf24, emissive: 0xfbbf24, emissiveIntensity: 0.8 }));
         royalGate.position.set(0, 4, -20); scene.add(royalGate);
 

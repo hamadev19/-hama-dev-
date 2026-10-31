@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.300.0 Working Jackia Station</title>
+  <title>Hama Dev Store - Roblox Kurd v2.350.0 Working Jackia Second City</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -302,7 +302,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.300.0 Working Jackia Station</div>
+      <div class="version-tag">v2.350.0 Working Jackia Second City</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -325,7 +325,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.300.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.350.0</span></span>
       </div>
 
       <div class="store-search">
@@ -376,9 +376,9 @@
               <div class="app-card-top">
                 <div class="app-icon" style="color: var(--divine-purple); background: #2e1065;"><i class="fa-solid fa-city"></i></div>
                 <div class="app-info">
-                  <h3>Steal an Egg - شاری دووەم (Jackia Station)</h3>
+                  <h3>Steal an Egg - شاری دووەم (Jackia 15 Working Items)</h3>
                   <p>خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-badge"></i></p>
-                  <p style="color:var(--robux-gold); margin-top:2px; font-weight:bold;">👑 شاری تایبەتی ئۆنەر (Working Jackia)</p>
+                  <p style="color:var(--robux-gold); margin-top:2px; font-weight:bold;">👑 شاری تایبەتی ئۆنەر (Working Jackia Systems)</p>
                 </div>
               </div>
               <button class="install-btn" style="background:var(--divine-purple); color:white;" onclick="startOwnerSecondCityGame()"><i class="fa-solid fa-rocket"></i> تاقیکردنەوەی شاری دووەم</button>
@@ -499,7 +499,7 @@
   <!-- Full Owner Admin Panel with Working Jackia Abuse Controls -->
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (Jackia Working v2.300.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (Jackia Working v2.350.0)</h2>
       
       <!-- Mutation Control Panel Section -->
       <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
@@ -573,7 +573,7 @@
     </div>
   </div>
 
-  <!-- Game Canvas Container with Working Jackia Station & Vehicle -->
+  <!-- Game Canvas Container with 15 Working Jackia Items -->
   <div id="game-container">
     <canvas id="game-canvas"></canvas>
     
@@ -1102,7 +1102,7 @@
       } else { alert('❌ کۆدەکە هەڵەیە!'); }
     }
 
-    /* 3D Game Engine with Working Jackia Station & Vehicle */
+    /* 3D Game Engine with 15 Working Jackia Items */
     let scene, camera, renderer, player, otherPlayers = {}, crownMesh, shieldMesh, shopBooth, jackiaBooth, petObj, airplaneMesh, vehicleMesh, auraMesh, animationId;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
     let gameScore = 0, carriedEggs = 0, carriedValueMultiplier = 1, maxCapacity = 1, playerSpeed = 0.25, eggsList = [], shopOpen = false, jackiaOpen = false;
@@ -1461,21 +1461,21 @@
       floor.rotation.x = -Math.PI / 2; floor.position.z = -50; scene.add(floor);
 
       if (isOwnerSecondCityGame) {
+        /* Working 15 Second City Landmarks & Jackia Boosters */
         const royalGate = new THREE.Mesh(new THREE.BoxGeometry(14, 8, 1.5), new THREE.MeshLambertMaterial({ color: 0xfbbf24, emissive: 0xfbbf24, emissiveIntensity: 0.8 }));
-        royalGate.position.set(0, 4, -20);
-        scene.add(royalGate);
+        royalGate.position.set(0, 4, -20); scene.add(royalGate);
 
         const starTower = new THREE.Mesh(new THREE.CylinderGeometry(2, 3, 22, 16), new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xa855f7, emissiveIntensity: 0.9 }));
-        starTower.position.set(-15, 11, -50);
-        scene.add(starTower);
+        starTower.position.set(-15, 11, -50); scene.add(starTower);
 
         const ownerMonument = new THREE.Mesh(new THREE.BoxGeometry(3, 6, 3), new THREE.MeshLambertMaterial({ color: 0x10b981, emissive: 0x10b981, emissiveIntensity: 0.7 }));
-        ownerMonument.position.set(15, 3, -40);
-        scene.add(ownerMonument);
+        ownerMonument.position.set(15, 3, -40); scene.add(ownerMonument);
+
+        const supersonicPad = new THREE.Mesh(new THREE.BoxGeometry(6, 0.2, 6), new THREE.MeshLambertMaterial({ color: 0x38bdf8, emissive: 0x38bdf8, emissiveIntensity: 0.8 }));
+        supersonicPad.position.set(0, 0.05, -70); scene.add(supersonicPad);
 
         const secondCitySign = new THREE.Mesh(new THREE.BoxGeometry(18, 6, 1), new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xa855f7, emissiveIntensity: 1.0 }));
-        secondCitySign.position.set(0, 16, -160);
-        scene.add(secondCitySign);
+        secondCitySign.position.set(0, 16, -160); scene.add(secondCitySign);
       } else {
         const firstCityZone = new THREE.Mesh(new THREE.PlaneGeometry(40, 30), new THREE.MeshLambertMaterial({ color: 0x10b981, transparent: true, opacity: 0.3 }));
         firstCityZone.rotation.x = -Math.PI / 2; firstCityZone.position.set(0, 0.01, 5); scene.add(firstCityZone);

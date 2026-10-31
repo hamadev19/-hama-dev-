@@ -7,15 +7,45 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#10b981">
+  <!-- PWA Dynamic Inline Manifest & Dynamic Service Worker -->
   <script>
+    const manifestData = {
+      "name": "Hama Dev Play",
+      "short_name": "Hama Dev",
+      "start_url": ".",
+      "display": "standalone",
+      "background_color": "#0f172a",
+      "theme_color": "#10b981",
+      "icons": [{
+        "src": "701.jpg",
+        "sizes": "192x192 512x512",
+        "type": "image/jpeg"
+      }]
+    };
+    const manifestBlob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
+    const manifestURL = URL.createObjectURL(manifestBlob);
+    const link = document.createElement('link');
+    link.rel = 'manifest';
+    link.href = manifestURL;
+    document.head.appendChild(link);
+
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js')
-        .then(() => console.log('Service Worker Registered Successfully'))
-        .catch(err => console.log('SW registration failed:', err));
+      const swCode = `
+        self.addEventListener('install', (e) => self.skipWaiting());
+        self.addEventListener('activate', (e) => self.clients.claim());
+        self.addEventListener('fetch', (e) => e.respondWith(fetch(e.request).catch(() => new Response("Offline"))));
+      `;
+      const swBlob = new Blob([swCode], {type: 'text/javascript'});
+      const swURL = URL.createObjectURL(swBlob);
+      navigator.serviceWorker.register(swURL)
+        .then(() => console.log('Service Worker Active'))
+        .catch(err => console.log('SW Error:', err));
     }
   </script>
+
+  <meta name="theme-color" content="#10b981">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
 
   <style>
     :root {
@@ -524,7 +554,7 @@
           <button class="admin-action-btn" style="flex:1; background:var(--robux-gold); color:#000;" onclick="modifyRobuxForPlayer('give')">➕ ناردنی ڕۆبوکس</button>
           <button class="admin-action-btn" style="flex:1; background:#ef4444; color:white;" onclick="modifyRobuxForPlayer('remove')">➖ لابردنی ڕۆبوکس</button>
         </div>
-        <button class="admin-action-btn" style="background:#8b5cf6; color:white; margin-top:5px;" onclick="giveawayToAll()">🎁 بەخشینی 5,000 R$ بۆ هەموو یاریزانەکان[span_0](start_span)[span_0](end_span)</button>
+        <button class="admin-action-btn" style="background:#8b5cf6; color:white; margin-top:5px;" onclick="giveawayToAll()">🎁 بەخشینی 5,000 R$ بۆ هەموو یاریزانەکان</button>
       </div>
 
       <div class="admin-section">
@@ -865,7 +895,7 @@
       }
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      alert('🎁 بە سەرکەوتوویی 5,000 R$ دیاری بەخشرا بە سەرجەم یاریزانەکان[span_1](start_span)[span_1](end_span)!');
+      alert('🎁 بە سەرکەوتوویی 5,000 R$ دیاری بەخشرا بە سەرجەم یاریزانەکان!');
       closeAdminPanel();
     }
 

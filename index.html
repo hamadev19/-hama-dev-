@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.470.0 Jackia First City Booths</title>
+  <title>Hama Dev Store - Roblox Kurd v2.460.0 All Cities Jackia</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -285,7 +285,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.470.0 Jackia First City Booths</div>
+      <div class="version-tag">v2.460.0 All Cities Jackia</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -307,7 +307,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.470.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.460.0</span></span>
       </div>
 
       <div class="store-search">
@@ -473,7 +473,7 @@
 
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (Jackia Working v2.470.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (Jackia Working v2.460.0)</h2>
       
       <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
         <label style="font-size:13px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-dna"></i> پەنێڵی گشتی موتەیشنەکان (Mutations Control):</label>
@@ -524,7 +524,7 @@
           <button class="admin-action-btn" style="flex:1; background:var(--robux-gold); color:#000;" onclick="modifyRobuxForPlayer('give')">➕ ناردنی ڕۆبوکس</button>
           <button class="admin-action-btn" style="flex:1; background:#ef4444; color:white;" onclick="modifyRobuxForPlayer('remove')">➖ لابردنی ڕۆبوکس</button>
         </div>
-        <button class="admin-action-btn" style="background:#8b5cf6; color:white; margin-top:5px;" onclick="giveawayToAll()">🎁 بەخشینی 5,000 R$ بۆ هەموو یاریزانەکان</button>
+        <button class="admin-action-btn" style="background:#8b5cf6; color:white; margin-top:5px;" onclick="giveawayToAll()">🎁 بەخشینی 5,000 R$ بۆ هەموو یاریزانەکان[span_0](start_span)[span_0](end_span)</button>
       </div>
 
       <div class="admin-section">
@@ -865,7 +865,7 @@
       }
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      alert('🎁 بە سەرکەوتوویی 5,000 R$ دیاری بەخشرا بە سەرجەم یاریزانەکان!');
+      alert('🎁 بە سەرکەوتوویی 5,000 R$ دیاری بەخشرا بە سەرجەم یاریزانەکان[span_1](start_span)[span_1](end_span)!');
       closeAdminPanel();
     }
 
@@ -1425,6 +1425,7 @@
       const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, floorDepth), new THREE.MeshBasicMaterial({ color: isOwnerSecondCityGame ? 0x090d16 : 0x111827 }));
       floor.rotation.x = -Math.PI / 2; floor.position.z = -50; scene.add(floor);
 
+      // Jackia World Elements for First City
       const jackiaGate1 = new THREE.Mesh(new THREE.BoxGeometry(14, 8, 1.5), new THREE.MeshBasicMaterial({ color: 0xfbbf24 }));
       jackiaGate1.position.set(0, 4, -20); scene.add(jackiaGate1);
 

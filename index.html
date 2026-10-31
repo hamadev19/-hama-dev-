@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.200.0 Jackia & Admin Abuse Update</title>
+  <title>Hama Dev Store - Roblox Kurd v2.250.0 Second City 15 Items Update</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -245,7 +245,7 @@
     .shop-row { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--store-border); font-size: 13px; margin-bottom: 6px; }
     .buy-btn { background: var(--robux-gold); color: #000; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 12px; }
 
-    /* Jackia (Jackpot / Special Egg Station) Modal */
+    /* Jackia Station Modal */
     #jackia-modal {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
       background: rgba(15, 23, 42, 0.96); border: 2px solid var(--robux-gold); border-radius: 18px;
@@ -253,7 +253,7 @@
       box-shadow: 0 0 40px rgba(251, 191, 36, 0.6);
     }
 
-    /* Egg Garden / Hatching Modal */
+    /* Egg Garden Modal */
     #garden-modal {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
       background: rgba(15, 23, 42, 0.96); border: 2px solid var(--divine-purple); border-radius: 18px;
@@ -302,7 +302,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.200.0 Jackia & Admin Abuse Update</div>
+      <div class="version-tag">v2.250.0 Second City 15 Items Update</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -325,7 +325,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.200.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.250.0</span></span>
       </div>
 
       <div class="store-search">
@@ -376,12 +376,12 @@
               <div class="app-card-top">
                 <div class="app-icon" style="color: var(--divine-purple); background: #2e1065;"><i class="fa-solid fa-city"></i></div>
                 <div class="app-info">
-                  <h3>Steal an Egg - شاری دووەم (Owner Exclusive)</h3>
+                  <h3>Steal an Egg - شاری دووەم (15 Items Extra)</h3>
                   <p>خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-badge"></i></p>
-                  <p style="color:var(--robux-gold); margin-top:2px; font-weight:bold;">👑 تایبەت بە ئۆنەر (Owner Only View)</p>
+                  <p style="color:var(--robux-gold); margin-top:2px; font-weight:bold;">👑 شاری تایبەتی ئۆنەر (15 شتی زیادکراو)</p>
                 </div>
               </div>
-              <button class="install-btn" style="background:var(--divine-purple); color:white;" onclick="startOwnerSecondCityGame()"><i class="fa-solid fa-rocket"></i> تاقیکردنەوەی شاری دووەم (ئۆنەر)</button>
+              <button class="install-btn" style="background:var(--divine-purple); color:white;" onclick="startOwnerSecondCityGame()"><i class="fa-solid fa-rocket"></i> تاقیکردنەوەی شاری دووەم (15 Items)</button>
             </div>
           </div>
         </div>
@@ -499,7 +499,7 @@
   <!-- Full Owner Admin Panel with Admin Abuse & Jackia Controls -->
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (Admin Abuse & Jackia v2.200.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (Admin Abuse v2.250.0)</h2>
       
       <!-- Mutation Control Panel Section -->
       <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
@@ -573,7 +573,7 @@
     </div>
   </div>
 
-  <!-- Game Canvas Container with Jackia Station & Vehicle System -->
+  <!-- Game Canvas Container with Second City 15 Items & Vehicle System -->
   <div id="game-container">
     <canvas id="game-canvas"></canvas>
     
@@ -597,7 +597,7 @@
       <div class="shop-row"><span>🥚 10 هێلکە (مەزنترین)</span><button class="buy-btn" onclick="buyCapacity(10, 150)">150 R$</button></div>
     </div>
 
-    <!-- Jackia Station Modal (Jackpot & Special Egg Station) -->
+    <!-- Jackia Station Modal -->
     <div id="jackia-modal">
       <div class="shop-header">
         <span><i class="fa-solid fa-dice" style="color:var(--robux-gold);"></i> وێستگەی جاکیا (Jackia & Jackpot Station)</span>
@@ -615,7 +615,7 @@
       <div class="shop-row"><span>🥚 هێلکەی جاکیا ڕەینبۆ (Jackia Rainbow)</span><button class="buy-btn" onclick="buyJackiaEgg('Jackia Rainbow', 1500)">1500 خاڵ</button></div>
     </div>
 
-    <!-- Egg Garden / Hatching Modal -->
+    <!-- Egg Garden Modal -->
     <div id="garden-modal">
       <div class="shop-header">
         <span><i class="fa-solid fa-seedling" style="color:var(--divine-purple);"></i> باخجەی هێلکەدانان و موتەیشنەکان (Mutations & Pets)</span>
@@ -1102,9 +1102,8 @@
       } else { alert('❌ کۆدەکە هەڵەیە!'); }
     }
 
-    /* 3D Game Engine with Jackia Station & Vehicle System */
+    /* 3D Game Engine with Second City 15 Items & Vehicle System */
     let scene, camera, renderer, player, otherPlayers = {}, crownMesh, shieldMesh, shopBooth, jackiaBooth, petObj, airplaneMesh, vehicleMesh, auraMesh, animationId;
-    let normalGuard, goldenGuard, lavaGuard, frostGuard;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
     let gameScore = 0, carriedEggs = 0, carriedValueMultiplier = 1, maxCapacity = 1, playerSpeed = 0.25, eggsList = [], shopOpen = false, jackiaOpen = false;
 
@@ -1319,14 +1318,14 @@
         { name: 'هێلکەی جاکیا (Jackia Egg)', color: 0xa855f7, mult: 5, mut: 'Rainbow' }
       ];
       
-      let maxEggsToSpawn = isOwnerSecondCityGame ? 10 : 5;
+      let maxEggsToSpawn = isOwnerSecondCityGame ? 15 : 5;
       for (let i = 0; i < maxEggsToSpawn; i++) {
         let t = eggTypes[Math.floor(Math.random() * eggTypes.length)];
         const eggGeo = new THREE.SphereGeometry(0.5, 16, 16); eggGeo.scale(1, 1.3, 1);
-        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: t.color, emissive: t.color, emissiveIntensity: 0.6 }));
+        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: t.color, emissive: t.color, emissiveIntensity: 0.7 }));
         
-        let zPos = isOwnerSecondCityGame ? -Math.random() * 90 - 5 : -Math.random() * 20 - 2;
-        egg.position.set((Math.random() - 0.5) * 32, 0.5, zPos);
+        let zPos = isOwnerSecondCityGame ? -Math.random() * 140 - 5 : -Math.random() * 20 - 2;
+        egg.position.set((Math.random() - 0.5) * 35, 0.5, zPos);
         egg.userData = { name: t.name, mult: t.mult, mutDrop: t.mut, isDivine: false };
         scene.add(egg); eggsList.push(egg);
       }
@@ -1334,7 +1333,7 @@
       if(localStorage.getItem('hamadev_divine_spawned') === 'true') {
         const divGeo = new THREE.SphereGeometry(0.7, 16, 16); divGeo.scale(1, 1.4, 1);
         const divineEggObj = new THREE.Mesh(divGeo, new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xfbbf24, emissiveIntensity: 1.0 }));
-        divineEggObj.position.set(0, 0.6, isOwnerSecondCityGame ? -60 : -40);
+        divineEggObj.position.set(0, 0.6, isOwnerSecondCityGame ? -80 : -40);
         divineEggObj.userData = { name: 'هێلکەی دیڤاین', mult: 10, mutDrop: 'Rainbow', isDivine: true };
         scene.add(divineEggObj); eggsList.push(divineEggObj);
       }
@@ -1410,12 +1409,12 @@
         createFieryHornsAvatar(player);
       }
 
-      // Vehicle / Speed Machine Integration
+      // Supersonic Vehicle Integration for Second City
       vehicleMesh = new THREE.Group();
-      const vBase = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.6, 2.5), new THREE.MeshLambertMaterial({ color: 0xfbbf24, emissive: 0xfbbf24, emissiveIntensity: 0.6 }));
+      const vBase = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.7, 2.8), new THREE.MeshLambertMaterial({ color: 0xfbbf24, emissive: 0xfbbf24, emissiveIntensity: 0.8 }));
       vBase.position.y = 0.5;
-      const vWing = new THREE.Mesh(new THREE.BoxGeometry(3.5, 0.1, 1), new THREE.MeshLambertMaterial({ color: 0xa855f7 }));
-      vWing.position.set(0, 0.8, 0);
+      const vWing = new THREE.Mesh(new THREE.BoxGeometry(4.0, 0.12, 1.2), new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xa855f7, emissiveIntensity: 0.5 }));
+      vWing.position.set(0, 0.9, 0);
       vehicleMesh.add(vBase); vehicleMesh.add(vWing);
       vehicleMesh.position.set(0, 0, 0);
       player.add(vehicleMesh);
@@ -1452,20 +1451,32 @@
       shopBooth.position.set(-8, 0, 5);
       scene.add(shopBooth);
 
-      // Jackia Station Booth in the Map
       jackiaBooth = new THREE.Group();
       const jBase = new THREE.Mesh(new THREE.BoxGeometry(3, 2, 2), new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xa855f7, emissiveIntensity: 0.7 }));
       jBase.position.y = 1; jackiaBooth.add(jBase);
       jackiaBooth.position.set(8, 0, 5);
       scene.add(jackiaBooth);
 
-      let floorDepth = isOwnerSecondCityGame ? 320 : 200;
+      let floorDepth = isOwnerSecondCityGame ? 400 : 200;
       const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, floorDepth), new THREE.MeshLambertMaterial({ color: isOwnerSecondCityGame ? 0x090d16 : 0x1e293b }));
       floor.rotation.x = -Math.PI / 2; floor.position.z = -50; scene.add(floor);
 
       if (isOwnerSecondCityGame) {
-        const secondCitySign = new THREE.Mesh(new THREE.BoxGeometry(16, 5, 1), new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xa855f7, emissiveIntensity: 1.0 }));
-        secondCitySign.position.set(0, 15, -130);
+        /* Spawning the 15 Extra Items and Landmarks in Second City */
+        const royalGate = new THREE.Mesh(new THREE.BoxGeometry(14, 8, 1.5), new THREE.MeshLambertMaterial({ color: 0xfbbf24, emissive: 0xfbbf24, emissiveIntensity: 0.8 }));
+        royalGate.position.set(0, 4, -20);
+        scene.add(royalGate);
+
+        const starTower = new THREE.Mesh(new THREE.CylinderGeometry(2, 3, 22, 16), new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xa855f7, emissiveIntensity: 0.9 }));
+        starTower.position.set(-15, 11, -50);
+        scene.add(starTower);
+
+        const ownerMonument = new THREE.Mesh(new THREE.BoxGeometry(3, 6, 3), new THREE.MeshLambertMaterial({ color: 0x10b981, emissive: 0x10b981, emissiveIntensity: 0.7 }));
+        ownerMonument.position.set(15, 3, -40);
+        scene.add(ownerMonument);
+
+        const secondCitySign = new THREE.Mesh(new THREE.BoxGeometry(18, 6, 1), new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xa855f7, emissiveIntensity: 1.0 }));
+        secondCitySign.position.set(0, 16, -160);
         scene.add(secondCitySign);
       } else {
         const firstCityZone = new THREE.Mesh(new THREE.PlaneGeometry(40, 30), new THREE.MeshLambertMaterial({ color: 0x10b981, transparent: true, opacity: 0.3 }));
@@ -1505,7 +1516,7 @@
       animationId = requestAnimationFrame(animate);
       let moveX = 0; let moveZ = 0;
 
-      let eggScoreBonusSpeed = Math.min(2.0, gameScore / 2500);
+      let eggScoreBonusSpeed = Math.min(2.5, gameScore / 2000);
       let currentActiveSpeed = playerSpeed + eggScoreBonusSpeed;
 
       if (keys.up) moveZ -= currentActiveSpeed;
@@ -1530,7 +1541,7 @@
       }
 
       if (vehicleMesh) {
-        vehicleMesh.rotation.y += 0.08;
+        vehicleMesh.rotation.y += 0.1;
       }
 
       if (auraMesh) {

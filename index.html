@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.450.0 Fixed Jackia Second City</title>
+  <title>Hama Dev Store - Roblox Kurd v2.470.0 Jackia First City Booths</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -35,7 +35,6 @@
     * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     body { background-color: var(--store-dark); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
-    /* Auth Screen */
     #auth-screen {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       background: linear-gradient(135deg, #090d16 0%, #1e293b 100%);
@@ -50,7 +49,7 @@
       border: 3px solid var(--store-primary); box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
     }
     .auth-card h1 { font-size: 24px; margin-bottom: 4px; color: #fff; }
-    .auth-card .version-tag { font-size: 11px; color: var(--store-primary); font-weight: bold; margin-bottom: 12px; }
+    .auth-card .version-tag { font-size: 11px; color: var(--robux-gold); font-weight: bold; margin-bottom: 12px; }
     .auth-card p { color: var(--text-muted); font-size: 13px; margin-bottom: 20px; }
     .input-group { margin-bottom: 14px; text-align: right; }
     .input-group label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
@@ -286,7 +285,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.450.0 Fixed Jackia Second City</div>
+      <div class="version-tag">v2.470.0 Jackia First City Booths</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -308,7 +307,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.450.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.470.0</span></span>
       </div>
 
       <div class="store-search">
@@ -340,25 +339,25 @@
         <div id="tab-store" class="tab-content">
           <div class="page-title"><i class="fa-solid fa-gamepad" style="color:var(--store-primary)"></i><span>یارییە فەرمییەکان بۆ دابەزاندن</span></div>
           <div class="store-grid">
-            <div class="store-app-card">
+            <div class="store-app-card" style="border-color: var(--robux-gold);">
               <div class="app-card-top">
-                <div class="app-icon"><i class="fa-solid fa-dice-d6"></i></div>
+                <div class="app-icon" style="color: var(--robux-gold); background: #332400;"><i class="fa-solid fa-dice-d6"></i></div>
                 <div class="app-info">
-                  <h3>Steal An Egg (First City)</h3>
+                  <h3>Steal An Egg - شاری یەکەم (Jackia First City)</h3>
                   <p>خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-badge"></i></p>
-                  <p style="color:var(--divine-purple); margin-top:2px;">⭐ 5.0 (First City Open Map)</p>
+                  <p style="color:var(--robux-gold); margin-top:2px; font-weight:bold;">👑 شاری یەکەمی جاکیا (Working Jackia Systems)</p>
                 </div>
               </div>
-              <button class="install-btn" onclick="startStealAnEggGame()"><i class="fa-solid fa-download"></i> یاری کردن / دابەزاندن</button>
+              <button class="install-btn" style="background:var(--robux-gold); color:#000;" onclick="startStealAnEggGame()"><i class="fa-solid fa-download"></i> یاری کردن لە شاری یەکەم</button>
             </div>
 
             <div class="store-app-card" id="owner-second-city-card" style="display:none; border-color: var(--divine-purple);">
               <div class="app-card-top">
                 <div class="app-icon" style="color: var(--divine-purple); background: #2e1065;"><i class="fa-solid fa-city"></i></div>
                 <div class="app-info">
-                  <h3>Steal an Egg - شاری دووەم (Jackia 15 Working Items)</h3>
+                  <h3>Steal an Egg - شاری دووەم (Jackia Second City)</h3>
                   <p>خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-badge"></i></p>
-                  <p style="color:var(--robux-gold); margin-top:2px; font-weight:bold;">👑 شاری تایبەتی ئۆنەر (Working Jackia Systems)</p>
+                  <p style="color:var(--robux-gold); margin-top:2px; font-weight:bold;">👑 شاری دووەمی جاکیا (Working Jackia Systems)</p>
                 </div>
               </div>
               <button class="install-btn" style="background:var(--divine-purple); color:white;" onclick="startOwnerSecondCityGame()"><i class="fa-solid fa-rocket"></i> تاقیکردنەوەی شاری دووەم</button>
@@ -474,7 +473,7 @@
 
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (Jackia Working v2.450.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (Jackia Working v2.470.0)</h2>
       
       <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
         <label style="font-size:13px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-dna"></i> پەنێڵی گشتی موتەیشنەکان (Mutations Control):</label>
@@ -525,7 +524,7 @@
           <button class="admin-action-btn" style="flex:1; background:var(--robux-gold); color:#000;" onclick="modifyRobuxForPlayer('give')">➕ ناردنی ڕۆبوکس</button>
           <button class="admin-action-btn" style="flex:1; background:#ef4444; color:white;" onclick="modifyRobuxForPlayer('remove')">➖ لابردنی ڕۆبوکس</button>
         </div>
-        <button class="admin-action-btn" style="background:#8b5cf6; color:white; margin-top:5px;" onclick="giveawayToAll()">🎁 بەخشینی 5,000 R$ بۆ هەموو یاریزانەکان[span_2](start_span)[span_2](end_span)</button>
+        <button class="admin-action-btn" style="background:#8b5cf6; color:white; margin-top:5px;" onclick="giveawayToAll()">🎁 بەخشینی 5,000 R$ بۆ هەموو یاریزانەکان</button>
       </div>
 
       <div class="admin-section">
@@ -866,7 +865,7 @@
       }
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      alert('🎁 بە سەرکەوتوویی 5,000 R$ دیاری بەخشرا بە سەرجەم یاریزانەکان[span_3](start_span)[span_3](end_span)!');
+      alert('🎁 بە سەرکەوتوویی 5,000 R$ دیاری بەخشرا بە سەرجەم یاریزانەکان!');
       closeAdminPanel();
     }
 
@@ -1279,19 +1278,19 @@
       eggsList.forEach(e => { if(e) scene.remove(e); });
       eggsList = [];
       const eggTypes = [
-        { name: 'هێلکەی ئاسایی (10s)', color: 0xf1c40f, mult: 1, mut: 'Gold' },
-        { name: 'هێلکەی زێڕین (25s)', color: 0xffd700, mult: 2, mut: 'Taco' },
-        { name: 'هێلکەی ئاگرین (45s)', color: 0xff4500, mult: 3, mut: 'Diamond' },
-        { name: 'هێلکەی جاکیا (Jackia Egg)', color: 0xa855f7, mult: 5, mut: 'Rainbow' }
+        { name: 'هێلکەی جاکیا گۆڵد (Jackia Gold)', color: 0xfbbf24, mult: 2, mut: 'Gold' },
+        { name: 'هێلکەی جاکیا تاکۆ (Jackia Taco)', color: 0xf97316, mult: 3, mut: 'Taco' },
+        { name: 'هێلکەی جاکیا دایمۆند (Jackia Diamond)', color: 0x38bdf8, mult: 5, mut: 'Diamond' },
+        { name: 'هێلکەی جاکیا ڕەینبۆ (Jackia Rainbow)', color: 0xa855f7, mult: 8, mut: 'Rainbow' }
       ];
       
-      let maxEggsToSpawn = isOwnerSecondCityGame ? 15 : 5;
+      let maxEggsToSpawn = isOwnerSecondCityGame ? 15 : 10;
       for (let i = 0; i < maxEggsToSpawn; i++) {
         let t = eggTypes[Math.floor(Math.random() * eggTypes.length)];
         const eggGeo = new THREE.SphereGeometry(0.5, 16, 16); eggGeo.scale(1, 1.3, 1);
         const egg = new THREE.Mesh(eggGeo, new THREE.MeshBasicMaterial({ color: t.color }));
         
-        let zPos = isOwnerSecondCityGame ? -Math.random() * 140 - 5 : -Math.random() * 20 - 2;
+        let zPos = isOwnerSecondCityGame ? -Math.random() * 140 - 5 : -Math.random() * 80 - 5;
         egg.position.set((Math.random() - 0.5) * 35, 0.5, zPos);
         egg.userData = { name: t.name, mult: t.mult, mutDrop: t.mut, isDivine: false };
         scene.add(egg); eggsList.push(egg);
@@ -1301,7 +1300,7 @@
         const divGeo = new THREE.SphereGeometry(0.7, 16, 16); divGeo.scale(1, 1.4, 1);
         const divineEggObj = new THREE.Mesh(divGeo, new THREE.MeshBasicMaterial({ color: 0xa855f7 }));
         divineEggObj.position.set(0, 0.6, isOwnerSecondCityGame ? -80 : -40);
-        divineEggObj.userData = { name: 'هێلکەی دیڤاین', mult: 10, mutDrop: 'Rainbow', isDivine: true };
+        divineEggObj.userData = { name: 'هێلکەی دیڤاینی جاکیا', mult: 10, mutDrop: 'Rainbow', isDivine: true };
         scene.add(divineEggObj); eggsList.push(divineEggObj);
       }
     }
@@ -1356,7 +1355,7 @@
 
       const canvas = document.getElementById('game-canvas');
       scene = new THREE.Scene();
-      scene.background = new THREE.Color(isOwnerSecondCityGame ? 0x2e1065 : skyColors[customSkyColorIndex]);
+      scene.background = new THREE.Color(isOwnerSecondCityGame ? 0x2e1065 : 0x090d16);
 
       camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
       renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
@@ -1365,7 +1364,7 @@
       scene.add(new THREE.AmbientLight(0xffffff, 1));
 
       player = new THREE.Group();
-      let shirtColor = (currentUser === 'rip_hama276' || userObj.hasVIP) ? 0x0f172a : 0x10b981;
+      let shirtColor = (currentUser === 'rip_hama276' || userObj.hasVIP) ? 0xfbbf24 : 0x10b981;
       const torso = new THREE.Mesh(new THREE.BoxGeometry(1, 1.2, 0.6), new THREE.MeshBasicMaterial({ color: shirtColor }));
       torso.position.y = 1.2; player.add(torso);
       const head = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.7, 0.7), new THREE.MeshBasicMaterial({ color: 0xffdbac }));
@@ -1423,28 +1422,20 @@
       scene.add(jackiaBooth);
 
       let floorDepth = isOwnerSecondCityGame ? 400 : 200;
-      const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, floorDepth), new THREE.MeshBasicMaterial({ color: isOwnerSecondCityGame ? 0x090d16 : 0x1e293b }));
+      const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, floorDepth), new THREE.MeshBasicMaterial({ color: isOwnerSecondCityGame ? 0x090d16 : 0x111827 }));
       floor.rotation.x = -Math.PI / 2; floor.position.z = -50; scene.add(floor);
 
-      if (isOwnerSecondCityGame) {
-        const royalGate = new THREE.Mesh(new THREE.BoxGeometry(14, 8, 1.5), new THREE.MeshBasicMaterial({ color: 0xfbbf24 }));
-        royalGate.position.set(0, 4, -20); scene.add(royalGate);
+      const jackiaGate1 = new THREE.Mesh(new THREE.BoxGeometry(14, 8, 1.5), new THREE.MeshBasicMaterial({ color: 0xfbbf24 }));
+      jackiaGate1.position.set(0, 4, -20); scene.add(jackiaGate1);
 
-        const starTower = new THREE.Mesh(new THREE.CylinderGeometry(2, 3, 22, 16), new THREE.MeshBasicMaterial({ color: 0xa855f7 }));
-        starTower.position.set(-15, 11, -50); scene.add(starTower);
+      const jackiaTower1 = new THREE.Mesh(new THREE.CylinderGeometry(2, 3, 22, 16), new THREE.MeshBasicMaterial({ color: 0xa855f7 }));
+      jackiaTower1.position.set(-15, 11, -40); scene.add(jackiaTower1);
 
-        const ownerMonument = new THREE.Mesh(new THREE.BoxGeometry(3, 6, 3), new THREE.MeshBasicMaterial({ color: 0x10b981 }));
-        ownerMonument.position.set(15, 3, -40); scene.add(ownerMonument);
+      const jackiaMonument1 = new THREE.Mesh(new THREE.BoxGeometry(3, 6, 3), new THREE.MeshBasicMaterial({ color: 0x10b981 }));
+      jackiaMonument1.position.set(15, 3, -30); scene.add(jackiaMonument1);
 
-        supersonicPadMesh = new THREE.Mesh(new THREE.BoxGeometry(6, 0.2, 6), new THREE.MeshBasicMaterial({ color: 0x38bdf8 }));
-        supersonicPadMesh.position.set(0, 0.05, -70); scene.add(supersonicPadMesh);
-
-        const secondCitySign = new THREE.Mesh(new THREE.BoxGeometry(18, 6, 1), new THREE.MeshBasicMaterial({ color: 0xa855f7 }));
-        secondCitySign.position.set(0, 16, -160); scene.add(secondCitySign);
-      } else {
-        const firstCityZone = new THREE.Mesh(new THREE.PlaneGeometry(40, 30), new THREE.MeshBasicMaterial({ color: 0x10b981 }));
-        firstCityZone.rotation.x = -Math.PI / 2; firstCityZone.position.set(0, 0.01, 5); scene.add(firstCityZone);
-      }
+      supersonicPadMesh = new THREE.Mesh(new THREE.BoxGeometry(6, 0.2, 6), new THREE.MeshBasicMaterial({ color: 0x38bdf8 }));
+      supersonicPadMesh.position.set(0, 0.05, -50); scene.add(supersonicPadMesh);
 
       const homeBase = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 0.1, 32), new THREE.MeshBasicMaterial({ color: 0x3b82f6 }));
       homeBase.position.set(0, 0.05, 15); scene.add(homeBase);

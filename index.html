@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.42.0 Second City Coming Soon</title>
+  <title>Hama Dev Store - Roblox Kurd v2.159.0 Owner Second City Vehicle</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -281,7 +281,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.42.0 Second City Coming Soon</div>
+      <div class="version-tag">v2.159.0 Owner Second City Vehicle</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -304,7 +304,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.42.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.159.0</span></span>
       </div>
 
       <div class="store-search">
@@ -336,7 +336,7 @@
         <div id="tab-store" class="tab-content">
           <div class="page-title"><i class="fa-solid fa-gamepad" style="color:var(--store-primary)"></i><span>یارییە فەرمییەکان بۆ دابەزاندن</span></div>
           <div class="store-grid">
-            <!-- Game 1 -->
+            <!-- Game 1: First City -->
             <div class="store-app-card">
               <div class="app-card-top">
                 <div class="app-icon"><i class="fa-solid fa-dice-d6"></i></div>
@@ -349,17 +349,17 @@
               <button class="install-btn" onclick="startStealAnEggGame()"><i class="fa-solid fa-download"></i> یاری کردن / دابەزاندن</button>
             </div>
 
-            <!-- Game 2: Steal an Egg - شاری دووەم (بە زووانە) -->
-            <div class="store-app-card" style="border-color: var(--divine-purple);">
+            <!-- Game 2: Second City (VISIBLE ONLY TO OWNER rip_hama276) -->
+            <div class="store-app-card" id="owner-second-city-card" style="display:none; border-color: var(--divine-purple);">
               <div class="app-card-top">
                 <div class="app-icon" style="color: var(--divine-purple); background: #2e1065;"><i class="fa-solid fa-city"></i></div>
                 <div class="app-info">
-                  <h3>Steal an Egg - شاری دووەم (Second City)</h3>
+                  <h3>Steal an Egg - شاری دووەم (Owner Exclusive)</h3>
                   <p>خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-badge"></i></p>
-                  <p style="color:var(--robux-gold); margin-top:2px; font-weight:bold;">🔒 بە زووانە دەکرێتەوە (Coming Soon)</p>
+                  <p style="color:var(--robux-gold); margin-top:2px; font-weight:bold;">👑 تایبەت بە ئۆنەر (Owner Only View)</p>
                 </div>
               </div>
-              <button class="install-btn" style="background:var(--divine-purple); color:white;" onclick="alert('🔒 شاری دووەمی Steal an Egg بە زووانە دەکرێتەوە! لە چاوەڕوانیدا بن بۆ نوێترین ڕیزبەندی و هێلکە ناوازەکان.')"><i class="fa-solid fa-lock"></i> بینینی دۆخ (Coming Soon)</button>
+              <button class="install-btn" style="background:var(--divine-purple); color:white;" onclick="startOwnerSecondCityGame()"><i class="fa-solid fa-rocket"></i> تاقیکردنەوەی شاری دووەم (ئۆنەر)</button>
             </div>
           </div>
         </div>
@@ -465,7 +465,7 @@
   <!-- Full Owner Admin Panel with Live 4s Auto-Refresh Watcher -->
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (v2.42.0 Second City Coming Soon)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (v2.159.0 Owner Second City Vehicle)</h2>
       
       <!-- Mutation Control Panel Section -->
       <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
@@ -526,11 +526,11 @@
         <div id="admin-users-list" style="max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;"></div>
       </div>
 
-      <button class="auth-btn" style="background: var(--admin-red); margin-top:5px;" onclick="closeAdminPanel()">داخستنی پەنێڵ</button>
+      <button class="admin-action-btn" style="background: var(--admin-red); margin-top:5px;" onclick="closeAdminPanel()">داخستنی پەنێڵ</button>
     </div>
   </div>
 
-  <!-- Game Canvas Container with Second City Barrier & Coming Soon Tower -->
+  <!-- Game Canvas Container with Second City Vehicle & Speed Boosted by Egg Score -->
   <div id="game-container">
     <canvas id="game-canvas"></canvas>
     
@@ -606,6 +606,7 @@
     let pendingVerifyCode = null;
     let deferredPrompt = null;
     let adminRefreshInterval = null;
+    let isOwnerSecondCityGame = false;
 
     usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, email: 'rip_hama@dev.kur', verified: true, hasVIP: true, hasSpeed: true, hasShield: true, hasGoldenPet: true, savedSpeed: 100, savedCapacity: 10, inventoryEggs: [], hatchingSlots: [], collectedPets: [] };
     if(!usersDB['Ahmad_Gamer']) usersDB['Ahmad_Gamer'] = { password: '123', robux: 1200, email: 'ahmad@mail.com', verified: true, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [] };
@@ -707,8 +708,10 @@
 
       if (currentUser === 'rip_hama276') {
         document.getElementById('admin-panel-btn').style.display = 'flex';
+        document.getElementById('owner-second-city-card').style.display = 'flex';
       } else {
         document.getElementById('admin-panel-btn').style.display = 'none';
+        document.getElementById('owner-second-city-card').style.display = 'none';
       }
     }
 
@@ -984,8 +987,8 @@
       } else { alert('❌ کۆدەکە هەڵەیە!'); }
     }
 
-    /* 3D Game Engine with Second City Coming Soon Tower & Barrier */
-    let scene, camera, renderer, player, otherPlayers = {}, crownMesh, shieldMesh, shopBooth, petObj, airplaneMesh, auraMesh, animationId;
+    /* 3D Game Engine with Owner Second City Vehicle & Egg-Score Speed Boost */
+    let scene, camera, renderer, player, otherPlayers = {}, crownMesh, shieldMesh, shopBooth, petObj, airplaneMesh, vehicleMesh, auraMesh, animationId;
     let normalGuard, goldenGuard, lavaGuard, frostGuard;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
     let gameScore = 0, carriedEggs = 0, carriedValueMultiplier = 1, maxCapacity = 1, playerSpeed = 0.25, eggsList = [], shopOpen = false;
@@ -1157,35 +1160,14 @@
         { name: 'هێلکەی ئاسمانی (60s)', color: 0x38bdf8, mult: 5, mut: 'Rainbow' }
       ];
       
-      for (let i = 0; i < 4; i++) {
-        let t = eggTypes[0];
-        const eggGeo = new THREE.SphereGeometry(0.45, 16, 16); eggGeo.scale(1, 1.3, 1);
-        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: t.color, emissive: t.color, emissiveIntensity: 0.3 }));
-        egg.position.set((Math.random() - 0.5) * 24, 0.5, -Math.random() * 16 - 2);
-        egg.userData = { name: t.name, mult: t.mult, mutDrop: t.mut, isDivine: false };
-        scene.add(egg); eggsList.push(egg);
-      }
-      for (let i = 0; i < 3; i++) {
-        let t = eggTypes[1];
+      let maxEggsToSpawn = isOwnerSecondCityGame ? 8 : 4;
+      for (let i = 0; i < maxEggsToSpawn; i++) {
+        let t = eggTypes[Math.floor(Math.random() * eggTypes.length)];
         const eggGeo = new THREE.SphereGeometry(0.5, 16, 16); eggGeo.scale(1, 1.3, 1);
-        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: t.color, emissive: 0xffa500, emissiveIntensity: 0.6 }));
-        egg.position.set((Math.random() - 0.5) * 24, 0.5, -Math.random() * 16 - 22);
-        egg.userData = { name: t.name, mult: t.mult, mutDrop: t.mut, isDivine: false };
-        scene.add(egg); eggsList.push(egg);
-      }
-      for (let i = 0; i < 3; i++) {
-        let t = eggTypes[2];
-        const eggGeo = new THREE.SphereGeometry(0.55, 16, 16); eggGeo.scale(1, 1.3, 1);
-        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: t.color, emissive: 0xff0000, emissiveIntensity: 0.8 }));
-        egg.position.set((Math.random() - 0.5) * 24, 0.5, -Math.random() * 16 - 44);
-        egg.userData = { name: t.name, mult: t.mult, mutDrop: t.mut, isDivine: false };
-        scene.add(egg); eggsList.push(egg);
-      }
-      for (let i = 0; i < 3; i++) {
-        let t = eggTypes[3];
-        const eggGeo = new THREE.SphereGeometry(0.6, 16, 16); eggGeo.scale(1, 1.3, 1);
-        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: t.color, emissive: 0x0284c7, emissiveIntensity: 0.9 }));
-        egg.position.set((Math.random() - 0.5) * 24, 0.5, -Math.random() * 16 - 66);
+        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: t.color, emissive: t.color, emissiveIntensity: 0.5 }));
+        
+        let zPos = isOwnerSecondCityGame ? -Math.random() * 80 - 5 : -Math.random() * 16 - 2;
+        egg.position.set((Math.random() - 0.5) * 30, 0.5, zPos);
         egg.userData = { name: t.name, mult: t.mult, mutDrop: t.mut, isDivine: false };
         scene.add(egg); eggsList.push(egg);
       }
@@ -1193,7 +1175,7 @@
       if(localStorage.getItem('hamadev_divine_spawned') === 'true') {
         const divGeo = new THREE.SphereGeometry(0.7, 16, 16); divGeo.scale(1, 1.4, 1);
         const divineEggObj = new THREE.Mesh(divGeo, new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xfbbf24, emissiveIntensity: 1.0 }));
-        divineEggObj.position.set(0, 0.6, -40);
+        divineEggObj.position.set(0, 0.6, isOwnerSecondCityGame ? -50 : -40);
         divineEggObj.userData = { name: 'هێلکەی دیڤاین', mult: 10, mutDrop: 'Rainbow', isDivine: true };
         scene.add(divineEggObj); eggsList.push(divineEggObj);
       }
@@ -1219,20 +1201,17 @@
       parentGroup.add(horn2);
     }
 
-    function spawnAirplaneInGame(bannerText) {
-      if(!scene) return;
-      if(airplaneMesh) scene.remove(airplaneMesh);
-
-      airplaneMesh = new THREE.Group();
-      const body = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.8, 4), new THREE.MeshLambertMaterial({ color: 0x38bdf8 }));
-      const wings = new THREE.Mesh(new THREE.BoxGeometry(6, 0.15, 1.2), new THREE.MeshLambertMaterial({ color: 0xffffff }));
-      wings.position.y = 0.2;
-      airplaneMesh.add(body); airplaneMesh.add(wings);
-      airplaneMesh.position.set(-25, 14, 0);
-      scene.add(airplaneMesh);
+    function startStealAnEggGame() {
+      isOwnerSecondCityGame = false;
+      initGameEngine();
     }
 
-    function startStealAnEggGame() {
+    function startOwnerSecondCityGame() {
+      isOwnerSecondCityGame = true;
+      initGameEngine();
+    }
+
+    function initGameEngine() {
       document.getElementById('game-container').style.display = 'flex';
       gameScore = 0; carriedEggs = 0; carriedValueMultiplier = 1; shopOpen = false;
 
@@ -1252,7 +1231,7 @@
 
       const canvas = document.getElementById('game-canvas');
       scene = new THREE.Scene();
-      scene.background = new THREE.Color(skyColors[customSkyColorIndex]);
+      scene.background = new THREE.Color(isOwnerSecondCityGame ? 0x2e1065 : skyColors[customSkyColorIndex]);
 
       camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
       renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
@@ -1270,6 +1249,17 @@
 
       if(currentUser === 'rip_hama276' || userObj.hasVIP) {
         createFieryHornsAvatar(player);
+      }
+
+      if (isOwnerSecondCityGame) {
+        vehicleMesh = new THREE.Group();
+        const vBase = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.6, 2.5), new THREE.MeshLambertMaterial({ color: 0xfbbf24, emissive: 0xfbbf24, emissiveIntensity: 0.6 }));
+        vBase.position.y = 0.5;
+        const vWing = new THREE.Mesh(new THREE.BoxGeometry(3.5, 0.1, 1), new THREE.MeshLambertMaterial({ color: 0xa855f7 }));
+        vWing.position.set(0, 0.8, 0);
+        vehicleMesh.add(vBase); vehicleMesh.add(vWing);
+        vehicleMesh.position.set(0, 0, 0);
+        player.add(vehicleMesh);
       }
 
       if(userObj.collectedPets && userObj.collectedPets.length > 0) {
@@ -1294,41 +1284,9 @@
       player.position.set(0, 1, 15);
       scene.add(player);
 
-      let otherNames = Object.keys(usersDB).filter(n => n !== currentUser);
-      otherNames.forEach((uname, index) => {
-        let op = new THREE.Group();
-        let oTorso = new THREE.Mesh(new THREE.BoxGeometry(1, 1.2, 0.6), new THREE.MeshLambertMaterial({ color: 0x3b82f6 }));
-        oTorso.position.y = 1.2; op.add(oTorso);
-        let oHead = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.7, 0.7), new THREE.MeshLambertMaterial({ color: 0xffdbac }));
-        oHead.position.y = 2.15; op.add(oHead);
-        op.position.set((index + 1) * 3, 1, -10 - (index * 5));
-        scene.add(op);
-        otherPlayers[uname] = op;
-      });
-
       let petColor = userObj.hasGoldenPet ? 0xffd700 : 0xffaa00;
       petObj = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.5), new THREE.MeshLambertMaterial({ color: petColor, emissive: petColor, emissiveIntensity: 0.5 }));
       scene.add(petObj);
-
-      normalGuard = new THREE.Group();
-      let nBody = new THREE.Mesh(new THREE.SphereGeometry(0.8, 16, 16), new THREE.MeshLambertMaterial({ color: 0xffffff }));
-      nBody.position.y = 0.8; normalGuard.add(nBody);
-      normalGuard.position.set(0, 0, -10); scene.add(normalGuard);
-
-      goldenGuard = new THREE.Group();
-      let gBody = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.4, 0.6), new THREE.MeshLambertMaterial({ color: 0xd4af37 }));
-      gBody.position.y = 0.8; goldenGuard.add(gBody);
-      goldenGuard.position.set(0, 0, -32); scene.add(goldenGuard);
-
-      lavaGuard = new THREE.Group();
-      let lBody = new THREE.Mesh(new THREE.ConeGeometry(0.8, 1.6, 16), new THREE.MeshLambertMaterial({ color: 0xff4500, emissive: 0xff0000, emissiveIntensity: 0.5 }));
-      lBody.position.y = 0.8; lavaGuard.add(lBody);
-      lavaGuard.position.set(0, 0, -54); scene.add(lavaGuard);
-
-      frostGuard = new THREE.Group();
-      let fBody = new THREE.Mesh(new THREE.OctahedronGeometry(0.9, 2), new THREE.MeshLambertMaterial({ color: 0x38bdf8, emissive: 0x0284c7, emissiveIntensity: 0.7 }));
-      fBody.position.y = 0.9; frostGuard.add(fBody);
-      frostGuard.position.set(0, 0, -76); scene.add(frostGuard);
 
       shopBooth = new THREE.Group();
       const boothBase = new THREE.Mesh(new THREE.BoxGeometry(3, 1.5, 2), new THREE.MeshLambertMaterial({ color: 0xfbbf24 }));
@@ -1336,57 +1294,23 @@
       shopBooth.position.set(-8, 0, 5);
       scene.add(shopBooth);
 
-      const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, 200), new THREE.MeshLambertMaterial({ color: 0x1e293b }));
-      floor.rotation.x = -Math.PI / 2; floor.position.z = -35; scene.add(floor);
+      let floorDepth = isOwnerSecondCityGame ? 300 : 200;
+      const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, floorDepth), new THREE.MeshLambertMaterial({ color: isOwnerSecondCityGame ? 0x090d16 : 0x1e293b }));
+      floor.rotation.x = -Math.PI / 2; floor.position.z = -50; scene.add(floor);
 
-      /* First City Open Zone (Spawn & Early Game Area) */
-      const firstCityZone = new THREE.Mesh(new THREE.PlaneGeometry(40, 30), new THREE.MeshLambertMaterial({ color: 0x10b981, transparent: true, opacity: 0.3 }));
-      firstCityZone.rotation.x = -Math.PI / 2; firstCityZone.position.set(0, 0.01, 5); scene.add(firstCityZone);
-
-      const zone2X = new THREE.Mesh(new THREE.PlaneGeometry(35, 25), new THREE.MeshLambertMaterial({ color: 0xd4af37 }));
-      zone2X.rotation.x = -Math.PI / 2; zone2X.position.set(0, 0.02, -32); scene.add(zone2X);
-
-      const lavaZone = new THREE.Mesh(new THREE.PlaneGeometry(35, 25), new THREE.MeshLambertMaterial({ color: 0xc0392b }));
-      lavaZone.rotation.x = -Math.PI / 2; lavaZone.position.set(0, 0.03, -54); scene.add(lavaZone);
-
-      const iceZone = new THREE.Mesh(new THREE.PlaneGeometry(35, 25), new THREE.MeshLambertMaterial({ color: 0x0284c7 }));
-      iceZone.rotation.x = -Math.PI / 2; iceZone.position.set(0, 0.04, -76); scene.add(iceZone);
-
-      /* Second City Tower & Coming Soon Barrier at z = -95 */
-      const towerGroup = new THREE.Group();
-      const towerPillar1 = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.5, 18, 16), new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xa855f7, emissiveIntensity: 0.4 }));
-      towerPillar1.position.set(-6, 9, 0);
-      const towerPillar2 = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.5, 18, 16), new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xa855f7, emissiveIntensity: 0.4 }));
-      towerPillar2.position.set(6, 9, 0);
-      
-      const towerBeam = new THREE.Mesh(new THREE.BoxGeometry(14, 1.5, 1.5), new THREE.MeshLambertMaterial({ color: 0xfbbf24, emissive: 0xfbbf24, emissiveIntensity: 0.8 }));
-      towerBeam.position.set(0, 17, 0);
-
-      // Giant Golden Sign stating "بە زووانە"
-      const towerSign = new THREE.Mesh(new THREE.BoxGeometry(13, 4.5, 0.8), new THREE.MeshLambertMaterial({ color: 0xfbbf24, emissive: 0xfbbf24, emissiveIntensity: 1.0 }));
-      towerSign.position.set(0, 13.5, 0);
-
-      // Impassable Barrier Wall preventing anyone from climbing or entering Second City yet
-      const secondCityBarrier = new THREE.Mesh(new THREE.BoxGeometry(22, 10, 1), new THREE.MeshLambertMaterial({ color: 0xef4444, transparent: true, opacity: 0.85, wireframe: false }));
-      secondCityBarrier.position.set(0, 5, -2.5);
-      
-      towerGroup.add(towerPillar1);
-      towerGroup.add(towerPillar2);
-      towerGroup.add(towerBeam);
-      towerGroup.add(towerSign);
-      towerGroup.add(secondCityBarrier);
-      towerGroup.position.set(0, 0, -95);
-      scene.add(towerGroup);
+      if (isOwnerSecondCityGame) {
+        const secondCitySign = new THREE.Mesh(new THREE.BoxGeometry(16, 5, 1), new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xa855f7, emissiveIntensity: 1.0 }));
+        secondCitySign.position.set(0, 15, -120);
+        scene.add(secondCitySign);
+      } else {
+        const firstCityZone = new THREE.Mesh(new THREE.PlaneGeometry(40, 30), new THREE.MeshLambertMaterial({ color: 0x10b981, transparent: true, opacity: 0.3 }));
+        firstCityZone.rotation.x = -Math.PI / 2; firstCityZone.position.set(0, 0.01, 5); scene.add(firstCityZone);
+      }
 
       const homeBase = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 0.1, 32), new THREE.MeshLambertMaterial({ color: 0x3b82f6 }));
       homeBase.position.set(0, 0.05, 15); scene.add(homeBase);
 
       spawnAllEggs();
-
-      let savedAirplane = localStorage.getItem('hamadev_airplane_trailer');
-      if(savedAirplane) {
-        spawnAirplaneInGame(savedAirplane);
-      }
 
       camera.position.set(0, 8, 26);
       camera.lookAt(player.position);
@@ -1416,23 +1340,17 @@
       animationId = requestAnimationFrame(animate);
       let moveX = 0; let moveZ = 0;
 
-      if (keys.up) moveZ -= playerSpeed;
-      if (keys.down) moveZ += playerSpeed;
-      if (keys.left) moveX -= playerSpeed;
-      if (keys.right) moveX += playerSpeed;
+      let eggScoreBonusSpeed = Math.min(1.5, gameScore / 3000);
+      let currentActiveSpeed = playerSpeed + eggSpeedMultiplier(eggScoreBonusSpeed);
+
+      if (keys.up) moveZ -= currentActiveSpeed;
+      if (keys.down) moveZ += currentActiveSpeed;
+      if (keys.left) moveX -= currentActiveSpeed;
+      if (keys.right) moveX += currentActiveSpeed;
 
       if (moveX !== 0 || moveZ !== 0) {
-        let nextX = player.position.x + moveX;
-        let nextZ = player.position.z + moveZ;
-
-        // Strict Collision Barrier for Second City Tower at z = -95 (preventing entry)
-        if (nextZ < -91 && Math.abs(nextX) < 11) {
-          // Block movement past barrier
-          nextZ = player.position.z;
-        }
-
-        player.position.x = nextX;
-        player.position.z = nextZ;
+        player.position.x += moveX;
+        player.position.z += moveZ;
         player.rotation.y = Math.atan2(moveX, moveZ);
       }
 
@@ -1446,13 +1364,12 @@
         petObj.position.y = 1.0 + Math.sin(Date.now() * 0.01) * 0.3;
       }
 
-      if (auraMesh) {
-        auraMesh.rotation.y += 0.03;
+      if (vehicleMesh) {
+        vehicleMesh.rotation.y += 0.05;
       }
 
-      if (airplaneMesh) {
-        airplaneMesh.position.x += 0.15;
-        if(airplaneMesh.position.x > 30) airplaneMesh.position.x = -30;
+      if (auraMesh) {
+        auraMesh.rotation.y += 0.03;
       }
 
       if (!shopOpen && player.position.distanceTo(shopBooth.position) < 2.5) {
@@ -1508,34 +1425,15 @@
         document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
       }
 
-      let userObj = usersDB[currentUser] || {};
-      if (!userObj.hasShield && carriedEggs > 0) {
-        let activeGuard = null;
-        if (player.position.z > -21) activeGuard = normalGuard;
-        else if (player.position.z > -43) activeGuard = goldenGuard;
-        else if (player.position.z > -65) activeGuard, activeGuard = lavaGuard;
-        else activeGuard = frostGuard;
-
-        if (activeGuard) {
-          activeGuard.lookAt(player.position);
-          activeGuard.translateZ(0.12);
-          if (activeGuard.position.distanceTo(player.position) < 1.4) {
-            alert('🚨 پاسەوان هێلکەکانی لێسەندوویەوە!');
-            carriedEggs = 0; carriedValueMultiplier = 1;
-            normalGuard.position.set(0, 0, -10);
-            goldenGuard.position.set(0, 0, -32);
-            lavaGuard.position.set(0, 0, -54);
-            frostGuard.position.set(0, 0, -76);
-            document.getElementById('carried-count').innerText = carriedEggs;
-          }
-        }
-      }
-
       camera.position.x = player.position.x;
       camera.position.z = player.position.z + 12;
       camera.lookAt(player.position);
 
       renderer.render(scene, camera);
+    }
+
+    function eggSpeedMultiplier(val) {
+      return val;
     }
 
     function exitGame() {

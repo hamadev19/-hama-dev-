@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.400.0 Working Jackia Second City</title>
+  <title>Hama Dev Store - Roblox Kurd v2.450.0 Fixed Jackia Second City</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -286,7 +286,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.400.0 Working Jackia Second City</div>
+      <div class="version-tag">v2.450.0 Fixed Jackia Second City</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -308,7 +308,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.400.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.450.0</span></span>
       </div>
 
       <div class="store-search">
@@ -474,7 +474,7 @@
 
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (Jackia Working v2.400.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (Jackia Working v2.450.0)</h2>
       
       <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
         <label style="font-size:13px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-dna"></i> پەنێڵی گشتی موتەیشنەکان (Mutations Control):</label>
@@ -525,7 +525,7 @@
           <button class="admin-action-btn" style="flex:1; background:var(--robux-gold); color:#000;" onclick="modifyRobuxForPlayer('give')">➕ ناردنی ڕۆبوکس</button>
           <button class="admin-action-btn" style="flex:1; background:#ef4444; color:white;" onclick="modifyRobuxForPlayer('remove')">➖ لابردنی ڕۆبوکس</button>
         </div>
-        <button class="admin-action-btn" style="background:#8b5cf6; color:white; margin-top:5px;" onclick="giveawayToAll()">🎁 بەخشینی 5,000 R$ بۆ هەموو یاریزانەکان[span_0](start_span)[span_0](end_span)</button>
+        <button class="admin-action-btn" style="background:#8b5cf6; color:white; margin-top:5px;" onclick="giveawayToAll()">🎁 بەخشینی 5,000 R$ بۆ هەموو یاریزانەکان[span_2](start_span)[span_2](end_span)</button>
       </div>
 
       <div class="admin-section">
@@ -866,7 +866,7 @@
       }
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      alert('🎁 بە سەرکەوتوویی 5,000 R$ دیاری بەخشرا بە سەرجەم یاریزانەکان[span_1](start_span)[span_1](end_span)!');
+      alert('🎁 بە سەرکەوتوویی 5,000 R$ دیاری بەخشرا بە سەرجەم یاریزانەکان[span_3](start_span)[span_3](end_span)!');
       closeAdminPanel();
     }
 
@@ -1067,10 +1067,10 @@
         localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
         alert('🎉 ئەکاونتەکەت ڤێریفای کرا.');
         document.getElementById('verify-box').style.display = 'none';
-      } else { alert('❌ کۆدەکە هەڵەیە!'); }
+      } else { alert('❌ کۆدەکە هەڵەیە قبۆڵ ناکرێت!'); }
     }
 
-    let scene, camera, renderer, player, otherPlayers = {}, crownMesh, shieldMesh, shopBooth, jackiaBooth, petObj, airplaneMesh, vehicleMesh, auraMesh, animationId;
+    let scene, camera, renderer, player, shopBooth, jackiaBooth, petObj, vehicleMesh, auraMesh, animationId, supersonicPadMesh;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
     let gameScore = 0, carriedEggs = 0, carriedValueMultiplier = 1, maxCapacity = 1, playerSpeed = 0.25, eggsList = [], shopOpen = false, jackiaOpen = false;
 
@@ -1289,7 +1289,7 @@
       for (let i = 0; i < maxEggsToSpawn; i++) {
         let t = eggTypes[Math.floor(Math.random() * eggTypes.length)];
         const eggGeo = new THREE.SphereGeometry(0.5, 16, 16); eggGeo.scale(1, 1.3, 1);
-        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: t.color, emissive: t.color, emissiveIntensity: 0.7 }));
+        const egg = new THREE.Mesh(eggGeo, new THREE.MeshBasicMaterial({ color: t.color }));
         
         let zPos = isOwnerSecondCityGame ? -Math.random() * 140 - 5 : -Math.random() * 20 - 2;
         egg.position.set((Math.random() - 0.5) * 35, 0.5, zPos);
@@ -1299,7 +1299,7 @@
 
       if(localStorage.getItem('hamadev_divine_spawned') === 'true') {
         const divGeo = new THREE.SphereGeometry(0.7, 16, 16); divGeo.scale(1, 1.4, 1);
-        const divineEggObj = new THREE.Mesh(divGeo, new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xfbbf24, emissiveIntensity: 1.0 }));
+        const divineEggObj = new THREE.Mesh(divGeo, new THREE.MeshBasicMaterial({ color: 0xa855f7 }));
         divineEggObj.position.set(0, 0.6, isOwnerSecondCityGame ? -80 : -40);
         divineEggObj.userData = { name: 'هێلکەی دیڤاین', mult: 10, mutDrop: 'Rainbow', isDivine: true };
         scene.add(divineEggObj); eggsList.push(divineEggObj);
@@ -1308,13 +1308,13 @@
 
     function createFieryHornsAvatar(parentGroup) {
       const fireHeadGeo = new THREE.SphereGeometry(0.5, 16, 16);
-      const fireHeadMat = new THREE.MeshLambertMaterial({ color: 0xff8c00, emissive: 0xff4500, emissiveIntensity: 1.0, transparent: true, opacity: 0.8 });
+      const fireHeadMat = new THREE.MeshBasicMaterial({ color: 0xff8c00 });
       const fireHead = new THREE.Mesh(fireHeadGeo, fireHeadMat);
       fireHead.position.set(0, 2.7, 0);
       parentGroup.add(fireHead);
 
       const horn1Geo = new THREE.CylinderGeometry(0.08, 0.25, 1.2, 8);
-      const hornMat = new THREE.MeshLambertMaterial({ color: 0x1e293b, emissive: 0xd97706 });
+      const hornMat = new THREE.MeshBasicMaterial({ color: 0xd97706 });
       const horn1 = new THREE.Mesh(horn1Geo, hornMat);
       horn1.position.set(-0.55, 2.8, 0);
       horn1.rotation.z = -0.5;
@@ -1362,14 +1362,13 @@
       renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
       renderer.setSize(window.innerWidth, window.innerHeight);
 
-      scene.add(new THREE.DirectionalLight(0xffffff, 1).position.set(10, 20, 10));
-      scene.add(new THREE.AmbientLight(0x505050));
+      scene.add(new THREE.AmbientLight(0xffffff, 1));
 
       player = new THREE.Group();
       let shirtColor = (currentUser === 'rip_hama276' || userObj.hasVIP) ? 0x0f172a : 0x10b981;
-      const torso = new THREE.Mesh(new THREE.BoxGeometry(1, 1.2, 0.6), new THREE.MeshLambertMaterial({ color: shirtColor }));
+      const torso = new THREE.Mesh(new THREE.BoxGeometry(1, 1.2, 0.6), new THREE.MeshBasicMaterial({ color: shirtColor }));
       torso.position.y = 1.2; player.add(torso);
-      const head = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.7, 0.7), new THREE.MeshLambertMaterial({ color: 0xffdbac }));
+      const head = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.7, 0.7), new THREE.MeshBasicMaterial({ color: 0xffdbac }));
       head.position.y = 2.15; player.add(head);
 
       if(currentUser === 'rip_hama276' || userObj.hasVIP) {
@@ -1377,77 +1376,77 @@
       }
 
       vehicleMesh = new THREE.Group();
-      const vBase = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.7, 2.8), new THREE.MeshLambertMaterial({ color: 0xfbbf24, emissive: 0xfbbf24, emissiveIntensity: 0.8 }));
+      const vBase = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.7, 2.8), new THREE.MeshBasicMaterial({ color: 0xfbbf24 }));
       vBase.position.y = 0.5;
-      const vWing = new THREE.Mesh(new THREE.BoxGeometry(4.0, 0.12, 1.2), new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xa855f7, emissiveIntensity: 0.5 }));
+      const vWing = new THREE.Mesh(new THREE.BoxGeometry(4.0, 0.12, 1.2), new THREE.MeshBasicMaterial({ color: 0xa855f7 }));
       vWing.position.set(0, 0.9, 0);
       vehicleMesh.add(vBase); vehicleMesh.add(vWing);
       vehicleMesh.position.set(0, 0, 0);
       player.add(vehicleMesh);
 
       if(userObj.collectedPets && userObj.collectedPets.length > 0) {
-        auraMesh = new THREE.Mesh(new THREE.SphereGeometry(1.8, 16, 16), new THREE.MeshLambertMaterial({ color: 0xfbbf24, transparent: true, opacity: 0.25, wireframe: true }));
+        auraMesh = new THREE.Mesh(new THREE.SphereGeometry(1.8, 16, 16), new THREE.MeshBasicMaterial({ color: 0xfbbf24, wireframe: true }));
         auraMesh.position.y = 1.2; player.add(auraMesh);
       }
 
       if(userObj.hasShield) {
-        shieldMesh = new THREE.Mesh(new THREE.SphereGeometry(1.6, 16, 16), new THREE.MeshLambertMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.35 }));
+        shieldMesh = new THREE.Mesh(new THREE.SphereGeometry(1.6, 16, 16), new THREE.MeshBasicMaterial({ color: 0x38bdf8 }));
         shieldMesh.position.y = 1.2; player.add(shieldMesh);
       }
 
       const limbGeo = new THREE.BoxGeometry(0.4, 1.2, 0.4);
-      const skinMat = new THREE.MeshLambertMaterial({ color: 0xffdbac });
-      const pantsMat = new THREE.MeshLambertMaterial({ color: 0x1e293b });
+      const skinMat = new THREE.MeshBasicMaterial({ color: 0xffdbac });
+      const pantsMat = new THREE.MeshBasicMaterial({ color: 0x1e293b });
 
-      leftArm = new THREE.Mesh(limbGeo, skinMat); leftArm.position.set(-0.7, 1.2, 0); player.add(leftArm);
-      rightArm = new THREE.Mesh(limbGeo, skinMat); rightArm.position.set(0.7, 1.2, 0); player.add(rightArm);
-      leftLeg = new THREE.Mesh(limbGeo, pantsMat); leftLeg.position.set(-0.3, 0.4, 0); player.add(leftLeg);
-      rightLeg = new THREE.Mesh(limbGeo, pantsMat); rightLeg.position.set(0.3, 0.4, 0); player.add(rightLeg);
+      const leftArm = new THREE.Mesh(limbGeo, skinMat); leftArm.position.set(-0.7, 1.2, 0); player.add(leftArm);
+      const rightArm = new THREE.Mesh(limbGeo, skinMat); rightArm.position.set(0.7, 1.2, 0); player.add(rightArm);
+      const leftLeg = new THREE.Mesh(limbGeo, pantsMat); leftLeg.position.set(-0.3, 0.4, 0); player.add(leftLeg);
+      const rightLeg = new THREE.Mesh(limbGeo, pantsMat); rightLeg.position.set(0.3, 0.4, 0); player.add(rightLeg);
 
       player.position.set(0, 1, 15);
       scene.add(player);
 
       let petColor = userObj.hasGoldenPet ? 0xffd700 : 0xffaa00;
-      petObj = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.5), new THREE.MeshLambertMaterial({ color: petColor, emissive: petColor, emissiveIntensity: 0.5 }));
+      petObj = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.5), new THREE.MeshBasicMaterial({ color: petColor }));
       scene.add(petObj);
 
       shopBooth = new THREE.Group();
-      const boothBase = new THREE.Mesh(new THREE.BoxGeometry(3, 1.5, 2), new THREE.MeshLambertMaterial({ color: 0xfbbf24 }));
+      const boothBase = new THREE.Mesh(new THREE.BoxGeometry(3, 1.5, 2), new THREE.MeshBasicMaterial({ color: 0xfbbf24 }));
       boothBase.position.y = 0.75; shopBooth.add(boothBase);
       shopBooth.position.set(-8, 0, 5);
       scene.add(shopBooth);
 
       jackiaBooth = new THREE.Group();
-      const jBase = new THREE.Mesh(new THREE.BoxGeometry(3, 2, 2), new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xa855f7, emissiveIntensity: 0.7 }));
+      const jBase = new THREE.Mesh(new THREE.BoxGeometry(3, 2, 2), new THREE.MeshBasicMaterial({ color: 0xa855f7 }));
       jBase.position.y = 1; jackiaBooth.add(jBase);
       jackiaBooth.position.set(8, 0, 5);
       scene.add(jackiaBooth);
 
       let floorDepth = isOwnerSecondCityGame ? 400 : 200;
-      const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, floorDepth), new THREE.MeshLambertMaterial({ color: isOwnerSecondCityGame ? 0x090d16 : 0x1e293b }));
+      const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, floorDepth), new THREE.MeshBasicMaterial({ color: isOwnerSecondCityGame ? 0x090d16 : 0x1e293b }));
       floor.rotation.x = -Math.PI / 2; floor.position.z = -50; scene.add(floor);
 
       if (isOwnerSecondCityGame) {
-        const royalGate = new THREE.Mesh(new THREE.BoxGeometry(14, 8, 1.5), new THREE.MeshLambertMaterial({ color: 0xfbbf24, emissive: 0xfbbf24, emissiveIntensity: 0.8 }));
+        const royalGate = new THREE.Mesh(new THREE.BoxGeometry(14, 8, 1.5), new THREE.MeshBasicMaterial({ color: 0xfbbf24 }));
         royalGate.position.set(0, 4, -20); scene.add(royalGate);
 
-        const starTower = new THREE.Mesh(new THREE.CylinderGeometry(2, 3, 22, 16), new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xa855f7, emissiveIntensity: 0.9 }));
+        const starTower = new THREE.Mesh(new THREE.CylinderGeometry(2, 3, 22, 16), new THREE.MeshBasicMaterial({ color: 0xa855f7 }));
         starTower.position.set(-15, 11, -50); scene.add(starTower);
 
-        const ownerMonument = new THREE.Mesh(new THREE.BoxGeometry(3, 6, 3), new THREE.MeshLambertMaterial({ color: 0x10b981, emissive: 0x10b981, emissiveIntensity: 0.7 }));
+        const ownerMonument = new THREE.Mesh(new THREE.BoxGeometry(3, 6, 3), new THREE.MeshBasicMaterial({ color: 0x10b981 }));
         ownerMonument.position.set(15, 3, -40); scene.add(ownerMonument);
 
-        const supersonicPad = new THREE.Mesh(new THREE.BoxGeometry(6, 0.2, 6), new THREE.MeshLambertMaterial({ color: 0x38bdf8, emissive: 0x38bdf8, emissiveIntensity: 0.8 }));
-        supersonicPad.position.set(0, 0.05, -70); scene.add(supersonicPad);
+        supersonicPadMesh = new THREE.Mesh(new THREE.BoxGeometry(6, 0.2, 6), new THREE.MeshBasicMaterial({ color: 0x38bdf8 }));
+        supersonicPadMesh.position.set(0, 0.05, -70); scene.add(supersonicPadMesh);
 
-        const secondCitySign = new THREE.Mesh(new THREE.BoxGeometry(18, 6, 1), new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xa855f7, emissiveIntensity: 1.0 }));
+        const secondCitySign = new THREE.Mesh(new THREE.BoxGeometry(18, 6, 1), new THREE.MeshBasicMaterial({ color: 0xa855f7 }));
         secondCitySign.position.set(0, 16, -160); scene.add(secondCitySign);
       } else {
-        const firstCityZone = new THREE.Mesh(new THREE.PlaneGeometry(40, 30), new THREE.MeshLambertMaterial({ color: 0x10b981, transparent: true, opacity: 0.3 }));
+        const firstCityZone = new THREE.Mesh(new THREE.PlaneGeometry(40, 30), new THREE.MeshBasicMaterial({ color: 0x10b981 }));
         firstCityZone.rotation.x = -Math.PI / 2; firstCityZone.position.set(0, 0.01, 5); scene.add(firstCityZone);
       }
 
-      const homeBase = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 0.1, 32), new THREE.MeshLambertMaterial({ color: 0x3b82f6 }));
+      const homeBase = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 0.1, 32), new THREE.MeshBasicMaterial({ color: 0x3b82f6 }));
       homeBase.position.set(0, 0.05, 15); scene.add(homeBase);
 
       spawnAllEggs();
@@ -1481,7 +1480,8 @@
       let moveX = 0; let moveZ = 0;
 
       let eggScoreBonusSpeed = Math.min(2.5, gameScore / 2000);
-      let currentActiveSpeed = playerSpeed + eggScoreBonusSpeed;
+      let supersonicBoost = (supersonicPadMesh && player.position.distanceTo(supersonicPadMesh.position) < 3.5) ? 1.8 : 1.0;
+      let currentActiveSpeed = (playerSpeed + eggScoreBonusSpeed) * supersonicBoost;
 
       if (keys.up) moveZ -= currentActiveSpeed;
       if (keys.down) moveZ += currentActiveSpeed;

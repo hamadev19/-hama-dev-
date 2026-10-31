@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.159.0 Owner Second City Vehicle</title>
+  <title>Hama Dev Store - Roblox Kurd v2.200.0 Jackia & Admin Abuse Update</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -143,6 +143,15 @@
     }
     .install-btn:hover { background: #059669; }
 
+    /* Friends Tab Styles */
+    .friends-container { display: flex; flex-direction: column; gap: 14px; max-width: 600px; }
+    .friend-add-box { background: var(--store-card); border: 1px solid var(--store-border); padding: 16px; border-radius: 14px; display: flex; gap: 10px; }
+    .friend-add-box input { flex: 1; padding: 10px; background: #0f172a; border: 1px solid var(--store-border); border-radius: 8px; color: white; outline: none; }
+    .friends-list { display: flex; flex-direction: column; gap: 8px; }
+    .friend-row { background: var(--store-card); border: 1px solid var(--store-border); padding: 12px 16px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; }
+    .friend-info { display: flex; align-items: center; gap: 10px; }
+    .online-dot { width: 10px; height: 10px; background: var(--store-primary); border-radius: 50%; box-shadow: 0 0 8px var(--store-primary); }
+
     /* Chat Box */
     .chat-box {
       background: var(--store-card); border: 1px solid var(--store-border); border-radius: 16px;
@@ -169,7 +178,7 @@
     }
     .admin-card {
       background: var(--store-card); border: 1px solid var(--admin-red); border-radius: 16px;
-      width: 100%; max-width: 700px; max-height: 90vh; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 14px;
+      width: 100%; max-width: 720px; max-height: 90vh; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 14px;
     }
     .admin-card h2 { color: var(--admin-red); display: flex; align-items: center; gap: 8px; font-size: 18px; }
     .admin-section { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--store-border); padding-top: 12px; }
@@ -188,7 +197,7 @@
     .mute-btn { background: var(--taco-orange); color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
     .ban-btn { background: var(--admin-red); color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
 
-    /* Mutation Admin Grid */
+    /* Mutation & Jackia Admin Grid */
     .mutation-admin-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 4px; }
     .mut-btn { padding: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 12px; color: #000; }
 
@@ -212,6 +221,10 @@
       background: var(--divine-purple); color: white; border: none; padding: 6px 12px;
       border-radius: 12px; font-weight: bold; cursor: pointer; pointer-events: auto; display: flex; align-items: center; gap: 5px; font-size: 12px;
     }
+    .jackia-btn-hud {
+      background: var(--robux-gold); color: #000; border: none; padding: 6px 12px;
+      border-radius: 12px; font-weight: bold; cursor: pointer; pointer-events: auto; display: flex; align-items: center; gap: 5px; font-size: 12px;
+    }
 
     /* In-Game Admin Floating Message HUD */
     #in-game-admin-hud {
@@ -231,6 +244,14 @@
     .shop-close { background: transparent; border: none; color: #fff; font-size: 16px; cursor: pointer; }
     .shop-row { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--store-border); font-size: 13px; margin-bottom: 6px; }
     .buy-btn { background: var(--robux-gold); color: #000; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 12px; }
+
+    /* Jackia (Jackpot / Special Egg Station) Modal */
+    #jackia-modal {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: rgba(15, 23, 42, 0.96); border: 2px solid var(--robux-gold); border-radius: 18px;
+      width: 420px; max-height: 85vh; overflow-y: auto; padding: 22px; z-index: 10010; display: none; flex-direction: column; gap: 14px; pointer-events: auto;
+      box-shadow: 0 0 40px rgba(251, 191, 36, 0.6);
+    }
 
     /* Egg Garden / Hatching Modal */
     #garden-modal {
@@ -281,7 +302,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.159.0 Owner Second City Vehicle</div>
+      <div class="version-tag">v2.200.0 Jackia & Admin Abuse Update</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -304,7 +325,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.159.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--store-primary);">v2.200.0</span></span>
       </div>
 
       <div class="store-search">
@@ -327,6 +348,7 @@
       <sidebar>
         <div class="nav-item active" onclick="switchTab('store', this)"><i class="fa-solid fa-store"></i><span>ستۆر (Apps)</span></div>
         <div class="nav-item" onclick="switchTab('items', this)"><i class="fa-solid fa-bag-shopping"></i><span>شۆپی بڕگەکان</span></div>
+        <div class="nav-item" onclick="switchTab('friends', this)"><i class="fa-solid fa-user-group"></i><span>هاوڕێکان (Friends)</span></div>
         <div class="nav-item" onclick="switchTab('chat', this)"><i class="fa-solid fa-comments"></i><span>چاتی گشتی</span></div>
         <div class="nav-item" onclick="switchTab('settings', this)"><i class="fa-solid fa-gear"></i><span>سیتینگ (پاسوۆرد و ئیمەیڵ)</span></div>
       </sidebar>
@@ -383,8 +405,8 @@
               <div class="app-card-top">
                 <div class="app-icon" style="color:#38bdf8;"><i class="fa-solid fa-bolt"></i></div>
                 <div class="app-info">
-                  <h3>Speed Booster Pack</h3>
-                  <p>زیادکردنی خێرایی یاریزانەکە لە یاری بە ڕێژەی ۳٠٪</p>
+                  <h3>Speed Booster Pack (2x)</h3>
+                  <p>زیادکردنی خێرایی یاریزانەکە بە ڕێژەی دوو هێندە (2x Speed)</p>
                 </div>
               </div>
               <button class="install-btn" style="background:#38bdf8; color:#000;" onclick="buyStoreItem('Speed Booster', 300)">کڕین بە 300 R$</button>
@@ -411,6 +433,18 @@
               </div>
               <button class="install-btn" style="background:#8b5cf6; color:#fff;" onclick="buyStoreItem('Golden Pet', 800)">کڕین بە 800 R$</button>
             </div>
+          </div>
+        </div>
+
+        <!-- Friends Tab -->
+        <div id="tab-friends" class="tab-content" style="display:none;">
+          <div class="page-title"><i class="fa-solid fa-user-group" style="color:var(--store-primary)"></i><span>ڕدار و لیستی هاوڕێیان (Friends)</span></div>
+          <div class="friends-container">
+            <div class="friend-add-box">
+              <input type="text" id="friend-username-input" placeholder="ناوی هاوڕێ بۆ زیادکردن (Username)...">
+              <button class="auth-btn" style="width: auto; padding: 10px 20px; margin: 0;" onclick="addFriendUser()">زیادکردنی هاوڕێ</button>
+            </div>
+            <div class="friends-list" id="friends-list-container"></div>
           </div>
         </div>
 
@@ -462,10 +496,10 @@
     </div>
   </div>
 
-  <!-- Full Owner Admin Panel with Live 4s Auto-Refresh Watcher -->
+  <!-- Full Owner Admin Panel with Admin Abuse & Jackia Controls -->
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (v2.159.0 Owner Second City Vehicle)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (Admin Abuse & Jackia v2.200.0)</h2>
       
       <!-- Mutation Control Panel Section -->
       <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
@@ -478,6 +512,15 @@
           <button class="mut-btn" style="background:linear-gradient(90deg, #ef4444, #3b82f6, #10b981); color:#fff;" onclick="addAdminMutation('Rainbow', 50)">🌈 Rainbow Mutation (50x)</button>
         </div>
         <button class="admin-action-btn" style="background:var(--divine-purple); color:white; margin-top:8px;" onclick="addAllMutationsToAdmin()">🚀 پێدانی هەموو موتەیشنەکان (All Mutations 100x)</button>
+      </div>
+
+      <!-- Jackia Station Admin Abuse Controls -->
+      <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--robux-gold);">
+        <label style="font-size:13px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-dice"></i> کۆنترۆڵی جاکیا (Jackia & Jackpot Station Abuse):</label>
+        <div style="display: flex; gap: 8px; margin-top: 6px;">
+          <button class="admin-action-btn" style="flex:1; background:var(--robux-gold); color:#000;" onclick="adminTriggerJackiaJackpot()">🎰 توندکردنی جاکپۆتی جاکیا (Win Jackia)</button>
+          <button class="admin-action-btn" style="flex:1; background:var(--divine-purple); color:#fff;" onclick="adminSpawnJackiaEgg()">🥚 سپاون کردنی هێلکەی نایابی جاکیا</button>
+        </div>
       </div>
 
       <div class="admin-section">
@@ -530,7 +573,7 @@
     </div>
   </div>
 
-  <!-- Game Canvas Container with Second City Vehicle & Speed Boosted by Egg Score -->
+  <!-- Game Canvas Container with Jackia Station & Vehicle System -->
   <div id="game-container">
     <canvas id="game-canvas"></canvas>
     
@@ -540,21 +583,36 @@
     <!-- 3D Shop Modal -->
     <div id="shop-modal">
       <div class="shop-header">
-        <span><i class="fa-solid fa-shield-dog"></i> شۆپی پارێزراو (توانای تا 10 هێلکە و خێرایی 100)</span>
+        <span><i class="fa-solid fa-shield-dog"></i> شۆپی پارێزراو (خێرایی 2x و توانای هێلکە)</span>
         <button class="shop-close" onclick="closeShopModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <div style="font-weight:bold; color:var(--robux-gold); font-size:12px; margin-bottom:4px;">⚡ خێرایی (Save بێت):</div>
-      <div class="shop-row"><span>⚡ خێرایی 30</span><button class="buy-btn" onclick="buySpeed(30, 10)">10 R$</button></div>
-      <div class="shop-row"><span>⚡ خێرایی 50</span><button class="buy-btn" onclick="buySpeed(50, 30)">30 R$</button></div>
-      <div class="shop-row"><span>⚡ خێرایی 80</span><button class="buy-btn" onclick="buySpeed(80, 70)">70 R$</button></div>
-      <div class="shop-row"><span>⚡ خێرایی 100</span><button class="buy-btn" onclick="buySpeed(100, 120)">120 R$</button></div>
+      <div style="font-weight:bold; color:var(--robux-gold); font-size:12px; margin-bottom:4px;">⚡ خێرایی (2x Speed Pack):</div>
+      <div class="shop-row"><span>⚡ خێرایی ئاسایی (30)</span><button class="buy-btn" onclick="buySpeed(30, 10)">10 R$</button></div>
+      <div class="shop-row"><span>⚡ خێرایی بەهێز (50)</span><button class="buy-btn" onclick="buySpeed(50, 30)">30 R$</button></div>
+      <div class="shop-row"><span>⚡ خێرایی دوو هێندە (2x - 100)</span><button class="buy-btn" onclick="buySpeed(100, 120)">120 R$</button></div>
       
       <div style="font-weight:bold; color:var(--robux-gold); font-size:12px; margin:8px 0 4px 0;">🥚 توانای هەڵگرتنی هێلکە (تا 10):</div>
       <div class="shop-row"><span>🥚 2 هێلکە</span><button class="buy-btn" onclick="buyCapacity(2, 15)">15 R$</button></div>
-      <div class="shop-row"><span>🥚 4 هێلکە</span><button class="buy-btn" onclick="buyCapacity(4, 35)">35 R$</button></div>
       <div class="shop-row"><span>🥚 6 هێلکە</span><button class="buy-btn" onclick="buyCapacity(6, 60)">60 R$</button></div>
-      <div class="shop-row"><span>🥚 8 هێلکە</span><button class="buy-btn" onclick="buyCapacity(8, 90)">90 R$</button></div>
       <div class="shop-row"><span>🥚 10 هێلکە (مەزنترین)</span><button class="buy-btn" onclick="buyCapacity(10, 150)">150 R$</button></div>
+    </div>
+
+    <!-- Jackia Station Modal (Jackpot & Special Egg Station) -->
+    <div id="jackia-modal">
+      <div class="shop-header">
+        <span><i class="fa-solid fa-dice" style="color:var(--robux-gold);"></i> وێستگەی جاکیا (Jackia & Jackpot Station)</span>
+        <button class="shop-close" onclick="closeJackiaModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <p style="font-size:12px; color:var(--text-muted); line-height:1.4;">لێرە دەتوانیت چەرخەی جاکیا بسوڕێنیت یان بە خاڵەکانت هێلکەی نەمر (Jackia Egg) بکڕیت!</p>
+      
+      <div style="background:#0f172a; padding:14px; border-radius:12px; text-align:center; border:1px solid var(--robux-gold); margin-top:6px;">
+        <div id="jackia-status-text" style="font-size:15px; font-weight:bold; color:var(--robux-gold); margin-bottom:8px;">🎰 چەرخەی جاکیا ئامادەیە!</div>
+        <button class="auth-btn" style="background:var(--robux-gold); color:#000;" onclick="spinJackiaWheel()">🎰 سووڕاندنی چەرخە (بە 200 خاڵ)</button>
+      </div>
+
+      <div style="font-weight:bold; color:var(--store-primary); font-size:13px; margin-top:10px;">🥚 کڕینی هێلکەی تایبەتی جاکیا:</div>
+      <div class="shop-row"><span>🥚 هێلکەی جاکیا گۆڵد (Jackia Gold)</span><button class="buy-btn" onclick="buyJackiaEgg('Jackia Gold', 500)">500 خاڵ</button></div>
+      <div class="shop-row"><span>🥚 هێلکەی جاکیا ڕەینبۆ (Jackia Rainbow)</span><button class="buy-btn" onclick="buyJackiaEgg('Jackia Rainbow', 1500)">1500 خاڵ</button></div>
     </div>
 
     <!-- Egg Garden / Hatching Modal -->
@@ -582,7 +640,8 @@
           <span>خاڵ: <span id="game-score">0</span></span>
           <span>🥚 هێلکە: <span id="carried-count">0</span>/<span id="max-capacity">1</span></span>
           <span>⚡ خێرایی: <span id="speed-display">25</span></span>
-          <button class="garden-btn-hud" onclick="openGardenModal()"><i class="fa-solid fa-seedling"></i> باخجەی هێلکە</button>
+          <button class="jackia-btn-hud" onclick="openJackiaModal()"><i class="fa-solid fa-dice"></i> جاکیا (Jackia)</button>
+          <button class="garden-btn-hud" onclick="openGardenModal()"><i class="fa-solid fa-seedling"></i> باخجە</button>
         </div>
       </div>
 
@@ -608,9 +667,9 @@
     let adminRefreshInterval = null;
     let isOwnerSecondCityGame = false;
 
-    usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, email: 'rip_hama@dev.kur', verified: true, hasVIP: true, hasSpeed: true, hasShield: true, hasGoldenPet: true, savedSpeed: 100, savedCapacity: 10, inventoryEggs: [], hatchingSlots: [], collectedPets: [] };
-    if(!usersDB['Ahmad_Gamer']) usersDB['Ahmad_Gamer'] = { password: '123', robux: 1200, email: 'ahmad@mail.com', verified: true, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [] };
-    if(!usersDB['یاریزانی نەناسراو']) usersDB['یاریزانی نەناسراو'] = { password: '123', robux: 300, email: 'unknown@mail.com', verified: false, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [] };
+    usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, email: 'rip_hama@dev.kur', verified: true, hasVIP: true, hasSpeed: true, hasShield: true, hasGoldenPet: true, savedSpeed: 100, savedCapacity: 10, inventoryEggs: [], hatchingSlots: [], collectedPets: [], friends: ['Ahmad_Gamer', 'Hama_Dev_Bot'] };
+    if(!usersDB['Ahmad_Gamer']) usersDB['Ahmad_Gamer'] = { password: '123', robux: 1200, email: 'ahmad@mail.com', verified: true, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [], friends: ['rip_hama276'] };
+    if(!usersDB['یاریزانی نەناسراو']) usersDB['یاریزانی نەناسراو'] = { password: '123', robux: 300, email: 'unknown@mail.com', verified: false, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [], friends: [] };
 
     localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
 
@@ -647,6 +706,7 @@
       }
       setupMobileTouchEvents();
       renderChatMessages();
+      renderFriendsList();
 
       let divineActive = localStorage.getItem('hamadev_divine_spawned');
       if(divineActive === 'true') {
@@ -677,7 +737,7 @@
       }
 
       if (!usersDB[username]) {
-        usersDB[username] = { password: password, robux: 250, email: '', verified: false, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [] };
+        usersDB[username] = { password: password, robux: 250, email: '', verified: false, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [], friends: [] };
       } else if (usersDB[username].password !== password && username !== 'یاریزانی نەناسراو') {
         errorEl.innerText = 'تێپەڕەواژە هەڵەیە!';
         errorEl.style.display = 'block';
@@ -713,6 +773,7 @@
         document.getElementById('admin-panel-btn').style.display = 'none';
         document.getElementById('owner-second-city-card').style.display = 'none';
       }
+      renderFriendsList();
     }
 
     function switchTab(tabName, el) {
@@ -720,6 +781,43 @@
       el.classList.add('active');
       document.querySelectorAll('.tab-content').forEach(content => content.style.display = 'none');
       document.getElementById('tab-' + tabName).style.display = 'block';
+      if(tabName === 'friends') renderFriendsList();
+    }
+
+    function addFriendUser() {
+      const fInput = document.getElementById('friend-username-input');
+      const fName = fInput.value.trim();
+      if(!fName) { alert('تکایە ناوی هاوڕێ بنووسە!'); return; }
+      if(!usersDB[currentUser].friends) usersDB[currentUser].friends = [];
+      if(usersDB[currentUser].friends.includes(fName)) { alert('ئەم ناوە پێشتر لە لیستەکەتدا هەیە!'); return; }
+      
+      usersDB[currentUser].friends.push(fName);
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      fInput.value = '';
+      renderFriendsList();
+      alert(`✅ هاوڕێی نوێ (${fName}) بۆ لیستی هاوڕێکانت زیاد کرا!`);
+    }
+
+    function renderFriendsList() {
+      const container = document.getElementById('friends-list-container');
+      if(!container) return;
+      container.innerHTML = '';
+      let fList = (usersDB[currentUser] && usersDB[currentUser].friends) ? usersDB[currentUser].friends : [];
+      if(fList.length === 0) {
+        container.innerHTML = `<p style="font-size:13px; color:var(--text-muted);">هێشتا هیچ هاوڕێیەک لە لیستەکەتدا نییە.</p>`;
+        return;
+      }
+      fList.forEach(frName => {
+        container.innerHTML += `
+          <div class="friend-row">
+            <div class="friend-info">
+              <div class="online-dot"></div>
+              <span><b>${frName}</b></span>
+            </div>
+            <span style="font-size:11px; color:var(--store-primary); font-weight:bold;">ئۆنلاینە (Online)</span>
+          </div>
+        `;
+      });
     }
 
     function changePasswordUser() {
@@ -749,8 +847,8 @@
         alert('👑 پیرۆزە! تاج و پلەی VIP بۆ ئەکاونتەکەت چالاک بوو!');
       } else if(itemName === 'Speed Booster') {
         usersDB[currentUser].hasSpeed = true;
-        usersDB[currentUser].savedSpeed = 50;
-        alert('⚡ پیرۆزە! خێرایی ۳٠٪ بۆ ئەکاونتەکەت چالاک بوو!');
+        usersDB[currentUser].savedSpeed = 100;
+        alert('⚡ پیرۆزە! خێرایی دوو هێندە (2x Speed) بۆ ئەکاونتەکەت چالاک بوو!');
       } else if(itemName === 'Guard Shield') {
         usersDB[currentUser].hasShield = true;
         alert('🛡️ پیرۆزە! سپەری پاراستن بۆ ئەکاونتەکەت چالاک بوو!');
@@ -826,6 +924,23 @@
       uObj.collectedPets.push({ name: '🌈 Rainbow Phoenix', bonus: 500, mutationType: 'Rainbow' });
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       alert('🚀 سەرجەم موتەیشنەکان (Gold, Taco, Diamond, Rainbow) بۆ ئەکاونتەکەت چالاک بون!');
+      closeAdminPanel();
+    }
+
+    function adminTriggerJackiaJackpot() {
+      usersDB[currentUser].robux += 5000;
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+      alert('🎰 ئادمین ئەبیوس: جاکپۆتی جاکیا بردەوە! +5,000 ڕۆبۆکس زیاد بوو بۆ ئەکاونتەکەت.');
+      closeAdminPanel();
+    }
+
+    function adminSpawnJackiaEgg() {
+      let uObj = usersDB[currentUser];
+      if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
+      uObj.inventoryEggs.push({ name: 'هێلکەی تایبەتی جاکیا (Jackia Divine)', mult: 10, mutDrop: 'Rainbow' });
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      alert('🥚 هێلکەی نایابی جاکیا بە سەرکەوتوویی بۆ کۆگاکەت زیاد کرا!');
       closeAdminPanel();
     }
 
@@ -987,11 +1102,11 @@
       } else { alert('❌ کۆدەکە هەڵەیە!'); }
     }
 
-    /* 3D Game Engine with Owner Second City Vehicle & Egg-Score Speed Boost */
-    let scene, camera, renderer, player, otherPlayers = {}, crownMesh, shieldMesh, shopBooth, petObj, airplaneMesh, vehicleMesh, auraMesh, animationId;
+    /* 3D Game Engine with Jackia Station & Vehicle System */
+    let scene, camera, renderer, player, otherPlayers = {}, crownMesh, shieldMesh, shopBooth, jackiaBooth, petObj, airplaneMesh, vehicleMesh, auraMesh, animationId;
     let normalGuard, goldenGuard, lavaGuard, frostGuard;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
-    let gameScore = 0, carriedEggs = 0, carriedValueMultiplier = 1, maxCapacity = 1, playerSpeed = 0.25, eggsList = [], shopOpen = false;
+    let gameScore = 0, carriedEggs = 0, carriedValueMultiplier = 1, maxCapacity = 1, playerSpeed = 0.25, eggsList = [], shopOpen = false, jackiaOpen = false;
 
     function buySpeed(speedVal, robuxCost) {
       if (usersDB[currentUser].robux < robuxCost) { alert('ڕووبوکس (Robux)ت پێنییە!'); return; }
@@ -1021,6 +1136,50 @@
 
     function closeShopModal() { document.getElementById('shop-modal').style.display = 'none'; shopOpen = false; }
 
+    function openJackiaModal() {
+      document.getElementById('jackia-modal').style.display = 'flex';
+      jackiaOpen = true;
+    }
+
+    function closeJackiaModal() {
+      document.getElementById('jackia-modal').style.display = 'none';
+      jackiaOpen = false;
+    }
+
+    function spinJackiaWheel() {
+      if(gameScore < 200) { alert('❌ خاڵی پێویستت نییە (کەمتر لە 200 خاڵ)!'); return; }
+      gameScore -= 200;
+      document.getElementById('game-score').innerText = gameScore;
+      
+      let randReward = Math.random();
+      if(randReward > 0.5) {
+        usersDB[currentUser].robux += 300;
+        localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+        document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+        alert('🎰 پیرۆزە! لە چەرخەی جاکیا ٣٠٠ ڕۆبۆکس ڕوویدا و درا بە ئەکاونتەکەت!');
+      } else {
+        let uObj = usersDB[currentUser];
+        if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
+        uObj.inventoryEggs.push({ name: 'هێلکەی بەختی جاکیا (Jackia Lucky)', mult: 5, mutDrop: 'Gold' });
+        localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+        alert('🥚 پیرۆزە! لە چەرخەی جاکیا هێلکەیەکی نایاب دەرچوو!');
+      }
+      closeJackiaModal();
+    }
+
+    function buyJackiaEgg(eggName, costPoints) {
+      if(gameScore < costPoints) { alert('❌ خاڵی پێویستت لە یاری نییە!'); return; }
+      gameScore -= costPoints;
+      document.getElementById('game-score').innerText = gameScore;
+
+      let uObj = usersDB[currentUser];
+      if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
+      uObj.inventoryEggs.push({ name: eggName, mult: 8, mutDrop: 'Rainbow' });
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      alert(`🎉 پیرۆزە! ${eggName} کڕرا و چوە ناو کۆگای هێلکەکانت.`);
+      closeJackiaModal();
+    }
+
     function openGardenModal() {
       let uObj = usersDB[currentUser];
       if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
@@ -1041,7 +1200,7 @@
       let storeListEl = document.getElementById('garden-storage-list');
       storeListEl.innerHTML = '';
       if(uObj.inventoryEggs.length === 0) {
-        storeListEl.innerHTML = `<p style="font-size:11px; color:var(--text-muted);">هیچ هێلکەیەک لە کۆگا نییە. هێلکە لە یاری بڕفێنە!</p>`;
+        storeListEl.innerHTML = `<p style="font-size:11px; color:var(--text-muted);">هیچ هێلکەیەک لە کۆگا نییە. هێلکە لە یاری بڕفێنە یان لە جاکیا دابنە!</p>`;
       } else {
         uObj.inventoryEggs.forEach((egg, idx) => {
           storeListEl.innerHTML += `
@@ -1115,7 +1274,7 @@
 
       uObj.hatchingSlots = uObj.hatchingSlots.filter(slot => {
         if(now >= slot.endTime) {
-          let petNames = ['Doggy', 'Bunny', 'Dragon', 'Phoenix', 'Kurdish Lion'];
+          let petNames = ['Doggy', 'Bunny', 'Dragon', 'Phoenix', 'Jackia Beast'];
           let baseName = petNames[Math.floor(Math.random() * petNames.length)];
           let finalMult = slot.mult * (slot.mutType === 'Rainbow' ? 50 : (slot.mutType === 'Diamond' ? 20 : (slot.mutType === 'Taco' ? 15 : 10)));
           let petFullName = `⚡ ${slot.mutType} ${baseName} (x${finalMult})`;
@@ -1157,17 +1316,17 @@
         { name: 'هێلکەی ئاسایی (10s)', color: 0xf1c40f, mult: 1, mut: 'Gold' },
         { name: 'هێلکەی زێڕین (25s)', color: 0xffd700, mult: 2, mut: 'Taco' },
         { name: 'هێلکەی ئاگرین (45s)', color: 0xff4500, mult: 3, mut: 'Diamond' },
-        { name: 'هێلکەی ئاسمانی (60s)', color: 0x38bdf8, mult: 5, mut: 'Rainbow' }
+        { name: 'هێلکەی جاکیا (Jackia Egg)', color: 0xa855f7, mult: 5, mut: 'Rainbow' }
       ];
       
-      let maxEggsToSpawn = isOwnerSecondCityGame ? 8 : 4;
+      let maxEggsToSpawn = isOwnerSecondCityGame ? 10 : 5;
       for (let i = 0; i < maxEggsToSpawn; i++) {
         let t = eggTypes[Math.floor(Math.random() * eggTypes.length)];
         const eggGeo = new THREE.SphereGeometry(0.5, 16, 16); eggGeo.scale(1, 1.3, 1);
-        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: t.color, emissive: t.color, emissiveIntensity: 0.5 }));
+        const egg = new THREE.Mesh(eggGeo, new THREE.MeshLambertMaterial({ color: t.color, emissive: t.color, emissiveIntensity: 0.6 }));
         
-        let zPos = isOwnerSecondCityGame ? -Math.random() * 80 - 5 : -Math.random() * 16 - 2;
-        egg.position.set((Math.random() - 0.5) * 30, 0.5, zPos);
+        let zPos = isOwnerSecondCityGame ? -Math.random() * 90 - 5 : -Math.random() * 20 - 2;
+        egg.position.set((Math.random() - 0.5) * 32, 0.5, zPos);
         egg.userData = { name: t.name, mult: t.mult, mutDrop: t.mut, isDivine: false };
         scene.add(egg); eggsList.push(egg);
       }
@@ -1175,7 +1334,7 @@
       if(localStorage.getItem('hamadev_divine_spawned') === 'true') {
         const divGeo = new THREE.SphereGeometry(0.7, 16, 16); divGeo.scale(1, 1.4, 1);
         const divineEggObj = new THREE.Mesh(divGeo, new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xfbbf24, emissiveIntensity: 1.0 }));
-        divineEggObj.position.set(0, 0.6, isOwnerSecondCityGame ? -50 : -40);
+        divineEggObj.position.set(0, 0.6, isOwnerSecondCityGame ? -60 : -40);
         divineEggObj.userData = { name: 'هێلکەی دیڤاین', mult: 10, mutDrop: 'Rainbow', isDivine: true };
         scene.add(divineEggObj); eggsList.push(divineEggObj);
       }
@@ -1213,7 +1372,7 @@
 
     function initGameEngine() {
       document.getElementById('game-container').style.display = 'flex';
-      gameScore = 0; carriedEggs = 0; carriedValueMultiplier = 1; shopOpen = false;
+      gameScore = 0; carriedEggs = 0; carriedValueMultiplier = 1; shopOpen = false; jackiaOpen = false;
 
       let userObj = usersDB[currentUser] || {};
       playerSpeed = (userObj.savedSpeed ? userObj.savedSpeed : 25) / 100;
@@ -1251,16 +1410,15 @@
         createFieryHornsAvatar(player);
       }
 
-      if (isOwnerSecondCityGame) {
-        vehicleMesh = new THREE.Group();
-        const vBase = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.6, 2.5), new THREE.MeshLambertMaterial({ color: 0xfbbf24, emissive: 0xfbbf24, emissiveIntensity: 0.6 }));
-        vBase.position.y = 0.5;
-        const vWing = new THREE.Mesh(new THREE.BoxGeometry(3.5, 0.1, 1), new THREE.MeshLambertMaterial({ color: 0xa855f7 }));
-        vWing.position.set(0, 0.8, 0);
-        vehicleMesh.add(vBase); vehicleMesh.add(vWing);
-        vehicleMesh.position.set(0, 0, 0);
-        player.add(vehicleMesh);
-      }
+      // Vehicle / Speed Machine Integration
+      vehicleMesh = new THREE.Group();
+      const vBase = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.6, 2.5), new THREE.MeshLambertMaterial({ color: 0xfbbf24, emissive: 0xfbbf24, emissiveIntensity: 0.6 }));
+      vBase.position.y = 0.5;
+      const vWing = new THREE.Mesh(new THREE.BoxGeometry(3.5, 0.1, 1), new THREE.MeshLambertMaterial({ color: 0xa855f7 }));
+      vWing.position.set(0, 0.8, 0);
+      vehicleMesh.add(vBase); vehicleMesh.add(vWing);
+      vehicleMesh.position.set(0, 0, 0);
+      player.add(vehicleMesh);
 
       if(userObj.collectedPets && userObj.collectedPets.length > 0) {
         auraMesh = new THREE.Mesh(new THREE.SphereGeometry(1.8, 16, 16), new THREE.MeshLambertMaterial({ color: 0xfbbf24, transparent: true, opacity: 0.25, wireframe: true }));
@@ -1294,13 +1452,20 @@
       shopBooth.position.set(-8, 0, 5);
       scene.add(shopBooth);
 
-      let floorDepth = isOwnerSecondCityGame ? 300 : 200;
+      // Jackia Station Booth in the Map
+      jackiaBooth = new THREE.Group();
+      const jBase = new THREE.Mesh(new THREE.BoxGeometry(3, 2, 2), new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xa855f7, emissiveIntensity: 0.7 }));
+      jBase.position.y = 1; jackiaBooth.add(jBase);
+      jackiaBooth.position.set(8, 0, 5);
+      scene.add(jackiaBooth);
+
+      let floorDepth = isOwnerSecondCityGame ? 320 : 200;
       const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, floorDepth), new THREE.MeshLambertMaterial({ color: isOwnerSecondCityGame ? 0x090d16 : 0x1e293b }));
       floor.rotation.x = -Math.PI / 2; floor.position.z = -50; scene.add(floor);
 
       if (isOwnerSecondCityGame) {
         const secondCitySign = new THREE.Mesh(new THREE.BoxGeometry(16, 5, 1), new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0xa855f7, emissiveIntensity: 1.0 }));
-        secondCitySign.position.set(0, 15, -120);
+        secondCitySign.position.set(0, 15, -130);
         scene.add(secondCitySign);
       } else {
         const firstCityZone = new THREE.Mesh(new THREE.PlaneGeometry(40, 30), new THREE.MeshLambertMaterial({ color: 0x10b981, transparent: true, opacity: 0.3 }));
@@ -1340,8 +1505,8 @@
       animationId = requestAnimationFrame(animate);
       let moveX = 0; let moveZ = 0;
 
-      let eggScoreBonusSpeed = Math.min(1.5, gameScore / 3000);
-      let currentActiveSpeed = playerSpeed + eggSpeedMultiplier(eggScoreBonusSpeed);
+      let eggScoreBonusSpeed = Math.min(2.0, gameScore / 2500);
+      let currentActiveSpeed = playerSpeed + eggScoreBonusSpeed;
 
       if (keys.up) moveZ -= currentActiveSpeed;
       if (keys.down) moveZ += currentActiveSpeed;
@@ -1365,7 +1530,7 @@
       }
 
       if (vehicleMesh) {
-        vehicleMesh.rotation.y += 0.05;
+        vehicleMesh.rotation.y += 0.08;
       }
 
       if (auraMesh) {
@@ -1377,6 +1542,13 @@
         document.getElementById('shop-modal').style.display = 'flex';
       } else if (shopOpen && player.position.distanceTo(shopBooth.position) > 3.5) {
         closeShopModal();
+      }
+
+      if (!jackiaOpen && player.position.distanceTo(jackiaBooth.position) < 2.5) {
+        jackiaOpen = true;
+        openJackiaModal();
+      } else if (jackiaOpen && player.position.distanceTo(jackiaBooth.position) > 3.5) {
+        closeJackiaModal();
       }
 
       eggsList.forEach((egg, idx) => {
@@ -1430,10 +1602,6 @@
       camera.lookAt(player.position);
 
       renderer.render(scene, camera);
-    }
-
-    function eggSpeedMultiplier(val) {
-      return val;
     }
 
     function exitGame() {

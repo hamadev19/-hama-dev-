@@ -3,49 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.460.0 All Cities Jackia</title>
+  <title>Hama Dev Store - Roblox Kurd v2.470.0 Jackia First City Booths</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <!-- PWA Dynamic Inline Manifest & Dynamic Service Worker -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#10b981">
   <script>
-    const manifestData = {
-      "name": "Hama Dev Play",
-      "short_name": "Hama Dev",
-      "start_url": ".",
-      "display": "standalone",
-      "background_color": "#0f172a",
-      "theme_color": "#10b981",
-      "icons": [{
-        "src": "701.jpg",
-        "sizes": "192x192 512x512",
-        "type": "image/jpeg"
-      }]
-    };
-    const manifestBlob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
-    const manifestURL = URL.createObjectURL(manifestBlob);
-    const link = document.createElement('link');
-    link.rel = 'manifest';
-    link.href = manifestURL;
-    document.head.appendChild(link);
-
     if ('serviceWorker' in navigator) {
-      const swCode = `
-        self.addEventListener('install', (e) => self.skipWaiting());
-        self.addEventListener('activate', (e) => self.clients.claim());
-        self.addEventListener('fetch', (e) => e.respondWith(fetch(e.request).catch(() => new Response("Offline"))));
-      `;
-      const swBlob = new Blob([swCode], {type: 'text/javascript'});
-      const swURL = URL.createObjectURL(swBlob);
-      navigator.serviceWorker.register(swURL)
-        .then(() => console.log('Service Worker Active'))
-        .catch(err => console.log('SW Error:', err));
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('Service Worker Registered Successfully'))
+        .catch(err => console.log('SW registration failed:', err));
     }
   </script>
-
-  <meta name="theme-color" content="#10b981">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
 
   <style>
     :root {
@@ -315,7 +285,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.460.0 All Cities Jackia</div>
+      <div class="version-tag">v2.470.0 Jackia First City Booths</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -337,7 +307,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.460.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.470.0</span></span>
       </div>
 
       <div class="store-search">
@@ -503,7 +473,7 @@
 
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (Jackia Working v2.460.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (Jackia Working v2.470.0)</h2>
       
       <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
         <label style="font-size:13px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-dna"></i> پەنێڵی گشتی موتەیشنەکان (Mutations Control):</label>
@@ -1455,7 +1425,6 @@
       const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, floorDepth), new THREE.MeshBasicMaterial({ color: isOwnerSecondCityGame ? 0x090d16 : 0x111827 }));
       floor.rotation.x = -Math.PI / 2; floor.position.z = -50; scene.add(floor);
 
-      // Jackia World Elements for First City
       const jackiaGate1 = new THREE.Mesh(new THREE.BoxGeometry(14, 8, 1.5), new THREE.MeshBasicMaterial({ color: 0xfbbf24 }));
       jackiaGate1.position.set(0, 4, -20); scene.add(jackiaGate1);
 

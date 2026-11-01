@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.480.0 Steal An Egg Ultimate Edition</title>
+  <title>Hama Dev Store - Roblox Kurd v2.490.0 Ultimate Steal An Egg & Disco</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -214,6 +214,10 @@
       background: var(--robux-gold); color: #000; border: none; padding: 6px 12px;
       border-radius: 12px; font-weight: bold; cursor: pointer; pointer-events: auto; display: flex; align-items: center; gap: 5px; font-size: 12px;
     }
+    .disco-btn-hud {
+      background: linear-gradient(90deg, #ef4444, #3b82f6, #10b981); color: white; border: none; padding: 6px 12px;
+      border-radius: 12px; font-weight: bold; cursor: pointer; pointer-events: auto; display: flex; align-items: center; gap: 5px; font-size: 12px;
+    }
 
     #in-game-admin-hud {
       position: absolute; top: 75px; left: 50%; transform: translateX(-50%);
@@ -278,14 +282,14 @@
 
   <div id="global-announcement-banner">
     <i class="fa-solid fa-gift" style="font-size: 20px; color:#fde047;"></i>
-    <span id="announcement-text">🎁 دیڤاینێک سپاون بوو! ڕابکەن بۆ بردنی 1090 ڕۆبۆکس!</span>
+    <span id="announcement-text">🎁 دیڤاینێک لە شاری یەکەم سپاون بوو! ڕابکەن بۆ بردنی ١٠٩٠ ڕۆبۆکس!</span>
   </div>
 
   <div id="auth-screen">
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.480.0 Steal An Egg Ultimate Edition</div>
+      <div class="version-tag">v2.490.0 Ultimate Steal An Egg & Disco</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -307,7 +311,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.480.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.490.0</span></span>
       </div>
 
       <div class="store-search">
@@ -345,7 +349,7 @@
                 <div class="app-info">
                   <h3>Steal An Egg - شاری یەکەم (Jackia First City)</h3>
                   <p>خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-badge"></i></p>
-                  <p style="color:var(--robux-gold); margin-top:2px; font-weight:bold;">👑 شاری یەکەمی جاکیا (Working Jackia Systems)</p>
+                  <p style="color:var(--robux-gold); margin-top:2px; font-weight:bold;">👑 شاری یەکەمی ڕەسەن (هێلکە و پاسەوان)</p>
                 </div>
               </div>
               <button class="install-btn" style="background:var(--robux-gold); color:#000;" onclick="startStealAnEggGame()"><i class="fa-solid fa-download"></i> یاری کردن لە شاری یەکەم</button>
@@ -357,7 +361,7 @@
                 <div class="app-info">
                   <h3>Steal an Egg - شاری دووەم (Jackia Second City)</h3>
                   <p>خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-badge"></i></p>
-                  <p style="color:var(--robux-gold); margin-top:2px; font-weight:bold;">👑 شاری دووەم + سپیدی سپۆرت (Supersonic Boost)</p>
+                  <p style="color:var(--robux-gold); margin-top:2px; font-weight:bold;">👑 شاری دووەم + خێرایی خێرا + دیسکۆ</p>
                 </div>
               </div>
               <button class="install-btn" style="background:var(--divine-purple); color:white;" onclick="startOwnerSecondCityGame()"><i class="fa-solid fa-rocket"></i> تاقیکردنەوەی شاری دووەم</button>
@@ -473,7 +477,7 @@
 
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (Steal an Egg Ultimate v2.480.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (v2.490.0 Ultimate)</h2>
       
       <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
         <label style="font-size:13px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-dna"></i> پەنێڵی گشتی موتەیشنەکان (Mutations Control):</label>
@@ -496,8 +500,11 @@
       </div>
 
       <div class="admin-section">
-        <label style="font-size:12px; font-weight:bold; color:var(--divine-purple);"><i class="fa-solid fa-dice-d6"></i> سپاون کردنی دیڤاین بۆ بردنی ١٠٩٠ ڕۆبۆکس (Divine Spawn):</label>
-        <button class="admin-action-btn" style="background:var(--divine-purple); color:white; font-size:14px; padding:12px;" onclick="spawnDivineAdmin()">🎁 سپاون کردنی دیڤاین لە یاری (1090 R$)</button>
+        <label style="font-size:12px; font-weight:bold; color:var(--divine-purple);"><i class="fa-solid fa-dice-d6"></i> سپاون کردنی دیڤاین و خەڵاتی تایبەت (Divine & Jackpot Spawn):</label>
+        <div style="display: flex; gap: 8px; margin-top: 5px;">
+          <button class="admin-action-btn" style="flex:1; background:var(--divine-purple); color:white;" onclick="spawnDivineAdmin(1090)">🎁 دیڤاین (١,٠٩٠ ڕۆبۆکس)</button>
+          <button class="admin-action-btn" style="flex:1; background:var(--robux-gold); color:#000;" onclick="spawnDivineAdmin(100000)">💰 دیڤاینی مەزن (١٠٠,٠٠٠ ڕۆبۆکس)</button>
+        </div>
       </div>
 
       <div class="admin-section">
@@ -607,8 +614,9 @@
           <span>خاڵ: <span id="game-score">0</span></span>
           <span>🥚 هێلکە: <span id="carried-count">0</span>/<span id="max-capacity">1</span></span>
           <span>⚡ خێرایی: <span id="speed-display">25</span></span>
-          <button class="jackia-btn-hud" onclick="openJackiaModal()"><i class="fa-solid fa-dice"></i> جاکیا (Jackia)</button>
+          <button class="jackia-btn-hud" onclick="openJackiaModal()"><i class="fa-solid fa-dice"></i> جاکیا</button>
           <button class="garden-btn-hud" onclick="openGardenModal()"><i class="fa-solid fa-seedling"></i> باخجە</button>
+          <button class="disco-btn-hud" onclick="toggleDiscoMode()"><i class="fa-solid fa-compact-disc"></i> دیسکۆ (<span id="disco-status-lbl">داگیرساندن</span>)</button>
         </div>
       </div>
 
@@ -633,6 +641,7 @@
     let deferredPrompt = null;
     let adminRefreshInterval = null;
     let isOwnerSecondCityGame = false;
+    let isDiscoActive = false;
 
     usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, email: 'rip_hama@dev.kur', verified: true, hasVIP: true, hasSpeed: true, hasShield: true, hasGoldenPet: true, savedSpeed: 100, savedCapacity: 10, inventoryEggs: [], hatchingSlots: [], collectedPets: [], friends: ['Ahmad_Gamer', 'Hama_Dev_Bot'] };
     if(!usersDB['Ahmad_Gamer']) usersDB['Ahmad_Gamer'] = { password: '123', robux: 1200, email: 'ahmad@mail.com', verified: true, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [], friends: ['rip_hama276'] };
@@ -676,7 +685,7 @@
       renderFriendsList();
 
       let divineActive = localStorage.getItem('hamadev_divine_spawned');
-      if(divineActive === 'true') {
+      if(divineActive) {
         document.getElementById('global-announcement-banner').style.display = 'flex';
       }
 
@@ -932,12 +941,12 @@
       openAdminPanel();
     }
 
-    function spawnDivineAdmin() {
-      localStorage.setItem('hamadev_divine_spawned', 'true');
+    function spawnDivineAdmin(amountReward) {
+      localStorage.setItem('hamadev_divine_spawned', amountReward.toString());
       const banner = document.getElementById('global-announcement-banner');
-      document.getElementById('announcement-text').innerText = "🎁 دیڤاینێک سپاون بوو! ڕابکەن بۆ بردنی 1090 ڕۆبۆکس!";
+      document.getElementById('announcement-text').innerText = `🎁 دیڤاینی بڕی (${amountReward.toLocaleString()} R$) لە یاری سپاون بوو! ڕابکەن بۆ بردنی!`;
       banner.style.display = 'flex';
-      alert('✨ دیڤاین بە سەرکەوتوویی سپاون کرا و لە شاشەی هەمووان نیشان درا!');
+      alert(`✨ دیڤاینی (${amountReward.toLocaleString()}) بە سەرکەوتوویی سپاون کرا!`);
       closeAdminPanel();
       if(typeof spawnAllEggs === 'function') spawnAllEggs();
     }
@@ -1072,6 +1081,12 @@
     let scene, camera, renderer, player, shopBooth, jackiaBooth, petObj, vehicleMesh, auraMesh, shieldMesh, animationId, supersonicPadMesh;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
     let gameScore = 0, carriedEggs = 0, carriedValueMultiplier = 1, maxCapacity = 1, playerSpeed = 0.25, eggsList = [], shopOpen = false, jackiaOpen = false;
+
+    function toggleDiscoMode() {
+      isDiscoActive = !isDiscoActive;
+      document.getElementById('disco-status-lbl').innerText = isDiscoActive ? 'کوژاندنەوە' : 'داگیرساندن';
+      alert(isDiscoActive ? '🪩 دیسکۆ لایت (Rainbow Disco) چالاک بوو!' : '💤 دیسکۆ لایت کوژایەوە.');
+    }
 
     function buySpeed(speedVal, robuxCost) {
       if (usersDB[currentUser].robux < robuxCost) { alert('ڕووبوکس (Robux)ت پێنییە!'); return; }
@@ -1278,10 +1293,10 @@
       eggsList.forEach(e => { if(e) scene.remove(e); });
       eggsList = [];
       const eggTypes = [
-        { name: 'هێلکەی جاکیا گۆڵد (Jackia Gold)', color: 0xfbbf24, mult: 2, mut: 'Gold', guard: true },
-        { name: 'هێلکەی جاکیا تاکۆ (Jackia Taco)', color: 0xf97316, mult: 3, mut: 'Taco', guard: true },
-        { name: 'هێلکەی جاکیا دایمۆند (Jackia Diamond)', color: 0x38bdf8, mult: 5, mut: 'Diamond', guard: true },
-        { name: 'هێلکەی جاکیا ڕەینبۆ (Jackia Rainbow)', color: 0xa855f7, mult: 8, mut: 'Rainbow', guard: true }
+        { name: 'هێلکەی جاکیا گۆڵد (Jackia Gold)', color: 0xfbbf24, mult: 2, mut: 'Gold' },
+        { name: 'هێلکەی جاکیا تاکۆ (Jackia Taco)', color: 0xf97316, mult: 3, mut: 'Taco' },
+        { name: 'هێلکەی جاکیا دایمۆند (Jackia Diamond)', color: 0x38bdf8, mult: 5, mut: 'Diamond' },
+        { name: 'هێلکەی جاکیا ڕەینبۆ (Jackia Rainbow)', color: 0xa855f7, mult: 8, mut: 'Rainbow' }
       ];
       
       let maxEggsToSpawn = isOwnerSecondCityGame ? 15 : 10;
@@ -1293,11 +1308,11 @@
         const eggMesh = new THREE.Mesh(eggGeo, new THREE.MeshBasicMaterial({ color: t.color }));
         eggGroup.add(eggMesh);
 
-        // Guard shield / guardian character indicator near egg
-        const guardGeo = new THREE.BoxGeometry(0.4, 0.8, 0.4);
+        // Guard character next to egg in First City style
+        const guardGeo = new THREE.BoxGeometry(0.4, 0.9, 0.4);
         const guardMat = new THREE.MeshBasicMaterial({ color: 0xef4444 });
         const guardMesh = new THREE.Mesh(guardGeo, guardMat);
-        guardMesh.position.set(0.8, 0.4, 0);
+        guardMesh.position.set(0.7, 0.45, 0);
         eggGroup.add(guardMesh);
 
         let zPos = isOwnerSecondCityGame ? -Math.random() * 140 - 5 : -Math.random() * 80 - 5;
@@ -1306,14 +1321,16 @@
         scene.add(eggGroup); eggsList.push(eggGroup);
       }
 
-      if(localStorage.getItem('hamadev_divine_spawned') === 'true') {
+      let divineActiveReward = localStorage.getItem('hamadev_divine_spawned');
+      if(divineActiveReward) {
+        let rewardNum = parseInt(divineActiveReward) || 1090;
         const divGroup = new THREE.Group();
-        const divGeo = new THREE.SphereGeometry(0.7, 16, 16); divGeo.scale(1, 1.4, 1);
-        const divineEggObj = new THREE.Mesh(divGeo, new THREE.MeshBasicMaterial({ color: 0xa855f7 }));
+        const divGeo = new THREE.SphereGeometry(0.8, 16, 16); divGeo.scale(1, 1.4, 1);
+        const divineEggObj = new THREE.Mesh(divGeo, new THREE.MeshBasicMaterial({ color: 0xfbbf24 }));
         divGroup.add(divineEggObj);
 
         divGroup.position.set(0, 0, isOwnerSecondCityGame ? -80 : -40);
-        divGroup.userData = { name: 'هێلکەی دیڤاینی جاکیا', mult: 10, mutDrop: 'Rainbow', isDivine: true };
+        divGroup.userData = { name: `هێلکەی دیڤایینی (${rewardNum} R$)`, mult: 10, mutDrop: 'Rainbow', isDivine: true, rewardAmount: rewardNum };
         scene.add(divGroup); eggsList.push(divGroup);
       }
     }
@@ -1485,9 +1502,9 @@
       animationId = requestAnimationFrame(animate);
       let moveX = 0; let moveZ = 0;
 
-      let eggScoreBonusSpeed = Math.min(2.5, gameScore / 2000);
-      let supersonicBoost = (supersonicPadMesh && player.position.distanceTo(supersonicPadMesh.position) < 3.5) ? (isOwnerSecondCityGame ? 2.8 : 1.8) : 1.0;
-      let currentActiveSpeed = (playerSpeed + eggScoreBonusSpeed) * supersonicBoost;
+      let eggScoreBonusSpeed = Math.min(3.0, gameScore / 1500);
+      let supersonicBoost = (supersonicPadMesh && player.position.distanceTo(supersonicPadMesh.position) < 3.5) ? (isOwnerSecondCityGame ? 3.5 : 2.0) : 1.0;
+      let currentActiveSpeed = (playerSpeed + eggScoreBonusSpeed + 0.1) * supersonicBoost;
 
       if (keys.up) moveZ -= currentActiveSpeed;
       if (keys.down) moveZ += currentActiveSpeed;
@@ -1518,6 +1535,13 @@
         auraMesh.rotation.y += 0.03;
       }
 
+      if(isDiscoActive && scene) {
+        let r = Math.sin(Date.now() * 0.003) * 0.5 + 0.5;
+        let g = Math.cos(Date.now() * 0.004) * 0.5 + 0.5;
+        let b = Math.sin(Date.now() * 0.005) * 0.5 + 0.5;
+        scene.background = new THREE.Color(r, g, b);
+      }
+
       if (!shopOpen && player.position.distanceTo(shopBooth.position) < 2.5) {
         shopOpen = true;
         document.getElementById('shop-modal').style.display = 'flex';
@@ -1535,12 +1559,13 @@
       eggsList.forEach((eggObj, idx) => {
         if (eggObj && carriedEggs < maxCapacity && player.position.distanceTo(eggObj.position) < 1.4) {
           if(eggObj.userData && eggObj.userData.isDivine) {
-            usersDB[currentUser].robux += 1090;
+            let winAmount = eggObj.userData.rewardAmount || 1090;
+            usersDB[currentUser].robux += winAmount;
             localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
             document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
             localStorage.removeItem('hamadev_divine_spawned');
             document.getElementById('global-announcement-banner').style.display = 'none';
-            alert('🎉 پیرۆزە! تۆ دیڤاینەت بردەوە و ١٠٩٠ ڕۆبۆکس چوە سەر ئەکاونتەکەت!');
+            alert(`🎉 پیرۆزە! تۆ دیڤاینی (${winAmount.toLocaleString()} R$) بردەوە و چوە سەر ئەکاونتەکەت!`);
           }
 
           let uObj = usersDB[currentUser];

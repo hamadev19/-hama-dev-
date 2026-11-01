@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.500.0 Ultimate Biomes & Guards</title>
+  <title>Hama Dev Store - Roblox Kurd v2.510.0 Ultra Biomes & Bosses</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -289,7 +289,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.500.0 Biomes & Guards Ultimate</div>
+      <div class="version-tag">v2.510.0 Ultra Biomes & Bosses Edition</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -311,7 +311,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.500.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.510.0</span></span>
       </div>
 
       <div class="store-search">
@@ -359,9 +359,9 @@
               <div class="app-card-top">
                 <div class="app-icon" style="color: var(--divine-purple); background: #2e1065;"><i class="fa-solid fa-city"></i></div>
                 <div class="app-info">
-                  <h3>Steal an Egg - شاری دووەم (Jackia Second City)</h3>
+                  <h3>Steal an Egg - شاری دووەم (Ultra Biomes & Bosses)</h3>
                   <p>خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-badge"></i></p>
-                  <p style="color:var(--robux-gold); margin-top:2px; font-weight:bold;">👑 شاری دووەم + خێرایی خێرا + دیسکۆ</p>
+                  <p style="color:var(--robux-gold); margin-top:2px; font-weight:bold;">👑 Cherry Blossom + Titan Temple + Angels & Demons</p>
                 </div>
               </div>
               <button class="install-btn" style="background:var(--divine-purple); color:white;" onclick="startOwnerSecondCityGame()"><i class="fa-solid fa-rocket"></i> تاقیکردنەوەی شاری دووەم</button>
@@ -477,7 +477,7 @@
 
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (v2.500.0 Ultimate)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (v2.510.0 Ultra)</h2>
       
       <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
         <label style="font-size:13px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-dna"></i> پەنێڵی گشتی موتەیشنەکان (Mutations Control):</label>
@@ -1293,37 +1293,41 @@
       eggsList.forEach(e => { if(e) scene.remove(e); });
       eggsList = [];
       
-      const biomesList = [
+      const biomesList = isOwnerSecondCityGame ? [
+        { name: 'Cherry Blossom (چرۆی گێلاس)', guard: 'پڵنگی ئۆنی (Oni Tiger)', color: 0xf472b6, speedReq: 2500000000, mult: 12 },
+        { name: 'Titan Temple (پەرستگای تایتان)', guard: 'پاشای گۆریلا (Gorilla King)', color: 0x38bdf8, speedReq: 7000000000, mult: 15 },
+        { name: 'Angels & Demons (فریشتە و شەیتانەکان)', guard: 'ArchAngel / World Burner', color: 0xa855f7, speedReq: 20000000000, mult: 20 }
+      ] : [
         { name: 'دارستان (Forest)', guard: 'مریشک (Chicken)', color: 0x10b981, speedReq: 0, mult: 1 },
         { name: 'دەریاچە (Lake)', guard: 'قاز (Swan)', color: 0x38bdf8, speedReq: 900, mult: 2 },
-        { name: 'بیابان (Desert)', guard: 'مار یان ئەسپیلکە (Sphinx/Snake)', color: 0xfbbf24, speedReq: 10000, mult: 3 },
+        { name: 'بیابان (Desert)', guard: 'مار (Snake/Sphinx)', color: 0xfbbf24, speedReq: 10000, mult: 3 },
         { name: 'جەنگەڵ (Jungle)', guard: 'پڵنگ (Tiger)', color: 0x059669, speedReq: 40000, mult: 4 },
-        { name: 'بەفر و بەستەڵەک (Snow)', guard: 'دێوی بەفر (Yeti)', color: 0xe0f2fe, speedReq: 170000, mult: 5 },
-        { name: 'ڕووباری گڕکان (Volcano)', guard: 'سەگی سێ سەر (Cerberus)', color: 0xef4444, speedReq: 700000, mult: 6 },
-        { name: 'قووڵایی زەریا (Abyss Ocean)', guard: 'نەهەنگی سپی (Beluga Whale)', color: 0x1d4ed8, speedReq: 2500000, mult: 7 },
+        { name: 'بەفر (Snow)', guard: 'دێوی بەفر (Yeti)', color: 0xe0f2fe, speedReq: 170000, mult: 5 },
+        { name: 'گڕکان (Volcano)', guard: 'سەگی سێ سەر (Cerberus)', color: 0xef4444, speedReq: 700000, mult: 6 },
+        { name: 'زەریا (Abyss Ocean)', guard: 'نەهەنگی سپی (Beluga Whale)', color: 0x1d4ed8, speedReq: 2500000, mult: 7 },
         { name: 'پێش مێژوو (Prehistoric)', guard: 'تی ڕێکس (T-Rex)', color: 0x84cc16, speedReq: 18000000, mult: 8 },
         { name: 'گەردوون (Cosmic)', guard: 'پەیکەری گەردوونی (Cosmic Skeleton)', color: 0xa855f7, speedReq: 50000000, mult: 10 }
       ];
       
-      let maxEggsToSpawn = isOwnerSecondCityGame ? 18 : biomesList.length;
+      let maxEggsToSpawn = biomesList.length;
       for (let i = 0; i < maxEggsToSpawn; i++) {
-        let b = biomesList[i % biomesList.length];
+        let b = biomesList[i];
         const eggGroup = new THREE.Group();
 
-        const eggGeo = new THREE.SphereGeometry(0.5, 16, 16); eggGeo.scale(1, 1.3, 1);
+        const eggGeo = new THREE.SphereGeometry(0.6, 16, 16); eggGeo.scale(1, 1.3, 1);
         const eggMesh = new THREE.Mesh(eggGeo, new THREE.MeshBasicMaterial({ color: b.color }));
         eggGroup.add(eggMesh);
 
         // Guard character next to egg
-        const guardGeo = new THREE.BoxGeometry(0.4, 0.9, 0.4);
+        const guardGeo = new THREE.BoxGeometry(0.5, 1.0, 0.5);
         const guardMat = new THREE.MeshBasicMaterial({ color: 0xff4500 });
         const guardMesh = new THREE.Mesh(guardGeo, guardMat);
-        guardMesh.position.set(0.8, 0.45, 0);
+        guardMesh.position.set(0.9, 0.5, 0);
         eggGroup.add(guardMesh);
 
-        let zPos = isOwnerSecondCityGame ? -Math.random() * 160 - 5 : -(i * 18) - 5;
-        eggGroup.position.set(((i % 2 === 0 ? 1 : -1) * (Math.random() * 10 + 3)), 0, zPos);
-        eggGroup.userData = { name: `${b.name} - ${b.guard}`, mult: b.mult, speedReq: b.speedReq, mutDrop: 'Gold', isDivine: false };
+        let zPos = -(i * 25) - 8;
+        eggGroup.position.set(((i % 2 === 0 ? 1 : -1) * (Math.random() * 8 + 3)), 0, zPos);
+        eggGroup.userData = { name: `${b.name} - پاسەوان: ${b.guard}`, mult: b.mult, speedReq: b.speedReq, mutDrop: 'Rainbow', isDivine: false };
         scene.add(eggGroup); eggsList.push(eggGroup);
       }
 
@@ -1331,12 +1335,12 @@
       if(divineActiveReward) {
         let rewardNum = parseInt(divineActiveReward) || 1090;
         const divGroup = new THREE.Group();
-        const divGeo = new THREE.SphereGeometry(0.8, 16, 16); divGeo.scale(1, 1.4, 1);
+        const divGeo = new THREE.SphereGeometry(0.9, 16, 16); divGeo.scale(1, 1.4, 1);
         const divineEggObj = new THREE.Mesh(divGeo, new THREE.MeshBasicMaterial({ color: 0xfbbf24 }));
         divGroup.add(divineEggObj);
 
-        divGroup.position.set(0, 0, isOwnerSecondCityGame ? -90 : -50);
-        divGroup.userData = { name: `هێلکەی دیڤاینی (${rewardNum.toLocaleString()} R$)`, mult: 15, speedReq: 0, mutDrop: 'Rainbow', isDivine: true, rewardAmount: rewardNum };
+        divGroup.position.set(0, 0, -50);
+        divGroup.userData = { name: `هێلکەی دیڤاینی (${rewardNum.toLocaleString()} R$)`, mult: 25, speedReq: 0, mutDrop: 'Rainbow', isDivine: true, rewardAmount: rewardNum };
         scene.add(divGroup); eggsList.push(divGroup);
       }
     }
@@ -1457,12 +1461,12 @@
       jackiaBooth.position.set(8, 0, 5);
       scene.add(jackiaBooth);
 
-      let floorDepth = isOwnerSecondCityGame ? 400 : 250;
-      const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, floorDepth), new THREE.MeshBasicMaterial({ color: isOwnerSecondCityGame ? 0x090d16 : 0x064e3b }));
+      let floorDepth = isOwnerSecondCityGame ? 300 : 250;
+      const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, floorDepth), new THREE.MeshBasicMaterial({ color: isOwnerSecondCityGame ? 0x2e1065 : 0x064e3b }));
       floor.rotation.x = -Math.PI / 2; floor.position.z = -80; scene.add(floor);
 
       supersonicPadMesh = new THREE.Mesh(new THREE.BoxGeometry(6, 0.2, 6), new THREE.MeshBasicMaterial({ color: 0xf97316 }));
-      supersonicPadMesh.position.set(0, 0.05, -70); 
+      supersonicPadMesh.position.set(0, 0.05, -50); 
       scene.add(supersonicPadMesh);
 
       const homeBase = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 0.1, 32), new THREE.MeshBasicMaterial({ color: 0x3b82f6 }));
@@ -1498,9 +1502,9 @@
       animationId = requestAnimationFrame(animate);
       let moveX = 0; let moveZ = 0;
 
-      let eggScoreBonusSpeed = Math.min(4.0, gameScore / 1000);
-      let supersonicBoost = (supersonicPadMesh && player.position.distanceTo(supersonicPadMesh.position) < 3.5) ? 3.0 : 1.0;
-      let currentActiveSpeed = (playerSpeed + eggScoreBonusSpeed + 0.15) * supersonicBoost;
+      let eggScoreBonusSpeed = Math.min(5.0, gameScore / 1000);
+      let supersonicBoost = (supersonicPadMesh && player.position.distanceTo(supersonicPadMesh.position) < 3.5) ? 3.5 : 1.0;
+      let currentActiveSpeed = (playerSpeed + eggScoreBonusSpeed + 0.2) * supersonicBoost;
 
       if (keys.up) moveZ -= currentActiveSpeed;
       if (keys.down) moveZ += currentActiveSpeed;
@@ -1581,8 +1585,8 @@
           uObj.collectedPets.forEach(p => { if(p.bonus) mutantBonusSum += p.bonus; });
         }
 
-        let pointsEarned = (carriedEggs * 500 * carriedValueMultiplier) + mutantBonusSum;
-        let robuxEarned = (carriedEggs * 15 * carriedValueMultiplier) + Math.floor(mutantBonusSum / 10);
+        let pointsEarned = (carriedEggs * 1000 * carriedValueMultiplier) + mutantBonusSum;
+        let robuxEarned = (carriedEggs * 25 * carriedValueMultiplier) + Math.floor(mutantBonusSum / 10);
         
         gameScore += pointsEarned;
         usersDB[currentUser].robux += robuxEarned;

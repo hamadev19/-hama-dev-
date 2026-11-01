@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.470.0 Jackia First City Booths</title>
+  <title>Hama Dev Store - Roblox Kurd v2.480.0 Steal An Egg Ultimate Edition</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -285,7 +285,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.470.0 Jackia First City Booths</div>
+      <div class="version-tag">v2.480.0 Steal An Egg Ultimate Edition</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -307,7 +307,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.470.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.480.0</span></span>
       </div>
 
       <div class="store-search">
@@ -357,7 +357,7 @@
                 <div class="app-info">
                   <h3>Steal an Egg - شاری دووەم (Jackia Second City)</h3>
                   <p>خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-badge"></i></p>
-                  <p style="color:var(--robux-gold); margin-top:2px; font-weight:bold;">👑 شاری دووەمی جاکیا (Working Jackia Systems)</p>
+                  <p style="color:var(--robux-gold); margin-top:2px; font-weight:bold;">👑 شاری دووەم + سپیدی سپۆرت (Supersonic Boost)</p>
                 </div>
               </div>
               <button class="install-btn" style="background:var(--divine-purple); color:white;" onclick="startOwnerSecondCityGame()"><i class="fa-solid fa-rocket"></i> تاقیکردنەوەی شاری دووەم</button>
@@ -473,7 +473,7 @@
 
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (Jackia Working v2.470.0)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (Steal an Egg Ultimate v2.480.0)</h2>
       
       <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
         <label style="font-size:13px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-dna"></i> پەنێڵی گشتی موتەیشنەکان (Mutations Control):</label>
@@ -1069,7 +1069,7 @@
       } else { alert('❌ کۆدەکە هەڵەیە قبۆڵ ناکرێت!'); }
     }
 
-    let scene, camera, renderer, player, shopBooth, jackiaBooth, petObj, vehicleMesh, auraMesh, animationId, supersonicPadMesh;
+    let scene, camera, renderer, player, shopBooth, jackiaBooth, petObj, vehicleMesh, auraMesh, shieldMesh, animationId, supersonicPadMesh;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
     let gameScore = 0, carriedEggs = 0, carriedValueMultiplier = 1, maxCapacity = 1, playerSpeed = 0.25, eggsList = [], shopOpen = false, jackiaOpen = false;
 
@@ -1278,30 +1278,43 @@
       eggsList.forEach(e => { if(e) scene.remove(e); });
       eggsList = [];
       const eggTypes = [
-        { name: 'هێلکەی جاکیا گۆڵد (Jackia Gold)', color: 0xfbbf24, mult: 2, mut: 'Gold' },
-        { name: 'هێلکەی جاکیا تاکۆ (Jackia Taco)', color: 0xf97316, mult: 3, mut: 'Taco' },
-        { name: 'هێلکەی جاکیا دایمۆند (Jackia Diamond)', color: 0x38bdf8, mult: 5, mut: 'Diamond' },
-        { name: 'هێلکەی جاکیا ڕەینبۆ (Jackia Rainbow)', color: 0xa855f7, mult: 8, mut: 'Rainbow' }
+        { name: 'هێلکەی جاکیا گۆڵد (Jackia Gold)', color: 0xfbbf24, mult: 2, mut: 'Gold', guard: true },
+        { name: 'هێلکەی جاکیا تاکۆ (Jackia Taco)', color: 0xf97316, mult: 3, mut: 'Taco', guard: true },
+        { name: 'هێلکەی جاکیا دایمۆند (Jackia Diamond)', color: 0x38bdf8, mult: 5, mut: 'Diamond', guard: true },
+        { name: 'هێلکەی جاکیا ڕەینبۆ (Jackia Rainbow)', color: 0xa855f7, mult: 8, mut: 'Rainbow', guard: true }
       ];
       
       let maxEggsToSpawn = isOwnerSecondCityGame ? 15 : 10;
       for (let i = 0; i < maxEggsToSpawn; i++) {
         let t = eggTypes[Math.floor(Math.random() * eggTypes.length)];
+        const eggGroup = new THREE.Group();
+
         const eggGeo = new THREE.SphereGeometry(0.5, 16, 16); eggGeo.scale(1, 1.3, 1);
-        const egg = new THREE.Mesh(eggGeo, new THREE.MeshBasicMaterial({ color: t.color }));
-        
+        const eggMesh = new THREE.Mesh(eggGeo, new THREE.MeshBasicMaterial({ color: t.color }));
+        eggGroup.add(eggMesh);
+
+        // Guard shield / guardian character indicator near egg
+        const guardGeo = new THREE.BoxGeometry(0.4, 0.8, 0.4);
+        const guardMat = new THREE.MeshBasicMaterial({ color: 0xef4444 });
+        const guardMesh = new THREE.Mesh(guardGeo, guardMat);
+        guardMesh.position.set(0.8, 0.4, 0);
+        eggGroup.add(guardMesh);
+
         let zPos = isOwnerSecondCityGame ? -Math.random() * 140 - 5 : -Math.random() * 80 - 5;
-        egg.position.set((Math.random() - 0.5) * 35, 0.5, zPos);
-        egg.userData = { name: t.name, mult: t.mult, mutDrop: t.mut, isDivine: false };
-        scene.add(egg); eggsList.push(egg);
+        eggGroup.position.set((Math.random() - 0.5) * 35, 0, zPos);
+        eggGroup.userData = { name: t.name, mult: t.mult, mutDrop: t.mut, isDivine: false };
+        scene.add(eggGroup); eggsList.push(eggGroup);
       }
 
       if(localStorage.getItem('hamadev_divine_spawned') === 'true') {
+        const divGroup = new THREE.Group();
         const divGeo = new THREE.SphereGeometry(0.7, 16, 16); divGeo.scale(1, 1.4, 1);
         const divineEggObj = new THREE.Mesh(divGeo, new THREE.MeshBasicMaterial({ color: 0xa855f7 }));
-        divineEggObj.position.set(0, 0.6, isOwnerSecondCityGame ? -80 : -40);
-        divineEggObj.userData = { name: 'هێلکەی دیڤاینی جاکیا', mult: 10, mutDrop: 'Rainbow', isDivine: true };
-        scene.add(divineEggObj); eggsList.push(divineEggObj);
+        divGroup.add(divineEggObj);
+
+        divGroup.position.set(0, 0, isOwnerSecondCityGame ? -80 : -40);
+        divGroup.userData = { name: 'هێلکەی دیڤاینی جاکیا', mult: 10, mutDrop: 'Rainbow', isDivine: true };
+        scene.add(divGroup); eggsList.push(divGroup);
       }
     }
 
@@ -1434,8 +1447,10 @@
       const jackiaMonument1 = new THREE.Mesh(new THREE.BoxGeometry(3, 6, 3), new THREE.MeshBasicMaterial({ color: 0x10b981 }));
       jackiaMonument1.position.set(15, 3, -30); scene.add(jackiaMonument1);
 
-      supersonicPadMesh = new THREE.Mesh(new THREE.BoxGeometry(6, 0.2, 6), new THREE.MeshBasicMaterial({ color: 0x38bdf8 }));
-      supersonicPadMesh.position.set(0, 0.05, -50); scene.add(supersonicPadMesh);
+      // Supersonic Speed Pad for City 2 update
+      supersonicPadMesh = new THREE.Mesh(new THREE.BoxGeometry(6, 0.2, 6), new THREE.MeshBasicMaterial({ color: isOwnerSecondCityGame ? 0xf97316 : 0x38bdf8 }));
+      supersonicPadMesh.position.set(0, 0.05, isOwnerSecondCityGame ? -60 : -50); 
+      scene.add(supersonicPadMesh);
 
       const homeBase = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 0.1, 32), new THREE.MeshBasicMaterial({ color: 0x3b82f6 }));
       homeBase.position.set(0, 0.05, 15); scene.add(homeBase);
@@ -1471,7 +1486,7 @@
       let moveX = 0; let moveZ = 0;
 
       let eggScoreBonusSpeed = Math.min(2.5, gameScore / 2000);
-      let supersonicBoost = (supersonicPadMesh && player.position.distanceTo(supersonicPadMesh.position) < 3.5) ? 1.8 : 1.0;
+      let supersonicBoost = (supersonicPadMesh && player.position.distanceTo(supersonicPadMesh.position) < 3.5) ? (isOwnerSecondCityGame ? 2.8 : 1.8) : 1.0;
       let currentActiveSpeed = (playerSpeed + eggScoreBonusSpeed) * supersonicBoost;
 
       if (keys.up) moveZ -= currentActiveSpeed;
@@ -1517,9 +1532,9 @@
         closeJackiaModal();
       }
 
-      eggsList.forEach((egg, idx) => {
-        if (egg && carriedEggs < maxCapacity && player.position.distanceTo(egg.position) < 1.4) {
-          if(egg.userData && egg.userData.isDivine) {
+      eggsList.forEach((eggObj, idx) => {
+        if (eggObj && carriedEggs < maxCapacity && player.position.distanceTo(eggObj.position) < 1.4) {
+          if(eggObj.userData && eggObj.userData.isDivine) {
             usersDB[currentUser].robux += 1090;
             localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
             document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
@@ -1530,11 +1545,11 @@
 
           let uObj = usersDB[currentUser];
           if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
-          uObj.inventoryEggs.push({ name: egg.userData.name, mult: egg.userData.mult, mutDrop: egg.userData.mutDrop });
+          uObj.inventoryEggs.push({ name: eggObj.userData.name, mult: eggObj.userData.mult, mutDrop: eggObj.userData.mutDrop });
           localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
 
-          carriedValueMultiplier = egg.userData ? egg.userData.mult : 1;
-          scene.remove(egg);
+          carriedValueMultiplier = eggObj.userData ? eggObj.userData.mult : 1;
+          scene.remove(eggObj);
           eggsList[idx] = null;
           carriedEggs++;
           document.getElementById('carried-count').innerText = carriedEggs;

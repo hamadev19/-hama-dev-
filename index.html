@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.520.0 Divine Angels & Demons Update</title>
+  <title>Hama Dev Store - Roblox Kurd v2.521.0 Owner Teleport & Divine Update</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -294,7 +294,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.520.0 Divine Angels & Demons Update</div>
+      <div class="version-tag">v2.521.0 Owner Teleport & Divine Update</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -316,7 +316,7 @@
     <header>
       <div class="brand">
         <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.520.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.521.0</span></span>
       </div>
 
       <div class="store-search">
@@ -482,8 +482,20 @@
 
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و ئادمین ئەبیوس (v2.520.0 Divine Special)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و تێلێپۆرت (v2.521.0 Owner Teleport)</h2>
       
+      <!-- بەشی تێلێپۆرت -->
+      <div class="admin-section" style="background:#1e1b4b; padding:14px; border-radius:12px; border:2px solid var(--divine-purple);">
+        <label style="font-size:13px; font-weight:bold; color:#c084fc;"><i class="fa-solid fa-location-crosshairs"></i> بەشی تێلێپۆرت بە کلیلک (Owner Teleport):</label>
+        <p style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">بۆ گواستنەوەی ڕاستەوخۆی کەسایەتییەکەت بۆ سەر هێلکەکان یان سەرەتا!</p>
+
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <button class="admin-action-btn" style="background:#10b981; color:white;" onclick="adminTeleportPlayer('start')">📍 تێلێپۆرت بۆ سەرەتا (Home Spawn)</button>
+          <button class="admin-action-btn" style="background:#38bdf8; color:black;" onclick="adminTeleportPlayer('eggs')">🥚 تێلێپۆرت بۆ لای هێلکەکان (All Eggs)</button>
+          <button class="admin-action-btn" style="background:var(--divine-purple); color:white;" onclick="adminTeleportPlayer('divine')">✨ تێلێپۆرت بۆ لای هێلکەی دیڤاین / کێک</button>
+        </div>
+      </div>
+
       <div class="admin-section" style="background:#1e1b4b; padding:14px; border-radius:12px; border:2px solid var(--divine-purple);">
         <label style="font-size:13px; font-weight:bold; color:#c084fc;"><i class="fa-solid fa-wand-magic-sparkles"></i> سپاون کردنی هێلکە دیڤاینەکانی ئۆنەر (Angels & Demons Divine Eggs):</label>
         <p style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">تەنها کلیک لەسەر یەکێکیان بکە بۆ سپاون کردنی لەناو ماپەکەدا یان پێدانی ڕاستەوخۆ بۆ کۆگات!</p>
@@ -944,6 +956,35 @@
       uObj.inventoryEggs.push({ name: 'هێلکەی تایبەتی جاکیا (Jackia Divine)', mult: 10, mutDrop: 'Rainbow' });
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       alert('🥚 هێلکەی نایابی جاکیا بە سەرکەوتوویی بۆ کۆگاکەت زیاد کرا!');
+      closeAdminPanel();
+    }
+
+    // فرمانی تێلێپۆرت لە پەنێڵی ئۆنەر
+    function adminTeleportPlayer(destType) {
+      if(!player) {
+        alert('❌ تکایە سەرەتا یارییەکە بکەرەوە و بچۆ ناو ماپەکەوە!');
+        return;
+      }
+      if(destType === 'start') {
+        player.position.set(0, 1, 15);
+        alert('📍 تێلێپۆرت کرا بۆ سەرەتای ماپ (Home Spawn)!');
+      } else if(destType === 'eggs') {
+        if(eggsList.length > 0 && eggsList[0]) {
+          player.position.set(eggsList[0].position.x, 1, eggsList[0].position.z + 2);
+          alert('🥚 تێلێپۆرت کرا بۆ لای هێلکەکان!');
+        } else {
+          alert('❌ هیچ هێلکەیەک نەدۆزرایەوە لەسەر ماپ!');
+        }
+      } else if(destType === 'divine') {
+        let foundDivine = eggsList.find(e => e && e.userData && e.userData.isDivine);
+        if(foundDivine) {
+          player.position.set(foundDivine.position.x, 1, foundDivine.position.z + 2);
+          alert('✨ تێلێپۆرت کرا بۆ لای هێلکەی دیڤاین!');
+        } else {
+          player.position.set(0, 1, -50);
+          alert('✨ تێلێپۆرت کرا بۆ ناوچەی دیڤاین!');
+        }
+      }
       closeAdminPanel();
     }
 

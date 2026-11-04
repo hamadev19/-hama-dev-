@@ -91,7 +91,6 @@
     }
     .brand { display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 18px; color: #fff; }
     
-    /* لۆگۆی بچووکی سەرەوە (ئاڵای کوردستان) */
     .brand-flag {
       width: 36px; height: 36px; border-radius: 50%; border: 2px solid #fbbf24;
       background: linear-gradient(to bottom, #ef4444 33%, #ffffff 33%, #ffffff 66%, #22c55e 66%);
@@ -560,7 +559,7 @@
 
       <div class="admin-section">
         <label style="font-size:12px; font-weight:bold; color:var(--store-primary);"><i class="fa-solid fa-plane-departure"></i> ناردن و سپاون کردنی فڕۆکەی ترەیلەر لەسەر ماپەکە (Airplane Trailer):</label>
-        <input type="text" id="trailer-banner-text" placeholder="دەق/ناوی ترەیلەر لەسەر فڕۆکە..." value="HAMA DEV AIRPLANE TRAILER ✈️">
+        <input type="text" id="trailer-banner-text" placeholder="دەق/ناوی ترەیلەر لەسەر فڕۆکە..." value="HAMA DEV AIRPLANE TRAILER ✈️ kurdistan ☀️">
         <div style="display: flex; gap: 8px; margin-top: 5px;">
           <button class="admin-action-btn" style="flex:1; background:var(--store-primary); color:white;" onclick="triggerAirplaneTrailerFromAdmin()">✈️ ناردنی فڕۆکەی ترەیلەر بۆ ماپەکە</button>
         </div>
@@ -607,6 +606,11 @@
     <canvas id="game-canvas"></canvas>
     
     <div id="in-game-admin-hud">📢 پەیامی ئۆنەر: لێرە دەردەکەوێت</div>
+
+    <!-- بەشی تابلۆی فڕۆکە لەسەر شاشەی یاری (Airplane Banner HUD) -->
+    <div id="airplane-banner-hud" style="position: absolute; top: 15px; left: 50%; transform: translateX(-50%); background: linear-gradient(90deg, #ef4444, #f59e0b, #10b981); color: #fff; padding: 10px 24px; border-radius: 20px; font-weight: bold; font-size: 16px; z-index: 10012; display: none; box-shadow: 0 0 25px rgba(239, 68, 68, 0.8); text-align: center; border: 2px solid #fff;">
+      ✈️ <span id="airplane-hud-text">HAMA DEV AIRPLANE TRAILER ☀️</span>
+    </div>
 
     <div id="shop-modal">
       <div class="shop-header">
@@ -743,6 +747,11 @@
       let activeBroadcast = localStorage.getItem('hamadev_broadcast_msg');
       if(activeBroadcast) {
         showInGameAdminMessage(activeBroadcast);
+      }
+
+      let activeAirplane = localStorage.getItem('hamadev_airplane_trailer');
+      if(activeAirplane) {
+        showAirplaneBanner(activeAirplane);
       }
     };
 
@@ -1061,24 +1070,23 @@
       if(typeof spawnAllEggs === 'function') spawnAllEggs();
     }
 
-    function sendGlobalAnnouncement() {
-      const msg = document.getElementById('broadcast-input').value.trim();
-      if(!msg) { alert('تکایە پەیامێک بنووسە!'); return; }
-      localStorage.setItem('hamadev_broadcast_msg', msg);
-      document.getElementById('announcement-text').innerText = "📢 " + msg;
-      document.getElementById('global-announcement-banner').style.display = 'flex';
-      showInGameAdminMessage(msg);
-      alert('📢 پەیامەکەت بە سەرکەوتوویی بۆ هەمووان نێردرا!');
-      closeAdminPanel();
-    }
-
     function triggerAirplaneTrailerFromAdmin() {
       let bannerText = document.getElementById('trailer-banner-text').value.trim();
-      if(!bannerText) bannerText = "HAMA DEV AIRPLANE TRAILER ✈️";
+      if(!bannerText) bannerText = "HAMA DEV AIRPLANE TRAILER ☀️ kurdistan";
       localStorage.setItem('hamadev_airplane_trailer', bannerText);
+      showAirplaneBanner(bannerText);
       alert('✈️ فڕۆکەی ترەیلەر بە سەرکەوتوویی لە ئاسمانی ماپەکەدا سپاون کرا!');
       closeAdminPanel();
       if(typeof spawnAirplaneInGame === 'function') spawnAirplaneInGame(bannerText);
+    }
+
+    function showAirplaneBanner(text) {
+      const banner = document.getElementById('airplane-banner-hud');
+      const textSpan = document.getElementById('airplane-hud-text');
+      if(banner && textSpan) {
+        textSpan.innerText = text;
+        banner.style.display = 'block';
+      }
     }
 
     function showInGameAdminMessage(text) {
@@ -1188,7 +1196,7 @@
       } else { alert('❌ کۆدەکە هەڵەیە قبۆڵ ناکرێت!'); }
     }
 
-    let scene, camera, renderer, player, shopBooth, jackiaBooth, petObj, vehicleMesh, auraMesh, shieldMesh, animationId, supersonicPadMesh;
+    let scene, camera, renderer, player, shopBooth, jackiaBooth, petObj, vehicleMesh, auraMesh, shieldMesh, animationId, supersonicPadMesh, airplaneMesh;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
     let gameScore = 0, carriedEggs = 0, carriedValueMultiplier = 1, maxCapacity = 1, playerSpeed = 0.25, eggsList = [], shopOpen = false, jackiaOpen = false;
 
@@ -1474,6 +1482,21 @@
       parentGroup.add(horn2);
     }
 
+    function spawnAirplaneInGame(bannerText) {
+      if(!scene) return;
+      if(airplaneMesh) scene.remove(airplaneMesh);
+
+      airplaneMesh = new THREE.Group();
+      const body = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.0, 4.0), new THREE.MeshBasicMaterial({ color: 0xef4444 }));
+      const wings = new THREE.Mesh(new THREE.BoxGeometry(6.0, 0.2, 1.5), new THREE.MeshBasicMaterial({ color: 0xffffff }));
+      const tail = new THREE.Mesh(new THREE.BoxGeometry(0.2, 1.2, 1.0), new THREE.MeshBasicMaterial({ color: 0x10b981 }));
+      tail.position.set(0, 0.8, -1.5);
+      
+      airplaneMesh.add(body); airplaneMesh.add(wings); airplaneMesh.add(tail);
+      airplaneMesh.position.set(0, 15, -20);
+      scene.add(airplaneMesh);
+    }
+
     function startStealAnEggGame() {
       isOwnerSecondCityGame = false;
       initGameEngine();
@@ -1500,6 +1523,12 @@
       let activeBroadcast = localStorage.getItem('hamadev_broadcast_msg');
       if(activeBroadcast) {
         showInGameAdminMessage(activeBroadcast);
+      }
+
+      let activeAirplane = localStorage.getItem('hamadev_airplane_trailer');
+      if(activeAirplane) {
+        showAirplaneBanner(activeAirplane);
+        spawnAirplaneInGame(activeAirplane);
       }
 
       const canvas = document.getElementById('game-canvas');
@@ -1639,6 +1668,11 @@
       if (vehicleMesh) vehicleMesh.rotation.y += 0.1;
       if (auraMesh) auraMesh.rotation.y += 0.03;
 
+      if(airplaneMesh) {
+        airplaneMesh.position.z -= 0.2;
+        if(airplaneMesh.position.z < -150) airplaneMesh.position.z = 50;
+      }
+
       if(isDiscoActive && scene) {
         let r = Math.sin(Date.now() * 0.003) * 0.5 + 0.5;
         let g = Math.cos(Date.now() * 0.004) * 0.5 + 0.5;
@@ -1718,7 +1752,9 @@
       cancelAnimationFrame(animationId);
       document.getElementById('game-container').style.display = 'none';
       const hud = document.getElementById('in-game-admin-hud');
+      const airplaneBanner = document.getElementById('airplane-banner-hud');
       if(hud) hud.style.display = 'none';
+      if(airplaneBanner) airplaneBanner.style.display = 'none';
     }
   </script>
 </body>

@@ -255,7 +255,6 @@
     .pets-collected-box { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
     .pet-card { background: #1e293b; border: 1px solid var(--divine-purple); padding: 8px 12px; border-radius: 10px; font-size: 11px; text-align: center; }
 
-    /* تحسين أدوات التحكم لشاشات المحمول */
     .mobile-controls {
       position: absolute; bottom: 15px; left: 15px; right: 15px;
       display: flex; justify-content: space-between; align-items: flex-end;
@@ -484,7 +483,6 @@
     <div class="admin-card">
       <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و تێلێپۆرت (v2.521.0 Owner Teleport)</h2>
       
-      <!-- بەشی تێلێپۆرت -->
       <div class="admin-section" style="background:#1e1b4b; padding:14px; border-radius:12px; border:2px solid var(--divine-purple);">
         <label style="font-size:13px; font-weight:bold; color:#c084fc;"><i class="fa-solid fa-location-crosshairs"></i> بەشی تێلێپۆرت بە کلیلک (Owner Teleport):</label>
         <p style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">بۆ گواستنەوەی ڕاستەوخۆی کەسایەتییەکەت بۆ سەر هێلکەکان یان سەرەتا!</p>
@@ -959,7 +957,6 @@
       closeAdminPanel();
     }
 
-    // فرمانی تێلێپۆرت لە پەنێڵی ئۆنەر
     function adminTeleportPlayer(destType) {
       if(!player) {
         alert('❌ تکایە سەرەتا یارییەکە بکەرەوە و بچۆ ناو ماپەکەوە!');

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.525.0 Ultimate Owner Hub & Teleport</title>
+  <title>Hama Dev Store - Roblox Kurd v2.526.0 In-Game Owner Hub & Teleport</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -303,7 +303,7 @@
     <div class="auth-card">
       <div class="store-logo"></div>
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.525.0 Ultimate Owner Teleport & Divine Hub</div>
+      <div class="version-tag">v2.526.0 In-Game Owner Hub & Teleport</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -325,7 +325,7 @@
     <header>
       <div class="brand">
         <div class="brand-flag">☀️</div>
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.525.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.526.0</span></span>
       </div>
 
       <div class="store-search">
@@ -491,7 +491,7 @@
 
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و تێلێپۆرت (v2.525.0 Owner Teleport Hub)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و تێلێپۆرت (v2.526.0 In-Game Owner Hub)</h2>
       
       <div class="admin-section" style="background:#1e1b4b; padding:14px; border-radius:12px; border:2px solid var(--divine-purple);">
         <label style="font-size:13px; font-weight:bold; color:#c084fc;"><i class="fa-solid fa-location-crosshairs"></i> بەشی تێلێپۆرت بە کلیلک (Owner Teleport):</label>
@@ -665,6 +665,8 @@
           <span>خاڵ: <span id="game-score">0</span></span>
           <span>🥚 هێلکە: <span id="carried-count">0</span>/<span id="max-capacity">1</span></span>
           <span>⚡ خێرایی: <span id="speed-display">25</span></span>
+          <!-- دوگمەی هۆبی ئۆنەر لەناو یارییەکەدا -->
+          <button id="in-game-owner-btn" class="admin-badge-btn" style="display:none; padding:4px 8px; font-size:10px;" onclick="openAdminPanel()"><i class="fa-solid fa-shield-halved"></i> هۆبی ئۆنەر</button>
           <button class="jackia-btn-hud" onclick="openJackiaModal()"><i class="fa-solid fa-dice"></i> جاکیا</button>
           <button class="garden-btn-hud" onclick="openGardenModal()"><i class="fa-solid fa-seedling"></i> باخجە</button>
           <button class="disco-btn-hud" onclick="toggleDiscoMode()"><i class="fa-solid fa-compact-disc"></i> دیسکۆ (<span id="disco-status-lbl">داگیرساندن</span>)</button>
@@ -1068,7 +1070,7 @@
 
     function triggerAirplaneTrailerFromAdmin() {
       let bannerText = document.getElementById('trailer-banner-text').value.trim();
-      if(!bannerText) bannerText = "HAMA DEV AIRPLANE TRAILER ☀️ kurdistan";
+      if(!bannerText) bannerText = "HAMA DEV AIRPLANE TRAILER ✈️ kurdistan";
       localStorage.setItem('hamadev_airplane_trailer', bannerText);
       showAirplaneBanner(bannerText);
       alert('✈️ فڕۆکەی ترەیلەر بە سەرکەوتوویی لە ئاسمانی ماپەکەدا سپاون کرا!');
@@ -1515,6 +1517,13 @@
       document.getElementById('carried-count').innerText = carriedEggs;
       document.getElementById('max-capacity').innerText = maxCapacity;
       document.getElementById('speed-display').innerText = Math.round(playerSpeed * 100);
+
+      // نیشاندانی دوگمەی هۆبی ئۆنەر لەناو یارییەکەدا ئەگەر خۆت ئۆنەر بوویت
+      if (currentUser === 'rip_hama276') {
+        document.getElementById('in-game-owner-btn').style.display = 'inline-flex';
+      } else {
+        document.getElementById('in-game-owner-btn').style.display = 'none';
+      }
 
       let activeBroadcast = localStorage.getItem('hamadev_broadcast_msg');
       if(activeBroadcast) {

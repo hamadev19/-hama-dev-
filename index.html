@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.60.0 Persistent Admin & Fly Hub</title>
+  <title>Hama Dev Store - Roblox Kurd v2.521.0 Owner Teleport & Divine Update</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -45,13 +45,16 @@
       width: 100%; max-width: 420px; padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.8); text-align: center;
     }
     
+    /* لۆگۆی ئاڵای کوردستان */
     .store-logo {
       width: 90px; height: 90px; border-radius: 50%; margin: 0 auto 16px auto;
       border: 3px solid #ff0000; box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
       background: linear-gradient(to bottom, #ef4444 33%, #ffffff 33%, #ffffff 66%, #22c55e 66%);
       display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
     }
-    .store-logo::before { content: "☀️"; font-size: 36px; filter: drop-shadow(0 0 2px rgba(0,0,0,0.5)); }
+    .store-logo::before {
+      content: "☀️"; font-size: 36px; filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
+    }
 
     .auth-card h1 { font-size: 24px; margin-bottom: 4px; color: #fff; }
     .auth-card .version-tag { font-size: 11px; color: var(--robux-gold); font-weight: bold; margin-bottom: 12px; }
@@ -173,18 +176,33 @@
     .settings-card h3 { color: var(--store-primary); font-size: 18px; margin-bottom: 4px; }
     .verify-box { background: #0f172a; border: 1px solid var(--store-border); padding: 14px; border-radius: 10px; display: none; margin-top: 8px; }
 
-    /* پەنێڵی دەرکەوتووی هەمیشەیی لەسەر یاری (In-Game Floating Admin Hub) */
-    #in-game-admin-hub-panel {
-      position: absolute; top: 75px; right: 15px; width: 310px; max-height: calc(100vh - 90px);
-      background: rgba(15, 23, 42, 0.94); border: 2px solid var(--admin-red); border-radius: 16px;
-      z-index: 10015; display: none; flex-direction: column; padding: 14px; gap: 10px; pointer-events: auto;
-      box-shadow: 0 0 35px rgba(239, 68, 68, 0.5); overflow-y: auto;
+    #admin-modal {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.85); z-index: 20000; display: none; align-items: center; justify-content: center; padding: 20px;
     }
-    .ingame-hub-title { color: var(--admin-red); font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--store-border); padding-bottom: 6px; }
-    .ingame-section { display: flex; flex-direction: column; gap: 6px; background: #1e293b; padding: 8px; border-radius: 10px; border: 1px solid var(--store-border); }
-    .ingame-section label { font-size: 11px; font-weight: bold; color: var(--robux-gold); }
-    .ingame-btn { padding: 8px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 11px; color: #fff; text-align: center; }
-    .ingame-input { width: 100%; padding: 7px; background: #0f172a; border: 1px solid var(--store-border); border-radius: 6px; color: white; font-size: 11px; outline: none; }
+    .admin-card {
+      background: var(--store-card); border: 1px solid var(--admin-red); border-radius: 16px;
+      width: 100%; max-width: 720px; max-height: 90vh; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 14px;
+    }
+    .admin-card h2 { color: var(--admin-red); display: flex; align-items: center; gap: 8px; font-size: 18px; }
+    .admin-section { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--store-border); padding-top: 12px; }
+    .admin-section input {
+      padding: 10px; background: #0f172a; border: 1px solid var(--store-border); border-radius: 8px; color: white; outline: none; font-size: 13px;
+    }
+    .admin-action-btn { background: #10b981; color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+    .user-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--store-border); font-size: 13px; }
+    .user-info-text { display: flex; flex-direction: column; gap: 2px; }
+    .status-active { color: #10b981; font-size: 11px; font-weight: bold; }
+    .status-banned { color: #ef4444; font-size: 11px; font-weight: bold; }
+    .status-muted { color: var(--taco-orange); font-size: 11px; font-weight: bold; }
+    .admin-action-btns { display: flex; gap: 5px; flex-wrap: wrap; }
+    .login-as-btn { background: #3b82f6; color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
+    .give-robux-btn { background: var(--robux-gold); color: #000; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
+    .mute-btn { background: var(--taco-orange); color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
+    .ban-btn { background: var(--admin-red); color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
+
+    .mutation-admin-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 4px; }
+    .mut-btn { padding: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 12px; color: #000; }
 
     #game-container {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -208,10 +226,6 @@
     }
     .jackia-btn-hud {
       background: var(--robux-gold); color: #000; border: none; padding: 5px 10px;
-      border-radius: 12px; font-weight: bold; cursor: pointer; pointer-events: auto; display: flex; align-items: center; gap: 4px; font-size: 11px;
-    }
-    .fly-btn-hud {
-      background: #3b82f6; color: white; border: none; padding: 5px 10px;
       border-radius: 12px; font-weight: bold; cursor: pointer; pointer-events: auto; display: flex; align-items: center; gap: 4px; font-size: 11px;
     }
     .disco-btn-hud {
@@ -292,7 +306,7 @@
     <div class="auth-card">
       <div class="store-logo"></div>
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.60.0 Persistent Admin & Fly Hub</div>
+      <div class="version-tag">v2.521.0 Owner Teleport & Divine Update</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -314,7 +328,7 @@
     <header>
       <div class="brand">
         <div class="brand-flag">☀️</div>
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.60.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.521.0</span></span>
       </div>
 
       <div class="store-search">
@@ -480,7 +494,7 @@
 
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و تێلێپۆرت (v2.60.0 Persistent Admin & Fly Hub)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و تێلێپۆرت (v2.521.0 Owner Teleport)</h2>
       
       <div class="admin-section" style="background:#1e1b4b; padding:14px; border-radius:12px; border:2px solid var(--divine-purple);">
         <label style="font-size:13px; font-weight:bold; color:#c084fc;"><i class="fa-solid fa-location-crosshairs"></i> بەشی تێلێپۆرت بە کلیلک (Owner Teleport):</label>
@@ -545,7 +559,7 @@
 
       <div class="admin-section">
         <label style="font-size:12px; font-weight:bold; color:var(--store-primary);"><i class="fa-solid fa-plane-departure"></i> ناردن و سپاون کردنی فڕۆکەی ترەیلەر لەسەر ماپەکە (Airplane Trailer):</label>
-        <input type="text" id="trailer-banner-text" placeholder="دەق/ناوی ترەیلەر لەسەر فڕۆکە..." value="HAMA DEV AIRPLANE TRAILER ☀️ kurdistan">
+        <input type="text" id="trailer-banner-text" placeholder="دەق/ناوی ترەیلەر لەسەر فڕۆکە..." value="HAMA DEV AIRPLANE TRAILER ✈️ kurdistan ☀️">
         <div style="display: flex; gap: 8px; margin-top: 5px;">
           <button class="admin-action-btn" style="flex:1; background:var(--store-primary); color:white;" onclick="triggerAirplaneTrailerFromAdmin()">✈️ ناردنی فڕۆکەی ترەیلەر بۆ ماپەکە</button>
         </div>
@@ -592,53 +606,10 @@
     <canvas id="game-canvas"></canvas>
     
     <div id="in-game-admin-hud">📢 پەیامی ئۆنەر: لێرە دەردەکەوێت</div>
+
+    <!-- بەشی تابلۆی فڕۆکە لەسەر شاشەی یاری (Airplane Banner HUD) -->
     <div id="airplane-banner-hud" style="position: absolute; top: 15px; left: 50%; transform: translateX(-50%); background: linear-gradient(90deg, #ef4444, #f59e0b, #10b981); color: #fff; padding: 10px 24px; border-radius: 20px; font-weight: bold; font-size: 16px; z-index: 10012; display: none; box-shadow: 0 0 25px rgba(239, 68, 68, 0.8); text-align: center; border: 2px solid #fff;">
       ✈️ <span id="airplane-hud-text">HAMA DEV AIRPLANE TRAILER ☀️</span>
-    </div>
-
-    <!-- هۆبە و پەنێڵی هەمیشەیی ئۆنەر لەسەر شاشەی یاری (Persistent In-Game Admin Hub) -->
-    <div id="in-game-admin-hub-panel">
-      <div class="ingame-hub-title">
-        <span><i class="fa-solid fa-shield-halved"></i> هۆبەی ئۆنەر (Admin Hub)</span>
-        <button style="background:transparent; border:none; color:#fff; cursor:pointer;" onclick="toggleInGameHubPanel()"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-
-      <div class="ingame-section">
-        <label>📍 تێلێپۆرت (Teleport):</label>
-        <div style="display:flex; gap:4px;">
-          <button class="ingame-btn" style="background:#10b981; flex:1;" onclick="adminTeleportPlayer('start')">سەرەتا</button>
-          <button class="ingame-btn" style="background:#38bdf8; color:#000; flex:1;" onclick="adminTeleportPlayer('eggs')">هێلکەکان</button>
-          <button class="ingame-btn" style="background:var(--divine-purple); flex:1;" onclick="adminTeleportPlayer('divine')">دیڤاین</button>
-        </div>
-      </div>
-
-      <div class="ingame-section">
-        <label>✨ سپاون کردنی هێلکەی دیڤاین:</label>
-        <div style="display:flex; gap:4px;">
-          <button class="ingame-btn" style="background:#ef4444; flex:1;" onclick="spawnSpecificDivineEgg('World Burner Egg', 30)">World (30x)</button>
-          <button class="ingame-btn" style="background:#a855f7; flex:1;" onclick="spawnSpecificDivineEgg('Aetheron Egg', 50)">Aetheron (50x)</button>
-        </div>
-      </div>
-
-      <div class="ingame-section">
-        <label>🧬 موتەیشنی خێرا (Mutations):</label>
-        <div style="display:flex; gap:4px;">
-          <button class="ingame-btn" style="background:var(--robux-gold); color:#000; flex:1;" onclick="addAdminMutation('Gold', 10)">Gold</button>
-          <button class="ingame-btn" style="background:var(--taco-orange); flex:1;" onclick="addAdminMutation('Taco', 15)">Taco</button>
-          <button class="ingame-btn" style="background:linear-gradient(90deg, #ef4444, #3b82f6, #10b981); flex:1;" onclick="addAdminMutation('Rainbow', 50)">Rainbow</button>
-        </div>
-      </div>
-
-      <div class="ingame-section">
-        <label>🎰 کۆنترۆڵی جاکیا و جاکپۆت:</label>
-        <button class="ingame-btn" style="background:var(--robux-gold); color:#000;" onclick="adminTriggerJackiaJackpot()">بردنەوەی جاکپۆتی جاکیا (+5000 R$)</button>
-      </div>
-
-      <div class="ingame-section">
-        <label>📢 ناردنی پەیامی گشتی بۆ شاشە:</label>
-        <input type="text" id="ingame-broadcast-input" class="ingame-input" placeholder="پەیام بنووسە...">
-        <button class="ingame-btn" style="background:#f59e0b; color:#000;" onclick="sendInGameBroadcast()">ناردنی پەیام</button>
-      </div>
     </div>
 
     <div id="shop-modal">
@@ -698,11 +669,9 @@
           <span>خاڵ: <span id="game-score">0</span></span>
           <span>🥚 هێلکە: <span id="carried-count">0</span>/<span id="max-capacity">1</span></span>
           <span>⚡ خێرایی: <span id="speed-display">25</span></span>
-          <button class="fly-btn-hud" onclick="toggleFlyMode()"><i class="fa-solid fa-feather"></i> فڕین (<span id="fly-status-lbl">وەستاوە</span>)</button>
           <button class="jackia-btn-hud" onclick="openJackiaModal()"><i class="fa-solid fa-dice"></i> جاکیا</button>
           <button class="garden-btn-hud" onclick="openGardenModal()"><i class="fa-solid fa-seedling"></i> باخجە</button>
           <button class="disco-btn-hud" onclick="toggleDiscoMode()"><i class="fa-solid fa-compact-disc"></i> دیسکۆ (<span id="disco-status-lbl">داگیرساندن</span>)</button>
-          <button class="admin-badge-btn" style="display:flex; background:var(--admin-red); padding:5px 8px; font-size:11px;" onclick="toggleInGameHubPanel()"><i class="fa-solid fa-shield-halved"></i> هۆبە</button>
         </div>
       </div>
 
@@ -728,7 +697,6 @@
     let adminRefreshInterval = null;
     let isOwnerSecondCityGame = false;
     let isDiscoActive = false;
-    let isFlyActive = false;
 
     usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, email: 'rip_hama@dev.kur', verified: true, hasVIP: true, hasSpeed: true, hasShield: true, hasGoldenPet: true, savedSpeed: 100, savedCapacity: 10, inventoryEggs: [], hatchingSlots: [], collectedPets: [], friends: ['Ahmad_Gamer', 'Hama_Dev_Bot'] };
     if(!usersDB['Ahmad_Gamer']) usersDB['Ahmad_Gamer'] = { password: '123', robux: 1200, email: 'ahmad@mail.com', verified: true, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [], friends: ['rip_hama276'] };
@@ -980,6 +948,7 @@
       });
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       alert(`🧬 موتەیشنی ${type} (${multiplier}x) بە سەرکەوتوویی بۆ ئەکاونتەکەت دروست بوو!`);
+      closeAdminPanel();
     }
 
     function addAllMutationsToAdmin() {
@@ -991,6 +960,7 @@
       uObj.collectedPets.push({ name: '🌈 Rainbow Phoenix', bonus: 500, mutationType: 'Rainbow' });
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       alert('🚀 سەرجەم موتەیشنەکان (Gold, Taco, Diamond, Rainbow) بۆ ئەکاونتەکەت چالاک بون!');
+      closeAdminPanel();
     }
 
     function adminTriggerJackiaJackpot() {
@@ -998,6 +968,7 @@
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
       alert('🎰 ئادمین ئەبیوس: جاکپۆتی کارای جاکیا بردەوە! +5,000 ڕۆبۆکس زیاد بوو بۆ ئەکاونتەکەت.');
+      closeAdminPanel();
     }
 
     function adminSpawnJackiaEgg() {
@@ -1006,6 +977,7 @@
       uObj.inventoryEggs.push({ name: 'هێلکەی تایبەتی جاکیا (Jackia Divine)', mult: 10, mutDrop: 'Rainbow' });
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       alert('🥚 هێلکەی نایابی جاکیا بە سەرکەوتوویی بۆ کۆگاکەت زیاد کرا!');
+      closeAdminPanel();
     }
 
     function adminTeleportPlayer(destType) {
@@ -1014,11 +986,11 @@
         return;
       }
       if(destType === 'start') {
-        player.position.set(0, isFlyActive ? 12 : 1, 15);
+        player.position.set(0, 1, 15);
         alert('📍 تێلێپۆرت کرا بۆ سەرەتای ماپ (Home Spawn)!');
       } else if(destType === 'eggs') {
         if(eggsList.length > 0 && eggsList[0]) {
-          player.position.set(eggsList[0].position.x, isFlyActive ? 12 : 1, eggsList[0].position.z + 2);
+          player.position.set(eggsList[0].position.x, 1, eggsList[0].position.z + 2);
           alert('🥚 تێلێپۆرت کرا بۆ لای هێلکەکان!');
         } else {
           alert('❌ هیچ هێلکەیەک نەدۆزرایەوە لەسەر ماپ!');
@@ -1026,13 +998,14 @@
       } else if(destType === 'divine') {
         let foundDivine = eggsList.find(e => e && e.userData && e.userData.isDivine);
         if(foundDivine) {
-          player.position.set(foundDivine.position.x, isFlyActive ? 12 : 1, foundDivine.position.z + 2);
+          player.position.set(foundDivine.position.x, 1, foundDivine.position.z + 2);
           alert('✨ تێلێپۆرت کرا بۆ لای هێلکەی دیڤاین!');
         } else {
-          player.position.set(0, isFlyActive ? 12 : 1, -50);
+          player.position.set(0, 1, -50);
           alert('✨ تێلێپۆرت کرا بۆ ناوچەی دیڤاین!');
         }
       }
+      closeAdminPanel();
     }
 
     function spawnSpecificDivineEgg(eggName, multVal) {
@@ -1054,6 +1027,7 @@
       document.getElementById('announcement-text').innerText = `🎁 هێلکەی دیڤاینی نوێ (${eggName}) سپاون بوو!`;
       document.getElementById('global-announcement-banner').style.display = 'flex';
       alert(`✨ هێلکەی ${eggName} بە سەرکەوتوویی لەبەردەم کەسایەتییەکەت سپاون کرا!`);
+      closeAdminPanel();
     }
 
     function giveDivineEggToInventory(eggName, multVal) {
@@ -1062,6 +1036,7 @@
       uObj.inventoryEggs.push({ name: `✨ Divine ${eggName}`, mult: multVal, mutDrop: 'Rainbow' });
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       alert(`🎒 هێلکەی دیڤاینی (${eggName}) بە سەرکەوتوویی خرایە ناو کۆگای هێلکەکانت!`);
+      closeAdminPanel();
     }
 
     function modifyRobuxForPlayer(actionType) {
@@ -1082,6 +1057,7 @@
       if(targetUser === currentUser) {
         document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
       }
+      openAdminPanel();
     }
 
     function spawnDivineAdmin(amountReward) {
@@ -1090,6 +1066,7 @@
       document.getElementById('announcement-text').innerText = `🎁 دیڤاینی بڕی (${amountReward.toLocaleString()} R$) سپاون بوو! ڕابکەن بۆ بردنی!`;
       banner.style.display = 'flex';
       alert(`✨ دیڤاینی (${amountReward.toLocaleString()}) بە سەرکەوتوویی سپاون کرا!`);
+      closeAdminPanel();
       if(typeof spawnAllEggs === 'function') spawnAllEggs();
     }
 
@@ -1099,15 +1076,8 @@
       localStorage.setItem('hamadev_airplane_trailer', bannerText);
       showAirplaneBanner(bannerText);
       alert('✈️ فڕۆکەی ترەیلەر بە سەرکەوتوویی لە ئاسمانی ماپەکەدا سپاون کرا!');
+      closeAdminPanel();
       if(typeof spawnAirplaneInGame === 'function') spawnAirplaneInGame(bannerText);
-    }
-
-    function sendInGameBroadcast() {
-      let msg = document.getElementById('ingame-broadcast-input').value.trim();
-      if(!msg) return;
-      localStorage.setItem('hamadev_broadcast_msg', msg);
-      showInGameAdminMessage(msg);
-      alert('📢 پەیامەکەت بۆ هەمووان نێردرا!');
     }
 
     function showAirplaneBanner(text) {
@@ -1127,17 +1097,21 @@
       }
     }
 
-    function toggleInGameHubPanel() {
-      const panel = document.getElementById('in-game-admin-hub-panel');
-      if(panel) {
-        panel.style.display = panel.style.display === 'flex' ? 'none' : 'flex';
-      }
+    function adminToggleGodMode() {
+      let uObj = usersDB[currentUser];
+      uObj.hasShield = !uObj.hasShield;
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      alert(uObj.hasShield ? '🛡️ هێزی پاراستنی هەمیشەیی (God Mode) چالاک بوو!' : '❌ هێزی پاراستن ناچالاک کرا.');
+      closeAdminPanel();
     }
 
-    function toggleFlyMode() {
-      isFlyActive = !isFlyActive;
-      document.getElementById('fly-status-lbl').innerText = isFlyActive ? 'چالاکە (Fly)' : 'وەستاوە';
-      alert(isFlyActive ? '🦅 فڕین (Fly Mode) چالاک بوو! ئێستا دەتوانیت بە ئاسماندا بگەڕێیت.' : '⬇️ فڕین ناچالاک کرا و دابەزیتە سەر زەوی.');
+    let customSkyColorIndex = 0;
+    const skyColors = [0x0f172a, 0x3b0764, 0x450a0a, 0x064e3b];
+    function adminChangeSkyColor() {
+      customSkyColorIndex = (customSkyColorIndex + 1) % skyColors.length;
+      if(scene) scene.background = new THREE.Color(skyColors[customSkyColorIndex]);
+      alert('🌌 ڕەنگی ئاسمانی یاری گۆڕدرا!');
+      closeAdminPanel();
     }
 
     function openAdminPanel() {
@@ -1190,8 +1164,10 @@
     function toggleMuteUser(uname) {
       if(mutedDB.includes(uname)) {
         mutedDB = mutedDB.filter(u => u !== uname);
+        alert(`🔊 یاریزان ${uname} لە میوت دەرچوو.`);
       } else {
         mutedDB.push(uname);
+        alert(`🔇 یاریزان ${uname} میوت کرا.`);
       }
       localStorage.setItem('hamadev_store_muted', JSON.stringify(mutedDB));
       updateAdminUsersList();
@@ -1533,10 +1509,6 @@
 
     function initGameEngine() {
       document.getElementById('game-container').style.display = 'flex';
-      if(currentUser === 'rip_hama276') {
-        document.getElementById('in-game-admin-hub-panel').style.display = 'flex';
-      }
-
       gameScore = 0; carriedEggs = 0; carriedValueMultiplier = 1; shopOpen = false; jackiaOpen = false;
 
       let userObj = usersDB[currentUser] || {};
@@ -1683,20 +1655,14 @@
         player.rotation.y = Math.atan2(moveX, moveZ);
       }
 
-      if (isFlyActive) {
-        if (keys.jump) player.position.y += 0.3;
-        if (keys.down) player.position.y -= 0.3;
-        if (player.position.y < 1.0) player.position.y = 1.0;
-      } else {
-        if (keys.jump && player.position.y <= 1.05) player.position.y = 3.5;
-        if (player.position.y > 1.0) player.position.y -= 0.12;
-        else player.position.y = 1.0;
-      }
+      if (keys.jump && player.position.y <= 1.05) player.position.y = 3.5;
+      if (player.position.y > 1.0) player.position.y -= 0.12;
+      else player.position.y = 1.0;
 
       if (petObj) {
         petObj.position.x = player.position.x + Math.sin(Date.now() * 0.005) * 1.5;
         petObj.position.z = player.position.z + Math.cos(Date.now() * 0.005) * 1.5;
-        petObj.position.y = player.position.y + Math.sin(Date.now() * 0.01) * 0.3;
+        petObj.position.y = 1.0 + Math.sin(Date.now() * 0.01) * 0.3;
       }
 
       if (vehicleMesh) vehicleMesh.rotation.y += 0.1;
@@ -1729,7 +1695,7 @@
       }
 
       eggsList.forEach((eggObj, idx) => {
-        if (eggObj && carriedEggs < maxCapacity && player.position.distanceTo(eggObj.position) < 1.8) {
+        if (eggObj && carriedEggs < maxCapacity && player.position.distanceTo(eggObj.position) < 1.4) {
           if(eggObj.userData && eggObj.userData.isDivine) {
             let winAmount = eggObj.userData.rewardAmount || 1090;
             usersDB[currentUser].robux += winAmount;
@@ -1755,7 +1721,7 @@
 
       if (eggsList.length > 0 && eggsList.every(e => e === null)) spawnAllEggs();
 
-      if (carriedEggs > 0 && player.position.distanceTo(new THREE.Vector3(0, player.position.y, 15)) < 4.0) {
+      if (carriedEggs > 0 && player.position.distanceTo(new THREE.Vector3(0, 1, 15)) < 3.5) {
         let uObj = usersDB[currentUser];
         let mutantBonusSum = 0;
         if(uObj.collectedPets) {
@@ -1787,10 +1753,8 @@
       document.getElementById('game-container').style.display = 'none';
       const hud = document.getElementById('in-game-admin-hud');
       const airplaneBanner = document.getElementById('airplane-banner-hud');
-      const hubPanel = document.getElementById('in-game-admin-hub-panel');
       if(hud) hud.style.display = 'none';
       if(airplaneBanner) airplaneBanner.style.display = 'none';
-      if(hubPanel) hubPanel.style.display = 'none';
     }
   </script>
 </body>

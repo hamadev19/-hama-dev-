@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.521.0 Complete & Perfect</title>
+  <title>Hama Dev Store - Roblox Kurd v2.521.0 Owner Teleport & Divine Update</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -255,6 +255,7 @@
     .pets-collected-box { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
     .pet-card { background: #1e293b; border: 1px solid var(--divine-purple); padding: 8px 12px; border-radius: 10px; font-size: 11px; text-align: center; }
 
+    /* تحسين أدوات التحكم لشاشات المحمول */
     .mobile-controls {
       position: absolute; bottom: 15px; left: 15px; right: 15px;
       display: flex; justify-content: space-between; align-items: flex-end;
@@ -293,158 +294,7 @@
     <div class="auth-card">
       <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.521.0 Complete Edition</div>
-      <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
-      
-      <div class="input-group">
-        <label>ناوی بەکارهێنەر (Username)</label>
-        <input type="text" id="username-input" placeholder="ناوی خۆت بنووسە...">
-      </div>
-      
-      <div class="input-group">
-        <label>تێپەڕەواژە (Password)</label>
-        <input type="password" id="password-input" placeholder="******">
-      </div>
-
-      <button class="auth-btn" onclick="handleAuth()">چوونەژوورەوە (Login)</button>
-      <div class="error-msg" id="auth-error"></div>
-    </div>
-  </div>
-
-  <div id="dashboard">
-    <header>
-      <div class="brand">
-        <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
-        <span>Hama Devsition: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.85); z-index: 20000; display: none; align-items: center; justify-content: center; padding: 20px;
-    }
-    .admin-card {
-      background: var(--store-card); border: 1px solid var(--admin-red); border-radius: 16px;
-      width: 100%; max-width: 720px; max-height: 90vh; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 14px;
-    }
-    .admin-card h2 { color: var(--admin-red); display: flex; align-items: center; gap: 8px; font-size: 18px; }
-    .admin-section { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--store-border); padding-top: 12px; }
-    .admin-section input {
-      padding: 10px; background: #0f172a; border: 1px solid var(--store-border); border-radius: 8px; color: white; outline: none; font-size: 13px;
-    }
-    .admin-action-btn { background: #10b981; color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-    .user-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--store-border); font-size: 13px; }
-    .user-info-text { display: flex; flex-direction: column; gap: 2px; }
-    .status-active { color: #10b981; font-size: 11px; font-weight: bold; }
-    .status-banned { color: #ef4444; font-size: 11px; font-weight: bold; }
-    .status-muted { color: var(--taco-orange); font-size: 11px; font-weight: bold; }
-    .admin-action-btns { display: flex; gap: 5px; flex-wrap: wrap; }
-    .login-as-btn { background: #3b82f6; color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
-    .give-robux-btn { background: var(--robux-gold); color: #000; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
-    .mute-btn { background: var(--taco-orange); color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
-    .ban-btn { background: var(--admin-red); color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
-
-    .mutation-admin-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 4px; }
-    .mut-btn { padding: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 12px; color: #000; }
-
-    #game-container {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: #111; z-index: 9999; display: none; flex-direction: column;
-    }
-    #game-canvas { width: 100%; height: 100%; display: block; }
-    .game-ui-overlay {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none; display: flex; flex-direction: column; justify-content: space-between; padding: 15px;
-      box-sizing: border-box;
-    }
-    .game-top-bar { display: flex; justify-content: space-between; align-items: center; pointer-events: auto; z-index: 10005; max-width: 100%; box-sizing: border-box; flex-wrap: wrap; gap: 8px; }
-    .exit-game-btn {
-      background: rgba(239, 68, 68, 0.9); color: white; border: none; padding: 8px 14px;
-      border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 12px;
-    }
-    .game-stats { background: rgba(0,0,0,0.85); padding: 6px 12px; border-radius: 20px; font-weight: bold; display: flex; gap: 10px; color: #fff; font-size:11px; border:1px solid #444; align-items: center; flex-wrap: wrap; }
-    .garden-btn-hud {
-      background: var(--divine-purple); color: white; border: none; padding: 5px 10px;
-      border-radius: 12px; font-weight: bold; cursor: pointer; pointer-events: auto; display: flex; align-items: center; gap: 4px; font-size: 11px;
-    }
-    .jackia-btn-hud {
-      background: var(--robux-gold); color: #000; border: none; padding: 5px 10px;
-      border-radius: 12px; font-weight: bold; cursor: pointer; pointer-events: auto; display: flex; align-items: center; gap: 4px; font-size: 11px;
-    }
-    .disco-btn-hud {
-      background: linear-gradient(90deg, #ef4444, #3b82f6, #10b981); color: white; border: none; padding: 5px 10px;
-      border-radius: 12px; font-weight: bold; cursor: pointer; pointer-events: auto; display: flex; align-items: center; gap: 4px; font-size: 11px;
-    }
-
-    #in-game-admin-hud {
-      position: absolute; top: 75px; left: 50%; transform: translateX(-50%);
-      background: rgba(15, 23, 42, 0.9); border: 2px solid var(--robux-gold); color: #fff;
-      padding: 10px 20px; border-radius: 14px; font-weight: bold; font-size: 14px;
-      z-index: 10006; display: none; text-align: center; box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
-    }
-
-    #shop-modal {
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      background: rgba(15, 23, 42, 0.95); border: 2px solid var(--store-primary); border-radius: 16px;
-      width: 380px; max-width: 90vw; max-height: 85vh; overflow-y: auto; padding: 20px; z-index: 10008; display: none; flex-direction: column; gap: 14px; pointer-events: auto;
-    }
-    .shop-header { display: flex; justify-content: space-between; align-items: center; color: var(--store-primary); font-weight: bold; font-size: 15px; border-bottom: 1px solid var(--store-border); padding-bottom: 8px; }
-    .shop-close { background: transparent; border: none; color: #fff; font-size: 16px; cursor: pointer; }
-    .shop-row { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--store-border); font-size: 13px; margin-bottom: 6px; }
-    .buy-btn { background: var(--robux-gold); color: #000; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 12px; }
-
-    #jackia-modal {
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      background: rgba(15, 23, 42, 0.96); border: 2px solid var(--robux-gold); border-radius: 18px;
-      width: 420px; max-width: 90vw; max-height: 85vh; overflow-y: auto; padding: 22px; z-index: 10010; display: none; flex-direction: column; gap: 14px; pointer-events: auto;
-      box-shadow: 0 0 40px rgba(251, 191, 36, 0.6);
-    }
-
-    #garden-modal {
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      background: rgba(15, 23, 42, 0.96); border: 2px solid var(--divine-purple); border-radius: 18px;
-      width: 420px; max-width: 90vw; max-height: 85vh; overflow-y: auto; padding: 22px; z-index: 10009; display: none; flex-direction: column; gap: 14px; pointer-events: auto;
-      box-shadow: 0 0 40px rgba(168, 85, 247, 0.5);
-    }
-    .garden-slot { background: #0f172a; border: 1px solid var(--store-border); border-radius: 12px; padding: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 13px; }
-    .hatch-action-btn { background: var(--store-primary); color: white; border: none; padding: 6px 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 12px; }
-    .pets-collected-box { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-    .pet-card { background: #1e293b; border: 1px solid var(--divine-purple); padding: 8px 12px; border-radius: 10px; font-size: 11px; text-align: center; }
-
-    .mobile-controls {
-      position: absolute; bottom: 15px; left: 15px; right: 15px;
-      display: flex; justify-content: space-between; align-items: flex-end;
-      pointer-events: auto; z-index: 10005; max-width: 100%; box-sizing: border-box;
-    }
-    .dpad { display: grid; grid-template-columns: repeat(3, 42px); grid-template-rows: repeat(3, 42px); gap: 3px; }
-    .dpad-btn {
-      background: rgba(255, 255, 255, 0.25); border: 1px solid rgba(255, 255, 255, 0.4);
-      border-radius: 8px; display: flex; align-items: center; justify-content: center;
-      color: white; font-size: 16px; touch-action: manipulation;
-    }
-    .jump-btn-touch {
-      width: 65px; height: 65px; background: rgba(16, 185, 129, 0.85);
-      border: 2px solid white; border-radius: 50%; display: flex;
-      align-items: center; justify-content: center; color: white; font-size: 22px; touch-action: manipulation;
-    }
-
-    @media (max-width: 768px) {
-      sidebar { width: 70px; padding: 10px 4px; }
-      .nav-item span { display: none; }
-      .store-search { width: 130px; }
-      .dpad { grid-template-columns: repeat(3, 38px); grid-template-rows: repeat(3, 38px); }
-      .jump-btn-touch { width: 55px; height: 55px; font-size: 18px; }
-      .mobile-controls { bottom: 10px; left: 10px; right: 10px; }
-    }
-  </style>
-</head>
-<body>
-
-  <div id="global-announcement-banner">
-    <i class="fa-solid fa-gift" style="font-size: 20px; color:#fde047;"></i>
-    <span id="announcement-text">🎁 دیڤاینێک لە یارییەکەدا سپاون بوو! ڕابکەن بۆ بردنی!</span>
-  </div>
-
-  <div id="auth-screen">
-    <div class="auth-card">
-      <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
-      <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.521.0 Complete Edition</div>
+      <div class="version-tag">v2.521.0 Owner Teleport & Divine Update</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -634,6 +484,7 @@
     <div class="admin-card">
       <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و تێلێپۆرت (v2.521.0 Owner Teleport)</h2>
       
+      <!-- بەشی تێلێپۆرت -->
       <div class="admin-section" style="background:#1e1b4b; padding:14px; border-radius:12px; border:2px solid var(--divine-purple);">
         <label style="font-size:13px; font-weight:bold; color:#c084fc;"><i class="fa-solid fa-location-crosshairs"></i> بەشی تێلێپۆرت بە کلیلک (Owner Teleport):</label>
         <p style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">بۆ گواستنەوەی ڕاستەوخۆی کەسایەتییەکەت بۆ سەر هێلکەکان یان سەرەتا!</p>
@@ -669,32 +520,71 @@
 
       <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
         <label style="font-size:13px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-dna"></i> پەنێڵی گشتی موتەیشنەکان (Mutations Control):</label>
+        <p style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">هەر موتەیشنێک هەڵبژێریت دەستبەجێ دەچێتە سەر ئەکاونتەکەت و پێتەکانت دەگۆڕێت!</p>
         <div class="mutation-admin-grid">
-          <button class="mut-btn" style="background:var(--robux-gold);" onclick="addAdminMutation('Gold', 10)">✨ Gold (10x)</button>
-          <button class="mut-btn" style="background:var(--taco-orange); color:#fff;" onclick="addAdminMutation('Taco', 15)">🌮 Taco (15x)</button>
-          <button class="mut-btn" style="background:#38bdf8;" onclick="addAdminMutation('Diamond', 20)">💎 Diamond (20x)</button>
-          <button class="mut-btn" style="background:linear-gradient(90deg, #ef4444, #3b82f6, #10b981); color:#fff;" onclick="addAdminMutation('Rainbow', 50)">🌈 Rainbow (50x)</button>
+          <button class="mut-btn" style="background:var(--robux-gold);" onclick="addAdminMutation('Gold', 10)">✨ Gold Mutation (10x)</button>
+          <button class="mut-btn" style="background:var(--taco-orange); color:#fff;" onclick="addAdminMutation('Taco', 15)">🌮 Taco Mutation (15x)</button>
+          <button class="mut-btn" style="background:#38bdf8;" onclick="addAdminMutation('Diamond', 20)">💎 Diamond Mutation (20x)</button>
+          <button class="mut-btn" style="background:linear-gradient(90deg, #ef4444, #3b82f6, #10b981); color:#fff;" onclick="addAdminMutation('Rainbow', 50)">🌈 Rainbow Mutation (50x)</button>
         </div>
-        <button class="admin-action-btn" style="background:var(--divine-purple); color:white; margin-top:8px;" onclick="addAllMutationsToAdmin()">🚀 پێدانی هەموو موتەیشنەکان (All 100x)</button>
+        <button class="admin-action-btn" style="background:var(--divine-purple); color:white; margin-top:8px;" onclick="addAllMutationsToAdmin()">🚀 پێدانی هەموو موتەیشنەکان (All Mutations 100x)</button>
       </div>
 
       <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--robux-gold);">
         <label style="font-size:13px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-dice"></i> کۆنترۆڵی کارای جاکیا (Working Jackia & Jackpot Abuse):</label>
         <div style="display: flex; gap: 8px; margin-top: 6px;">
-          <button class="admin-action-btn" style="flex:1; background:var(--robux-gold); color:#000;" onclick="adminTriggerJackiaJackpot()">🎰 جاکپۆتی جاکیا (+5000 R$)</button>
-          <button class="admin-action-btn" style="flex:1; background:var(--divine-purple); color:#fff;" onclick="adminSpawnJackiaEgg()">🥚 هێلکەی نایابی جاکیا</button>
+          <button class="admin-action-btn" style="flex:1; background:var(--robux-gold); color:#000;" onclick="adminTriggerJackiaJackpot()">🎰 بردنەوەی خێرای جاکپۆتی جاکیا (+5000 R$)</button>
+          <button class="admin-action-btn" style="flex:1; background:var(--divine-purple); color:#fff;" onclick="adminSpawnJackiaEgg()">🥚 زیادکردنی هێلکەی نایابی جاکیا بۆ کۆگا</button>
         </div>
       </div>
 
       <div class="admin-section">
-        <label style="font-size:12px; font-weight:bold; color:var(--store-primary);"><i class="fa-solid fa-plane-departure"></i> ناردنی فڕۆکەی ترەیلەر لەسەر ماپەکە (Airplane Trailer):</label>
-        <input type="text" id="trailer-banner-text" placeholder="دەق/ناوی ترەیلەر لەسەر فڕۆکە..." value="HAMA DEV AIRPLANE TRAILER ✈️">
-        <button class="admin-action-btn" style="background:var(--store-primary); color:white; margin-top:5px;" onclick="triggerAirplaneTrailerFromAdmin()">✈️ ناردنی فڕۆکەی ترەیلەر</button>
+        <label style="font-size:12px; font-weight:bold; color:var(--divine-purple);"><i class="fa-solid fa-dice-d6"></i> سپاون کردنی دیڤاین و خەڵاتی تایبەت (Divine & Jackpot Spawn):</label>
+        <div style="display: flex; gap: 8px; margin-top: 5px;">
+          <button class="admin-action-btn" style="flex:1; background:var(--divine-purple); color:white;" onclick="spawnDivineAdmin(1090)">🎁 دیڤاین (١,٠٩٠ ڕۆبۆکس)</button>
+          <button class="admin-action-btn" style="flex:1; background:var(--robux-gold); color:#000;" onclick="spawnDivineAdmin(100000)">💰 دیڤاینی مەزن (١٠٠,٠٠٠ ڕۆبۆکس)</button>
+        </div>
       </div>
 
       <div class="admin-section">
-        <label style="font-size:12px; font-weight:bold;"><i class="fa-solid fa-users"></i> لیستی ڕاستەوخۆی یاریزانان:</label>
-        <div id="admin-users-list" style="max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;"></div>
+        <label style="font-size:12px; font-weight:bold; color:var(--store-primary);"><i class="fa-solid fa-plane-departure"></i> ناردن و سپاون کردنی فڕۆکەی ترەیلەر لەسەر ماپەکە (Airplane Trailer):</label>
+        <input type="text" id="trailer-banner-text" placeholder="دەق/ناوی ترەیلەر لەسەر فڕۆکە..." value="HAMA DEV AIRPLANE TRAILER ✈️">
+        <div style="display: flex; gap: 8px; margin-top: 5px;">
+          <button class="admin-action-btn" style="flex:1; background:var(--store-primary); color:white;" onclick="triggerAirplaneTrailerFromAdmin()">✈️ ناردنی فڕۆکەی ترەیلەر بۆ ماپەکە</button>
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <label style="font-size:12px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-wand-magic-sparkles"></i> توانای تایبەتی ئۆنەر (God Powers):</label>
+        <div style="display: flex; gap: 8px;">
+          <button class="admin-action-btn" style="flex:1; background:#3b82f6;" onclick="adminToggleGodMode()">🛡️ هێزی پاراستنی هەمیشەیی (God Mode)</button>
+          <button class="admin-action-btn" style="flex:1; background:#ec4899;" onclick="adminChangeSkyColor()">🌌 گۆڕینی ڕەنگی ئاسمانی یاری</button>
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <label style="font-size:12px; font-weight:bold;"><i class="fa-solid fa-gem" style="color:var(--robux-gold);"></i> بەڕێوەبردنی ڕۆبوکس و بەخشین:</label>
+        <input type="text" id="robux-target-user" placeholder="ناوی یاریزان (Username)...">
+        <input type="number" id="robux-target-amount" placeholder="بڕی ڕۆبوکس (R$)...">
+        <div style="display: flex; gap: 8px; margin-top: 5px;">
+          <button class="admin-action-btn" style="flex:1; background:var(--robux-gold); color:#000;" onclick="modifyRobuxForPlayer('give')">➕ ناردنی ڕۆبوکس</button>
+          <button class="admin-action-btn" style="flex:1; background:#ef4444; color:white;" onclick="modifyRobuxForPlayer('remove')">➖ لابردنی ڕۆبوکس</button>
+        </div>
+        <button class="admin-action-btn" style="background:#8b5cf6; color:white; margin-top:5px;" onclick="giveawayToAll()">🎁 بەخشینی 5,000 R$ بۆ هەموو یاریزانەکان</button>
+      </div>
+
+      <div class="admin-section">
+        <label style="font-size:12px; font-weight:bold;"><i class="fa-solid fa-bullhorn"></i> ناردنی پەیام بۆ سەر شاشەی هەمووان (Broadcast):</label>
+        <input type="text" id="broadcast-input" placeholder="پەیامێک بنووسە...">
+        <button class="admin-action-btn" style="background:#f59e0b;" onclick="sendGlobalAnnouncement()">ناردنی پەیام بۆ سەر شاشە</button>
+      </div>
+
+      <div class="admin-section">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <p style="font-size: 12px; color: var(--text-muted); font-weight:bold;"><i class="fa-solid fa-users"></i> لیستی ڕاستەوخۆی یاریزانان (نوێدەبێتەوە هەر ٤ چرکەیەک):</p>
+          <span style="font-size: 10px; color: var(--store-primary); font-weight: bold;"><i class="fa-solid fa-rotate fa-spin"></i> Live 4s Active</span>
+        </div>
+        <div id="admin-users-list" style="max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;"></div>
       </div>
 
       <button class="admin-action-btn" style="background: var(--admin-red); margin-top:5px;" onclick="closeAdminPanel()">داخستنی پەنێڵ</button>
@@ -727,12 +617,16 @@
         <span><i class="fa-solid fa-dice" style="color:var(--robux-gold);"></i> وێستگەی کارای جاکیا (Working Jackia Station)</span>
         <button class="shop-close" onclick="closeJackiaModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <p style="font-size:12px; color:var(--text-muted); line-height:1.4;">ئێرە وێستگەی فەرمی جاکیاست! دەتوانیت بە خاڵەکانت چەرخە بسوڕێنیت.</p>
+      <p style="font-size:12px; color:var(--text-muted); line-height:1.4;">ئێرە وێستگەی فەرمی جاکیاست! دەتوانیت بە خاڵەکانت چەرخە بسوڕێنیت و خەڵاتی گەورە بەریت یان هێلکەی نایاب بکڕیت.</p>
       
       <div style="background:#0f172a; padding:14px; border-radius:12px; text-align:center; border:1px solid var(--robux-gold); margin-top:6px;">
         <div id="jackia-status-text" style="font-size:15px; font-weight:bold; color:var(--robux-gold); margin-bottom:8px;">🎰 چەرخەی جاکیا ئامادەیە! (نرخ: 200 خاڵ)</div>
         <button class="auth-btn" style="background:var(--robux-gold); color:#000;" onclick="spinJackiaWheel()">🎰 سووڕاندنی چەرخەی جاکیا</button>
       </div>
+
+      <div style="font-weight:bold; color:var(--store-primary); font-size:13px; margin-top:10px;">🥚 کڕینی هێلکەی تایبەتی جاکیا بە خاڵ:</div>
+      <div class="shop-row"><span>🥚 هێلکەی جاکیا گۆڵد (Jackia Gold)</span><button class="buy-btn" onclick="buyJackiaEgg('Jackia Gold', 500)">500 خاڵ</button></div>
+      <div class="shop-row"><span>🥚 هێلکەی جاکیا ڕەینبۆ (Jackia Rainbow)</span><button class="buy-btn" onclick="buyJackiaEgg('Jackia Rainbow', 1500)">1500 خاڵ</button></div>
     </div>
 
     <div id="garden-modal">
@@ -745,10 +639,10 @@
       <div style="font-weight:bold; color:var(--store-primary); font-size:13px; margin-top:6px;">🥚 هێلکەکان لە کۆگا:</div>
       <div id="garden-storage-list" style="display:flex; flex-direction:column; gap:6px; max-height:110px; overflow-y:auto;"></div>
 
-      <div style="font-weight:bold; color:var(--robux-gold); font-size:13px; margin-top:8px;">⏳ سلۆتەکانی هێلکەشکاندن:</div>
+      <div style="font-weight:bold; color:var(--robux-gold); font-size:13px; margin-top:8px;">⏳ سلۆتەکانی هێلکەشکاندن (Hatching Slots):</div>
       <div id="hatching-slots-list" style="display:flex; flex-direction:column; gap:6px; max-height:110px; overflow-y:auto;"></div>
 
-      <div style="font-weight:bold; color:var(--divine-purple); font-size:13px; margin-top:10px;">🐣 پێتە موتەیتکراوەکان:</div>
+      <div style="font-weight:bold; color:var(--divine-purple); font-size:13px; margin-top:10px;">🐣 پێتە موتەیتکراوەکان (Gold, Taco, Diamond & Rainbow):</div>
       <div class="pets-collected-box" id="collected-pets-box"></div>
     </div>
 
@@ -761,7 +655,7 @@
           <span>⚡ خێرایی: <span id="speed-display">25</span></span>
           <button class="jackia-btn-hud" onclick="openJackiaModal()"><i class="fa-solid fa-dice"></i> جاکیا</button>
           <button class="garden-btn-hud" onclick="openGardenModal()"><i class="fa-solid fa-seedling"></i> باخجە</button>
-          <button class="disco-btn-hud" onclick="toggleDiscoMode()"><i class="fa-solid fa-compact-disc"></i> دیسکۆ</button>
+          <button class="disco-btn-hud" onclick="toggleDiscoMode()"><i class="fa-solid fa-compact-disc"></i> دیسکۆ (<span id="disco-status-lbl">داگیرساندن</span>)</button>
         </div>
       </div>
 
@@ -803,7 +697,12 @@
     function installPWAApp() {
       if (deferredPrompt) {
         deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => { deferredPrompt = null; });
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted install prompt');
+          }
+          deferredPrompt = null;
+        });
       } else {
         alert('📲 بۆ داگرتنی وەک ئەپ، لە سیتینگی برۆسەرەکەت (Chrome) کلیک لەسەر "Add to Home screen" بکە!');
       }
@@ -811,7 +710,11 @@
 
     window.onload = function() {
       if (currentUser && usersDB[currentUser]) {
-        if (bannedDB.includes(currentUser)) { alert('ئەم ئەژمارە باند کراوە!'); logout(); return; }
+        if (bannedDB.includes(currentUser)) {
+          alert('ئەم ئەژمارە باند کراوە!');
+          logout();
+          return;
+        }
         showDashboard();
       } else {
         document.getElementById('auth-screen').style.display = 'flex';
@@ -819,6 +722,16 @@
       setupMobileTouchEvents();
       renderChatMessages();
       renderFriendsList();
+
+      let divineActive = localStorage.getItem('hamadev_divine_spawned');
+      if(divineActive) {
+        document.getElementById('global-announcement-banner').style.display = 'flex';
+      }
+
+      let activeBroadcast = localStorage.getItem('hamadev_broadcast_msg');
+      if(activeBroadcast) {
+        showInGameAdminMessage(activeBroadcast);
+      }
     };
 
     function handleAuth() {
@@ -827,15 +740,23 @@
       const password = document.getElementById('password-input').value.trim() || '123';
       const errorEl = document.getElementById('auth-error');
 
-      if (bannedDB.includes(username)) { errorEl.innerText = 'ئەم ئەژمارە باند کراوە!'; errorEl.style.display = 'block'; return; }
+      if (bannedDB.includes(username)) {
+        errorEl.innerText = 'ئەم ئەژمارە باند کراوە!';
+        errorEl.style.display = 'block';
+        return;
+      }
       if (username.toLowerCase() === 'rip_hama276' && password !== 'ownerpassword') {
-        errorEl.innerText = 'تێپەڕەواژەی ئۆنەر هەڵەیە!'; errorEl.style.display = 'block'; return;
+        errorEl.innerText = 'تێپەڕەواژەی ئۆنەر هەڵەیە!';
+        errorEl.style.display = 'block';
+        return;
       }
 
       if (!usersDB[username]) {
         usersDB[username] = { password: password, robux: 250, email: '', verified: false, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [], friends: [] };
       } else if (usersDB[username].password !== password && username !== 'یاریزانی نەناسراو') {
-        errorEl.innerText = 'تێپەڕەواژە هەڵەیە!'; errorEl.style.display = 'block'; return;
+        errorEl.innerText = 'تێپەڕەواژە هەڵەیە!';
+        errorEl.style.display = 'block';
+        return;
       }
 
       usersDB['rip_hama276'].robux = 1000000000;
@@ -897,39 +818,74 @@
       if(!container) return;
       container.innerHTML = '';
       let fList = (usersDB[currentUser] && usersDB[currentUser].friends) ? usersDB[currentUser].friends : [];
-      if(fList.length === 0) { container.innerHTML = `<p style="font-size:13px; color:var(--text-muted);">هیچ هاوڕێیەک لە لیستەکەتدا نییە.</p>`; return; }
+      if(fList.length === 0) {
+        container.innerHTML = `<p style="font-size:13px; color:var(--text-muted);">هێشتا هیچ هاوڕێیەک لە لیستەکەتدا نییە.</p>`;
+        return;
+      }
       fList.forEach(frName => {
-        container.innerHTML += `<div class="friend-row"><div class="friend-info"><div class="online-dot"></div><span><b>${frName}</b></span></div><span style="font-size:11px; color:var(--store-primary); font-weight:bold;">ئۆنلاینە</span></div>`;
+        container.innerHTML += `
+          <div class="friend-row">
+            <div class="friend-info">
+              <div class="online-dot"></div>
+              <span><b>${frName}</b></span>
+            </div>
+            <span style="font-size:11px; color:var(--store-primary); font-weight:bold;">ئۆنلاینە (Online)</span>
+          </div>
+        `;
       });
     }
 
     function changePasswordUser() {
       const newPass = document.getElementById('new-password-input').value.trim();
-      if(!newPass || newPass.length < 3) { alert('❌ تکایە پاسوۆردێکی بەهێزتر بنووسە!'); return; }
+      if(!newPass || newPass.length < 3) {
+        alert('❌ تکایە پاسوۆردێکی بەهێزتر بنووسە!');
+        return;
+      }
       usersDB[currentUser].password = newPass;
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-      alert('🎉 پیرۆزە! پاسوۆردەکەت گۆڕدرا.');
+      alert('🎉 پیرۆزە! پاسوۆردەکەت بە سەرکەوتوویی گۆڕدرا.');
       document.getElementById('new-password-input').value = '';
     }
 
     function buyStoreItem(itemName, cost) {
-      if(usersDB[currentUser].robux < cost) { alert('❌ ڕووبوکس (Robux)ت پێنییە!'); return; }
+      if(!usersDB[currentUser]) return;
+
+      if(usersDB[currentUser].robux < cost) {
+        alert('❌ ڕووبوکس (Robux)ی تەواوت پێنییە بۆ کڕینی ئەم بڕگەیە!');
+        return;
+      }
+
       usersDB[currentUser].robux -= cost;
-      if(itemName === 'VIP Rank') usersDB[currentUser].hasVIP = true;
-      else if(itemName === 'Speed Booster') { usersDB[currentUser].hasSpeed = true; usersDB[currentUser].savedSpeed = 100; }
-      else if(itemName === 'Guard Shield') usersDB[currentUser].hasShield = true;
-      else if(itemName === 'Golden Pet') usersDB[currentUser].hasGoldenPet = true;
+
+      if(itemName === 'VIP Rank') {
+        usersDB[currentUser].hasVIP = true;
+        alert('👑 پیرۆزە! تاج و پلەی VIP بۆ ئەکاونتەکەت چالاک بوو!');
+      } else if(itemName === 'Speed Booster') {
+        usersDB[currentUser].hasSpeed = true;
+        usersDB[currentUser].savedSpeed = 100;
+        alert('⚡ پیرۆزە! خێرایی دوو هێندە (2x Speed) بۆ ئەکاونتەکەت چالاک بوو!');
+      } else if(itemName === 'Guard Shield') {
+        usersDB[currentUser].hasShield = true;
+        alert('🛡️ پیرۆزە! سپەری پاراستن بۆ ئەکاونتەکەت چالاک بوو!');
+      } else if(itemName === 'Golden Pet') {
+        usersDB[currentUser].hasGoldenPet = true;
+        alert('🐾 پیرۆزە! پێتی زێڕین بۆ ئەکاونتەکەت چالاک بوو!');
+      }
 
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      alert(`🎉 کڕینی ${itemName} سەرکەوتوو بوو!`);
+      renderChatMessages();
     }
 
     function sendChatMessage() {
-      if(mutedDB.includes(currentUser)) { alert('❌ تو میوت کراوەی!'); return; }
+      if(mutedDB.includes(currentUser)) {
+        alert('❌ تو میوت کراوەی (Muted) و ناتوانیت پەیام بنێریت!');
+        return;
+      }
       const input = document.getElementById('chat-input');
       const text = input.value.trim();
       if(!text) return;
+
       chatDB.push({ sender: currentUser, text: text, time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) });
       localStorage.setItem('hamadev_global_chat', JSON.stringify(chatDB));
       input.value = '';
@@ -943,54 +899,46 @@
       chatDB.forEach(msg => {
         let isVipUser = usersDB[msg.sender] && usersDB[msg.sender].hasVIP;
         let blueCheck = '<i class="fa-solid fa-circle-check verified-badge"></i>';
-        container.innerHTML += `<div class="chat-msg"><div class="sender">${msg.sender === 'rip_hama276' ? '👑 ' + msg.sender + blueCheck + ' (Owner)' : (isVipUser ? '👑 [VIP] ' + msg.sender + blueCheck : msg.sender + blueCheck)}</div><div>${msg.text}</div></div>`;
+        container.innerHTML += `<div class="chat-msg">
+          <div class="sender">${msg.sender === 'rip_hama276' ? '👑 ' + msg.sender + blueCheck + ' (Owner)' : (isVipUser ? '👑 [VIP] ' + msg.sender + blueCheck : msg.sender + blueCheck)} <span style="font-size:10px; color:var(--text-muted);">[${msg.time}]</span></div>
+          <div>${msg.text}</div>
+        </div>`;
       });
       container.scrollTop = container.scrollHeight;
     }
 
-    function adminTeleportPlayer(destType) {
-      if(!player) { alert('❌ تکایە سەرەتا یارییەکە بکەرەوە!'); return; }
-      if(destType === 'start') player.position.set(0, 1, 15);
-      else if(destType === 'eggs' && eggsList.length > 0) player.position.set(eggsList[0].position.x, 1, eggsList[0].position.z + 2);
-      else player.position.set(0, 1, -50);
-      alert('📍 تێلێپۆرت ئەنجام درا!');
-      closeAdminPanel();
-    }
-
-    function spawnSpecificDivineEgg(eggName, multVal) {
-      if(!scene) { alert('❌ یارییەکە بکەرەوە!'); return; }
-      const divGroup = new THREE.Group();
-      const divGeo = new THREE.SphereGeometry(1.0, 16, 16); divGeo.scale(1, 1.4, 1);
-      const divineColor = eggName.includes('World') ? 0xef4444 : (eggName.includes('Arch') ? 0x38bdf8 : 0xa855f7);
-      divGroup.add(new THREE.Mesh(divGeo, new THREE.MeshBasicMaterial({ color: divineColor })));
-      divGroup.position.set(0, 0, player ? player.position.z - 10 : -30);
-      divGroup.userData = { name: `✨ Divine ${eggName}`, mult: multVal, speedReq: 0, mutDrop: 'Rainbow', isDivine: true, rewardAmount: multVal * 500 };
-      scene.add(divGroup); eggsList.push(divGroup);
-      alert(`✨ هێلکەی ${eggName} سپاون کرا!`);
-      closeAdminPanel();
-    }
-
-    function giveDivineEggToInventory(eggName, multVal) {
-      usersDB[currentUser].inventoryEggs.push({ name: `✨ Divine ${eggName}`, mult: multVal, mutDrop: 'Rainbow' });
+    function giveawayToAll() {
+      for(let uname in usersDB) {
+        usersDB[uname].robux += 5000;
+      }
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-      alert(`🎒 هێلکە خرایە کۆگاکەت!`);
+      document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+      alert('🎁 بە سەرکەوتوویی 5,000 R$ دیاری بەخشرا بە سەرجەم یاریزانەکان!');
       closeAdminPanel();
     }
 
     function addAdminMutation(type, multiplier) {
-      usersDB[currentUser].collectedPets.push({ name: `✨ Admin ${type} Pet`, bonus: multiplier * 15, mutationType: type });
+      let uObj = usersDB[currentUser];
+      if(!uObj.collectedPets) uObj.collectedPets = [];
+      uObj.collectedPets.push({
+        name: `✨ Admin ${type} Pet (${type})`,
+        bonus: multiplier * 15,
+        mutationType: type
+      });
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-      alert(`🧬 موتەیشنی ${type} دروست بوو!`);
+      alert(`🧬 موتەیشنی ${type} (${multiplier}x) بە سەرکەوتوویی بۆ ئەکاونتەکەت دروست بوو!`);
       closeAdminPanel();
     }
 
     function addAllMutationsToAdmin() {
-      usersDB[currentUser].collectedPets.push({ name: '✨ Gold Dragon', bonus: 150, mutationType: 'Gold' });
-      usersDB[currentUser].collectedPets.push({ name: '🌮 Taco Cat', bonus: 200, mutationType: 'Taco' });
-      usersDB[currentUser].collectedPets.push({ name: '💎 Diamond Wolf', bonus: 300, mutationType: 'Diamond' });
-      usersDB[currentUser].collectedPets.push({ name: '🌈 Rainbow Phoenix', bonus: 500, mutationType: 'Rainbow' });
+      let uObj = usersDB[currentUser];
+      if(!uObj.collectedPets) uObj.collectedPets = [];
+      uObj.collectedPets.push({ name: '✨ Gold Dragon', bonus: 150, mutationType: 'Gold' });
+      uObj.collectedPets.push({ name: '🌮 Taco Cat', bonus: 200, mutationType: 'Taco' });
+      uObj.collectedPets.push({ name: '💎 Diamond Wolf', bonus: 300, mutationType: 'Diamond' });
+      uObj.collectedPets.push({ name: '🌈 Rainbow Phoenix', bonus: 500, mutationType: 'Rainbow' });
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-      alert('🚀 هەموو موتەیشنەکان دران پێدرا!');
+      alert('🚀 سەرجەم موتەیشنەکان (Gold, Taco, Diamond, Rainbow) بۆ ئەکاونتەکەت چالاک بون!');
       closeAdminPanel();
     }
 
@@ -998,25 +946,166 @@
       usersDB[currentUser].robux += 5000;
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      alert('🎰 +5,000 ڕۆبۆکس زیاد بوو!');
+      alert('🎰 ئادمین ئەبیوس: جاکپۆتی کارای جاکیا بردەوە! +5,000 ڕۆبۆکس زیاد بوو بۆ ئەکاونتەکەت.');
       closeAdminPanel();
     }
 
     function adminSpawnJackiaEgg() {
-      usersDB[currentUser].inventoryEggs.push({ name: 'هێلکەی تایبەتی جاکیا', mult: 10, mutDrop: 'Rainbow' });
+      let uObj = usersDB[currentUser];
+      if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
+      uObj.inventoryEggs.push({ name: 'هێلکەی تایبەتی جاکیا (Jackia Divine)', mult: 10, mutDrop: 'Rainbow' });
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-      alert('🥚 هێلکەی جاکیا زیاد کرا!');
+      alert('🥚 هێلکەی نایابی جاکیا بە سەرکەوتوویی بۆ کۆگاکەت زیاد کرا!');
+      closeAdminPanel();
+    }
+
+    // فرمانی تێلێپۆرت لە پەنێڵی ئۆنەر
+    function adminTeleportPlayer(destType) {
+      if(!player) {
+        alert('❌ تکایە سەرەتا یارییەکە بکەرەوە و بچۆ ناو ماپەکەوە!');
+        return;
+      }
+      if(destType === 'start') {
+        player.position.set(0, 1, 15);
+        alert('📍 تێلێپۆرت کرا بۆ سەرەتای ماپ (Home Spawn)!');
+      } else if(destType === 'eggs') {
+        if(eggsList.length > 0 && eggsList[0]) {
+          player.position.set(eggsList[0].position.x, 1, eggsList[0].position.z + 2);
+          alert('🥚 تێلێپۆرت کرا بۆ لای هێلکەکان!');
+        } else {
+          alert('❌ هیچ هێلکەیەک نەدۆزرایەوە لەسەر ماپ!');
+        }
+      } else if(destType === 'divine') {
+        let foundDivine = eggsList.find(e => e && e.userData && e.userData.isDivine);
+        if(foundDivine) {
+          player.position.set(foundDivine.position.x, 1, foundDivine.position.z + 2);
+          alert('✨ تێلێپۆرت کرا بۆ لای هێلکەی دیڤاین!');
+        } else {
+          player.position.set(0, 1, -50);
+          alert('✨ تێلێپۆرت کرا بۆ ناوچەی دیڤاین!');
+        }
+      }
+      closeAdminPanel();
+    }
+
+    function spawnSpecificDivineEgg(eggName, multVal) {
+      if(!scene) {
+        alert('❌ تکایە پێشتر بڕۆ ناو یارییەکە بۆ ئەوەی هێلکەکە لەسەر ماپەکە سپاون بێت!');
+        return;
+      }
+      const divGroup = new THREE.Group();
+      const divGeo = new THREE.SphereGeometry(1.0, 16, 16); divGeo.scale(1, 1.4, 1);
+      const divineColor = eggName.includes('World') ? 0xef4444 : (eggName.includes('Arch') ? 0x38bdf8 : 0xa855f7);
+      const divineEggObj = new THREE.Mesh(divGeo, new THREE.MeshBasicMaterial({ color: divineColor }));
+      divGroup.add(divineEggObj);
+
+      divGroup.position.set(0, 0, player ? player.position.z - 10 : -30);
+      divGroup.userData = { name: `✨ Divine ${eggName}`, mult: multVal, speedReq: 0, mutDrop: 'Rainbow', isDivine: true, rewardAmount: multVal * 500 };
+      scene.add(divGroup); 
+      eggsList.push(divGroup);
+
+      document.getElementById('announcement-text').innerText = `🎁 هێلکەی دیڤاینی نوێ (${eggName}) سپاون بوو!`;
+      document.getElementById('global-announcement-banner').style.display = 'flex';
+      alert(`✨ هێلکەی ${eggName} بە سەرکەوتوویی لەبەردەم کەسایەتییەکەت سپاون کرا!`);
+      closeAdminPanel();
+    }
+
+    function giveDivineEggToInventory(eggName, multVal) {
+      let uObj = usersDB[currentUser];
+      if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
+      uObj.inventoryEggs.push({ name: `✨ Divine ${eggName}`, mult: multVal, mutDrop: 'Rainbow' });
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      alert(`🎒 هێلکەی دیڤاینی (${eggName}) بە سەرکەوتوویی خرایە ناو کۆگای هێلکەکانت!`);
+      closeAdminPanel();
+    }
+
+    function modifyRobuxForPlayer(actionType) {
+      const targetUser = document.getElementById('robux-target-user').value.trim();
+      const amount = parseInt(document.getElementById('robux-target-amount').value) || 0;
+      if(!targetUser || !usersDB[targetUser]) {
+        alert('❌ ناوی یاریزان نەدۆزرایەوە یان هەڵەیە!');
+        return;
+      }
+      if(actionType === 'give') {
+        usersDB[targetUser].robux += amount;
+        alert(`✅ بڕی ${amount} ڕۆبوکس درا بە یاریزان ${targetUser}!`);
+      } else {
+        usersDB[targetUser].robux = Math.max(0, usersDB[targetUser].robux - amount);
+        alert(`✅ بڕی ${amount} ڕۆبوکس لە یاریزان ${targetUser} کەمکرایەوە!`);
+      }
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      if(targetUser === currentUser) {
+        document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+      }
+      openAdminPanel();
+    }
+
+    function spawnDivineAdmin(amountReward) {
+      localStorage.setItem('hamadev_divine_spawned', amountReward.toString());
+      const banner = document.getElementById('global-announcement-banner');
+      document.getElementById('announcement-text').innerText = `🎁 دیڤاینی بڕی (${amountReward.toLocaleString()} R$) سپاون بوو! ڕابکەن بۆ بردنی!`;
+      banner.style.display = 'flex';
+      alert(`✨ دیڤاینی (${amountReward.toLocaleString()}) بە سەرکەوتوویی سپاون کرا!`);
+      closeAdminPanel();
+      if(typeof spawnAllEggs === 'function') spawnAllEggs();
+    }
+
+    function sendGlobalAnnouncement() {
+      const msg = document.getElementById('broadcast-input').value.trim();
+      if(!msg) { alert('تکایە پەیامێک بنووسە!'); return; }
+      localStorage.setItem('hamadev_broadcast_msg', msg);
+      document.getElementById('announcement-text').innerText = "📢 " + msg;
+      document.getElementById('global-announcement-banner').style.display = 'flex';
+      showInGameAdminMessage(msg);
+      alert('📢 پەیامەکەت بە سەرکەوتوویی بۆ هەمووان نێردرا!');
       closeAdminPanel();
     }
 
     function triggerAirplaneTrailerFromAdmin() {
-      alert('✈️ فڕۆکەی ترەیلەر سپاون کرا!');
+      let bannerText = document.getElementById('trailer-banner-text').value.trim();
+      if(!bannerText) bannerText = "HAMA DEV AIRPLANE TRAILER ✈️";
+      localStorage.setItem('hamadev_airplane_trailer', bannerText);
+      alert('✈️ فڕۆکەی ترەیلەر بە سەرکەوتوویی لە ئاسمانی ماپەکەدا سپاون کرا!');
+      closeAdminPanel();
+      if(typeof spawnAirplaneInGame === 'function') spawnAirplaneInGame(bannerText);
+    }
+
+    function showInGameAdminMessage(text) {
+      const hud = document.getElementById('in-game-admin-hud');
+      if(hud) {
+        hud.innerText = "📢 پەیامی ئۆنەر: " + text;
+        hud.style.display = 'block';
+      }
+    }
+
+    function adminToggleGodMode() {
+      let uObj = usersDB[currentUser];
+      uObj.hasShield = !uObj.hasShield;
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      alert(uObj.hasShield ? '🛡️ هێزی پاراستنی هەمیشەیی (God Mode) چالاک بوو!' : '❌ هێزی پاراستن ناچالاک کرا.');
+      closeAdminPanel();
+    }
+
+    let customSkyColorIndex = 0;
+    const skyColors = [0x0f172a, 0x3b0764, 0x450a0a, 0x064e3b];
+    function adminChangeSkyColor() {
+      customSkyColorIndex = (customSkyColorIndex + 1) % skyColors.length;
+      if(scene) scene.background = new THREE.Color(skyColors[customSkyColorIndex]);
+      alert('🌌 ڕەنگی ئاسمانی یاری گۆڕدرا!');
       closeAdminPanel();
     }
 
     function openAdminPanel() {
       updateAdminUsersList();
       document.getElementById('admin-modal').style.display = 'flex';
+
+      if(adminRefreshInterval) clearInterval(adminRefreshInterval);
+      adminRefreshInterval = setInterval(() => {
+        usersDB = JSON.parse(localStorage.getItem('hamadev_store_users') || '{}');
+        bannedDB = JSON.parse(localStorage.getItem('hamadev_store_banned') || '[]');
+        mutedDB = JSON.parse(localStorage.getItem('hamadev_store_muted') || '[]');
+        updateAdminUsersList();
+      }, 4000);
     }
 
     function updateAdminUsersList() {
@@ -1024,13 +1113,69 @@
       if(!listEl) return;
       listEl.innerHTML = '';
       for (let uname in usersDB) {
-        listEl.innerHTML += `<div class="user-row"><span><b>${uname}</b> (${usersDB[uname].robux.toLocaleString()} R$)</span></div>`;
+        const isBanned = bannedDB.includes(uname);
+        const isMuted = mutedDB.includes(uname);
+        listEl.innerHTML += `
+          <div class="user-row">
+            <div class="user-info-text">
+              <span><b>${uname}</b> (${usersDB[uname].robux.toLocaleString()} R$)</span>
+              <span class="${isBanned ? 'status-banned' : (isMuted ? 'status-muted' : 'status-active')}">
+                ${isBanned ? '🚫 باندکراوە' : (isMuted ? '🔇 میوتکراوە' : '✅ چالاکە')}
+              </span>
+            </div>
+            <div class="admin-action-btns">
+              <button class="login-as-btn" onclick="loginAsUser('${uname}')">چوونەژوورەوە</button>
+              <button class="give-robux-btn" onclick="quickGiveRobux('${uname}')">+500 R$</button>
+              <button class="mute-btn" onclick="toggleMuteUser('${uname}')">${isMuted ? 'لابردنی میوت' : 'میوت'}</button>
+              ${uname !== 'rip_hama276' ? `<button class="ban-btn" onclick="banUser('${uname}')">باند</button>` : ''}
+            </div>
+          </div>
+        `;
       }
     }
 
-    function closeAdminPanel() { document.getElementById('admin-modal').style.display = 'none'; }
-    function sendVerificationEmail() { alert('📩 کۆدی ڤێریفای نێردرا: 1234'); document.getElementById('verify-box').style.display = 'block'; }
-    function confirmVerification() { usersDB[currentUser].verified = true; alert('🎉 ڤێریفای کرا.'); document.getElementById('verify-box').style.display = 'none'; }
+    function closeAdminPanel() {
+      if(adminRefreshInterval) clearInterval(adminRefreshInterval);
+      document.getElementById('admin-modal').style.display = 'none';
+    }
+
+    function loginAsUser(uname) { currentUser = uname; localStorage.setItem('hamadev_store_current', currentUser); closeAdminPanel(); showDashboard(); }
+    function quickGiveRobux(uname) { usersDB[uname].robux += 500; localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB)); updateAdminUsersList(); }
+    
+    function toggleMuteUser(uname) {
+      if(mutedDB.includes(uname)) {
+        mutedDB = mutedDB.filter(u => u !== uname);
+        alert(`🔊 یاریزان ${uname} لە میوت دەرچوو.`);
+      } else {
+        mutedDB.push(uname);
+        alert(`🔇 یاریزان ${uname} میوت کرا.`);
+      }
+      localStorage.setItem('hamadev_store_muted', JSON.stringify(mutedDB));
+      updateAdminUsersList();
+    }
+
+    function banUser(uname) {
+      bannedDB.push(uname);
+      localStorage.setItem('hamadev_store_banned', JSON.stringify(bannedDB));
+      updateAdminUsersList();
+    }
+
+    function sendVerificationEmail() {
+      const email = document.getElementById('settings-email').value.trim();
+      if (!email || !email.includes('@')) { alert('تکایە ئیمەیڵێکی ڕاست بنووسە!'); return; }
+      pendingVerifyCode = Math.floor(1000 + Math.random() * 9000).toString();
+      document.getElementById('kurdish-mail-notice').innerHTML = `📩 کۆدی ڤێریفای: <b style="color:var(--robux-gold);">${pendingVerifyCode}</b>`;
+      document.getElementById('verify-box').style.display = 'block';
+    }
+
+    function confirmVerification() {
+      if (document.getElementById('verify-code-input').value.trim() === pendingVerifyCode) {
+        usersDB[currentUser].verified = true;
+        localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+        alert('🎉 ئەکاونتەکەت ڤێریفای کرا.');
+        document.getElementById('verify-box').style.display = 'none';
+      } else { alert('❌ کۆدەکە هەڵەیە قبۆڵ ناکرێت!'); }
+    }
 
     let scene, camera, renderer, player, shopBooth, jackiaBooth, petObj, vehicleMesh, auraMesh, shieldMesh, animationId, supersonicPadMesh;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
@@ -1038,45 +1183,196 @@
 
     function toggleDiscoMode() {
       isDiscoActive = !isDiscoActive;
-      alert(isDiscoActive ? '🪩 دیسکۆ لایت چالاک بوو!' : '💤 دیسکۆ کوژایەوە.');
+      document.getElementById('disco-status-lbl').innerText = isDiscoActive ? 'کوژاندنەوە' : 'داگیرساندن';
+      alert(isDiscoActive ? '🪩 دیسکۆ لایت (Rainbow Disco) چالاک بوو!' : '💤 دیسکۆ لایت کوژایەوە.');
     }
 
-    function buySpeed(val, cost) {
-      if(usersDB[currentUser].robux < cost) { alert('ڕۆبوکس نییە!'); return; }
-      usersDB[currentUser].robux -= cost;
-      usersDB[currentUser].savedSpeed = val;
+    function buySpeed(speedVal, robuxCost) {
+      if (usersDB[currentUser].robux < robuxCost) { alert('ڕووبوکس (Robux)ت پێنییە!'); return; }
+      usersDB[currentUser].robux -= robuxCost;
+      usersDB[currentUser].savedSpeed = speedVal;
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      playerSpeed = val / 100;
-      document.getElementById('speed-display').innerText = val;
+      playerSpeed = speedVal / 100;
+      document.getElementById('speed-display').innerText = speedVal;
+      alert(`⚡ پیرۆزە! خێرایی ${speedVal} کڕرا و پاشەکەوت (Save) کرا!`);
       closeShopModal();
     }
 
-    function buyCapacity(val, cost) {
-      if(usersDB[currentUser].robux < cost) { alert('ڕۆبوکس نییە!'); return; }
-      usersDB[currentUser].robux -= cost;
-      usersDB[currentUser].savedCapacity = val;
+    function buyCapacity(capVal, robuxCost) {
+      if (usersDB[currentUser].robux < robuxCost) { alert('ڕووبوکس (Robux)ت پێنییە!'); return; }
+      usersDB[currentUser].robux -= robuxCost;
+      usersDB[currentUser].savedCapacity = capVal;
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      maxCapacity = val;
+      maxCapacity = capVal;
       document.getElementById('max-capacity').innerText = maxCapacity;
+      alert(`🥚 پیرۆزە! توانای ${capVal} هێلکە کڕرا و پاشەکەوت (Save) کرا!`);
       closeShopModal();
     }
 
     function closeShopModal() { document.getElementById('shop-modal').style.display = 'none'; shopOpen = false; }
-    function openJackiaModal() { document.getElementById('jackia-modal').style.display = 'flex'; jackiaOpen = true; }
-    function closeJackiaModal() { document.getElementById('jackia-modal').style.display = 'none'; jackiaOpen = false; }
-    
+
+    function openJackiaModal() {
+      document.getElementById('jackia-modal').style.display = 'flex';
+      jackiaOpen = true;
+    }
+
+    function closeJackiaModal() {
+      document.getElementById('jackia-modal').style.display = 'none';
+      jackiaOpen = false;
+    }
+
     function spinJackiaWheel() {
-      usersDB[currentUser].robux += 500;
-      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-      document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      alert('🎰 500 ڕۆبۆکس لە جاکیا سەرکەوت!');
+      if(gameScore < 200) { alert('❌ خاڵی پێویستت نییە (کەمتر لە 200 خاڵ)! یاری بکە و خاڵ کۆبکەرەوە.'); return; }
+      gameScore -= 200;
+      document.getElementById('game-score').innerText = gameScore;
+      
+      let randReward = Math.random();
+      if(randReward > 0.4) {
+        usersDB[currentUser].robux += 500;
+        localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+        document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+        alert('🎰 پیرۆزە! لە چەرخەی جاکیا ٥٠٠ ڕۆبۆکس ڕوویدا و درا بە ئەکاونتەکەت!');
+      } else {
+        let uObj = usersDB[currentUser];
+        if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
+        uObj.inventoryEggs.push({ name: 'هێلکەی بەختی جاکیا (Jackia Lucky)', mult: 5, mutDrop: 'Rainbow' });
+        localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+        alert('🥚 پیرۆزە! لە چەرخەی جاکیا هێلکەیەکی نایابی ڕەینبۆ دەچوو بۆ کۆگاکەت!');
+      }
       closeJackiaModal();
     }
 
-    function openGardenModal() { document.getElementById('garden-modal').style.display = 'flex'; }
-    function closeGardenModal() { document.getElementById('garden-modal').style.display = 'none'; }
+    function buyJackiaEgg(eggName, costPoints) {
+      if(gameScore < costPoints) { alert(`❌ خاڵی پێویستت نییە! پێویستت بە ${costPoints} خاڵ هەیە.`); return; }
+      gameScore -= costPoints;
+      document.getElementById('game-score').innerText = gameScore;
+
+      let uObj = usersDB[currentUser];
+      if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
+      uObj.inventoryEggs.push({ name: eggName, mult: 8, mutDrop: 'Rainbow' });
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      alert(`🎉 پیرۆزە! ${eggName} کڕرا و چوە ناو کۆگای هێلکەکانت.`);
+      closeJackiaModal();
+    }
+
+    function openGardenModal() {
+      let uObj = usersDB[currentUser];
+      if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
+      if(!uObj.hatchingSlots) uObj.hatchingSlots = [];
+      if(!uObj.collectedPets) uObj.collectedPets = [];
+
+      renderGardenUI();
+      document.getElementById('garden-modal').style.display = 'flex';
+    }
+
+    function closeGardenModal() {
+      document.getElementById('garden-modal').style.display = 'none';
+    }
+
+    function renderGardenUI() {
+      let uObj = usersDB[currentUser];
+      
+      let storeListEl = document.getElementById('garden-storage-list');
+      storeListEl.innerHTML = '';
+      if(uObj.inventoryEggs.length === 0) {
+        storeListEl.innerHTML = `<p style="font-size:11px; color:var(--text-muted);">هیچ هێلکەیەک لە کۆگا نییە. هێلکە لە یاری بڕفێنە یان لە وێستگەی جاکیا دابنە!</p>`;
+      } else {
+        uObj.inventoryEggs.forEach((egg, idx) => {
+          storeListEl.innerHTML += `
+            <div class="garden-slot">
+              <span>🥚 ${egg.name} ${egg.mutDrop ? '⚡['+egg.mutDrop+']' : ''} (x${egg.mult})</span>
+              <button class="hatch-action-btn" onclick="placeEggInGarden(${idx})">دانان لە باخجە</button>
+            </div>
+          `;
+        });
+      }
+
+      let slotsListEl = document.getElementById('hatching-slots-list');
+      slotsListEl.innerHTML = '';
+      if(uObj.hatchingSlots.length === 0) {
+        slotsListEl.innerHTML = `<p style="font-size:11px; color:var(--text-muted);">هیچ هێلکەیەک لەسەر کاتژمێر نییە.</p>`;
+      } else {
+        let now = Date.now();
+        uObj.hatchingSlots.forEach((slot, sIdx) => {
+          let timeLeft = Math.max(0, Math.ceil((slot.endTime - now) / 1000));
+          slotsListEl.innerHTML += `
+            <div class="garden-slot">
+              <span>🥚 ${slot.name} ⚡ [${slot.mutType}]</span>
+              <span style="color:var(--robux-gold); font-weight:bold;">${timeLeft > 0 ? '⏳ ' + timeLeft + ' چرکە ماوە' : '✨ شکاوە!'}</span>
+            </div>
+          `;
+        });
+      }
+
+      let petsBox = document.getElementById('collected-pets-box');
+      petsBox.innerHTML = '';
+      if(uObj.collectedPets.length === 0) {
+        petsBox.innerHTML = `<span style="font-size:11px; color:var(--text-muted);">هێشتا هیچ پێتێک نەشکاوە.</span>`;
+      } else {
+        uObj.collectedPets.forEach(pet => {
+          let mutLabel = pet.mutationType ? ` ⚡(${pet.mutationType})` : '';
+          petsBox.innerHTML += `
+            <div class="pet-card">
+              <b>🐾 ${pet.name}</b><br>
+              <span style="color:var(--robux-gold);">Bonus: +${pet.bonus}x${mutLabel}</span>
+            </div>
+          `;
+        });
+      }
+    }
+
+    function placeEggInGarden(index) {
+      let uObj = usersDB[currentUser];
+      let egg = uObj.inventoryEggs.splice(index, 1)[0];
+      
+      let hatchTimeSec = egg.mult === 1 ? 10 : (egg.mult === 2 ? 25 : (egg.mult === 3 ? 45 : 60));
+      let chosenMut = egg.mutDrop || ['Gold', 'Taco', 'Diamond', 'Rainbow'][Math.floor(Math.random() * 4)];
+      
+      uObj.hatchingSlots.push({
+        name: egg.name,
+        mult: egg.mult,
+        mutType: chosenMut,
+        endTime: Date.now() + (hatchTimeSec * 1000)
+      });
+
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      renderGardenUI();
+    }
+
+    setInterval(() => {
+      if(!currentUser || !usersDB[currentUser]) return;
+      let uObj = usersDB[currentUser];
+      if(!uObj.hatchingSlots || uObj.hatchingSlots.length === 0) return;
+
+      let now = Date.now();
+      let updated = false;
+
+      uObj.hatchingSlots = uObj.hatchingSlots.filter(slot => {
+        if(now >= slot.endTime) {
+          let petNames = ['Doggy', 'Bunny', 'Dragon', 'Phoenix', 'Jackia Beast', 'Divine ArchAngel', 'World Burner'];
+          let baseName = petNames[Math.floor(Math.random() * petNames.length)];
+          let finalMult = slot.mult * (slot.mutType === 'Rainbow' ? 50 : (slot.mutType === 'Diamond' ? 20 : (slot.mutType === 'Taco' ? 15 : 10)));
+          let petFullName = `⚡ ${slot.mutType} ${baseName} (x${finalMult})`;
+          
+          uObj.collectedPets.push({ name: petFullName, bonus: finalMult * 10, mutationType: slot.mutType });
+          updated = true;
+          return false;
+        }
+        return true;
+      });
+
+      if(updated) {
+        localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      }
+
+      if(document.getElementById('garden-modal').style.display === 'flex') {
+        renderGardenUI();
+      }
+    }, 1000);
 
     function setupMobileTouchEvents() {
       const bindTouch = (id, keyName) => {
@@ -1084,6 +1380,8 @@
         if(!btn) return;
         btn.addEventListener('touchstart', (e) => { e.preventDefault(); keys[keyName] = true; }, {passive: false});
         btn.addEventListener('touchend', (e) => { e.preventDefault(); keys[keyName] = false; }, {passive: false});
+        btn.addEventListener('mousedown', () => { keys[keyName] = true; });
+        btn.addEventListener('mouseup', () => { keys[keyName] = false; });
       };
       bindTouch('btn-up', 'up'); bindTouch('btn-down', 'down');
       bindTouch('btn-left', 'left'); bindTouch('btn-right', 'right');
@@ -1093,85 +1391,310 @@
     function spawnAllEggs() {
       eggsList.forEach(e => { if(e) scene.remove(e); });
       eggsList = [];
-      const biomesList = [
-        { name: 'دارستان', color: 0x10b981, speedReq: 0, mult: 1 },
-        { name: 'دەریاچە', color: 0x38bdf8, speedReq: 900, mult: 2 },
-        { name: 'بیابان', color: 0xfbbf24, speedReq: 10000, mult: 3 }
+      
+      const biomesList = isOwnerSecondCityGame ? [
+        { name: 'Cherry Blossom (چرۆی گێلاس)', guard: 'پڵنگی ئۆنی (Oni Tiger)', color: 0xf472b6, speedReq: 2500000000, mult: 12 },
+        { name: 'Titan Temple (پەرستگای تایتان)', guard: 'پاشای گۆریلا (Gorilla King)', color: 0x38bdf8, speedReq: 7000000000, mult: 15 },
+        { name: 'Angels & Demons (فریشتە و شەیتانەکان)', guard: 'ArchAngel / World Burner', color: 0xa855f7, speedReq: 20000000000, mult: 20 }
+      ] : [
+        { name: 'دارستان (Forest)', guard: 'مریشک (Chicken)', color: 0x10b981, speedReq: 0, mult: 1 },
+        { name: 'دەریاچە (Lake)', guard: 'قاز (Swan)', color: 0x38bdf8, speedReq: 900, mult: 2 },
+        { name: 'بیابان (Desert)', guard: 'مار (Snake/Sphinx)', color: 0xfbbf24, speedReq: 10000, mult: 3 },
+        { name: 'جەنگەڵ (Jungle)', guard: 'پڵنگ (Tiger)', color: 0x059669, speedReq: 40000, mult: 4 },
+        { name: 'بەفر (Snow)', guard: 'دێوی بەفر (Yeti)', color: 0xe0f2fe, speedReq: 170000, mult: 5 },
+        { name: 'گڕکان (Volcano)', guard: 'سەگی سێ سەر (Cerberus)', color: 0xef4444, speedReq: 700000, mult: 6 },
+        { name: 'زەریا (Abyss Ocean)', guard: 'نەهەنگی سپی (Beluga Whale)', color: 0x1d4ed8, speedReq: 2500000, mult: 7 },
+        { name: 'پێش مێژوو (Prehistoric)', guard: 'تی ڕێکس (T-Rex)', color: 0x84cc16, speedReq: 18000000, mult: 8 },
+        { name: 'گەردوون (Cosmic)', guard: 'پەیکەری گەردوونی (Cosmic Skeleton)', color: 0xa855f7, speedReq: 50000000, mult: 10 }
       ];
-      biomesList.forEach((b, i) => {
-        const eg = new THREE.Mesh(new THREE.SphereGeometry(0.6, 16, 16), new THREE.MeshBasicMaterial({ color: b.color }));
-        const grp = new THREE.Group(); grp.add(eg);
-        grp.position.set(i * 3 - 3, 0, -(i * 20) - 8);
-        grp.userData = { name: b.name, mult: b.mult, speedReq: b.speedReq, mutDrop: 'Rainbow', isDivine: false };
-        scene.add(grp); eggsList.push(grp);
-      });
+      
+      let maxEggsToSpawn = biomesList.length;
+      for (let i = 0; i < maxEggsToSpawn; i++) {
+        let b = biomesList[i];
+        const eggGroup = new THREE.Group();
+
+        const eggGeo = new THREE.SphereGeometry(0.6, 16, 16); eggGeo.scale(1, 1.3, 1);
+        const eggMesh = new THREE.Mesh(eggGeo, new THREE.MeshBasicMaterial({ color: b.color }));
+        eggGroup.add(eggMesh);
+
+        const guardGeo = new THREE.BoxGeometry(0.5, 1.0, 0.5);
+        const guardMat = new THREE.MeshBasicMaterial({ color: 0xff4500 });
+        const guardMesh = new THREE.Mesh(guardGeo, guardMat);
+        guardMesh.position.set(0.9, 0.5, 0);
+        eggGroup.add(guardMesh);
+
+        let zPos = -(i * 25) - 8;
+        eggGroup.position.set(((i % 2 === 0 ? 1 : -1) * (Math.random() * 8 + 3)), 0, zPos);
+        eggGroup.userData = { name: `${b.name} - پاسەوان: ${b.guard}`, mult: b.mult, speedReq: b.speedReq, mutDrop: 'Rainbow', isDivine: false };
+        scene.add(eggGroup); eggsList.push(eggGroup);
+      }
+
+      let divineActiveReward = localStorage.getItem('hamadev_divine_spawned');
+      if(divineActiveReward) {
+        let rewardNum = parseInt(divineActiveReward) || 1090;
+        const divGroup = new THREE.Group();
+        const divGeo = new THREE.SphereGeometry(0.9, 16, 16); divGeo.scale(1, 1.4, 1);
+        const divineEggObj = new THREE.Mesh(divGeo, new THREE.MeshBasicMaterial({ color: 0xfbbf24 }));
+        divGroup.add(divineEggObj);
+
+        divGroup.position.set(0, 0, -50);
+        divGroup.userData = { name: `هێلکەی دیڤاینی (${rewardNum.toLocaleString()} R$)`, mult: 25, speedReq: 0, mutDrop: 'Rainbow', isDivine: true, rewardAmount: rewardNum };
+        scene.add(divGroup); eggsList.push(divGroup);
+      }
     }
 
-    function startStealAnEggGame() { isOwnerSecondCityGame = false; initGameEngine(); }
-    function startOwnerSecondCityGame() { isOwnerSecondCityGame = true; initGameEngine(); }
+    function createFieryHornsAvatar(parentGroup) {
+      const fireHeadGeo = new THREE.SphereGeometry(0.5, 16, 16);
+      const fireHeadMat = new THREE.MeshBasicMaterial({ color: 0xff8c00 });
+      const fireHead = new THREE.Mesh(fireHeadGeo, fireHeadMat);
+      fireHead.position.set(0, 2.7, 0);
+      parentGroup.add(fireHead);
+
+      const horn1Geo = new THREE.CylinderGeometry(0.08, 0.25, 1.2, 8);
+      const hornMat = new THREE.MeshBasicMaterial({ color: 0xd97706 });
+      const horn1 = new THREE.Mesh(horn1Geo, hornMat);
+      horn1.position.set(-0.55, 2.8, 0);
+      horn1.rotation.z = -0.5;
+      parentGroup.add(horn1);
+
+      const horn2 = new THREE.Mesh(horn1Geo, hornMat);
+      horn2.position.set(0.55, 2.8, 0);
+      horn2.rotation.z = 0.5;
+      parentGroup.add(horn2);
+    }
+
+    function startStealAnEggGame() {
+      isOwnerSecondCityGame = false;
+      initGameEngine();
+    }
+
+    function startOwnerSecondCityGame() {
+      isOwnerSecondCityGame = true;
+      initGameEngine();
+    }
 
     function initGameEngine() {
       document.getElementById('game-container').style.display = 'flex';
-      gameScore = 0; carriedEggs = 0;
+      gameScore = 0; carriedEggs = 0; carriedValueMultiplier = 1; shopOpen = false; jackiaOpen = false;
 
       let userObj = usersDB[currentUser] || {};
       playerSpeed = (userObj.savedSpeed ? userObj.savedSpeed : 25) / 100;
       maxCapacity = userObj.savedCapacity ? userObj.savedCapacity : 1;
 
+      document.getElementById('game-score').innerText = gameScore;
+      document.getElementById('carried-count').innerText = carriedEggs;
+      document.getElementById('max-capacity').innerText = maxCapacity;
+      document.getElementById('speed-display').innerText = Math.round(playerSpeed * 100);
+
+      let activeBroadcast = localStorage.getItem('hamadev_broadcast_msg');
+      if(activeBroadcast) {
+        showInGameAdminMessage(activeBroadcast);
+      }
+
       const canvas = document.getElementById('game-canvas');
       scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x090d16);
+      scene.background = new THREE.Color(isOwnerSecondCityGame ? 0x2e1065 : 0x090d16);
 
       camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
       renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
       renderer.setSize(window.innerWidth, window.innerHeight);
+
       scene.add(new THREE.AmbientLight(0xffffff, 1));
 
       player = new THREE.Group();
       let shirtColor = (currentUser === 'rip_hama276' || userObj.hasVIP) ? 0xfbbf24 : 0x10b981;
       const torso = new THREE.Mesh(new THREE.BoxGeometry(1, 1.2, 0.6), new THREE.MeshBasicMaterial({ color: shirtColor }));
       torso.position.y = 1.2; player.add(torso);
-      
+      const head = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.7, 0.7), new THREE.MeshBasicMaterial({ color: 0xffdbac }));
+      head.position.y = 2.15; player.add(head);
+
+      if(currentUser === 'rip_hama276' || userObj.hasVIP) {
+        createFieryHornsAvatar(player);
+      }
+
+      vehicleMesh = new THREE.Group();
+      const vBase = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.7, 2.8), new THREE.MeshBasicMaterial({ color: 0xfbbf24 }));
+      vBase.position.y = 0.5;
+      const vWing = new THREE.Mesh(new THREE.BoxGeometry(4.0, 0.12, 1.2), new THREE.MeshBasicMaterial({ color: 0xa855f7 }));
+      vWing.position.set(0, 0.9, 0);
+      vehicleMesh.add(vBase); vehicleMesh.add(vWing);
+      vehicleMesh.position.set(0, 0, 0);
+      player.add(vehicleMesh);
+
+      if(userObj.collectedPets && userObj.collectedPets.length > 0) {
+        auraMesh = new THREE.Mesh(new THREE.SphereGeometry(1.8, 16, 16), new THREE.MeshBasicMaterial({ color: 0xfbbf24, wireframe: true }));
+        auraMesh.position.y = 1.2; player.add(auraMesh);
+      }
+
+      if(userObj.hasShield) {
+        shieldMesh = new THREE.Mesh(new THREE.SphereGeometry(1.6, 16, 16), new THREE.MeshBasicMaterial({ color: 0x38bdf8 }));
+        shieldMesh.position.y = 1.2; player.add(shieldMesh);
+      }
+
+      const limbGeo = new THREE.BoxGeometry(0.4, 1.2, 0.4);
+      const skinMat = new THREE.MeshBasicMaterial({ color: 0xffdbac });
+      const pantsMat = new THREE.MeshBasicMaterial({ color: 0x1e293b });
+
+      const leftArm = new THREE.Mesh(limbGeo, skinMat); leftArm.position.set(-0.7, 1.2, 0); player.add(leftArm);
+      const rightArm = new THREE.Mesh(limbGeo, skinMat); rightArm.position.set(0.7, 1.2, 0); player.add(rightArm);
+      const leftLeg = new THREE.Mesh(limbGeo, pantsMat); leftLeg.position.set(-0.3, 0.4, 0); player.add(leftLeg);
+      const rightLeg = new THREE.Mesh(limbGeo, pantsMat); rightLeg.position.set(0.3, 0.4, 0); player.add(rightLeg);
+
       player.position.set(0, 1, 15);
       scene.add(player);
 
+      let petColor = userObj.hasGoldenPet ? 0xffd700 : 0xffaa00;
+      petObj = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.5), new THREE.MeshBasicMaterial({ color: petColor }));
+      scene.add(petObj);
+
       shopBooth = new THREE.Group();
+      const boothBase = new THREE.Mesh(new THREE.BoxGeometry(3, 1.5, 2), new THREE.MeshBasicMaterial({ color: 0xfbbf24 }));
+      boothBase.position.y = 0.75; shopBooth.add(boothBase);
       shopBooth.position.set(-8, 0, 5);
       scene.add(shopBooth);
 
       jackiaBooth = new THREE.Group();
+      const jBase = new THREE.Mesh(new THREE.BoxGeometry(3, 2, 2), new THREE.MeshBasicMaterial({ color: 0xa855f7 }));
+      jBase.position.y = 1; jackiaBooth.add(jBase);
       jackiaBooth.position.set(8, 0, 5);
       scene.add(jackiaBooth);
 
-      const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, 200), new THREE.MeshBasicMaterial({ color: 0x064e3b }));
-      floor.rotation.x = -Math.PI / 2; floor.position.z = -50; scene.add(floor);
+      let floorDepth = isOwnerSecondCityGame ? 300 : 250;
+      const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, floorDepth), new THREE.MeshBasicMaterial({ color: isOwnerSecondCityGame ? 0x2e1065 : 0x064e3b }));
+      floor.rotation.x = -Math.PI / 2; floor.position.z = -80; scene.add(floor);
+
+      supersonicPadMesh = new THREE.Mesh(new THREE.BoxGeometry(6, 0.2, 6), new THREE.MeshBasicMaterial({ color: 0xf97316 }));
+      supersonicPadMesh.position.set(0, 0.05, -50); 
+      scene.add(supersonicPadMesh);
+
+      const homeBase = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 0.1, 32), new THREE.MeshBasicMaterial({ color: 0x3b82f6 }));
+      homeBase.position.set(0, 0.05, 15); scene.add(homeBase);
 
       spawnAllEggs();
+
       camera.position.set(0, 8, 26);
       camera.lookAt(player.position);
 
-      window.addEventListener('keydown', (e) => {
-        if(e.code === 'KeyW') keys.up = true;
-        if(e.code === 'KeyS') keys.down = true;
-        if(e.code === 'KeyA') keys.left = true;
-        if(e.code === 'KeyD') keys.right = true;
-      });
-      window.addEventListener('keyup', (e) => {
-        if(e.code === 'KeyW') keys.up = false;
-        if(e.code === 'KeyS') keys.down = false;
-        if(e.code === 'KeyA') keys.left = false;
-        if(e.code === 'KeyD') keys.right = false;
-      });
-
+      window.addEventListener('keydown', onKeyDown);
+      window.addEventListener('keyup', onKeyUp);
       animate();
+    }
+
+    function onKeyDown(e) {
+      if (e.code === 'KeyW' || e.code === 'ArrowUp') keys.up = true;
+      if (e.code === 'KeyS' || e.code === 'ArrowDown') keys.down = true;
+      if (e.code === 'KeyA' || e.code === 'ArrowLeft') keys.left = true;
+      if (e.code === 'KeyD' || e.code === 'ArrowRight') keys.right = true;
+      if (e.code === 'Space') keys.jump = true;
+    }
+
+    function onKeyUp(e) {
+      if (e.code === 'KeyW' || e.code === 'ArrowUp') keys.up = false;
+      if (e.code === 'KeyS' || e.code === 'ArrowDown') keys.down = false;
+      if (e.code === 'KeyA' || e.code === 'ArrowLeft') keys.left = false;
+      if (e.code === 'KeyD' || e.code === 'ArrowRight') keys.right = false;
+      if (e.code === 'Space') keys.jump = false;
     }
 
     function animate() {
       animationId = requestAnimationFrame(animate);
-      if(keys.up) player.position.z -= playerSpeed;
-      if(keys.down) player.position.z += playerSpeed;
-      if(keys.left) player.position.x -= playerSpeed;
-      if(keys.right) player.position.x += playerSpeed;
+      let moveX = 0; let moveZ = 0;
+
+      let eggScoreBonusSpeed = Math.min(5.0, gameScore / 1000);
+      let supersonicBoost = (supersonicPadMesh && player.position.distanceTo(supersonicPadMesh.position) < 3.5) ? 3.5 : 1.0;
+      let currentActiveSpeed = (playerSpeed + eggScoreBonusSpeed + 0.2) * supersonicBoost;
+
+      if (keys.up) moveZ -= currentActiveSpeed;
+      if (keys.down) moveZ += currentActiveSpeed;
+      if (keys.left) moveX -= currentActiveSpeed;
+      if (keys.right) moveX += currentActiveSpeed;
+
+      if (moveX !== 0 || moveZ !== 0) {
+        player.position.x += moveX;
+        player.position.z += moveZ;
+        player.rotation.y = Math.atan2(moveX, moveZ);
+      }
+
+      if (keys.jump && player.position.y <= 1.05) player.position.y = 3.5;
+      if (player.position.y > 1.0) player.position.y -= 0.12;
+      else player.position.y = 1.0;
+
+      if (petObj) {
+        petObj.position.x = player.position.x + Math.sin(Date.now() * 0.005) * 1.5;
+        petObj.position.z = player.position.z + Math.cos(Date.now() * 0.005) * 1.5;
+        petObj.position.y = 1.0 + Math.sin(Date.now() * 0.01) * 0.3;
+      }
+
+      if (vehicleMesh) vehicleMesh.rotation.y += 0.1;
+      if (auraMesh) auraMesh.rotation.y += 0.03;
+
+      if(isDiscoActive && scene) {
+        let r = Math.sin(Date.now() * 0.003) * 0.5 + 0.5;
+        let g = Math.cos(Date.now() * 0.004) * 0.5 + 0.5;
+        let b = Math.sin(Date.now() * 0.005) * 0.5 + 0.5;
+        scene.background = new THREE.Color(r, g, b);
+      }
+
+      if (!shopOpen && player.position.distanceTo(shopBooth.position) < 2.5) {
+        shopOpen = true;
+        document.getElementById('shop-modal').style.display = 'flex';
+      } else if (shopOpen && player.position.distanceTo(shopBooth.position) > 3.5) {
+        closeShopModal();
+      }
+
+      if (!jackiaOpen && player.position.distanceTo(jackiaBooth.position) < 2.5) {
+        jackiaOpen = true;
+        openJackiaModal();
+      } else if (jackiaOpen && player.position.distanceTo(jackiaBooth.position) > 3.5) {
+        closeJackiaModal();
+      }
+
+      eggsList.forEach((eggObj, idx) => {
+        if (eggObj && carriedEggs < maxCapacity && player.position.distanceTo(eggObj.position) < 1.4) {
+          if(eggObj.userData && eggObj.userData.isDivine) {
+            let winAmount = eggObj.userData.rewardAmount || 1090;
+            usersDB[currentUser].robux += winAmount;
+            localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+            document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+            localStorage.removeItem('hamadev_divine_spawned');
+            document.getElementById('global-announcement-banner').style.display = 'none';
+            alert(`🎉 پیرۆزە! تۆ دیڤاینی (${eggObj.userData.name}) بردەوە و چوە سەر ئەکاونتەکەت!`);
+          }
+
+          let uObj = usersDB[currentUser];
+          if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
+          uObj.inventoryEggs.push({ name: eggObj.userData.name, mult: eggObj.userData.mult, mutDrop: eggObj.userData.mutDrop });
+          localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+
+          carriedValueMultiplier = eggObj.userData ? eggObj.userData.mult : 1;
+          scene.remove(eggObj);
+          eggsList[idx] = null;
+          carriedEggs++;
+          document.getElementById('carried-count').innerText = carriedEggs;
+        }
+      });
+
+      if (eggsList.length > 0 && eggsList.every(e => e === null)) spawnAllEggs();
+
+      if (carriedEggs > 0 && player.position.distanceTo(new THREE.Vector3(0, 1, 15)) < 3.5) {
+        let uObj = usersDB[currentUser];
+        let mutantBonusSum = 0;
+        if(uObj.collectedPets) {
+          uObj.collectedPets.forEach(p => { if(p.bonus) mutantBonusSum += p.bonus; });
+        }
+
+        let pointsEarned = (carriedEggs * 1000 * carriedValueMultiplier) + mutantBonusSum;
+        let robuxEarned = (carriedEggs * 25 * carriedValueMultiplier) + Math.floor(mutantBonusSum / 10);
+        
+        gameScore += pointsEarned;
+        usersDB[currentUser].robux += robuxEarned;
+        localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+
+        carriedEggs = 0; carriedValueMultiplier = 1;
+        document.getElementById('game-score').innerText = gameScore;
+        document.getElementById('carried-count').innerText = carriedEggs;
+        document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+      }
 
       camera.position.x = player.position.x;
       camera.position.z = player.position.z + 12;
@@ -1183,6 +1706,8 @@
     function exitGame() {
       cancelAnimationFrame(animationId);
       document.getElementById('game-container').style.display = 'none';
+      const hud = document.getElementById('in-game-admin-hud');
+      if(hud) hud.style.display = 'none';
     }
   </script>
 </body>

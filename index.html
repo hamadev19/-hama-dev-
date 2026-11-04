@@ -44,10 +44,18 @@
       background: var(--store-card); border: 1px solid var(--store-border); border-radius: 20px;
       width: 100%; max-width: 420px; padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.8); text-align: center;
     }
+    
+    /* لۆگۆی ئاڵای کوردستان */
     .store-logo {
-      width: 90px; height: 90px; border-radius: 50%; object-fit: cover; margin: 0 auto 16px auto;
-      border: 3px solid var(--store-primary); box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+      width: 90px; height: 90px; border-radius: 50%; margin: 0 auto 16px auto;
+      border: 3px solid #ff0000; box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+      background: linear-gradient(to bottom, #ef4444 33%, #ffffff 33%, #ffffff 66%, #22c55e 66%);
+      display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
     }
+    .store-logo::before {
+      content: "☀️"; font-size: 36px; filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
+    }
+
     .auth-card h1 { font-size: 24px; margin-bottom: 4px; color: #fff; }
     .auth-card .version-tag { font-size: 11px; color: var(--robux-gold); font-weight: bold; margin-bottom: 12px; }
     .auth-card p { color: var(--text-muted); font-size: 13px; margin-bottom: 20px; }
@@ -82,7 +90,13 @@
       display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 100;
     }
     .brand { display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 18px; color: #fff; }
-    .brand img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--store-primary); }
+    
+    /* لۆگۆی بچووکی سەرەوە (ئاڵای کوردستان) */
+    .brand-flag {
+      width: 36px; height: 36px; border-radius: 50%; border: 2px solid #fbbf24;
+      background: linear-gradient(to bottom, #ef4444 33%, #ffffff 33%, #ffffff 66%, #22c55e 66%);
+      display: flex; align-items: center; justify-content: center; font-size: 16px; box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+    }
     
     .store-search { position: relative; width: 250px; }
     .store-search input {
@@ -291,7 +305,7 @@
 
   <div id="auth-screen">
     <div class="auth-card">
-      <img src="701.jpg" alt="Hama Dev" class="store-logo" onerror="this.src='https://via.placeholder.com/90'">
+      <div class="store-logo"></div>
       <h1>Hama Dev Play</h1>
       <div class="version-tag">v2.521.0 Owner Teleport & Divine Update</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
@@ -314,7 +328,7 @@
   <div id="dashboard">
     <header>
       <div class="brand">
-        <img src="701.jpg" alt="Hama Dev" onerror="this.src='https://via.placeholder.com/36'">
+        <div class="brand-flag">☀️</div>
         <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.521.0</span></span>
       </div>
 

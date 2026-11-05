@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.526.0 In-Game Owner Hub & Teleport</title>
+  <title>Hama Dev Store - Roblox Kurd v2.527.0 Ultimate Expanded Edition</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -303,7 +303,7 @@
     <div class="auth-card">
       <div class="store-logo"></div>
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.526.0 In-Game Owner Hub & Teleport</div>
+      <div class="version-tag">v2.527.0 Ultimate Expanded Edition</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -325,7 +325,7 @@
     <header>
       <div class="brand">
         <div class="brand-flag">☀️</div>
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.526.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.527.0</span></span>
       </div>
 
       <div class="store-search">
@@ -491,7 +491,7 @@
 
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و تێلێپۆرت (v2.526.0 In-Game Owner Hub)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و تێلێپۆرت (v2.527.0 Ultimate Hub)</h2>
       
       <div class="admin-section" style="background:#1e1b4b; padding:14px; border-radius:12px; border:2px solid var(--divine-purple);">
         <label style="font-size:13px; font-weight:bold; color:#c084fc;"><i class="fa-solid fa-location-crosshairs"></i> بەشی تێلێپۆرت بە کلیلک (Owner Teleport):</label>
@@ -665,7 +665,7 @@
           <span>خاڵ: <span id="game-score">0</span></span>
           <span>🥚 هێلکە: <span id="carried-count">0</span>/<span id="max-capacity">1</span></span>
           <span>⚡ خێرایی: <span id="speed-display">25</span></span>
-          <!-- دوگمەی هۆبی ئۆنەر لەناو یارییەکەدا -->
+          <span>⏱️ کات: <span id="race-timer">00:00</span></span>
           <button id="in-game-owner-btn" class="admin-badge-btn" style="display:none; padding:4px 8px; font-size:10px;" onclick="openAdminPanel()"><i class="fa-solid fa-shield-halved"></i> هۆبی ئۆنەر</button>
           <button class="jackia-btn-hud" onclick="openJackiaModal()"><i class="fa-solid fa-dice"></i> جاکیا</button>
           <button class="garden-btn-hud" onclick="openGardenModal()"><i class="fa-solid fa-seedling"></i> باخجە</button>
@@ -695,6 +695,8 @@
     let adminRefreshInterval = null;
     let isOwnerSecondCityGame = false;
     let isDiscoActive = false;
+    let raceSeconds = 0;
+    let raceTimerInterval = null;
 
     usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, email: 'rip_hama@dev.kur', verified: true, hasVIP: true, hasSpeed: true, hasShield: true, hasGoldenPet: true, savedSpeed: 100, savedCapacity: 10, inventoryEggs: [], hatchingSlots: [], collectedPets: [], friends: ['Ahmad_Gamer', 'Hama_Dev_Bot'] };
     if(!usersDB['Ahmad_Gamer']) usersDB['Ahmad_Gamer'] = { password: '123', robux: 1200, email: 'ahmad@mail.com', verified: true, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [], friends: ['rip_hama276'] };
@@ -1194,7 +1196,7 @@
       } else { alert('❌ کۆدەکە هەڵەیە قبۆڵ ناکرێت!'); }
     }
 
-    let scene, camera, renderer, player, shopBooth, jackiaBooth, petObj, vehicleMesh, auraMesh, shieldMesh, animationId, supersonicPadMesh, airplaneMesh;
+    let scene, camera, renderer, player, shopBooth, jackiaBooth, petObj, vehicleMesh, auraMesh, shieldMesh, animationId, supersonicPadMesh, megaJumpPadMesh, airplaneMesh;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
     let gameScore = 0, carriedEggs = 0, carriedValueMultiplier = 1, maxCapacity = 1, playerSpeed = 0.25, eggsList = [], shopOpen = false, jackiaOpen = false;
 
@@ -1508,6 +1510,15 @@
     function initGameEngine() {
       document.getElementById('game-container').style.display = 'flex';
       gameScore = 0; carriedEggs = 0; carriedValueMultiplier = 1; shopOpen = false; jackiaOpen = false;
+      raceSeconds = 0;
+      if(raceTimerInterval) clearInterval(raceTimerInterval);
+      raceTimerInterval = setInterval(() => {
+        raceSeconds++;
+        let m = Math.floor(raceSeconds / 60).toString().padStart(2, '0');
+        let s = (raceSeconds % 60).toString().padStart(2, '0');
+        let timerEl = document.getElementById('race-timer');
+        if(timerEl) timerEl.innerText = `${m}:${s}`;
+      }, 1000);
 
       let userObj = usersDB[currentUser] || {};
       playerSpeed = (userObj.savedSpeed ? userObj.savedSpeed : 25) / 100;
@@ -1518,7 +1529,6 @@
       document.getElementById('max-capacity').innerText = maxCapacity;
       document.getElementById('speed-display').innerText = Math.round(playerSpeed * 100);
 
-      // نیشاندانی دوگمەی هۆبی ئۆنەر لەناو یارییەکەدا ئەگەر خۆت ئۆنەر بوویت
       if (currentUser === 'rip_hama276') {
         document.getElementById('in-game-owner-btn').style.display = 'inline-flex';
       } else {
@@ -1612,6 +1622,10 @@
       supersonicPadMesh.position.set(0, 0.05, -50); 
       scene.add(supersonicPadMesh);
 
+      megaJumpPadMesh = new THREE.Mesh(new THREE.BoxGeometry(5, 0.25, 5), new THREE.MeshBasicMaterial({ color: 0xd97706 }));
+      megaJumpPadMesh.position.set(0, 0.05, -30);
+      scene.add(megaJumpPadMesh);
+
       const homeBase = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 0.1, 32), new THREE.MeshBasicMaterial({ color: 0x3b82f6 }));
       homeBase.position.set(0, 0.05, 15); scene.add(homeBase);
 
@@ -1649,6 +1663,10 @@
       let supersonicBoost = (supersonicPadMesh && player.position.distanceTo(supersonicPadMesh.position) < 3.5) ? 3.5 : 1.0;
       let currentActiveSpeed = (playerSpeed + eggScoreBonusSpeed + 0.2) * supersonicBoost;
 
+      if (megaJumpPadMesh && player.position.distanceTo(megaJumpPadMesh.position) < 3.5) {
+        player.position.y = 7.5;
+      }
+
       if (keys.up) moveZ -= currentActiveSpeed;
       if (keys.down) moveZ += currentActiveSpeed;
       if (keys.left) moveX -= currentActiveSpeed;
@@ -1660,7 +1678,7 @@
         player.rotation.y = Math.atan2(moveX, moveZ);
       }
 
-      if (keys.jump && player.position.y <= 1.05) player.position.y = 3.5;
+      if (keys.jump && player.position.y <= 1.05) player.position.y = 3.8;
       if (player.position.y > 1.0) player.position.y -= 0.12;
       else player.position.y = 1.0;
 
@@ -1755,6 +1773,7 @@
 
     function exitGame() {
       cancelAnimationFrame(animationId);
+      if(raceTimerInterval) clearInterval(raceTimerInterval);
       document.getElementById('game-container').style.display = 'none';
       const hud = document.getElementById('in-game-admin-hud');
       const airplaneBanner = document.getElementById('airplane-banner-hud');

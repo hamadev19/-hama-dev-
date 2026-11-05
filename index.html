@@ -295,6 +295,11 @@
 </head>
 <body>
 
+  <!-- سیستەمی لێدانی گۆرانی و دەنگ بۆ هەمووان -->
+  <audio id="game-background-music" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+
   <div id="global-announcement-banner">
     <i class="fa-solid fa-gift" style="font-size: 20px; color:#fde047;"></i>
     <span id="announcement-text">🎁 ڤێرژنی v3.0 Ultimate Mega Edition چالاک بوو! ڕابکەن بۆ تاقیکردنەوەی!</span>
@@ -446,7 +451,7 @@
               <div class="app-card-top">
                 <div class="app-icon" style="color:var(--admin-red); background:#450a0a;"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
                 <div class="app-info">
-                  <h3>4. ششمشێری پشکنین (Guard Stun Sword)</h3>
+                  <h3>4. شمشێری پشکنین (Guard Stun Sword)</h3>
                   <p>شمشێرێک بۆ سڕکردنی پاسەوانەکانی دەوروبەری هێلکەکان بۆ ٣ چرکە</p>
                 </div>
               </div>
@@ -527,24 +532,22 @@
     <div class="admin-card">
       <h2><i class="fa-solid fa-shield-halved"></i> ژووری تایبەتی ئۆنەر و پەنێڵی کۆنترۆڵ (v3.0 Owner Mega Hub)</h2>
       
-      <!-- بەشی نوێ: ناردنی پەیامی ڕاستەوخۆ بۆ شاشەی یاریزانان -->
+      <!-- بەشی کۆنترۆڵی مۆسیقا و دەنگی گۆرانی بۆ هەموو یاریزانەکان -->
+      <div class="admin-section" style="background:#1e1b4b; padding:14px; border-radius:12px; border:2px solid var(--robux-gold);">
+        <label style="font-size:13px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-music"></i> بەشی کۆنترۆڵی مۆسیقا و گۆرانی بۆ هەموو یاریزانەکان (Global Music Hub):</label>
+        <div style="display: flex; gap: 8px; margin-top: 6px;">
+          <button class="admin-action-btn" style="flex:1; background:var(--store-primary); color:#fff;" onclick="ownerPlayMusicForEveryone()"><i class="fa-solid fa-play"></i> لێدانی گۆرانی بۆ هەمووان</button>
+          <button class="admin-action-btn" style="flex:1; background:#ef4444; color:#fff;" onclick="ownerStopMusicForEveryone()"><i class="fa-solid fa-pause"></i> کوژاندنەوەی گۆرانی</button>
+        </div>
+      </div>
+
+      <!-- بەشی ناردنی پەیامی ڕاستەوخۆ بۆ شاشەی یاریزانان -->
       <div class="admin-section" style="background:#1e1b4b; padding:14px; border-radius:12px; border:2px solid var(--robux-gold);">
         <label style="font-size:13px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-bullhorn"></i> ناردنی پەیام و شت نوسین بۆ شاشەی یاریزانان (Live Screen Text Broadcast):</label>
         <input type="text" id="admin-broadcast-input" placeholder="پەیامێک یان ئاگادارییەک بنووسە بۆ شاشە (نموونە: بەخێربێن بۆ سێرڤەری ئۆنەر! ☀️)...">
         <div style="display: flex; gap: 8px; margin-top: 4px;">
           <button class="admin-action-btn" style="flex:1; background:var(--robux-gold); color:#000;" onclick="sendBroadcastToScreen()"><i class="fa-solid fa-paper-plane"></i> ناردن بۆ شاشەی یاریزانان</button>
           <button class="admin-action-btn" style="flex:1; background:#ef4444; color:#fff;" onclick="clearScreenBroadcast()"><i class="fa-solid fa-trash-can"></i> لابردنی پەیام لە شاشە</button>
-        </div>
-      </div>
-
-      <!-- بەشی نوێ: سیستەمی لێدانی دەنگ و گۆرانی کوردی (Owner Audio & Soundboard Studio) -->
-      <div class="admin-section" style="background:#111827; padding:14px; border-radius:12px; border:2px solid var(--divine-purple);">
-        <label style="font-size:13px; font-weight:bold; color:#c084fc;"><i class="fa-solid fa-music"></i> سیستەمی گۆرانی و دەنگی تایبەتی ئۆنەر (Owner Audio Studio):</label>
-        <p style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">لێرە دەتوانیت دەنگ یان گۆرانی فەرمی (وەک مەیابی هات مە و ڤیدیۆی کوردی) لێبدەیت بۆ خۆت و یاریزانەکان:</p>
-        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <button class="admin-action-btn" style="background:var(--divine-purple); flex:1;" onclick="playOwnerSong('mayabi')"><i class="fa-solid fa-circle-play"></i> لێدانی گۆرانی (مەیابی هات مە)</button>
-          <button class="admin-action-btn" style="background:#3b82f6; flex:1;" onclick="playOwnerSong('hype')"><i class="fa-solid fa-bolt"></i> دەنگی هەیبەتی ئۆنەر</button>
-          <button class="admin-action-btn" style="background:#ef4444; width:120px;" onclick="stopOwnerSong()"><i class="fa-solid fa-stop"></i> کوژاندنەوە</button>
         </div>
       </div>
 
@@ -712,11 +715,6 @@
     let raceSeconds = 0;
     let raceTimerInterval = null;
 
-    // Web Audio Synthesizer بۆ لێدانی مۆسیقا و دەنگی بەهێز بێ پێویستی بە فایلی دەرەکی
-    let audioCtx = null;
-    let currentOscillator = null;
-    let isPlayingAudio = false;
-
     usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, email: 'rip_hama@dev.kur', verified: true, hasVIP: true, hasSpeed: true, hasShield: true, hasGoldenPet: true, hasGoldenMoon: true, hasCoinMultiplier: true, hasAngelWings: true, hasGuardSword: true, hasHyperSpray: true, savedSpeed: 100, savedCapacity: 10, inventoryEggs: [], hatchingSlots: [], collectedPets: [], friends: ['Ahmad_Gamer', 'Hama_Dev_Bot'] };
     if(!usersDB['Ahmad_Gamer']) usersDB['Ahmad_Gamer'] = { password: '123', robux: 1200, email: 'ahmad@mail.com', verified: true, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [], friends: ['rip_hama276'] };
     if(!usersDB['یاریزانی نەناسراو']) usersDB['یاریزانی نەناسراو'] = { password: '123', robux: 300, email: 'unknown@mail.com', verified: false, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [], friends: [] };
@@ -771,6 +769,13 @@
       let activeAirplane = localStorage.getItem('hamadev_airplane_trailer');
       if(activeAirplane) {
         showAirplaneBanner(activeAirplane);
+      }
+
+      // پشکنینی دۆخی مۆسیقا لە localStorage بۆ هەموو یاریزانەکان
+      let musicState = localStorage.getItem('hamadev_global_music_playing');
+      if(musicState === 'true') {
+        const bgMusic = document.getElementById('game-background-music');
+        if(bgMusic) bgMusic.play().catch(e => console.log("Auto-play blocked:", e));
       }
     };
 
@@ -921,7 +926,7 @@
         alert('🕊️ پیرۆزە! باڵی فریشتە بۆ کەسایەتییەکەت زیاد کرا!');
       } else if(itemName === 'Guard Sword') {
         usersDB[currentUser].hasGuardSword = true;
-        alert('⚔️ پیرۆزە! ششمشێری پشکنین کڕرا!');
+        alert('⚔️ پیرۆزە! شمشێری پشکنین کڕرا!');
       } else if(itemName === 'Hyper Spray') {
         usersDB[currentUser].hasHyperSpray = true;
         alert('✨ پیرۆزە! سپرای خێرایی چالاک بوو!');
@@ -972,6 +977,31 @@
       closeAdminPanel();
     }
 
+    /* 🎵 فانکشنەکانی کۆنترۆڵی مۆسیقا و گۆرانی بۆ هەموو یاریزانەکان لە پەنێڵی ئۆنەردا */
+    function ownerPlayMusicForEveryone() {
+      const bgMusic = document.getElementById('game-background-music');
+      if(bgMusic) {
+        bgMusic.play().then(() => {
+          localStorage.setItem('hamadev_global_music_playing', 'true');
+          alert('🎵 گۆرانی و مۆسیقای یاری بە سەرکەوتوویی بۆ هەموو یاریزانەکان لێدرا!');
+        }).catch(err => {
+          alert('⚠️ تکایە سەرەتا یەکجار لە ڕووبۆسەرەکە کلیک بکە پاشان دوگمەکە داگرە.');
+        });
+      }
+      closeAdminPanel();
+    }
+
+    function ownerStopMusicForEveryone() {
+      const bgMusic = document.getElementById('game-background-music');
+      if(bgMusic) {
+        bgMusic.pause();
+        localStorage.setItem('hamadev_global_music_playing', 'false');
+        alert('🔇 مۆسیقای یاری کوژایەوە.');
+      }
+      closeAdminPanel();
+    }
+
+    /* 📢 فانکشنی بەشی ناردنی دەق بۆ شاشەی یاریزانان */
     function sendBroadcastToScreen() {
       const broadcastInput = document.getElementById('admin-broadcast-input');
       const msgText = broadcastInput.value.trim();
@@ -992,44 +1022,6 @@
       document.getElementById('admin-broadcast-input').value = '';
       alert('🧹 دەقی سەر شاشە پاککرایەوە!');
       closeAdminPanel();
-    }
-
-    // فانکشنەکانی لێدانی گۆرانی و دەنگ بۆ ئۆنەر
-    function playOwnerSong(type) {
-      if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      if(audioCtx.state === 'suspended') audioCtx.resume();
-      stopOwnerSong();
-
-      isPlayingAudio = true;
-      currentOscillator = audioCtx.createOscillator();
-      const gainNode = audioCtx.createGain();
-
-      if(type === 'mayabi') {
-        currentOscillator.type = 'triangle';
-        currentOscillator.frequency.setValueAtTime(440, audioCtx.currentTime); // مەیابی هات مە - Note A4
-        currentOscillator.frequency.setValueAtTime(554.37, audioCtx.currentTime + 0.3); // C#5
-        currentOscillator.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.6); // E5
-        gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
-        alert('🎵 گۆرانی (مەیابی هات مە - کوردی) دەستی بە لێدان کرد!');
-      } else {
-        currentOscillator.type = 'sawtooth';
-        currentOscillator.frequency.setValueAtTime(300, audioCtx.currentTime);
-        currentOscillator.frequency.setValueAtTime(600, audioCtx.currentTime + 0.2);
-        gainNode.gain.setValueAtTime(0.4, audioCtx.currentTime);
-        alert('⚡ دەنگی هەیبەتی ئۆنەر چالاک بوو!');
-      }
-
-      currentOscillator.connect(gainNode);
-      gainNode.connect(audioCtx.destination);
-      currentOscillator.start();
-    }
-
-    function stopOwnerSong() {
-      if(isPlayingAudio && currentOscillator) {
-        try { currentOscillator.stop(); } catch(e){}
-        isPlayingAudio = false;
-        alert('🛑 دەنگ و مۆسیقا کوژایەوە.');
-      }
     }
 
     function addAdminMutation(type, multiplier) {

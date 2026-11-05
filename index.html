@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.527.0 Ultimate Expanded Edition</title>
+  <title>Hama Dev Store - Roblox Kurd v2.528.0 Moving Guards & Turbo Edition</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -303,7 +303,7 @@
     <div class="auth-card">
       <div class="store-logo"></div>
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.527.0 Ultimate Expanded Edition</div>
+      <div class="version-tag">v2.528.0 Moving Guards & Turbo Edition</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -325,7 +325,7 @@
     <header>
       <div class="brand">
         <div class="brand-flag">☀️</div>
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.527.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.528.0</span></span>
       </div>
 
       <div class="store-search">
@@ -491,7 +491,7 @@
 
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و تێلێپۆرت (v2.527.0 Ultimate Hub)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و تێلێپۆرت (v2.528.0 Ultimate Hub)</h2>
       
       <div class="admin-section" style="background:#1e1b4b; padding:14px; border-radius:12px; border:2px solid var(--divine-purple);">
         <label style="font-size:13px; font-weight:bold; color:#c084fc;"><i class="fa-solid fa-location-crosshairs"></i> بەشی تێلێپۆرت بە کلیلک (Owner Teleport):</label>
@@ -1196,9 +1196,10 @@
       } else { alert('❌ کۆدەکە هەڵەیە قبۆڵ ناکرێت!'); }
     }
 
-    let scene, camera, renderer, player, shopBooth, jackiaBooth, petObj, vehicleMesh, auraMesh, shieldMesh, animationId, supersonicPadMesh, megaJumpPadMesh, airplaneMesh;
+    let scene, camera, renderer, player, shopBooth, jackiaBooth, petObj, vehicleMesh, auraMesh, shieldMesh, animationId, supersonicPadMesh, megaJumpPadMesh, turboPadMesh, airplaneMesh;
     let keys = { up: false, down: false, left: false, right: false, jump: false };
     let gameScore = 0, carriedEggs = 0, carriedValueMultiplier = 1, maxCapacity = 1, playerSpeed = 0.25, eggsList = [], shopOpen = false, jackiaOpen = false;
+    let movingGuardsList = [];
 
     function toggleDiscoMode() {
       isDiscoActive = !isDiscoActive;
@@ -1410,6 +1411,7 @@
     function spawnAllEggs() {
       eggsList.forEach(e => { if(e) scene.remove(e); });
       eggsList = [];
+      movingGuardsList = [];
       
       const biomesList = isOwnerSecondCityGame ? [
         { name: 'Cherry Blossom (چرۆی گێلاس)', guard: 'پڵنگی ئۆنی (Oni Tiger)', color: 0xf472b6, speedReq: 2500000000, mult: 12 },
@@ -1436,11 +1438,13 @@
         const eggMesh = new THREE.Mesh(eggGeo, new THREE.MeshBasicMaterial({ color: b.color }));
         eggGroup.add(eggMesh);
 
+        // پاسەوانی جووڵاو
         const guardGeo = new THREE.BoxGeometry(0.5, 1.0, 0.5);
         const guardMat = new THREE.MeshBasicMaterial({ color: 0xff4500 });
         const guardMesh = new THREE.Mesh(guardGeo, guardMat);
-        guardMesh.position.set(0.9, 0.5, 0);
+        guardMesh.position.set(1.2, 0.5, 0);
         eggGroup.add(guardMesh);
+        movingGuardsList.push(guardMesh);
 
         let zPos = -(i * 25) - 8;
         eggGroup.position.set(((i % 2 === 0 ? 1 : -1) * (Math.random() * 8 + 3)), 0, zPos);
@@ -1626,6 +1630,10 @@
       megaJumpPadMesh.position.set(0, 0.05, -30);
       scene.add(megaJumpPadMesh);
 
+      turboPadMesh = new THREE.Mesh(new THREE.BoxGeometry(6, 0.25, 6), new THREE.MeshBasicMaterial({ color: 0x00ffcc }));
+      turboPadMesh.position.set(0, 0.05, -70);
+      scene.add(turboPadMesh);
+
       const homeBase = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 0.1, 32), new THREE.MeshBasicMaterial({ color: 0x3b82f6 }));
       homeBase.position.set(0, 0.05, 15); scene.add(homeBase);
 
@@ -1661,11 +1669,20 @@
 
       let eggScoreBonusSpeed = Math.min(5.0, gameScore / 1000);
       let supersonicBoost = (supersonicPadMesh && player.position.distanceTo(supersonicPadMesh.position) < 3.5) ? 3.5 : 1.0;
-      let currentActiveSpeed = (playerSpeed + eggScoreBonusSpeed + 0.2) * supersonicBoost;
+      let turboBoost = (turboPadMesh && player.position.distanceTo(turboPadMesh.position) < 3.5) ? 5.0 : 1.0;
+      let currentActiveSpeed = (playerSpeed + eggScoreBonusSpeed + 0.2) * supersonicBoost * turboBoost;
 
       if (megaJumpPadMesh && player.position.distanceTo(megaJumpPadMesh.position) < 3.5) {
-        player.position.y = 7.5;
+        player.position.y = 8.5;
       }
+
+      // جووڵاندنی پاسەوانەکان بە دەوری هێلکەکاندا
+      movingGuardsList.forEach((g, idx) => {
+        if(g) {
+          g.rotation.y += 0.05;
+          g.position.x = Math.sin(Date.now() * 0.003 + idx) * 1.5;
+        }
+      });
 
       if (keys.up) moveZ -= currentActiveSpeed;
       if (keys.down) moveZ += currentActiveSpeed;

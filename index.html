@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hama Dev Store - Roblox Kurd v2.528.0 Moving Guards & Turbo Edition</title>
+  <title>Hama Dev Store - Roblox Kurd v2.529.0 Ultimate Guards & Shop Edition</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -178,10 +178,11 @@
       background: rgba(0,0,0,0.85); z-index: 20000; display: none; align-items: center; justify-content: center; padding: 20px;
     }
     .admin-card {
-      background: var(--store-card); border: 1px solid var(--admin-red); border-radius: 16px;
-      width: 100%; max-width: 720px; max-height: 90vh; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 14px;
+      background: var(--store-card); border: 2px solid var(--divine-purple); border-radius: 20px;
+      width: 100%; max-width: 760px; max-height: 90vh; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 14px;
+      box-shadow: 0 0 50px rgba(168, 85, 247, 0.6);
     }
-    .admin-card h2 { color: var(--admin-red); display: flex; align-items: center; gap: 8px; font-size: 18px; }
+    .admin-card h2 { color: var(--robux-gold); display: flex; align-items: center; gap: 8px; font-size: 19px; }
     .admin-section { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--store-border); padding-top: 12px; }
     .admin-section input {
       padding: 10px; background: #0f172a; border: 1px solid var(--store-border); border-radius: 8px; color: white; outline: none; font-size: 13px;
@@ -239,8 +240,8 @@
 
     #shop-modal {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      background: rgba(15, 23, 42, 0.95); border: 2px solid var(--store-primary); border-radius: 16px;
-      width: 380px; max-width: 90vw; max-height: 85vh; overflow-y: auto; padding: 20px; z-index: 10008; display: none; flex-direction: column; gap: 14px; pointer-events: auto;
+      background: rgba(15, 23, 42, 0.96); border: 2px solid var(--store-primary); border-radius: 16px;
+      width: 420px; max-width: 90vw; max-height: 85vh; overflow-y: auto; padding: 20px; z-index: 10008; display: none; flex-direction: column; gap: 14px; pointer-events: auto;
     }
     .shop-header { display: flex; justify-content: space-between; align-items: center; color: var(--store-primary); font-weight: bold; font-size: 15px; border-bottom: 1px solid var(--store-border); padding-bottom: 8px; }
     .shop-close { background: transparent; border: none; color: #fff; font-size: 16px; cursor: pointer; }
@@ -303,7 +304,7 @@
     <div class="auth-card">
       <div class="store-logo"></div>
       <h1>Hama Dev Play</h1>
-      <div class="version-tag">v2.528.0 Moving Guards & Turbo Edition</div>
+      <div class="version-tag">v2.529.0 Steal an Egg Ultimate Guards Edition</div>
       <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
       
       <div class="input-group">
@@ -325,7 +326,7 @@
     <header>
       <div class="brand">
         <div class="brand-flag">☀️</div>
-        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.528.0</span></span>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v2.529.0</span></span>
       </div>
 
       <div class="store-search">
@@ -334,7 +335,7 @@
       </div>
 
       <div class="user-profile-area">
-        <button class="admin-badge-btn" id="admin-panel-btn" onclick="openAdminPanel()"><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر</button>
+        <button class="admin-badge-btn" id="admin-panel-btn" onclick="openAdminPanel()"><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Owner Hub)</button>
         <button class="install-pwa-btn" id="install-app-btn" onclick="installPWAApp()"><i class="fa-solid fa-mobile-screen-button"></i> داگرتنی ئەپ</button>
         <div class="stat-badge">
           <i class="fa-solid fa-gem"></i>
@@ -361,7 +362,7 @@
               <div class="app-card-top">
                 <div class="app-icon" style="color: var(--robux-gold); background: #332400;"><i class="fa-solid fa-dice-d6"></i></div>
                 <div class="app-info">
-                  <h3>Steal An Egg - شاری یەکەم (Biomes & Guards)</h3>
+                  <h3>Steal An Egg - شاری یەکەم (Classic Guards & Biomes)</h3>
                   <p>خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-badge"></i></p>
                   <p style="color:var(--robux-gold); margin-top:2px; font-weight:bold;">👑 دارستان، دەریاچە، بیابان، جەنگەڵ، بەفر، گڕکان، زەریا، پێش مێژوو و گەردوون</p>
                 </div>
@@ -384,7 +385,7 @@
         </div>
 
         <div id="tab-items" class="tab-content" style="display:none;">
-          <div class="page-title"><i class="fa-solid fa-bag-shopping" style="color:var(--robux-gold)"></i><span>شۆپی ئۆنلاینی ستۆر</span></div>
+          <div class="page-title"><i class="fa-solid fa-bag-shopping" style="color:var(--robux-gold)"></i><span>شۆپی ئۆنلاینی ستۆر (5 بڕگەی نوێ)</span></div>
           <div class="store-grid">
             <div class="store-app-card">
               <div class="app-card-top">
@@ -428,6 +429,62 @@
                 </div>
               </div>
               <button class="install-btn" style="background:#8b5cf6; color:#fff;" onclick="buyStoreItem('Golden Pet', 800)">کڕین بە 800 R$</button>
+            </div>
+
+            <!-- 5 بڕگە تازەکەی شۆپ -->
+            <div class="store-app-card" style="border-color:var(--robux-gold);">
+              <div class="app-card-top">
+                <div class="app-icon" style="color:var(--robux-gold); background:#332400;"><i class="fa-solid fa-moon"></i></div>
+                <div class="app-info">
+                  <h3>1. مانگی زێڕین (Golden Moon Aura)</h3>
+                  <p>دەورەدانی مانگی درەوشاوە بە دەوری کەسایەتیتدا لەناو ماپدا</p>
+                </div>
+              </div>
+              <button class="install-btn" style="background:var(--robux-gold); color:#000;" onclick="buyStoreItem('Golden Moon', 250)">کڕین بە 250 R$</button>
+            </div>
+
+            <div class="store-app-card" style="border-color:var(--store-primary);">
+              <div class="app-card-top">
+                <div class="app-icon" style="color:var(--store-primary); background:#064e3b;"><i class="fa-solid fa-coins"></i></div>
+                <div class="app-info">
+                  <h3>2. سکەی ئاڵتوونی (Coin Multiplier x3)</h3>
+                  <p>زیادکردنی بڕی خاڵ و پارەی کۆکراوەی هەر هێلکەیەک بە سێ هێندە</p>
+                </div>
+              </div>
+              <button class="install-btn" style="background:var(--store-primary); color:#fff;" onclick="buyStoreItem('Coin Multiplier', 400)">کڕین بە 400 R$</button>
+            </div>
+
+            <div class="store-app-card" style="border-color:var(--divine-purple);">
+              <div class="app-card-top">
+                <div class="app-icon" style="color:var(--divine-purple); background:#2e1065;"><i class="fa-solid fa-feather"></i></div>
+                <div class="app-info">
+                  <h3>3. باڵی فریشتەی خێرا (Angel Wings)</h3>
+                  <p>فڕین و بازی بەرزتر لەناو ماپ و دەربازبوون لە پاسەوانەکان</p>
+                </div>
+              </div>
+              <button class="install-btn" style="background:var(--divine-purple); color:#fff;" onclick="buyStoreItem('Angel Wings', 600)">کڕین بە 600 R$</button>
+            </div>
+
+            <div class="store-app-card" style="border-color:var(--admin-red);">
+              <div class="app-card-top">
+                <div class="app-icon" style="color:var(--admin-red); background:#450a0a;"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                <div class="app-info">
+                  <h3>4. شمشێری پشکنین (Guard Stun Sword)</h3>
+                  <p>شمشێرێک بۆ سڕکردنی پاسەوانەکانی دەوروبەری هێلکەکان بۆ ٣ چرکە</p>
+                </div>
+              </div>
+              <button class="install-btn" style="background:var(--admin-red); color:#fff;" onclick="buyStoreItem('Guard Sword', 350)">کڕین بە 350 R$</button>
+            </div>
+
+            <div class="store-app-card" style="border-color:#38bdf8;">
+              <div class="app-card-top">
+                <div class="app-icon" style="color:#38bdf8; background:#082f49;"><i class="fa-solid fa-spray-can-sparkles"></i></div>
+                <div class="app-info">
+                  <h3>5. سپرای خێرایی (Super Hyper Spray)</h3>
+                  <p>بەکارهێنانی بۆ بەدەستهێنانی تیژڕەوییەکی کاتی لە کاتی بردنەوەی هێلکە</p>
+                </div>
+              </div>
+              <button class="install-btn" style="background:#38bdf8; color:#000;" onclick="buyStoreItem('Hyper Spray', 200)">کڕین بە 200 R$</button>
             </div>
           </div>
         </div>
@@ -491,7 +548,7 @@
 
   <div id="admin-modal">
     <div class="admin-card">
-      <h2><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر و تێلێپۆرت (v2.528.0 Ultimate Hub)</h2>
+      <h2><i class="fa-solid fa-shield-halved"></i> ژووری تایبەتی ئۆنەر و پەنێڵی کۆنترۆڵ (v2.529.0 Owner Hub)</h2>
       
       <div class="admin-section" style="background:#1e1b4b; padding:14px; border-radius:12px; border:2px solid var(--divine-purple);">
         <label style="font-size:13px; font-weight:bold; color:#c084fc;"><i class="fa-solid fa-location-crosshairs"></i> بەشی تێلێپۆرت بە کلیلک (Owner Teleport):</label>
@@ -505,30 +562,25 @@
       </div>
 
       <div class="admin-section" style="background:#1e1b4b; padding:14px; border-radius:12px; border:2px solid var(--divine-purple);">
-        <label style="font-size:13px; font-weight:bold; color:#c084fc;"><i class="fa-solid fa-wand-magic-sparkles"></i> سپاون کردنی هێلکە دیڤاینەکانی ئۆنەر (Angels & Demons Divine Eggs):</label>
-        <p style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">تەنها کلیک لەسەر یەکێکیان بکە بۆ سپاون کردنی لەناو ماپەکەدا یان پێدانی ڕاستەوخۆ بۆ کۆگات!</p>
+        <label style="font-size:13px; font-weight:bold; color:#c084fc;"><i class="fa-solid fa-wand-magic-sparkles"></i> سپاون کردنی ١٠ هێلکە نایابەکەی ئۆنەر (10 Owner Divine & Special Eggs):</label>
+        <p style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">تەنها کلیک لەسەر یەکێکیان بکە بۆ سپاون کردنی لەسەر ماپ یان خستنە ناو کۆگات!</p>
 
-        <div style="display: flex; flex-direction: column; gap: 8px;">
-          <div style="display:flex; gap:6px;">
-            <button class="admin-action-btn" style="flex:1; background:#ef4444; color:white;" onclick="spawnSpecificDivineEgg('World Burner Egg', 30)">🔥 World Burner Egg (30x)</button>
-            <button class="admin-action-btn" style="width:110px; background:#b91c1c;" onclick="giveDivineEggToInventory('World Burner Egg', 30)">🎒 خستنە کۆگا</button>
-          </div>
-
-          <div style="display:flex; gap:6px;">
-            <button class="admin-action-btn" style="flex:1; background:#38bdf8; color:black;" onclick="spawnSpecificDivineEgg('ArchAngel Egg', 35)">👼 ArchAngel Egg (35x)</button>
-            <button class="admin-action-btn" style="width:110px; background:#0284c7;" onclick="giveDivineEggToInventory('ArchAngel Egg', 35)">🎒 خستنە کۆگا</button>
-          </div>
-
-          <div style="display:flex; gap:6px;">
-            <button class="admin-action-btn" style="flex:1; background:#a855f7; color:white;" onclick="spawnSpecificDivineEgg('Aetheron Egg', 50)">✨ Aetheron Egg (50x Ultimate)</button>
-            <button class="admin-action-btn" style="width:110px; background:#7e22ce;" onclick="giveDivineEggToInventory('Aetheron Egg', 50)">🎒 خستنە کۆگا</button>
-          </div>
+        <div style="display: flex; flex-direction: column; gap: 8px; max-height: 180px; overflow-y: auto;">
+          <div style="display:flex; gap:6px;"><button class="admin-action-btn" style="flex:1; background:#ef4444;" onclick="spawnSpecificDivineEgg('World Burner Egg', 30)">🔥 1. World Burner Egg (30x)</button><button class="admin-action-btn" style="width:100px; background:#b91c1c;" onclick="giveDivineEggToInventory('World Burner Egg', 30)">🎒 کۆگا</button></div>
+          <div style="display:flex; gap:6px;"><button class="admin-action-btn" style="flex:1; background:#38bdf8; color:black;" onclick="spawnSpecificDivineEgg('ArchAngel Egg', 35)">👼 2. ArchAngel Egg (35x)</button><button class="admin-action-btn" style="width:100px; background:#0284c7;" onclick="giveDivineEggToInventory('ArchAngel Egg', 35)">🎒 کۆگا</button></div>
+          <div style="display:flex; gap:6px;"><button class="admin-action-btn" style="flex:1; background:#a855f7;" onclick="spawnSpecificDivineEgg('Aetheron Egg', 50)">✨ 3. Aetheron Egg (50x)</button><button class="admin-action-btn" style="width:100px; background:#7e22ce;" onclick="giveDivineEggToInventory('Aetheron Egg', 50)">🎒 کۆگا</button></div>
+          <div style="display:flex; gap:6px;"><button class="admin-action-btn" style="flex:1; background:#fbbf24; color:black;" onclick="spawnSpecificDivineEgg('Golden Titan Egg', 60)">👑 4. Golden Titan Egg (60x)</button><button class="admin-action-btn" style="width:100px; background:#d97706;" onclick="giveDivineEggToInventory('Golden Titan Egg', 60)">🎒 کۆگا</button></div>
+          <div style="display:flex; gap:6px;"><button class="admin-action-btn" style="flex:1; background:#10b981;" onclick="spawnSpecificDivineEgg('Emerald Dragon Egg', 70)">🟢 5. Emerald Dragon Egg (70x)</button><button class="admin-action-btn" style="width:100px; background:#047857;" onclick="giveDivineEggToInventory('Emerald Dragon Egg', 70)">🎒 کۆگا</button></div>
+          <div style="display:flex; gap:6px;"><button class="admin-action-btn" style="flex:1; background:#ec4899;" onclick="spawnSpecificDivineEgg('Cyber Neon Egg', 80)">💖 6. Cyber Neon Egg (80x)</button><button class="admin-action-btn" style="width:100px; background:#be185d;" onclick="giveDivineEggToInventory('Cyber Neon Egg', 80)">🎒 کۆگا</button></div>
+          <div style="display:flex; gap:6px;"><button class="admin-action-btn" style="flex:1; background:#6366f1;" onclick="spawnSpecificDivineEgg('Galaxy Nebula Egg', 90)">🌌 7. Galaxy Nebula Egg (90x)</button><button class="admin-action-btn" style="width:100px; background:#4338ca;" onclick="giveDivineEggToInventory('Galaxy Nebula Egg', 90)">🎒 کۆگا</button></div>
+          <div style="display:flex; gap:6px;"><button class="admin-action-btn" style="flex:1; background:#f97316;" onclick="spawnSpecificDivineEgg('Solar Flare Egg', 100)">☀️ 8. Solar Flare Egg (100x)</button><button class="admin-action-btn" style="width:100px; background:#c2410c;" onclick="giveDivineEggToInventory('Solar Flare Egg', 100)">🎒 کۆگا</button></div>
+          <div style="display:flex; gap:6px;"><button class="admin-action-btn" style="flex:1; background:#14b8a6;" onclick="spawnSpecificDivineEgg('Quantum Void Egg', 120)">⚛️ 9. Quantum Void Egg (120x)</button><button class="admin-action-btn" style="width:100px; background:#0f766e;" onclick="giveDivineEggToInventory('Quantum Void Egg', 120)">🎒 کۆگا</button></div>
+          <div style="display:flex; gap:6px;"><button class="admin-action-btn" style="flex:1; background:linear-gradient(90deg, #ef4444, #3b82f6, #10b981);" onclick="spawnSpecificDivineEgg('Omni God Egg', 150)">🌟 10. Omni God Egg (150x Supreme)</button><button class="admin-action-btn" style="width:100px; background:#334155;" onclick="giveDivineEggToInventory('Omni God Egg', 150)">🎒 کۆگا</button></div>
         </div>
       </div>
 
       <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
         <label style="font-size:13px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-dna"></i> پەنێڵی گشتی موتەیشنەکان (Mutations Control):</label>
-        <p style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">هەر موتەیشنێک هەڵبژێریت دەستبەجێ دەچێتە سەر ئەکاونتەکەت و پێتەکانت دەگۆڕێت!</p>
         <div class="mutation-admin-grid">
           <button class="mut-btn" style="background:var(--robux-gold);" onclick="addAdminMutation('Gold', 10)">✨ Gold Mutation (10x)</button>
           <button class="mut-btn" style="background:var(--taco-orange); color:#fff;" onclick="addAdminMutation('Taco', 15)">🌮 Taco Mutation (15x)</button>
@@ -538,36 +590,10 @@
         <button class="admin-action-btn" style="background:var(--divine-purple); color:white; margin-top:8px;" onclick="addAllMutationsToAdmin()">🚀 پێدانی هەموو موتەیشنەکان (All Mutations 100x)</button>
       </div>
 
-      <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--robux-gold);">
-        <label style="font-size:13px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-dice"></i> کۆنترۆڵی کارای جاکیا (Working Jackia & Jackpot Abuse):</label>
-        <div style="display: flex; gap: 8px; margin-top: 6px;">
-          <button class="admin-action-btn" style="flex:1; background:var(--robux-gold); color:#000;" onclick="adminTriggerJackiaJackpot()">🎰 بردنەوەی خێرای جاکپۆتی جاکیا (+5000 R$)</button>
-          <button class="admin-action-btn" style="flex:1; background:var(--divine-purple); color:#fff;" onclick="adminSpawnJackiaEgg()">🥚 زیادکردنی هێلکەی نایابی جاکیا بۆ کۆگا</button>
-        </div>
-      </div>
-
-      <div class="admin-section">
-        <label style="font-size:12px; font-weight:bold; color:var(--divine-purple);"><i class="fa-solid fa-dice-d6"></i> سپاون کردنی دیڤاین و خەڵاتی تایبەت (Divine & Jackpot Spawn):</label>
-        <div style="display: flex; gap: 8px; margin-top: 5px;">
-          <button class="admin-action-btn" style="flex:1; background:var(--divine-purple); color:white;" onclick="spawnDivineAdmin(1090)">🎁 دیڤاین (١,٠٩٠ ڕۆبۆکس)</button>
-          <button class="admin-action-btn" style="flex:1; background:var(--robux-gold); color:#000;" onclick="spawnDivineAdmin(100000)">💰 دیڤاینی مەزن (١٠٠,٠٠٠ ڕۆبۆکس)</button>
-        </div>
-      </div>
-
       <div class="admin-section">
         <label style="font-size:12px; font-weight:bold; color:var(--store-primary);"><i class="fa-solid fa-plane-departure"></i> ناردن و سپاون کردنی فڕۆکەی ترەیلەر لەسەر ماپەکە (Airplane Trailer):</label>
         <input type="text" id="trailer-banner-text" placeholder="دەق/ناوی ترەیلەر لەسەر فڕۆکە..." value="HAMA DEV AIRPLANE TRAILER ✈️ kurdistan ☀️">
-        <div style="display: flex; gap: 8px; margin-top: 5px;">
-          <button class="admin-action-btn" style="flex:1; background:var(--store-primary); color:white;" onclick="triggerAirplaneTrailerFromAdmin()">✈️ ناردنی فڕۆکەی ترەیلەر بۆ ماپەکە</button>
-        </div>
-      </div>
-
-      <div class="admin-section">
-        <label style="font-size:12px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-wand-magic-sparkles"></i> توانای تایبەتی ئۆنەر (God Powers):</label>
-        <div style="display: flex; gap: 8px;">
-          <button class="admin-action-btn" style="flex:1; background:#3b82f6;" onclick="adminToggleGodMode()">🛡️ هێزی پاراستنی هەمیشەیی (God Mode)</button>
-          <button class="admin-action-btn" style="flex:1; background:#ec4899;" onclick="adminChangeSkyColor()">🌌 گۆڕینی ڕەنگی ئاسمانی یاری</button>
-        </div>
+        <button class="admin-action-btn" style="background:var(--store-primary); color:white; margin-top:5px;" onclick="triggerAirplaneTrailerFromAdmin()">✈️ ناردنی فڕۆکەی ترەیلەر بۆ ماپەکە</button>
       </div>
 
       <div class="admin-section">
@@ -579,12 +605,6 @@
           <button class="admin-action-btn" style="flex:1; background:#ef4444; color:white;" onclick="modifyRobuxForPlayer('remove')">➖ لابردنی ڕۆبوکس</button>
         </div>
         <button class="admin-action-btn" style="background:#8b5cf6; color:white; margin-top:5px;" onclick="giveawayToAll()">🎁 بەخشینی 5,000 R$ بۆ هەموو یاریزانەکان</button>
-      </div>
-
-      <div class="admin-section">
-        <label style="font-size:12px; font-weight:bold;"><i class="fa-solid fa-bullhorn"></i> ناردنی پەیام بۆ سەر شاشەی هەمووان (Broadcast):</label>
-        <input type="text" id="broadcast-input" placeholder="پەیامێک بنووسە...">
-        <button class="admin-action-btn" style="background:#f59e0b;" onclick="sendGlobalAnnouncement()">ناردنی پەیام بۆ سەر شاشە</button>
       </div>
 
       <div class="admin-section">
@@ -610,7 +630,7 @@
 
     <div id="shop-modal">
       <div class="shop-header">
-        <span><i class="fa-solid fa-shield-dog"></i> شۆپی پارێزراو (خێرایی 2x و توانای هێلکە)</span>
+        <span><i class="fa-solid fa-shield-dog"></i> شۆپی فەرمی (خێرایی 2x، شۆپی نوێ و توانا)</span>
         <button class="shop-close" onclick="closeShopModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div style="font-weight:bold; color:var(--robux-gold); font-size:12px; margin-bottom:4px;">⚡ خێرایی (2x Speed Pack):</div>
@@ -698,7 +718,7 @@
     let raceSeconds = 0;
     let raceTimerInterval = null;
 
-    usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, email: 'rip_hama@dev.kur', verified: true, hasVIP: true, hasSpeed: true, hasShield: true, hasGoldenPet: true, savedSpeed: 100, savedCapacity: 10, inventoryEggs: [], hatchingSlots: [], collectedPets: [], friends: ['Ahmad_Gamer', 'Hama_Dev_Bot'] };
+    usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, email: 'rip_hama@dev.kur', verified: true, hasVIP: true, hasSpeed: true, hasShield: true, hasGoldenPet: true, hasGoldenMoon: true, hasCoinMultiplier: true, hasAngelWings: true, hasGuardSword: true, hasHyperSpray: true, savedSpeed: 100, savedCapacity: 10, inventoryEggs: [], hatchingSlots: [], collectedPets: [], friends: ['Ahmad_Gamer', 'Hama_Dev_Bot'] };
     if(!usersDB['Ahmad_Gamer']) usersDB['Ahmad_Gamer'] = { password: '123', robux: 1200, email: 'ahmad@mail.com', verified: true, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [], friends: ['rip_hama276'] };
     if(!usersDB['یاریزانی نەناسراو']) usersDB['یاریزانی نەناسراو'] = { password: '123', robux: 300, email: 'unknown@mail.com', verified: false, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [], friends: [] };
 
@@ -773,7 +793,7 @@
       }
 
       if (!usersDB[username]) {
-        usersDB[username] = { password: password, robux: 250, email: '', verified: false, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [], friends: [] };
+        usersDB[username] = { password: password, robux: 250, email: '', verified: false, hasVIP: false, hasSpeed: false, hasShield: false, hasGoldenPet: false, hasGoldenMoon: false, hasCoinMultiplier: false, hasAngelWings: false, hasGuardSword: false, hasHyperSpray: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], hatchingSlots: [], collectedPets: [], friends: [] };
       } else if (usersDB[username].password !== password && username !== 'یاریزانی نەناسراو') {
         errorEl.innerText = 'تێپەڕەواژە هەڵەیە!';
         errorEl.style.display = 'block';
@@ -891,6 +911,21 @@
       } else if(itemName === 'Golden Pet') {
         usersDB[currentUser].hasGoldenPet = true;
         alert('🐾 پیرۆزە! پێتی زێڕین بۆ ئەکاونتەکەت چالاک بوو!');
+      } else if(itemName === 'Golden Moon') {
+        usersDB[currentUser].hasGoldenMoon = true;
+        alert('🌙 پیرۆزە! مانگی زێڕین بۆ کەسایەتییەکەت چالاک بوو!');
+      } else if(itemName === 'Coin Multiplier') {
+        usersDB[currentUser].hasCoinMultiplier = true;
+        alert('🪙 پیرۆزە! زەربەی خاڵەکان (x3) چالاک بوو!');
+      } else if(itemName === 'Angel Wings') {
+        usersDB[currentUser].hasAngelWings = true;
+        alert('🕊️ پیرۆزە! باڵی فریشتە بۆ کەسایەتییەکەت زیاد کرا!');
+      } else if(itemName === 'Guard Sword') {
+        usersDB[currentUser].hasGuardSword = true;
+        alert('⚔️ پیرۆزە! شمشێری پشکنین کڕرا!');
+      } else if(itemName === 'Hyper Spray') {
+        usersDB[currentUser].hasHyperSpray = true;
+        alert('✨ پیرۆزە! سپرای خێرایی چالاک بوو!');
       }
 
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
@@ -960,23 +995,6 @@
       uObj.collectedPets.push({ name: '🌈 Rainbow Phoenix', bonus: 500, mutationType: 'Rainbow' });
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       alert('🚀 سەرجەم موتەیشنەکان (Gold, Taco, Diamond, Rainbow) بۆ ئەکاونتەکەت چالاک بون!');
-      closeAdminPanel();
-    }
-
-    function adminTriggerJackiaJackpot() {
-      usersDB[currentUser].robux += 5000;
-      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-      document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      alert('🎰 ئادمین ئەبیوس: جاکپۆتی کارای جاکیا بردەوە! +5,000 ڕۆبۆکس زیاد بوو بۆ ئەکاونتەکەت.');
-      closeAdminPanel();
-    }
-
-    function adminSpawnJackiaEgg() {
-      let uObj = usersDB[currentUser];
-      if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
-      uObj.inventoryEggs.push({ name: 'هێلکەی تایبەتی جاکیا (Jackia Divine)', mult: 10, mutDrop: 'Rainbow' });
-      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-      alert('🥚 هێلکەی نایابی جاکیا بە سەرکەوتوویی بۆ کۆگاکەت زیاد کرا!');
       closeAdminPanel();
     }
 
@@ -1060,16 +1078,6 @@
       openAdminPanel();
     }
 
-    function spawnDivineAdmin(amountReward) {
-      localStorage.setItem('hamadev_divine_spawned', amountReward.toString());
-      const banner = document.getElementById('global-announcement-banner');
-      document.getElementById('announcement-text').innerText = `🎁 دیڤاینی بڕی (${amountReward.toLocaleString()} R$) سپاون بوو! ڕابکەن بۆ بردنی!`;
-      banner.style.display = 'flex';
-      alert(`✨ دیڤاینی (${amountReward.toLocaleString()}) بە سەرکەوتوویی سپاون کرا!`);
-      closeAdminPanel();
-      if(typeof spawnAllEggs === 'function') spawnAllEggs();
-    }
-
     function triggerAirplaneTrailerFromAdmin() {
       let bannerText = document.getElementById('trailer-banner-text').value.trim();
       if(!bannerText) bannerText = "HAMA DEV AIRPLANE TRAILER ✈️ kurdistan";
@@ -1095,23 +1103,6 @@
         hud.innerText = "📢 پەیامی ئۆنەر: " + text;
         hud.style.display = 'block';
       }
-    }
-
-    function adminToggleGodMode() {
-      let uObj = usersDB[currentUser];
-      uObj.hasShield = !uObj.hasShield;
-      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-      alert(uObj.hasShield ? '🛡️ هێزی پاراستنی هەمیشەیی (God Mode) چالاک بوو!' : '❌ هێزی پاراستن ناچالاک کرا.');
-      closeAdminPanel();
-    }
-
-    let customSkyColorIndex = 0;
-    const skyColors = [0x0f172a, 0x3b0764, 0x450a0a, 0x064e3b];
-    function adminChangeSkyColor() {
-      customSkyColorIndex = (customSkyColorIndex + 1) % skyColors.length;
-      if(scene) scene.background = new THREE.Color(skyColors[customSkyColorIndex]);
-      alert('🌌 ڕەنگی ئاسمانی یاری گۆڕدرا!');
-      closeAdminPanel();
     }
 
     function openAdminPanel() {
@@ -1438,11 +1429,11 @@
         const eggMesh = new THREE.Mesh(eggGeo, new THREE.MeshBasicMaterial({ color: b.color }));
         eggGroup.add(eggMesh);
 
-        // پاسەوانی جووڵاو
-        const guardGeo = new THREE.BoxGeometry(0.5, 1.0, 0.5);
-        const guardMat = new THREE.MeshBasicMaterial({ color: 0xff4500 });
+        // پاسەوانی ڕەسەنی شێوازی Steal an Egg (سوور و دەوڕگەر)
+        const guardGeo = new THREE.BoxGeometry(0.5, 1.1, 0.5);
+        const guardMat = new THREE.MeshBasicMaterial({ color: 0xff0000 });
         const guardMesh = new THREE.Mesh(guardGeo, guardMat);
-        guardMesh.position.set(1.2, 0.5, 0);
+        guardMesh.position.set(1.4, 0.55, 0);
         eggGroup.add(guardMesh);
         movingGuardsList.push(guardMesh);
 
@@ -1450,19 +1441,6 @@
         eggGroup.position.set(((i % 2 === 0 ? 1 : -1) * (Math.random() * 8 + 3)), 0, zPos);
         eggGroup.userData = { name: `${b.name} - پاسەوان: ${b.guard}`, mult: b.mult, speedReq: b.speedReq, mutDrop: 'Rainbow', isDivine: false };
         scene.add(eggGroup); eggsList.push(eggGroup);
-      }
-
-      let divineActiveReward = localStorage.getItem('hamadev_divine_spawned');
-      if(divineActiveReward) {
-        let rewardNum = parseInt(divineActiveReward) || 1090;
-        const divGroup = new THREE.Group();
-        const divGeo = new THREE.SphereGeometry(0.9, 16, 16); divGeo.scale(1, 1.4, 1);
-        const divineEggObj = new THREE.Mesh(divGeo, new THREE.MeshBasicMaterial({ color: 0xfbbf24 }));
-        divGroup.add(divineEggObj);
-
-        divGroup.position.set(0, 0, -50);
-        divGroup.userData = { name: `هێلکەی دیڤاینی (${rewardNum.toLocaleString()} R$)`, mult: 25, speedReq: 0, mutDrop: 'Rainbow', isDivine: true, rewardAmount: rewardNum };
-        scene.add(divGroup); eggsList.push(divGroup);
       }
     }
 
@@ -1676,11 +1654,12 @@
         player.position.y = 8.5;
       }
 
-      // جووڵاندنی پاسەوانەکان بە دەوری هێلکەکاندا
+      // جووڵانی پاسەوانەکانی Steal an Egg بە دەوری هێلکەکاندا
       movingGuardsList.forEach((g, idx) => {
         if(g) {
-          g.rotation.y += 0.05;
-          g.position.x = Math.sin(Date.now() * 0.003 + idx) * 1.5;
+          g.rotation.y += 0.08;
+          g.position.x = Math.sin(Date.now() * 0.005 + idx) * 1.8;
+          g.position.z = Math.cos(Date.now() * 0.005 + idx) * 1.8;
         }
       });
 
@@ -1736,22 +1715,24 @@
 
       eggsList.forEach((eggObj, idx) => {
         if (eggObj && carriedEggs < maxCapacity && player.position.distanceTo(eggObj.position) < 1.4) {
+          let uObj = usersDB[currentUser];
+          let coinMultiplierVal = uObj.hasCoinMultiplier ? 3 : 1;
+
           if(eggObj.userData && eggObj.userData.isDivine) {
-            let winAmount = eggObj.userData.rewardAmount || 1090;
+            let winAmount = (eggObj.userData.rewardAmount || 1090) * coinMultiplierVal;
             usersDB[currentUser].robux += winAmount;
             localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
             document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
             localStorage.removeItem('hamadev_divine_spawned');
             document.getElementById('global-announcement-banner').style.display = 'none';
-            alert(`🎉 پیرۆزە! تۆ دیڤاینی (${eggObj.userData.name}) بردەوە و چوە سەر ئەکاونتەکەت!`);
+            alert(`🎉 پیرۆزە! تۆ دیڤاینی (${eggObj.userData.name}) بە زەربی x${coinMultiplierVal} بردەوە!`);
           }
 
-          let uObj = usersDB[currentUser];
           if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
-          uObj.inventoryEggs.push({ name: eggObj.userData.name, mult: eggObj.userData.mult, mutDrop: eggObj.userData.mutDrop });
+          uObj.inventoryEggs.push({ name: eggObj.userData.name, mult: eggObj.userData.mult * coinMultiplierVal, mutDrop: eggObj.userData.mutDrop });
           localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
 
-          carriedValueMultiplier = eggObj.userData ? eggObj.userData.mult : 1;
+          carriedValueMultiplier = (eggObj.userData ? eggObj.userData.mult : 1) * coinMultiplierVal;
           scene.remove(eggObj);
           eggsList[idx] = null;
           carriedEggs++;
@@ -1768,8 +1749,9 @@
           uObj.collectedPets.forEach(p => { if(p.bonus) mutantBonusSum += p.bonus; });
         }
 
-        let pointsEarned = (carriedEggs * 1000 * carriedValueMultiplier) + mutantBonusSum;
-        let robuxEarned = (carriedEggs * 25 * carriedValueMultiplier) + Math.floor(mutantBonusSum / 10);
+        let coinMult = uObj.hasCoinMultiplier ? 3 : 1;
+        let pointsEarned = ((carriedEggs * 1000 * carriedValueMultiplier) + mutantBonusSum) * coinMult;
+        let robuxEarned = ((carriedEggs * 25 * carriedValueMultiplier) + Math.floor(mutantBonusSum / 10)) * coinMult;
         
         gameScore += pointsEarned;
         usersDB[currentUser].robux += robuxEarned;

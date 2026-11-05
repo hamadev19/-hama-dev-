@@ -233,9 +233,10 @@
 
     #in-game-admin-hud {
       position: absolute; top: 75px; left: 50%; transform: translateX(-50%);
-      background: rgba(15, 23, 42, 0.9); border: 2px solid var(--robux-gold); color: #fff;
-      padding: 10px 20px; border-radius: 14px; font-weight: bold; font-size: 14px;
-      z-index: 10006; display: none; text-align: center; box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+      background: rgba(15, 23, 42, 0.95); border: 2px solid var(--robux-gold); color: #fff;
+      padding: 12px 26px; border-radius: 20px; font-weight: bold; font-size: 15px;
+      z-index: 10006; display: none; text-align: center; box-shadow: 0 0 30px rgba(251, 191, 36, 0.7);
+      animation: pulseGlow 2s infinite;
     }
 
     #shop-modal {
@@ -446,7 +447,7 @@
               <div class="app-card-top">
                 <div class="app-icon" style="color:var(--admin-red); background:#450a0a;"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
                 <div class="app-info">
-                  <h3>4. شمشێری پشکنین (Guard Stun Sword)</h3>
+                  <h3>4. ششمشێری پشکنین (Guard Stun Sword)</h3>
                   <p>شمشێرێک بۆ سڕکردنی پاسەوانەکانی دەوروبەری هێلکەکان بۆ ٣ چرکە</p>
                 </div>
               </div>
@@ -527,7 +528,17 @@
     <div class="admin-card">
       <h2><i class="fa-solid fa-shield-halved"></i> ژووری تایبەتی ئۆنەر و پەنێڵی کۆنترۆڵ (v3.0 Owner Mega Hub)</h2>
       
-      <div class="admin-section" style="background:#1e1b4b; padding:14px; border-radius:12px; border:2px solid var(--divine-purple);">
+      <!-- بەشی نوێ: ناردنی پەیامی ڕاستەوخۆ بۆ شاشەی یاریزانان -->
+      <div class="admin-section" style="background:#1e1b4b; padding:14px; border-radius:12px; border:2px solid var(--robux-gold);">
+        <label style="font-size:13px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-bullhorn"></i> ناردنی پەیام و شت نوسین بۆ شاشەی یاریزانان (Live Screen Text Broadcast):</label>
+        <input type="text" id="admin-broadcast-input" placeholder="پەیامێک یان ئاگادارییەک بنووسە بۆ شاشە (نموونە: بەخێربێن بۆ سێرڤەری ئۆنەر! ☀️)...">
+        <div style="display: flex; gap: 8px; margin-top: 4px;">
+          <button class="admin-action-btn" style="flex:1; background:var(--robux-gold); color:#000;" onclick="sendBroadcastToScreen()"><i class="fa-solid fa-paper-plane"></i> ناردن بۆ شاشەی یاریزانان</button>
+          <button class="admin-action-btn" style="flex:1; background:#ef4444; color:#fff;" onclick="clearScreenBroadcast()"><i class="fa-solid fa-trash-can"></i> لابردنی پەیام لە شاشە</button>
+        </div>
+      </div>
+
+      <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
         <label style="font-size:13px; font-weight:bold; color:#c084fc;"><i class="fa-solid fa-location-crosshairs"></i> بەشی تێلێپۆرت بە کلیلک (Owner Teleport):</label>
         <div style="display: flex; flex-direction: column; gap: 6px; margin-top:4px;">
           <button class="admin-action-btn" style="background:#10b981; color:white;" onclick="adminTeleportPlayer('start')">📍 تێلێپۆرت بۆ سەرەتا (Home Spawn)</button>
@@ -536,7 +547,7 @@
         </div>
       </div>
 
-      <div class="admin-section" style="background:#1e1b4b; padding:14px; border-radius:12px; border:2px solid var(--divine-purple);">
+      <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
         <label style="font-size:13px; font-weight:bold; color:#c084fc;"><i class="fa-solid fa-wand-magic-sparkles"></i> سپاون کردنی ١٠ هێلکە نایابەکەی ئۆنەر (v3.0 Ultimate Eggs):</label>
         <div style="display: flex; flex-direction: column; gap: 6px; max-height: 180px; overflow-y: auto; margin-top:4px;">
           <div style="display:flex; gap:6px;"><button class="admin-action-btn" style="flex:1; background:#ef4444;" onclick="spawnSpecificDivineEgg('Nuclear Meltdown Egg', 250)">🔥 1. Nuclear Meltdown Egg (250x)</button><button class="admin-action-btn" style="width:90px; background:#b91c1c;" onclick="giveDivineEggToInventory('Nuclear Meltdown Egg', 250)">🎒 کۆگا</button></div>
@@ -895,7 +906,7 @@
         alert('🕊️ پیرۆزە! باڵی فریشتە بۆ کەسایەتییەکەت زیاد کرا!');
       } else if(itemName === 'Guard Sword') {
         usersDB[currentUser].hasGuardSword = true;
-        alert('⚔️ پیرۆزە! شمشێری پشکنین کڕرا!');
+        alert('⚔️ پیرۆزە! ششمشێری پشکنین کڕرا!');
       } else if(itemName === 'Hyper Spray') {
         usersDB[currentUser].hasHyperSpray = true;
         alert('✨ پیرۆزە! سپرای خێرایی چالاک بوو!');
@@ -943,6 +954,29 @@
       localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
       document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
       alert('🎁 بە سەرکەوتوویی 5,000 R$ دیاری بەخشرا بە سەرجەم یاریزانەکان!');
+      closeAdminPanel();
+    }
+
+    /* 📢 فانکشنی بەشی ناردنی دەق بۆ شاشەی یاریزانان */
+    function sendBroadcastToScreen() {
+      const broadcastInput = document.getElementById('admin-broadcast-input');
+      const msgText = broadcastInput.value.trim();
+      if(!msgText) {
+        alert('❌ تکایە دەقێک بنووسە بۆ ناردن بۆ شاشە!');
+        return;
+      }
+      localStorage.setItem('hamadev_broadcast_msg', msgText);
+      showInGameAdminMessage(msgText);
+      alert('📢 دەقەکە بە سەرکەوتوویی لەسەر شاشەی کایەوانان دەرکەوت!');
+      closeAdminPanel();
+    }
+
+    function clearScreenBroadcast() {
+      localStorage.removeItem('hamadev_broadcast_msg');
+      const hud = document.getElementById('in-game-admin-hud');
+      if(hud) hud.style.display = 'none';
+      document.getElementById('admin-broadcast-input').value = '';
+      alert('🧹 دەقی سەر شاشە پاککرایەوە!');
       closeAdminPanel();
     }
 
@@ -1401,7 +1435,6 @@
         const eggMesh = new THREE.Mesh(eggGeo, new THREE.MeshBasicMaterial({ color: b.color }));
         eggGroup.add(eggMesh);
 
-        // پاسەوانی ڕەسەنی شێوازی Steal an Egg
         const guardGeo = new THREE.BoxGeometry(0.5, 1.1, 0.5);
         const guardMat = new THREE.MeshBasicMaterial({ color: 0xff0000 });
         const guardMesh = new THREE.Mesh(guardGeo, guardMat);

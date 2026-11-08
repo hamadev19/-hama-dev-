@@ -1827,3 +1827,932 @@
   </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Hama Dev Store - Roblox Kurd v3.1 Ultimate Mega Edition</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#10b981">
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('Service Worker Registered Successfully'))
+        .catch(err => console.log('SW registration failed:', err));
+    }
+  </script>
+
+  <style>
+    :root {
+      --store-primary: #10b981;
+      --store-dark: #0f172a;
+      --store-card: #1e293b;
+      --store-border: #334155;
+      --text: #ffffff;
+      --text-muted: #94a3b8;
+      --robux-gold: #fbbf24;
+      --admin-red: #ef4444;
+      --divine-purple: #a855f7;
+      --verified-blue: #00a2ff;
+      --taco-orange: #f97316;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: var(--store-dark); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+    #auth-screen {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: linear-gradient(135deg, #090d16 0%, #1e293b 100%);
+      z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px;
+    }
+    .auth-card {
+      background: var(--store-card); border: 1px solid var(--store-border); border-radius: 20px;
+      width: 100%; max-width: 420px; padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.8); text-align: center;
+    }
+    
+    .store-logo {
+      width: 90px; height: 90px; border-radius: 50%; margin: 0 auto 16px auto;
+      border: 3px solid #ff0000; box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+      background: linear-gradient(to bottom, #ef4444 33%, #ffffff 33%, #ffffff 66%, #22c55e 66%);
+      display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+    }
+    .store-logo::before { content: "☀️"; font-size: 36px; filter: drop-shadow(0 0 2px rgba(0,0,0,0.5)); }
+
+    .auth-card h1 { font-size: 24px; margin-bottom: 4px; color: #fff; }
+    .auth-card .version-tag { font-size: 11px; color: var(--robux-gold); font-weight: bold; margin-bottom: 12px; }
+    .auth-card p { color: var(--text-muted); font-size: 13px; margin-bottom: 20px; }
+    .input-group { margin-bottom: 14px; text-align: right; }
+    .input-group label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+    .input-group input {
+      width: 100%; padding: 12px; background: #0f172a; border: 1px solid var(--store-border);
+      border-radius: 10px; color: #fff; font-size: 14px; outline: none;
+    }
+    .auth-btn {
+      width: 100%; padding: 12px; background: var(--store-primary); border: none; border-radius: 10px;
+      color: white; font-size: 15px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.2s;
+    }
+    .auth-btn:hover { background: #059669; }
+    .error-msg { color: var(--admin-red); font-size: 12px; margin-top: 8px; display: none; }
+
+    .verified-badge { color: var(--verified-blue); font-size: 14px; margin-left: 4px; display: inline-flex; align-items: center; justify-content: center; }
+
+    #global-announcement-banner {
+      position: fixed; top: 15px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(90deg, var(--divine-purple), var(--robux-gold)); color: white;
+      padding: 14px 28px; border-radius: 30px; font-weight: bold; font-size: 15px;
+      box-shadow: 0 0 30px rgba(168, 85, 247, 0.9); z-index: 30000;
+      display: none; align-items: center; gap: 12px; animation: pulseGlow 1.5s infinite;
+    }
+    @keyframes pulseGlow { 0% { transform: translateX(-50%) scale(1); } 50% { transform: translateX(-50%) scale(1.05); } 100% { transform: translateX(-50%) scale(1); } }
+
+    #dashboard { display: none; flex: 1; flex-direction: column; height: 100vh; overflow: hidden; }
+
+    header {
+      height: 65px; background: var(--store-card); border-bottom: 1px solid var(--store-border);
+      display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 100;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 18px; color: #fff; }
+    
+    .brand-flag {
+      width: 36px; height: 36px; border-radius: 50%; border: 2px solid #fbbf24;
+      background: linear-gradient(to bottom, #ef4444 33%, #ffffff 33%, #ffffff 66%, #22c55e 66%);
+      display: flex; align-items: center; justify-content: center; font-size: 16px; box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+    }
+    
+    .store-search { position: relative; width: 250px; }
+    .store-search input {
+      width: 100%; padding: 8px 36px 8px 14px; background: #0f172a; border: 1px solid var(--store-border);
+      border-radius: 20px; color: white; font-size: 13px; outline: none;
+    }
+    .store-search i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+    
+    .user-profile-area { display: flex; align-items: center; gap: 8px; }
+    .stat-badge {
+      background: #0f172a; padding: 6px 12px; border-radius: 20px; border: 1px solid var(--store-border);
+      display: flex; align-items: center; gap: 6px; font-weight: bold; font-size: 12px; color: var(--robux-gold);
+    }
+    .admin-badge-btn {
+      background: var(--admin-red); color: white; border: none; padding: 6px 12px;
+      border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; display: none; align-items: center; gap: 5px;
+    }
+    .install-pwa-btn {
+      background: var(--store-primary); color: white; border: none; padding: 6px 10px;
+      border-radius: 8px; font-size: 11px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 4px;
+    }
+    .logout-btn { background: #334155; color: white; border: none; padding: 6px 10px; border-radius: 8px; font-size: 12px; cursor: pointer; }
+
+    .app-body { display: flex; flex: 1; overflow: hidden; }
+
+    sidebar {
+      width: 220px; background: var(--store-card); border-left: 1px solid var(--store-border);
+      padding: 16px 10px; display: flex; flex-direction: column; gap: 6px;
+    }
+    .nav-item {
+      display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px;
+      color: var(--text-muted); text-decoration: none; font-size: 14px; cursor: pointer; transition: 0.2s;
+    }
+    .nav-item:hover, .nav-item.active { background: #0f172a; color: var(--store-primary); font-weight: bold; }
+    .nav-item i { width: 20px; text-align: center; }
+
+    main { flex: 1; padding: 24px; overflow-y: auto; background: var(--store-dark); }
+    .page-title { font-size: 22px; font-weight: bold; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+
+    .store-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+    .store-app-card {
+      background: var(--store-card); border: 1px solid var(--store-border); border-radius: 16px;
+      overflow: hidden; padding: 16px; display: flex; flex-direction: column; gap: 12px; transition: 0.3s;
+    }
+    .store-app-card:hover { transform: translateY(-4px); border-color: var(--store-primary); }
+    .app-card-top { display: flex; gap: 12px; align-items: center; }
+    .app-icon { width: 55px; height: 55px; border-radius: 12px; background: #0f172a; display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--store-primary); border: 1px solid var(--store-border); }
+    .app-info h3 { font-size: 15px; font-weight: bold; color: #fff; }
+    .app-info p { font-size: 11px; color: var(--text-muted); }
+    .install-btn {
+      width: 100%; padding: 10px; background: var(--store-primary); border: none; border-radius: 8px;
+      color: white; font-weight: bold; font-size: 13px; cursor: pointer; text-align: center;
+    }
+    .install-btn:hover { background: #059669; }
+
+    .friends-container { display: flex; flex-direction: column; gap: 14px; max-width: 600px; }
+    .friend-add-box { background: var(--store-card); border: 1px solid var(--store-border); padding: 16px; border-radius: 14px; display: flex; gap: 10px; }
+    .friend-add-box input { flex: 1; padding: 10px; background: #0f172a; border: 1px solid var(--store-border); border-radius: 8px; color: white; outline: none; }
+    .friends-list { display: flex; flex-direction: column; gap: 8px; }
+    .friend-row { background: var(--store-card); border: 1px solid var(--store-border); padding: 12px 16px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; }
+    .friend-info { display: flex; align-items: center; gap: 10px; }
+    .online-dot { width: 10px; height: 10px; background: var(--store-primary); border-radius: 50%; box-shadow: 0 0 8px var(--store-primary); }
+
+    .chat-box {
+      background: var(--store-card); border: 1px solid var(--store-border); border-radius: 16px;
+      padding: 16px; max-width: 600px; display: flex; flex-direction: column; height: 420px;
+    }
+    .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; padding-right: 5px; }
+    .chat-msg { background: #0f172a; padding: 8px 12px; border-radius: 10px; font-size: 13px; border: 1px solid var(--store-border); }
+    .chat-msg .sender { font-weight: bold; color: var(--store-primary); margin-bottom: 2px; }
+    .chat-input-area { display: flex; gap: 8px; }
+    .chat-input-area input { flex: 1; padding: 10px; background: #0f172a; border: 1px solid var(--store-border); border-radius: 8px; color: white; outline: none; }
+
+    .settings-card {
+      background: var(--store-card); border: 1px solid var(--store-border); border-radius: 16px;
+      padding: 24px; max-width: 600px; display: flex; flex-direction: column; gap: 16px;
+    }
+    .settings-card h3 { color: var(--store-primary); font-size: 18px; margin-bottom: 4px; }
+    .verify-box { background: #0f172a; border: 1px solid var(--store-border); padding: 14px; border-radius: 10px; display: none; margin-top: 8px; }
+
+    #admin-modal {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.85); z-index: 20000; display: none; align-items: center; justify-content: center; padding: 20px;
+    }
+    .admin-card {
+      background: var(--store-card); border: 2px solid var(--divine-purple); border-radius: 20px;
+      width: 100%; max-width: 760px; max-height: 90vh; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 14px;
+      box-shadow: 0 0 50px rgba(168, 85, 247, 0.6);
+    }
+    .admin-card h2 { color: var(--robux-gold); display: flex; align-items: center; gap: 8px; font-size: 19px; }
+    .admin-section { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--store-border); padding-top: 12px; }
+    .admin-section input {
+      padding: 10px; background: #0f172a; border: 1px solid var(--store-border); border-radius: 8px; color: white; outline: none; font-size: 13px;
+    }
+    .admin-action-btn { background: #10b981; color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+    .user-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--store-border); font-size: 13px; }
+    .user-info-text { display: flex; flex-direction: column; gap: 2px; }
+    .status-active { color: #10b981; font-size: 11px; font-weight: bold; }
+    .status-banned { color: #ef4444; font-size: 11px; font-weight: bold; }
+    .status-muted { color: var(--taco-orange); font-size: 11px; font-weight: bold; }
+    .admin-action-btns { display: flex; gap: 5px; flex-wrap: wrap; }
+    .login-as-btn { background: #3b82f6; color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
+    .give-robux-btn { background: var(--robux-gold); color: #000; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
+    .mute-btn { background: var(--taco-orange); color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
+    .ban-btn { background: var(--admin-red); color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: bold; }
+
+    .mutation-admin-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 4px; }
+    .mut-btn { padding: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 12px; color: #000; }
+
+    #game-container {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: #111; z-index: 9999; display: none; flex-direction: column;
+    }
+    #game-canvas { width: 100%; height: 100%; display: block; }
+    .game-ui-overlay {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; display: flex; flex-direction: column; justify-content: space-between; padding: 15px;
+      box-sizing: border-box;
+    }
+    .game-top-bar { display: flex; justify-content: space-between; align-items: center; pointer-events: auto; z-index: 10005; max-width: 100%; box-sizing: border-box; flex-wrap: wrap; gap: 8px; }
+    .exit-game-btn {
+      background: rgba(239, 68, 68, 0.9); color: white; border: none; padding: 8px 14px;
+      border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 12px;
+    }
+    .game-stats { background: rgba(0,0,0,0.85); padding: 6px 12px; border-radius: 20px; font-weight: bold; display: flex; gap: 10px; color: #fff; font-size:11px; border:1px solid #444; align-items: center; flex-wrap: wrap; }
+    .garden-btn-hud {
+      background: var(--divine-purple); color: white; border: none; padding: 5px 10px;
+      border-radius: 12px; font-weight: bold; cursor: pointer; pointer-events: auto; display: flex; align-items: center; gap: 4px; font-size: 11px;
+    }
+    .jackia-btn-hud {
+      background: var(--robux-gold); color: #000; border: none; padding: 5px 10px;
+      border-radius: 12px; font-weight: bold; cursor: pointer; pointer-events: auto; display: flex; align-items: center; gap: 4px; font-size: 11px;
+    }
+    .disco-btn-hud {
+      background: linear-gradient(90deg, #ef4444, #3b82f6, #10b981); color: white; border: none; padding: 5px 10px;
+      border-radius: 12px; font-weight: bold; cursor: pointer; pointer-events: auto; display: flex; align-items: center; gap: 4px; font-size: 11px;
+    }
+
+    #in-game-admin-hud {
+      position: absolute; top: 75px; left: 50%; transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.95); border: 2px solid var(--robux-gold); color: #fff;
+      padding: 12px 26px; border-radius: 20px; font-weight: bold; font-size: 15px;
+      z-index: 10006; display: none; text-align: center; box-shadow: 0 0 30px rgba(251, 191, 36, 0.7);
+    }
+
+    #shop-modal {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: rgba(15, 23, 42, 0.96); border: 2px solid var(--store-primary); border-radius: 16px;
+      width: 420px; max-width: 90vw; max-height: 85vh; overflow-y: auto; padding: 20px; z-index: 10008; display: none; flex-direction: column; gap: 14px; pointer-events: auto;
+    }
+    .shop-header { display: flex; justify-content: space-between; align-items: center; color: var(--store-primary); font-weight: bold; font-size: 15px; border-bottom: 1px solid var(--store-border); padding-bottom: 8px; }
+    .shop-close { background: transparent; border: none; color: #fff; font-size: 16px; cursor: pointer; }
+    .shop-row { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--store-border); font-size: 13px; margin-bottom: 6px; }
+    .buy-btn { background: var(--robux-gold); color: #000; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 12px; }
+
+    #jackia-modal {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: rgba(15, 23, 42, 0.96); border: 2px solid var(--robux-gold); border-radius: 18px;
+      width: 420px; max-width: 90vw; max-height: 85vh; overflow-y: auto; padding: 22px; z-index: 10010; display: none; flex-direction: column; gap: 14px; pointer-events: auto;
+      box-shadow: 0 0 40px rgba(251, 191, 36, 0.6);
+    }
+
+    #garden-modal {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: rgba(15, 23, 42, 0.96); border: 2px solid var(--divine-purple); border-radius: 18px;
+      width: 420px; max-width: 90vw; max-height: 85vh; overflow-y: auto; padding: 22px; z-index: 10009; display: none; flex-direction: column; gap: 14px; pointer-events: auto;
+      box-shadow: 0 0 40px rgba(168, 85, 247, 0.5);
+    }
+    .garden-slot { background: #0f172a; border: 1px solid var(--store-border); border-radius: 12px; padding: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 13px; }
+    .hatch-action-btn { background: var(--store-primary); color: white; border: none; padding: 6px 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 12px; }
+    .pets-collected-box { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .pet-card { background: #1e293b; border: 1px solid var(--divine-purple); padding: 8px 12px; border-radius: 10px; font-size: 11px; text-align: center; }
+
+    .mobile-controls {
+      position: absolute; bottom: 15px; left: 15px; right: 15px;
+      display: flex; justify-content: space-between; align-items: flex-end;
+      pointer-events: auto; z-index: 10005; max-width: 100%; box-sizing: border-box;
+    }
+    .dpad { display: grid; grid-template-columns: repeat(3, 42px); grid-template-rows: repeat(3, 42px); gap: 3px; }
+    .dpad-btn {
+      background: rgba(255, 255, 255, 0.25); border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 16px; touch-action: manipulation;
+    }
+    .jump-btn-touch {
+      width: 65px; height: 65px; background: rgba(16, 185, 129, 0.85);
+      border: 2px solid white; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; color: white; font-size: 22px; touch-action: manipulation;
+    }
+
+    @media (max-width: 768px) {
+      sidebar { width: 70px; padding: 10px 4px; }
+      .nav-item span { display: none; }
+      .store-search { width: 130px; }
+      .dpad { grid-template-columns: repeat(3, 38px); grid-template-rows: repeat(3, 38px); }
+      .jump-btn-touch { width: 55px; height: 55px; font-size: 18px; }
+      .mobile-controls { bottom: 10px; left: 10px; right: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- سیستەمی لێدانی گۆرانی و دەنگ بۆ هەمووان و موتەیشنەکان -->
+  <audio id="game-background-music" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="mutation-sound">
+    <source src="https://www.soundjay.com/buttons/sounds/button-3.mp3" type="audio/mpeg">
+  </audio>
+
+  <div id="global-announcement-banner">
+    <i class="fa-solid fa-gift" style="font-size: 20px; color:#fde047;"></i>
+    <span id="announcement-text">🎁 ڤێرژنی v3.1 Ultimate Mega Edition چالاک بوو!</span>
+  </div>
+
+  <div id="auth-screen">
+    <div class="auth-card">
+      <div class="store-logo"></div>
+      <h1>Hama Dev Play</h1>
+      <div class="version-tag">v3.1 Ultimate Mega Edition</div>
+      <p>چوونەژوورەوە بۆ سەکۆی فەرمی ڕۆبلۆکس کوردی</p>
+      
+      <div class="input-group">
+        <label>ناوی بەکارهێنەر (Username)</label>
+        <input type="text" id="username-input" placeholder="ناوی خۆت بنووسە...">
+      </div>
+      
+      <div class="input-group">
+        <label>تێپەڕەواژە (Password)</label>
+        <input type="password" id="password-input" placeholder="******">
+      </div>
+
+      <button class="auth-btn" onclick="handleAuth()">چوونەژوورەوە (Login)</button>
+      <div class="error-msg" id="auth-error"></div>
+    </div>
+  </div>
+
+  <div id="dashboard">
+    <header>
+      <div class="brand">
+        <div class="brand-flag">☀️</div>
+        <span>Hama Dev Store <span style="font-size:11px; color:var(--robux-gold);">v3.1</span></span>
+      </div>
+
+      <div class="store-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="گەڕان لە ستۆری کوردی...">
+      </div>
+
+      <div class="user-profile-area">
+        <button class="admin-badge-btn" id="admin-panel-btn" onclick="openAdminPanel()"><i class="fa-solid fa-shield-halved"></i> پەنێڵی ئۆنەر (Owner Hub)</button>
+        <button class="install-pwa-btn" id="install-app-btn" onclick="installPWAApp()"><i class="fa-solid fa-mobile-screen-button"></i> داگرتنی ئەپ</button>
+        <div class="stat-badge">
+          <i class="fa-solid fa-gem"></i>
+          <span id="user-robux">250</span> R$
+        </div>
+        <button class="logout-btn" onclick="logout()">دەرچوون</button>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <sidebar>
+        <div class="nav-item active" onclick="switchTab('store', this)"><i class="fa-solid fa-store"></i><span>ستۆر (Apps)</span></div>
+        <div class="nav-item" onclick="switchTab('items', this)"><i class="fa-solid fa-bag-shopping"></i><span>شۆپی بڕگەکان</span></div>
+        <div class="nav-item" onclick="switchTab('friends', this)"><i class="fa-solid fa-user-group"></i><span>هاوڕێکان (Friends)</span></div>
+        <div class="nav-item" onclick="switchTab('chat', this)"><i class="fa-solid fa-comments"></i><span>چاتی گشتی</span></div>
+        <div class="nav-item" onclick="switchTab('settings', this)"><i class="fa-solid fa-gear"></i><span>سیتینگ (پاسوۆرد و ئیمەیڵ)</span></div>
+      </sidebar>
+
+      <main>
+        <div id="tab-store" class="tab-content">
+          <div class="page-title"><i class="fa-solid fa-gamepad" style="color:var(--store-primary)"></i><span>یارییە فەرمییەکان بۆ دابەزاندن (بەردەست بۆ هەمووان)</span></div>
+          <div class="store-grid">
+            <div class="store-app-card" style="border-color: var(--robux-gold);">
+              <div class="app-card-top">
+                <div class="app-icon" style="color: var(--robux-gold); background: #332400;"><i class="fa-solid fa-dice-d6"></i></div>
+                <div class="app-info">
+                  <h3>Steal An Egg - شاری یەکەم (v3.1 Edition)</h3>
+                  <p>خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-badge"></i></p>
+                  <p style="color:var(--robux-gold); margin-top:2px; font-weight:bold;">👑 ١٠ هێلکە و ٣٠ بایۆم و پاسەوانی جووڵاو</p>
+                </div>
+              </div>
+              <button class="install-btn" style="background:var(--robux-gold); color:#000;" onclick="startStealAnEggGame()"><i class="fa-solid fa-download"></i> یاری کردن لە شاری یەکەم</button>
+            </div>
+
+            <!-- شاری دووەم بۆ هەمووان بەردەست کرایە -->
+            <div class="store-app-card" style="border-color: var(--divine-purple);">
+              <div class="app-card-top">
+                <div class="app-icon" style="color: var(--divine-purple); background: #2e1065;"><i class="fa-solid fa-city"></i></div>
+                <div class="app-info">
+                  <h3>Steal an Egg - شاری دووەم (Angels & Demons)</h3>
+                  <p>خاوەن: rip_hama276 <i class="fa-solid fa-circle-check verified-badge"></i></p>
+                  <p style="color:var(--robux-gold); margin-top:2px; font-weight:bold;">👑 Cherry Blossom + Titan Temple + Angels & Demons</p>
+                </div>
+              </div>
+              <button class="install-btn" style="background:var(--divine-purple); color:white;" onclick="startOwnerSecondCityGame()"><i class="fa-solid fa-rocket"></i> تاقیکردنەوەی شاری دووەم</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-items" class="tab-content" style="display:none;">
+          <div class="page-title"><i class="fa-solid fa-bag-shopping" style="color:var(--robux-gold)"></i><span>شۆپی ئۆنلاینی ستۆر (بڕگە تایبەتەکان)</span></div>
+          <div class="store-grid">
+            <div class="store-app-card">
+              <div class="app-card-top">
+                <div class="app-icon" style="color:var(--robux-gold);"><i class="fa-solid fa-crown"></i></div>
+                <div class="app-info">
+                  <h3>VIP Crown & Badge</h3>
+                  <p>تاجێکی زێڕین لەسەر کەسایەتی یارییەکەت + پلەی VIP</p>
+                </div>
+              </div>
+              <button class="install-btn" style="background:var(--robux-gold); color:#000;" onclick="buyStoreItem('VIP Rank', 500)">کڕین بە 500 R$</button>
+            </div>
+
+            <div class="store-app-card">
+              <div class="app-card-top">
+                <div class="app-icon" style="color:#38bdf8;"><i class="fa-solid fa-bolt"></i></div>
+                <div class="app-info">
+                  <h3>Speed Booster Pack (2x)</h3>
+                  <p>زیادکردنی خێرایی یاریزانەکە بە ڕێژەی دوو هێندە (2x Speed)</p>
+                </div>
+              </div>
+              <button class="install-btn" style="background:#38bdf8; color:#000;" onclick="buyStoreItem('Speed Booster', 300)">کڕین بە 300 R$</button>
+            </div>
+
+            <div class="store-app-card" style="border-color:var(--robux-gold);">
+              <div class="app-card-top">
+                <div class="app-icon" style="color:var(--robux-gold); background:#332400;"><i class="fa-solid fa-moon"></i></div>
+                <div class="app-info">
+                  <h3>1. مانگی زێڕین (Golden Moon Aura)</h3>
+                  <p>دەورەدانی مانگی درەوشاوە بە دەوری کەسایەتیتدا لەناو ماپدا</p>
+                </div>
+              </div>
+              <button class="install-btn" style="background:var(--robux-gold); color:#000;" onclick="buyStoreItem('Golden Moon', 250)">کڕین بە 250 R$</button>
+            </div>
+
+            <div class="store-app-card" style="border-color:var(--store-primary);">
+              <div class="app-card-top">
+                <div class="app-icon" style="color:var(--store-primary); background:#064e3b;"><i class="fa-solid fa-coins"></i></div>
+                <div class="app-info">
+                  <h3>2. سکەی ئاڵتوونی (Coin Multiplier x3)</h3>
+                  <p>زیادکردنی بڕی خاڵ و پارەی کۆکراوەی هەر هێلکەیەک بە سێ هێندە</p>
+                </div>
+              </div>
+              <button class="install-btn" style="background:var(--store-primary); color:#fff;" onclick="buyStoreItem('Coin Multiplier', 400)">کڕین بە 400 R$</button>
+            </div>
+
+            <div class="store-app-card" style="border-color:var(--divine-purple);">
+              <div class="app-card-top">
+                <div class="app-icon" style="color:var(--divine-purple); background:#2e1065;"><i class="fa-solid fa-feather"></i></div>
+                <div class="app-info">
+                  <h3>3. باڵی فریشتەی خێرا (Angel Wings)</h3>
+                  <p>فڕین و بازی بەرزتر لەناو ماپ و دەربازبوون لە پاسەوانەکان</p>
+                </div>
+              </div>
+              <button class="install-btn" style="background:var(--divine-purple); color:#fff;" onclick="buyStoreItem('Angel Wings', 600)">کڕین بە 600 R$</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-friends" class="tab-content" style="display:none;">
+          <div class="page-title"><i class="fa-solid fa-user-group" style="color:var(--store-primary)"></i><span>ڕدار و لیستی هاوڕێیان (Friends)</span></div>
+          <div class="friends-container">
+            <div class="friend-add-box">
+              <input type="text" id="friend-username-input" placeholder="ناوی هاوڕێ بۆ زیادکردن (Username)...">
+              <button class="auth-btn" style="width: auto; padding: 10px 20px; margin: 0;" onclick="addFriendUser()">زیادکردنی هاوڕێ</button>
+            </div>
+            <div class="friends-list" id="friends-list-container"></div>
+          </div>
+        </div>
+
+        <div id="tab-chat" class="tab-content" style="display:none;">
+          <div class="page-title"><i class="fa-solid fa-comments" style="color:var(--store-primary)"></i><span>چاتی ڕاستەوخۆی یاریزانان</span></div>
+          <div class="chat-box">
+            <div class="chat-messages" id="chat-messages-box"></div>
+            <div class="chat-input-area">
+              <input type="text" id="chat-input" placeholder="پەیامێک بۆ هەمووان بنووسە...">
+              <button class="auth-btn" style="width: auto; padding: 10px 20px; margin: 0;" onclick="sendChatMessage()">ناردن</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-settings" class="tab-content" style="display:none;">
+          <div class="page-title"><i class="fa-solid fa-gear" style="color:var(--store-primary)"></i><span>سیتینگ (گۆڕینی پاسوۆرد و ئیمەیڵ)</span></div>
+          <div class="settings-card">
+            <h3>گۆڕینی تێپەڕەواژە (Change Password)</h3>
+            <p style="color:var(--text-muted); font-size:13px;">تێپەڕەواژەی نوێی خۆت لێرە بنووسە و تۆماری بکە:</p>
+            
+            <div class="input-group" style="margin-top:10px;">
+              <label>تێپەڕەواژەی نوێ (New Password)</label>
+              <input type="password" id="new-password-input" placeholder="پاسوۆردی نوێ...">
+            </div>
+            <button class="auth-btn" style="background:var(--store-primary); padding:10px;" onclick="changePasswordUser()">گۆڕینی پاسوۆرد</button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div id="admin-modal">
+    <div class="admin-card">
+      <h2><i class="fa-solid fa-shield-halved"></i> ژووری تایبەتی ئۆنەر و پەنێڵی کۆنترۆڵ (v3.1 Ultimate Mega Hub)</h2>
+      
+      <!-- بەشی کۆنترۆڵی مۆسیقا و دەنگی گۆرانی بۆ هەموو یاریزانەکان -->
+      <div class="admin-section" style="background:#1e1b4b; padding:14px; border-radius:12px; border:2px solid var(--robux-gold);">
+        <label style="font-size:13px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-music"></i> کۆنترۆڵی مۆسیقای گشتی (Global Music Hub):</label>
+        <div style="display: flex; gap: 8px; margin-top: 6px;">
+          <button class="admin-action-btn" style="flex:1; background:var(--store-primary); color:#fff;" onclick="ownerPlayMusicForEveryone()"><i class="fa-solid fa-play"></i> لێدان</button>
+          <button class="admin-action-btn" style="flex:1; background:#ef4444; color:#fff;" onclick="ownerStopMusicForEveryone()"><i class="fa-solid fa-pause"></i> کوژاندنەوە</button>
+        </div>
+      </div>
+
+      <!-- بەشی کۆنترۆڵی Race و پێشبڕکێ -->
+      <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--robux-gold);">
+        <label style="font-size:13px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-flag-checkered"></i> بەڕێوەبردنی پێشبڕکێ (Race Manager):</label>
+        <div style="display: flex; gap: 8px; margin-top: 6px;">
+          <button class="admin-action-btn" style="flex:1; background:#f59e0b; color:#000;" onclick="adminResetRaceTimer()">⏱️ سفرکردنەوەی کاتی Race</button>
+          <button class="admin-action-btn" style="flex:1; background:#10b981; color:#fff;" onclick="adminTriggerRaceEvent()">🚀 دەستپێکردنی توانا و خێرایی Race</button>
+        </div>
+      </div>
+
+      <!-- بەشی تێلێپۆرت بۆ شۆپ و جاکیا -->
+      <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
+        <label style="font-size:13px; font-weight:bold; color:#c084fc;"><i class="fa-solid fa-location-crosshairs"></i> بەشی تێلێپۆرت بە کلیلک (Owner Teleport to Shop & Jackia):</label>
+        <div style="display: flex; flex-direction: column; gap: 6px; margin-top:4px;">
+          <button class="admin-action-btn" style="background:#10b981; color:white;" onclick="adminTeleportPlayer('start')">📍 تێلێپۆرت بۆ سەرەتا (Home Spawn)</button>
+          <button class="admin-action-btn" style="background:#fbbf24; color:black;" onclick="adminTeleportPlayer('shop')">🛒 تێلێپۆرت بۆ لای شۆپی فەرمی (Shop Booth)</button>
+          <button class="admin-action-btn" style="background:#a855f7; color:white;" onclick="adminTeleportPlayer('jackia')">🎲 تێلێپۆرت بۆ لای وێستگەی جاکیا (Jackia Station)</button>
+          <button class="admin-action-btn" style="background:#38bdf8; color:black;" onclick="adminTeleportPlayer('eggs')">🥚 تێلێپۆرت بۆ لای هێلکەکان (All Eggs)</button>
+        </div>
+      </div>
+
+      <div class="admin-section" style="background:#0f172a; padding:14px; border-radius:12px; border:1px solid var(--divine-purple);">
+        <label style="font-size:13px; font-weight:bold; color:var(--robux-gold);"><i class="fa-solid fa-dna"></i> پەنێڵی موتەیشنەکان لەگەڵ دەنگ (Mutations with Audio FX):</label>
+        <div class="mutation-admin-grid">
+          <button class="mut-btn" style="background:var(--robux-gold);" onclick="addAdminMutation('Gold', 10)">✨ Gold Mutation (10x)</button>
+          <button class="mut-btn" style="background:var(--taco-orange); color:#fff;" onclick="addAdminMutation('Taco', 15)">🌮 Taco Mutation (15x)</button>
+          <button class="mut-btn" style="background:#38bdf8;" onclick="addAdminMutation('Diamond', 20)">💎 Diamond Mutation (20x)</button>
+          <button class="mut-btn" style="background:linear-gradient(90deg, #ef4444, #3b82f6, #10b981); color:#fff;" onclick="addAdminMutation('Rainbow', 50)">🌈 Rainbow Mutation (50x)</button>
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <label style="font-size:12px; font-weight:bold;"><i class="fa-solid fa-gem" style="color:var(--robux-gold);"></i> بەڕێوەبردنی ڕۆبوکس و بەخشین:</label>
+        <input type="text" id="robux-target-user" placeholder="ناوی یاریزان (Username)...">
+        <input type="number" id="robux-target-amount" placeholder="بڕی ڕۆبوکس (R$)...">
+        <div style="display: flex; gap: 8px; margin-top: 5px;">
+          <button class="admin-action-btn" style="flex:1; background:var(--robux-gold); color:#000;" onclick="modifyRobuxForPlayer('give')">➕ ناردنی ڕۆبوکس</button>
+          <button class="admin-action-btn" style="flex:1; background:#ef4444; color:white;" onclick="modifyRobuxForPlayer('remove')">➖ لابردنی ڕۆبوکس</button>
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <p style="font-size: 12px; color: var(--text-muted); font-weight:bold;"><i class="fa-solid fa-users"></i> لیستی ڕاستەوخۆی یاریزانان:</p>
+        </div>
+        <div id="admin-users-list" style="max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;"></div>
+      </div>
+
+      <button class="admin-action-btn" style="background: var(--admin-red); margin-top:5px;" onclick="closeAdminPanel()">داخستنی پەنێڵ</button>
+    </div>
+  </div>
+
+  <div id="game-container">
+    <canvas id="game-canvas"></canvas>
+    
+    <div id="in-game-admin-hud">📢 پەیامی ئۆنەر: لێرە دەردەکەوێت</div>
+
+    <div id="shop-modal">
+      <div class="shop-header">
+        <span><i class="fa-solid fa-shield-dog"></i> شۆپی فەرمی (خێرایی و توانای هێلکە)</span>
+        <button class="shop-close" onclick="closeShopModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div style="font-weight:bold; color:var(--robux-gold); font-size:12px; margin-bottom:4px;">⚡ خێرایی (2x Speed Pack):</div>
+      <div class="shop-row"><span>⚡ خێرایی ئاسایی (30)</span><button class="buy-btn" onclick="buySpeed(30, 10)">10 R$</button></div>
+      <div class="shop-row"><span>⚡ خێرایی بەهێز (50)</span><button class="buy-btn" onclick="buySpeed(50, 30)">30 R$</button></div>
+      <div class="shop-row"><span>⚡ خێرایی دوو هێندە (2x - 100)</span><button class="buy-btn" onclick="buySpeed(100, 120)">120 R$</button></div>
+      
+      <div style="font-weight:bold; color:var(--robux-gold); font-size:12px; margin:8px 0 4px 0;">🥚 توانای هەڵگرتنی هێلکە (تا 10):</div>
+      <div class="shop-row"><span>🥚 2 هێلکە</span><button class="buy-btn" onclick="buyCapacity(2, 15)">15 R$</button></div>
+      <div class="shop-row"><span>🥚 6 هێلکە</span><button class="buy-btn" onclick="buyCapacity(6, 60)">60 R$</button></div>
+      <div class="shop-row"><span>🥚 10 هێلکە (مەزنترین)</span><button class="buy-btn" onclick="buyCapacity(10, 150)">150 R$</button></div>
+    </div>
+
+    <div id="jackia-modal">
+      <div class="shop-header">
+        <span><i class="fa-solid fa-dice" style="color:var(--robux-gold);"></i> وێستگەی کارای جاکیا (Working Jackia Station)</span>
+        <button class="shop-close" onclick="closeJackiaModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <p style="font-size:12px; color:var(--text-muted); line-height:1.4;">ئێرە وێستگەی فەرمی جاکیاست! دەتوانیت بە خاڵەکانت چەرخە بسوڕێنیت و خەڵاتی گەورە بەریت.</p>
+      
+      <div style="background:#0f172a; padding:14px; border-radius:12px; text-align:center; border:1px solid var(--robux-gold); margin-top:6px;">
+        <div id="jackia-status-text" style="font-size:15px; font-weight:bold; color:var(--robux-gold); margin-bottom:8px;">🎰 چەرخەی جاکیا ئامادەیە! (نرخ: 200 خاڵ)</div>
+        <button class="auth-btn" style="background:var(--robux-gold); color:#000;" onclick="spinJackiaWheel()">🎰 سووڕاندنی چەرخەی جاکیا</button>
+      </div>
+    </div>
+
+    <div class="game-ui-overlay">
+      <div class="game-top-bar">
+        <button class="exit-game-btn" onclick="exitGame()"><i class="fa-solid fa-door-open"></i> دەرچوون</button>
+        <div class="game-stats">
+          <span>خاڵ: <span id="game-score">0</span></span>
+          <span>🥚 هێلکە: <span id="carried-count">0</span>/<span id="max-capacity">1</span></span>
+          <span>⚡ خێرایی: <span id="speed-display">25</span></span>
+          <span>⏱️ Race: <span id="race-timer">00:00</span></span>
+          <button id="in-game-owner-btn" class="admin-badge-btn" style="display:inline-flex; padding:4px 8px; font-size:10px;" onclick="openAdminPanel()"><i class="fa-solid fa-shield-halved"></i> هۆبی ئۆنەر</button>
+          <button class="jackia-btn-hud" onclick="openJackiaModal()"><i class="fa-solid fa-dice"></i> جاکیا</button>
+          <button class="disco-btn-hud" onclick="toggleDiscoMode()"><i class="fa-solid fa-compact-disc"></i> دیسکۆ</button>
+        </div>
+      </div>
+
+      <div class="mobile-controls">
+        <div class="dpad">
+          <div></div><div class="dpad-btn" id="btn-up"><i class="fa-solid fa-arrow-up"></i></div><div></div>
+          <div class="dpad-btn" id="btn-left"><i class="fa-solid fa-arrow-left"></i></div><div></div><div class="dpad-btn" id="btn-right"><i class="fa-solid fa-arrow-right"></i></div>
+          <div></div><div class="dpad-btn" id="btn-down"><i class="fa-solid fa-arrow-down"></i></div><div></div>
+        </div>
+        <div class="jump-btn-touch" id="btn-jump"><i class="fa-solid fa-angles-up"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let usersDB = JSON.parse(localStorage.getItem('hamadev_store_users') || '{}');
+    let bannedDB = JSON.parse(localStorage.getItem('hamadev_store_banned') || '[]');
+    let mutedDB = JSON.parse(localStorage.getItem('hamadev_store_muted') || '[]');
+    let chatDB = JSON.parse(localStorage.getItem('hamadev_global_chat') || '[]');
+    let currentUser = localStorage.getItem('hamadev_store_current') || null;
+    let deferredPrompt = null;
+    let adminRefreshInterval = null;
+    let isOwnerSecondCityGame = false;
+    let isDiscoActive = false;
+    let raceSeconds = 0;
+    let raceTimerInterval = null;
+
+    usersDB['rip_hama276'] = { password: 'ownerpassword', robux: 1000000000, email: 'rip_hama@dev.kur', verified: true, hasVIP: true, savedSpeed: 100, savedCapacity: 10, inventoryEggs: [], collectedPets: [], friends: ['Ahmad_Gamer'] };
+    if(!usersDB['یاریزانی نەناسراو']) usersDB['یاریزانی نەناسراو'] = { password: '123', robux: 300, email: 'unknown@mail.com', verified: false, hasVIP: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], collectedPets: [], friends: [] };
+    localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+
+    window.onload = function() {
+      if (currentUser && usersDB[currentUser]) {
+        showDashboard();
+      } else {
+        document.getElementById('auth-screen').style.display = 'flex';
+      }
+      setupMobileTouchEvents();
+      renderChatMessages();
+      renderFriendsList();
+    };
+
+    function handleAuth() {
+      let usernameInput = document.getElementById('username-input').value.trim();
+      const username = usernameInput === '' ? 'یاریزانی نەناسراو' : usernameInput;
+      const password = document.getElementById('password-input').value.trim() || '123';
+      
+      if (!usersDB[username]) {
+        usersDB[username] = { password: password, robux: 250, email: '', verified: false, savedSpeed: 25, savedCapacity: 1, inventoryEggs: [], collectedPets: [], friends: [] };
+      }
+      currentUser = username;
+      localStorage.setItem('hamadev_store_current', currentUser);
+      showDashboard();
+    }
+
+    function logout() {
+      localStorage.removeItem('hamadev_store_current');
+      currentUser = null;
+      document.getElementById('dashboard').style.display = 'none';
+      document.getElementById('auth-screen').style.display = 'flex';
+    }
+
+    function showDashboard() {
+      document.getElementById('auth-screen').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'flex';
+      document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+      renderFriendsList();
+    }
+
+    function switchTab(tabName, el) {
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+      el.classList.add('active');
+      document.querySelectorAll('.tab-content').forEach(content => content.style.display = 'none');
+      document.getElementById('tab-' + tabName).style.display = 'block';
+    }
+
+    function addFriendUser() {
+      const fInput = document.getElementById('friend-username-input');
+      const fName = fInput.value.trim();
+      if(!fName) return;
+      if(!usersDB[currentUser].friends) usersDB[currentUser].friends = [];
+      usersDB[currentUser].friends.push(fName);
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      fInput.value = '';
+      renderFriendsList();
+      alert(`✅ هاوڕێی نوێ (${fName}) زیاد کرا!`);
+    }
+
+    function renderFriendsList() {
+      const container = document.getElementById('friends-list-container');
+      if(!container) return;
+      container.innerHTML = '';
+      let fList = (usersDB[currentUser] && usersDB[currentUser].friends) ? usersDB[currentUser].friends : [];
+      fList.forEach(frName => {
+        container.innerHTML += `<div class="friend-row"><div class="friend-info"><div class="online-dot"></div><span><b>${frName}</b></span></div></div>`;
+      });
+    }
+
+    function buyStoreItem(itemName, cost) {
+      if(usersDB[currentUser].robux < cost) { alert('ڕووبوکس پێنییە!'); return; }
+      usersDB[currentUser].robux -= cost;
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+      alert(`🎉 ${itemName} کڕرا!`);
+    }
+
+    function sendChatMessage() {
+      const input = document.getElementById('chat-input');
+      const text = input.value.trim();
+      if(!text) return;
+      chatDB.push({ sender: currentUser, text: text, time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) });
+      localStorage.setItem('hamadev_global_chat', JSON.stringify(chatDB));
+      input.value = '';
+      renderChatMessages();
+    }
+
+    function renderChatMessages() {
+      const container = document.getElementById('chat-messages-box');
+      if(!container) return;
+      container.innerHTML = '';
+      chatDB.forEach(msg => {
+        container.innerHTML += `<div class="chat-msg"><div class="sender">${msg.sender}</div><div>${msg.text}</div></div>`;
+      });
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function ownerPlayMusicForEveryone() {
+      const bgMusic = document.getElementById('game-background-music');
+      if(bgMusic) bgMusic.play().catch(e => console.log(e));
+      alert('🎵 مۆسیقا لێدرا!');
+      closeAdminPanel();
+    }
+
+    function ownerStopMusicForEveryone() {
+      const bgMusic = document.getElementById('game-background-music');
+      if(bgMusic) bgMusic.pause();
+      alert('🔇 مۆسیقا کوژایەوە.');
+      closeAdminPanel();
+    }
+
+    function adminResetRaceTimer() {
+      raceSeconds = 0;
+      alert('⏱️ کاتی Race سفرکرایەوە!');
+      closeAdminPanel();
+    }
+
+    function adminTriggerRaceEvent() {
+      alert('🚀 توانا و خێرایی Race بۆ هەمووان چالاک بوو!');
+      closeAdminPanel();
+    }
+
+    function playMutationSound() {
+      const snd = document.getElementById('mutation-sound');
+      if(snd) snd.play().catch(e => console.log(e));
+    }
+
+    function addAdminMutation(type, multiplier) {
+      playMutationSound();
+      let uObj = usersDB[currentUser];
+      if(!uObj.collectedPets) uObj.collectedPets = [];
+      uObj.collectedPets.push({ name: `✨ Admin ${type} Pet`, bonus: multiplier * 15, mutationType: type });
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      alert(`🧬 دەنگ و موتەیشنی ${type} (${multiplier}x) بۆ ئەکاونتەکەت دروست بوو!`);
+      closeAdminPanel();
+    }
+
+    function adminTeleportPlayer(destType) {
+      if(!player) { alert('تکایە سەرەتا یارییەکە بکەرەوە!'); return; }
+      if(destType === 'start') player.position.set(0, 1, 15);
+      else if(destType === 'shop' && shopBooth) player.position.set(shopBooth.position.x, 1, shopBooth.position.z + 2);
+      else if(destType === 'jackia' && jackiaBooth) player.position.set(jackiaBooth.position.x, 1, jackiaBooth.position.z + 2);
+      else if(destType === 'eggs' && eggsList[0]) player.position.set(eggsList[0].position.x, 1, eggsList[0].position.z + 2);
+      alert(`📍 تێلێپۆرت کرا بۆ (${destType})!`);
+      closeAdminPanel();
+    }
+
+    function modifyRobuxForPlayer(actionType) {
+      const targetUser = document.getElementById('robux-target-user').value.trim();
+      const amount = parseInt(document.getElementById('robux-target-amount').value) || 0;
+      if(!targetUser || !usersDB[targetUser]) { alert('ناوی یاریزان هەڵەیە!'); return; }
+      if(actionType === 'give') usersDB[targetUser].robux += amount;
+      else usersDB[targetUser].robux = Math.max(0, usersDB[targetUser].robux - amount);
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      if(targetUser === currentUser) document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+      alert('✅ ڕۆبوکس نوێکرایەوە!');
+      openAdminPanel();
+    }
+
+    function openAdminPanel() {
+      updateAdminUsersList();
+      document.getElementById('admin-modal').style.display = 'flex';
+    }
+
+    function updateAdminUsersList() {
+      const listEl = document.getElementById('admin-users-list');
+      if(!listEl) return;
+      listEl.innerHTML = '';
+      for (let uname in usersDB) {
+        listEl.innerHTML += `<div class="user-row"><span><b>${uname}</b> (${usersDB[uname].robux.toLocaleString()} R$)</span></div>`;
+      }
+    }
+
+    function closeAdminPanel() { document.getElementById('admin-modal').style.display = 'none'; }
+
+    let scene, camera, renderer, player, shopBooth, jackiaBooth, petObj, animationId;
+    let keys = { up: false, down: false, left: false, right: false, jump: false };
+    let gameScore = 0, carriedEggs = 0, maxCapacity = 1, playerSpeed = 0.25, eggsList = [], shopOpen = false, jackiaOpen = false;
+
+    function toggleDiscoMode() {
+      isDiscoActive = !isDiscoActive;
+      alert(isDiscoActive ? '🪩 دیسکۆ لایت چالاک بوو!' : '💤 دیسکۆ لایت کوژایەوە.');
+    }
+
+    function buySpeed(speedVal, robuxCost) {
+      if (usersDB[currentUser].robux < robuxCost) { alert('ڕووبوکس پێنییە!'); return; }
+      usersDB[currentUser].robux -= robuxCost;
+      usersDB[currentUser].savedSpeed = speedVal;
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      playerSpeed = speedVal / 100;
+      document.getElementById('speed-display').innerText = speedVal;
+      alert(`⚡ خێرایی ${speedVal} کڕرا!`);
+      closeShopModal();
+    }
+
+    function buyCapacity(capVal, robuxCost) {
+      if (usersDB[currentUser].robux < robuxCost) { alert('ڕووبوکس پێنییە!'); return; }
+      usersDB[currentUser].robux -= robuxCost;
+      usersDB[currentUser].savedCapacity = capVal;
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      maxCapacity = capVal;
+      document.getElementById('max-capacity').innerText = maxCapacity;
+      alert(`🥚 توانای ${capVal} هێلکە کڕرا!`);
+      closeShopModal();
+    }
+
+    function closeShopModal() { document.getElementById('shop-modal').style.display = 'none'; shopOpen = false; }
+    function openJackiaModal() { document.getElementById('jackia-modal').style.display = 'flex'; jackiaOpen = true; }
+    function closeJackiaModal() { document.getElementById('jackia-modal').style.display = 'none'; jackiaOpen = false; }
+
+    function spinJackiaWheel() {
+      usersDB[currentUser].robux += 200;
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+      alert('🎰 لە چەرخەی جاکیا ٢٠٠ ڕۆبۆکس ڕوویدا!');
+      closeJackiaModal();
+    }
+
+    function setupMobileTouchEvents() {
+      const bindTouch = (id, keyName) => {
+        const btn = document.getElementById(id);
+        if(!btn) return;
+        btn.addEventListener('touchstart', (e) => { e.preventDefault(); keys[keyName] = true; }, {passive: false});
+        btn.addEventListener('touchend', (e) => { e.preventDefault(); keys[keyName] = false; }, {passive: false});
+      };
+      bindTouch('btn-up', 'up'); bindTouch('btn-down', 'down');
+      bindTouch('btn-left', 'left'); bindTouch('btn-right', 'right');
+      bindTouch('btn-jump', 'jump');
+    }
+
+    function spawnAllEggs() {
+      eggsList.forEach(e => { if(e) scene.remove(e); });
+      eggsList = [];
+      const biomesList = isOwnerSecondCityGame ? [
+        { name: 'Cherry Blossom', color: 0xf472b6, mult: 12 },
+        { name: 'Titan Temple', color: 0x38bdf8, mult: 15 },
+        { name: 'Angels & Demons', color: 0xa855f7, mult: 20 }
+      ] : [
+        { name: 'Forest', color: 0x10b981, mult: 1 },
+        { name: 'Lake', color: 0x38bdf8, mult: 2 },
+        { name: 'Desert', color: 0xfbbf24, mult: 3 }
+      ];
+      
+      biomesList.forEach((b, i) => {
+        const eggGroup = new THREE.Group();
+        const eggMesh = new THREE.Mesh(new THREE.SphereGeometry(0.6, 16, 16), new THREE.MeshBasicMaterial({ color: b.color }));
+        eggGroup.add(eggMesh);
+        eggGroup.position.set((i % 2 === 0 ? 3 : -3), 0, -(i * 20) - 8);
+        eggGroup.userData = { name: b.name, mult: b.mult };
+        scene.add(eggGroup); eggsList.push(eggGroup);
+      });
+    }
+
+    function startStealAnEggGame() { isOwnerSecondCityGame = false; initGameEngine(); }
+    function startOwnerSecondCityGame() { isOwnerSecondCityGame = true; initGameEngine(); }
+
+    function initGameEngine() {
+      document.getElementById('game-container').style.display = 'flex';
+      gameScore = 0; carriedEggs = 0;
+      raceSeconds = 0;
+      if(raceTimerInterval) clearInterval(raceTimerInterval);
+      raceTimerInterval = setInterval(() => {
+        raceSeconds++;
+        let m = Math.floor(raceSeconds / 60).toString().padStart(2, '0');
+        let s = (raceSeconds % 60).toString().padStart(2, '0');
+        let timerEl = document.getElementById('race-timer');
+        if(timerEl) timerEl.innerText = `${m}:${s}`;
+      }, 1000);
+
+      const canvas = document.getElementById('game-canvas');
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(isOwnerSecondCityGame ? 0x2e1065 : 0x090d16);
+
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      scene.add(new THREE.AmbientLight(0xffffff, 1));
+
+      player = new THREE.Group();
+      const torso = new THREE.Mesh(new THREE.BoxGeometry(1, 1.2, 0.6), new THREE.MeshBasicMaterial({ color: 0x10b981 }));
+      torso.position.y = 1.2; player.add(torso);
+      player.position.set(0, 1, 15);
+      scene.add(player);
+
+      shopBooth = new THREE.Group();
+      shopBooth.add(new THREE.Mesh(new THREE.BoxGeometry(3, 1.5, 2), new THREE.MeshBasicMaterial({ color: 0xfbbf24 })));
+      shopBooth.position.set(-8, 0, 5);
+      scene.add(shopBooth);
+
+      jackiaBooth = new THREE.Group();
+      jackiaBooth.add(new THREE.Mesh(new THREE.BoxGeometry(3, 2, 2), new THREE.MeshBasicMaterial({ color: 0xa855f7 })));
+      jackiaBooth.position.set(8, 0, 5);
+      scene.add(jackiaBooth);
+
+      const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, 200), new THREE.MeshBasicMaterial({ color: isOwnerSecondCityGame ? 0x2e1065 : 0x064e3b }));
+      floor.rotation.x = -Math.PI / 2; floor.position.z

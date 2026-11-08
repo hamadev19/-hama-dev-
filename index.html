@@ -1022,812 +1022,7 @@
     }
 
     function addAdminMutation(type, multiplier) {
-      let uObj = usersDB[currentUser];
-      if(!uObj.collectedPets) uObj.collectedPets = [];
-      uObj.collectedPets.push({
-        name: `✨ Admin ${type} Pet (${type})`,
-        bonus: multiplier * 15,
-        mutationType: type
-      });
-      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-      alert(`🧬 موتەیشنی ${type} (${multiplier}x) بە سەرکەوتوویی بۆ ئەکاونتەکەت دروست بوو!`);
-      closeAdminPanel();
-    }
-
-    function addAllMutationsToAdmin() {
-      let uObj = usersDB[currentUser];
-      if(!uObj.collectedPets) uObj.collectedPets = [];
-      uObj.collectedPets.push({ name: '✨ Gold Dragon', bonus: 150, mutationType: 'Gold' });
-      uObj.collectedPets.push({ name: '🌮 Taco Cat', bonus: 200, mutationType: 'Taco' });
-      uObj.collectedPets.push({ name: '💎 Diamond Wolf', bonus: 300, mutationType: 'Diamond' });
-      uObj.collectedPets.push({ name: '🌈 Rainbow Phoenix', bonus: 500, mutationType: 'Rainbow' });
-      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-      alert('🚀 سەرجەم موتەیشنەکان (Gold, Taco, Diamond, Rainbow) بۆ ئەکاونتەکەت چالاک بون!');
-      closeAdminPanel();
-    }
-
-    function adminTeleportPlayer(destType) {
-      if(!player) {
-        alert('❌ تکایە سەرەتا یارییەکە بکەرەوە و بچۆ ناو ماپەکەوە!');
-        return;
-      }
-      if(destType === 'start') {
-        player.position.set(0, 1, 15);
-        alert('📍 تێلێپۆرت کرا بۆ سەرەتای ماپ (Home Spawn)!');
-      } else if(destType === 'eggs') {
-        if(eggsList.length > 0 && eggsList[0]) {
-          player.position.set(eggsList[0].position.x, 1, eggsList[0].position.z + 2);
-          alert('🥚 تێلێپۆرت کرا بۆ لای هێلکەکان!');
-        } else {
-          alert('❌ هیچ هێلکەیەک نەدۆزرایەوە لەسەر ماپ!');
-        }
-      } else if(destType === 'divine') {
-        let foundDivine = eggsList.find(e => e && e.userData && e.userData.isDivine);
-        if(foundDivine) {
-          player.position.set(foundDivine.position.x, 1, foundDivine.position.z + 2);
-          alert('✨ تێلێپۆرت کرا بۆ لای هێلکەی دیڤاین!');
-        } else {
-          player.position.set(0, 1, -50);
-          alert('✨ تێلێپۆرت کرا بۆ ناوچەی دیڤاین!');
-        }
-      }
-      closeAdminPanel();
-    }
-
-    function spawnSpecificDivineEgg(eggName, multVal) {
-      if(!scene) {
-        alert('❌ تکایە پێشتر بڕۆ ناو یارییەکە بۆ ئەوەی هێلکەکە لەسەر ماپەکە سپاون بێت!');
-        return;
-      }
-      const divGroup = new THREE.Group();
-      const divGeo = new THREE.SphereGeometry(1.0, 16, 16); divGeo.scale(1, 1.4, 1);
-      const divineEggObj = new THREE.Mesh(divGeo, new THREE.MeshBasicMaterial({ color: 0xa855f7 }));
-      divGroup.add(divineEggObj);
-
-      divGroup.position.set(0, 0, player ? player.position.z - 10 : -30);
-      divGroup.userData = { name: `✨ ${eggName}`, mult: multVal, speedReq: 0, mutDrop: 'Rainbow', isDivine: true, rewardAmount: multVal * 500 };
-      scene.add(divGroup); 
-      eggsList.push(divGroup);
-
-      document.getElementById('announcement-text').innerText = `🎁 هێلکەی نایابی نوێ (${eggName}) سپاون بوو!`;
-      document.getElementById('global-announcement-banner').style.display = 'flex';
-      alert(`✨ هێلکەی ${eggName} بە سەرکەوتوویی لەبەردەم کەسایەتییەکەت سپاون کرا!`);
-      closeAdminPanel();
-    }
-
-    function giveDivineEggToInventory(eggName, multVal) {
-      let uObj = usersDB[currentUser];
-      if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
-      uObj.inventoryEggs.push({ name: `✨ ${eggName}`, mult: multVal, mutDrop: 'Rainbow' });
-      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-      alert(`🎒 هێلکەی (${eggName}) بە سەرکەوتوویی خرایە ناو کۆگای هێلکەکانت!`);
-      closeAdminPanel();
-    }
-
-    function modifyRobuxForPlayer(actionType) {
-      const targetUser = document.getElementById('robux-target-user').value.trim();
-      const amount = parseInt(document.getElementById('robux-target-amount').value) || 0;
-      if(!targetUser || !usersDB[targetUser]) {
-        alert('❌ ناوی یاریزان نەدۆزرایەوە یان هەڵەیە!');
-        return;
-      }
-      if(actionType === 'give') {
-        usersDB[targetUser].robux += amount;
-        alert(`✅ بڕی ${amount} ڕۆبوکس درا بە یاریزان ${targetUser}!`);
-      } else {
-        usersDB[targetUser].robux = Math.max(0, usersDB[targetUser].robux - amount);
-        alert(`✅ بڕی ${amount} ڕۆبوکس لە یاریزان ${targetUser} کەمکرایەوە!`);
-      }
-      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-      if(targetUser === currentUser) {
-        document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      }
-      openAdminPanel();
-    }
-
-    function triggerAirplaneTrailerFromAdmin() {
-      let bannerText = document.getElementById('trailer-banner-text').value.trim();
-      if(!bannerText) bannerText = "HAMA DEV v3.0 ULTIMATE ✈️ kurdistan";
-      localStorage.setItem('hamadev_airplane_trailer', bannerText);
-      showAirplaneBanner(bannerText);
-      alert('✈️ فڕۆکەی ترەیلەر بە سەرکەوتوویی لە ئاسمانی ماپەکەدا سپاون کرا!');
-      closeAdminPanel();
-      if(typeof spawnAirplaneInGame === 'function') spawnAirplaneInGame(bannerText);
-    }
-
-    function showAirplaneBanner(text) {
-      const banner = document.getElementById('airplane-banner-hud');
-      const textSpan = document.getElementById('airplane-hud-text');
-      if(banner && textSpan) {
-        textSpan.innerText = text;
-        banner.style.display = 'block';
-      }
-    }
-
-    function showInGameAdminMessage(text) {
-      const hud = document.getElementById('in-game-admin-hud');
-      if(hud) {
-        hud.innerText = "📢 پەیامی ئۆنەر: " + text;
-        hud.style.display = 'block';
-      }
-    }
-
-    function openAdminPanel() {
-      updateAdminUsersList();
-      document.getElementById('admin-modal').style.display = 'flex';
-
-      if(adminRefreshInterval) clearInterval(adminRefreshInterval);
-      adminRefreshInterval = setInterval(() => {
-        usersDB = JSON.parse(localStorage.getItem('hamadev_store_users') || '{}');
-        bannedDB = JSON.parse(localStorage.getItem('hamadev_store_banned') || '[]');
-        mutedDB = JSON.parse(localStorage.getItem('hamadev_store_muted') || '[]');
-        updateAdminUsersList();
-      }, 4000);
-    }
-
-    function updateAdminUsersList() {
-      const listEl = document.getElementById('admin-users-list');
-      if(!listEl) return;
-      listEl.innerHTML = '';
-      for (let uname in usersDB) {
-        const isBanned = bannedDB.includes(uname);
-        const isMuted = mutedDB.includes(uname);
-        listEl.innerHTML += `
-          <div class="user-row">
-            <div class="user-info-text">
-              <span><b>${uname}</b> (${usersDB[uname].robux.toLocaleString()} R$)</span>
-              <span class="${isBanned ? 'status-banned' : (isMuted ? 'status-muted' : 'status-active')}">
-                ${isBanned ? '🚫 باندکراوە' : (isMuted ? '🔇 میوتکراوە' : '✅ چالاکە')}
-              </span>
-            </div>
-            <div class="admin-action-btns">
-              <button class="login-as-btn" onclick="loginAsUser('${uname}')">چوونەژوورەوە</button>
-              <button class="give-robux-btn" onclick="quickGiveRobux('${uname}')">+500 R$</button>
-              <button class="mute-btn" onclick="toggleMuteUser('${uname}')">${isMuted ? 'لابردنی میوت' : 'میوت'}</button>
-              ${uname !== 'rip_hama276' ? `<button class="ban-btn" onclick="banUser('${uname}')">باند</button>` : ''}
-            </div>
-          </div>
-        `;
-      }
-    }
-
-    function closeAdminPanel() {
-      if(adminRefreshInterval) clearInterval(adminRefreshInterval);
-      document.getElementById('admin-modal').style.display = 'none';
-    }
-
-    function loginAsUser(uname) { currentUser = uname; localStorage.setItem('hamadev_store_current', currentUser); closeAdminPanel(); showDashboard(); }
-    function quickGiveRobux(uname) { usersDB[uname].robux += 500; localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB)); updateAdminUsersList(); }
-    
-    function toggleMuteUser(uname) {
-      if(mutedDB.includes(uname)) {
-        mutedDB = mutedDB.filter(u => u !== uname);
-        alert(`🔊 یاریزان ${uname} لە میوت دەرچوو.`);
-      } else {
-        mutedDB.push(uname);
-        alert(`🔇 یاریزان ${uname} میوت کرا.`);
-      }
-      localStorage.setItem('hamadev_store_muted', JSON.stringify(mutedDB));
-      updateAdminUsersList();
-    }
-
-    function banUser(uname) {
-      bannedDB.push(uname);
-      localStorage.setItem('hamadev_store_banned', JSON.stringify(bannedDB));
-      updateAdminUsersList();
-    }
-
-    function sendVerificationEmail() {
-      const email = document.getElementById('settings-email').value.trim();
-      if (!email || !email.includes('@')) { alert('تکایە ئیمەیڵێکی ڕاست بنووسە!'); return; }
-      pendingVerifyCode = Math.floor(1000 + Math.random() * 9000).toString();
-      document.getElementById('kurdish-mail-notice').innerHTML = `📩 کۆدی ڤێریفای: <b style="color:var(--robux-gold);">${pendingVerifyCode}</b>`;
-      document.getElementById('verify-box').style.display = 'block';
-    }
-
-    function confirmVerification() {
-      if (document.getElementById('verify-code-input').value.trim() === pendingVerifyCode) {
-        usersDB[currentUser].verified = true;
-        localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-        alert('🎉 ئەکاونتەکەت ڤێریفای کرا.');
-        document.getElementById('verify-box').style.display = 'none';
-      } else { alert('❌ کۆدەکە هەڵەیە قبۆڵ ناکرێت!'); }
-    }
-
-    let scene, camera, renderer, player, shopBooth, jackiaBooth, petObj, vehicleMesh, auraMesh, shieldMesh, animationId, supersonicPadMesh, megaJumpPadMesh, turboPadMesh, airplaneMesh;
-    let keys = { up: false, down: false, left: false, right: false, jump: false };
-    let gameScore = 0, carriedEggs = 0, carriedValueMultiplier = 1, maxCapacity = 1, playerSpeed = 0.25, eggsList = [], shopOpen = false, jackiaOpen = false;
-    let movingGuardsList = [];
-
-    function toggleDiscoMode() {
-      isDiscoActive = !isDiscoActive;
-      document.getElementById('disco-status-lbl').innerText = isDiscoActive ? 'کوژاندنەوە' : 'داگیرساندن';
-      alert(isDiscoActive ? '🪩 دیسکۆ لایت (Rainbow Disco) چالاک بوو!' : '💤 دیسکۆ لایت کوژایەوە.');
-    }
-
-    function buySpeed(speedVal, robuxCost) {
-      if (usersDB[currentUser].robux < robuxCost) { alert('ڕووبوکس (Robux)ت پێنییە!'); return; }
-      usersDB[currentUser].robux -= robuxCost;
-      usersDB[currentUser].savedSpeed = speedVal;
-      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-      
-      document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      playerSpeed = speedVal / 100;
-      document.getElementById('speed-display').innerText = speedVal;
-      alert(`⚡ پیرۆزە! خێرایی ${speedVal} کڕرا و پاشەکەوت (Save) کرا!`);
-      closeShopModal();
-    }
-
-    function buyCapacity(capVal, robuxCost) {
-      if (usersDB[currentUser].robux < robuxCost) { alert('ڕووبوکس (Robux)ت پێنییە!'); return; }
-      usersDB[currentUser].robux -= robuxCost;
-      usersDB[currentUser].savedCapacity = capVal;
-      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-
-      document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      maxCapacity = capVal;
-      document.getElementById('max-capacity').innerText = maxCapacity;
-      alert(`🥚 پیرۆزە! توانای ${capVal} هێلکە کڕرا و پاشەکەوت (Save) کرا!`);
-      closeShopModal();
-    }
-
-    function closeShopModal() { document.getElementById('shop-modal').style.display = 'none'; shopOpen = false; }
-
-    function openJackiaModal() {
-      document.getElementById('jackia-modal').style.display = 'flex';
-      jackiaOpen = true;
-    }
-
-    function closeJackiaModal() {
-      document.getElementById('jackia-modal').style.display = 'none';
-      jackiaOpen = false;
-    }
-
-    function spinJackiaWheel() {
-      if(gameScore < 200) { alert('❌ خاڵی پێویستت نییە (کەمتر لە 200 خاڵ)! یاری بکە و خاڵ کۆبکەرەوە.'); return; }
-      gameScore -= 200;
-      document.getElementById('game-score').innerText = gameScore;
-      
-      let randReward = Math.random();
-      if(randReward > 0.4) {
-        usersDB[currentUser].robux += 500;
-        localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-        document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-        alert('🎰 پیرۆزە! لە چەرخەی جاکیا ٥٠٠ ڕۆبۆکس ڕوویدا و درا بە ئەکاونتەکەت!');
-      } else {
-        let uObj = usersDB[currentUser];
-        if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
-        uObj.inventoryEggs.push({ name: 'هێلکەی بەختی جاکیا (Jackia Lucky)', mult: 5, mutDrop: 'Rainbow' });
-        localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-        alert('🥚 پیرۆزە! لە چەرخەی جاکیا هێلکەیەکی نایابی ڕەینبۆ دەچوو بۆ کۆگاکەت!');
-      }
-      closeJackiaModal();
-    }
-
-    function buyJackiaEgg(eggName, costPoints) {
-      if(gameScore < costPoints) { alert(`❌ خاڵی پێویستت نییە! پێویستت بە ${costPoints} خاڵ هەیە.`); return; }
-      gameScore -= costPoints;
-      document.getElementById('game-score').innerText = gameScore;
-
-      let uObj = usersDB[currentUser];
-      if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
-      uObj.inventoryEggs.push({ name: eggName, mult: 8, mutDrop: 'Rainbow' });
-      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-      alert(`🎉 پیرۆزە! ${eggName} کڕرا و چوە ناو کۆگای هێلکەکانت.`);
-      closeJackiaModal();
-    }
-
-    function openGardenModal() {
-      let uObj = usersDB[currentUser];
-      if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
-      if(!uObj.hatchingSlots) uObj.hatchingSlots = [];
-      if(!uObj.collectedPets) uObj.collectedPets = [];
-
-      renderGardenUI();
-      document.getElementById('garden-modal').style.display = 'flex';
-    }
-
-    function closeGardenModal() {
-      document.getElementById('garden-modal').style.display = 'none';
-    }
-
-    function renderGardenUI() {
-      let uObj = usersDB[currentUser];
-      
-      let storeListEl = document.getElementById('garden-storage-list');
-      storeListEl.innerHTML = '';
-      if(uObj.inventoryEggs.length === 0) {
-        storeListEl.innerHTML = `<p style="font-size:11px; color:var(--text-muted);">هیچ هێلکەیەک لە کۆگا نییە. هێلکە لە یاری بڕفێنە یان لە وێستگەی جاکیا دابنە!</p>`;
-      } else {
-        uObj.inventoryEggs.forEach((egg, idx) => {
-          storeListEl.innerHTML += `
-            <div class="garden-slot">
-              <span>🥚 ${egg.name} ${egg.mutDrop ? '⚡['+egg.mutDrop+']' : ''} (x${egg.mult})</span>
-              <button class="hatch-action-btn" onclick="placeEggInGarden(${idx})">دانان لە باخجە</button>
-            </div>
-          `;
-        });
-      }
-
-      let slotsListEl = document.getElementById('hatching-slots-list');
-      slotsListEl.innerHTML = '';
-      if(uObj.hatchingSlots.length === 0) {
-        slotsListEl.innerHTML = `<p style="font-size:11px; color:var(--text-muted);">هیچ هێلکەیەک لەسەر کاتژمێر نییە.</p>`;
-      } else {
-        let now = Date.now();
-        uObj.hatchingSlots.forEach((slot, sIdx) => {
-          let timeLeft = Math.max(0, Math.ceil((slot.endTime - now) / 1000));
-          slotsListEl.innerHTML += `
-            <div class="garden-slot">
-              <span>🥚 ${slot.name} ⚡ [${slot.mutType}]</span>
-              <span style="color:var(--robux-gold); font-weight:bold;">${timeLeft > 0 ? '⏳ ' + timeLeft + ' چرکە ماوە' : '✨ شکاوە!'}</span>
-            </div>
-          `;
-        });
-      }
-
-      let petsBox = document.getElementById('collected-pets-box');
-      petsBox.innerHTML = '';
-      if(uObj.collectedPets.length === 0) {
-        petsBox.innerHTML = `<span style="font-size:11px; color:var(--text-muted);">هێشتا هیچ پێتێک نەشکاوە.</span>`;
-      } else {
-        uObj.collectedPets.forEach(pet => {
-          let mutLabel = pet.mutationType ? ` ⚡(${pet.mutationType})` : '';
-          petsBox.innerHTML += `
-            <div class="pet-card">
-              <b>🐾 ${pet.name}</b><br>
-              <span style="color:var(--robux-gold);">Bonus: +${pet.bonus}x${mutLabel}</span>
-            </div>
-          `;
-        });
-      }
-    }
-
-    function placeEggInGarden(index) {
-      let uObj = usersDB[currentUser];
-      let egg = uObj.inventoryEggs.splice(index, 1)[0];
-      
-      let hatchTimeSec = egg.mult === 1 ? 10 : (egg.mult === 2 ? 25 : 40);
-      let chosenMut = egg.mutDrop || ['Gold', 'Taco', 'Diamond', 'Rainbow'][Math.floor(Math.random() * 4)];
-      
-      uObj.hatchingSlots.push({
-        name: egg.name,
-        mult: egg.mult,
-        mutType: chosenMut,
-        endTime: Date.now() + (hatchTimeSec * 1000)
-      });
-
-      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-      renderGardenUI();
-    }
-
-    setInterval(() => {
-      if(!currentUser || !usersDB[currentUser]) return;
-      let uObj = usersDB[currentUser];
-      if(!uObj.hatchingSlots || uObj.hatchingSlots.length === 0) return;
-
-      let now = Date.now();
-      let updated = false;
-
-      uObj.hatchingSlots = uObj.hatchingSlots.filter(slot => {
-        if(now >= slot.endTime) {
-          let petNames = ['Doggy', 'Dragon', 'Phoenix', 'Nuclear Beast', 'Shadow Demon', 'Mecha Titan', 'Hama God'];
-          let baseName = petNames[Math.floor(Math.random() * petNames.length)];
-          let finalMult = slot.mult * (slot.mutType === 'Rainbow' ? 50 : (slot.mutType === 'Diamond' ? 20 : (slot.mutType === 'Taco' ? 15 : 10)));
-          let petFullName = `⚡ ${slot.mutType} ${baseName} (x${finalMult})`;
-          
-          uObj.collectedPets.push({ name: petFullName, bonus: finalMult * 10, mutationType: slot.mutType });
-          updated = true;
-          return false;
-        }
-        return true;
-      });
-
-      if(updated) {
-        localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-      }
-
-      if(document.getElementById('garden-modal').style.display === 'flex') {
-        renderGardenUI();
-      }
-    }, 1000);
-
-    function setupMobileTouchEvents() {
-      const bindTouch = (id, keyName) => {
-        const btn = document.getElementById(id);
-        if(!btn) return;
-        btn.addEventListener('touchstart', (e) => { e.preventDefault(); keys[keyName] = true; }, {passive: false});
-        btn.addEventListener('touchend', (e) => { e.preventDefault(); keys[keyName] = false; }, {passive: false});
-        btn.addEventListener('mousedown', () => { keys[keyName] = true; });
-        btn.addEventListener('mouseup', () => { keys[keyName] = false; });
-      };
-      bindTouch('btn-up', 'up'); bindTouch('btn-down', 'down');
-      bindTouch('btn-left', 'left'); bindTouch('btn-right', 'right');
-      bindTouch('btn-jump', 'jump');
-    }
-
-    function spawnAllEggs() {
-      eggsList.forEach(e => { if(e) scene.remove(e); });
-      eggsList = [];
-      movingGuardsList = [];
-      
-      const biomesList = isOwnerSecondCityGame ? [
-        { name: 'Cherry Blossom (چرۆی گێلاس)', guard: 'پڵنگی ئۆنی (Oni Tiger)', color: 0xf472b6, mult: 12 },
-        { name: 'Titan Temple (پەرستگای تایتان)', guard: 'پاشای گۆریلا (Gorilla King)', color: 0x38bdf8, mult: 15 },
-        { name: 'Angels & Demons (فریشتە و شەیتانەکان)', guard: 'ArchAngel / World Burner', color: 0xa855f7, mult: 20 }
-      ] : [
-        { name: 'دارستان (Forest)', guard: 'مریشک (Chicken)', color: 0x10b981, mult: 1 },
-        { name: 'دەریاچە (Lake)', guard: 'قاز (Swan)', color: 0x38bdf8, mult: 2 },
-        { name: 'بیابان (Desert)', guard: 'مار (Snake)', color: 0xfbbf24, mult: 3 },
-        { name: 'جەنگەڵ (Jungle)', guard: 'پڵنگ (Tiger)', color: 0x059669, mult: 4 },
-        { name: 'بەفر (Snow)', guard: 'دێوی بەفر (Yeti)', color: 0xe0f2fe, mult: 5 },
-        { name: 'گڕکان (Volcano)', guard: 'سەگی سێ سەر (Cerberus)', color: 0xef4444, mult: 6 },
-        { name: 'زەریا (Abyss Ocean)', guard: 'نەهەنگی سپی (Beluga)', color: 0x1d4ed8, mult: 7 },
-        { name: 'پێش مێژوو (Prehistoric)', guard: 'تی ڕێکس (T-Rex)', color: 0x84cc16, mult: 8 },
-        { name: 'گەردوون (Cosmic)', guard: 'پەیکەری گەردوونی (Skeleton)', color: 0xa855f7, mult: 10 }
-      ];
-      
-      let maxEggsToSpawn = biomesList.length;
-      for (let i = 0; i < maxEggsToSpawn; i++) {
-        let b = biomesList[i];
-        const eggGroup = new THREE.Group();
-
-        const eggGeo = new THREE.SphereGeometry(0.6, 16, 16); eggGeo.scale(1, 1.3, 1);
-        const eggMesh = new THREE.Mesh(eggGeo, new THREE.MeshBasicMaterial({ color: b.color }));
-        eggGroup.add(eggMesh);
-
-        const guardGeo = new THREE.BoxGeometry(0.5, 1.1, 0.5);
-        const guardMat = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-        const guardMesh = new THREE.Mesh(guardGeo, guardMat);
-        guardMesh.position.set(1.4, 0.55, 0);
-        eggGroup.add(guardMesh);
-        movingGuardsList.push(guardMesh);
-
-        let zPos = -(i * 25) - 8;
-        eggGroup.position.set(((i % 2 === 0 ? 1 : -1) * (Math.random() * 8 + 3)), 0, zPos);
-        eggGroup.userData = { name: `${b.name} - پاسەوان: ${b.guard}`, mult: b.mult, speedReq: 0, mutDrop: 'Rainbow', isDivine: false };
-        scene.add(eggGroup); eggsList.push(eggGroup);
-      }
-    }
-
-    function createFieryHornsAvatar(parentGroup) {
-      const fireHeadGeo = new THREE.SphereGeometry(0.5, 16, 16);
-      const fireHeadMat = new THREE.MeshBasicMaterial({ color: 0xff8c00 });
-      const fireHead = new THREE.Mesh(fireHeadGeo, fireHeadMat);
-      fireHead.position.set(0, 2.7, 0);
-      parentGroup.add(fireHead);
-
-      const horn1Geo = new THREE.CylinderGeometry(0.08, 0.25, 1.2, 8);
-      const hornMat = new THREE.MeshBasicMaterial({ color: 0xd97706 });
-      const horn1 = new THREE.Mesh(horn1Geo, hornMat);
-      horn1.position.set(-0.55, 2.8, 0);
-      horn1.rotation.z = -0.5;
-      parentGroup.add(horn1);
-
-      const horn2 = new THREE.Mesh(horn1Geo, hornMat);
-      horn2.position.set(0.55, 2.8, 0);
-      horn2.rotation.z = 0.5;
-      parentGroup.add(horn2);
-    }
-
-    function spawnAirplaneInGame(bannerText) {
-      if(!scene) return;
-      if(airplaneMesh) scene.remove(airplaneMesh);
-
-      airplaneMesh = new THREE.Group();
-      const body = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.0, 4.0), new THREE.MeshBasicMaterial({ color: 0xef4444 }));
-      const wings = new THREE.Mesh(new THREE.BoxGeometry(6.0, 0.2, 1.5), new THREE.MeshBasicMaterial({ color: 0xffffff }));
-      const tail = new THREE.Mesh(new THREE.BoxGeometry(0.2, 1.2, 1.0), new THREE.MeshBasicMaterial({ color: 0x10b981 }));
-      tail.position.set(0, 0.8, -1.5);
-      
-      airplaneMesh.add(body); airplaneMesh.add(wings); airplaneMesh.add(tail);
-      airplaneMesh.position.set(0, 15, -20);
-      scene.add(airplaneMesh);
-    }
-
-    function startStealAnEggGame() {
-      isOwnerSecondCityGame = false;
-      initGameEngine();
-    }
-
-    function startOwnerSecondCityGame() {
-      isOwnerSecondCityGame = true;
-      initGameEngine();
-    }
-
-    function initGameEngine() {
-      document.getElementById('game-container').style.display = 'flex';
-      gameScore = 0; carriedEggs = 0; carriedValueMultiplier = 1; shopOpen = false; jackiaOpen = false;
-      raceSeconds = 0;
-      if(raceTimerInterval) clearInterval(raceTimerInterval);
-      raceTimerInterval = setInterval(() => {
-        raceSeconds++;
-        let m = Math.floor(raceSeconds / 60).toString().padStart(2, '0');
-        let s = (raceSeconds % 60).toString().padStart(2, '0');
-        let timerEl = document.getElementById('race-timer');
-        if(timerEl) timerEl.innerText = `${m}:${s}`;
-      }, 1000);
-
-      let userObj = usersDB[currentUser] || {};
-      playerSpeed = (userObj.savedSpeed ? userObj.savedSpeed : 25) / 100;
-      maxCapacity = userObj.savedCapacity ? userObj.savedCapacity : 1;
-
-      document.getElementById('game-score').innerText = gameScore;
-      document.getElementById('carried-count').innerText = carriedEggs;
-      document.getElementById('max-capacity').innerText = maxCapacity;
-      document.getElementById('speed-display').innerText = Math.round(playerSpeed * 100);
-
-      if (currentUser === 'rip_hama276') {
-        document.getElementById('in-game-owner-btn').style.display = 'inline-flex';
-      } else {
-        document.getElementById('in-game-owner-btn').style.display = 'none';
-      }
-
-      let activeBroadcast = localStorage.getItem('hamadev_broadcast_msg');
-      if(activeBroadcast) {
-        showInGameAdminMessage(activeBroadcast);
-      }
-
-      let activeAirplane = localStorage.getItem('hamadev_airplane_trailer');
-      if(activeAirplane) {
-        showAirplaneBanner(activeAirplane);
-        spawnAirplaneInGame(activeAirplane);
-      }
-
-      const canvas = document.getElementById('game-canvas');
-      scene = new THREE.Scene();
-      scene.background = new THREE.Color(isOwnerSecondCityGame ? 0x2e1065 : 0x090d16);
-
-      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-      renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-
-      scene.add(new THREE.AmbientLight(0xffffff, 1));
-
-      player = new THREE.Group();
-      let shirtColor = (currentUser === 'rip_hama276' || userObj.hasVIP) ? 0xfbbf24 : 0x10b981;
-      const torso = new THREE.Mesh(new THREE.BoxGeometry(1, 1.2, 0.6), new THREE.MeshBasicMaterial({ color: shirtColor }));
-      torso.position.y = 1.2; player.add(torso);
-      const head = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.7, 0.7), new THREE.MeshBasicMaterial({ color: 0xffdbac }));
-      head.position.y = 2.15; player.add(head);
-
-      if(currentUser === 'rip_hama276' || userObj.hasVIP) {
-        createFieryHornsAvatar(player);
-      }
-
-      vehicleMesh = new THREE.Group();
-      const vBase = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.7, 2.8), new THREE.MeshBasicMaterial({ color: 0xfbbf24 }));
-      vBase.position.y = 0.5;
-      const vWing = new THREE.Mesh(new THREE.BoxGeometry(4.0, 0.12, 1.2), new THREE.MeshBasicMaterial({ color: 0xa855f7 }));
-      vWing.position.set(0, 0.9, 0);
-      vehicleMesh.add(vBase); vehicleMesh.add(vWing);
-      vehicleMesh.position.set(0, 0, 0);
-      player.add(vehicleMesh);
-
-      if(userObj.collectedPets && userObj.collectedPets.length > 0) {
-        auraMesh = new THREE.Mesh(new THREE.SphereGeometry(1.8, 16, 16), new THREE.MeshBasicMaterial({ color: 0xfbbf24, wireframe: true }));
-        auraMesh.position.y = 1.2; player.add(auraMesh);
-      }
-
-      if(userObj.hasShield) {
-        shieldMesh = new THREE.Mesh(new THREE.SphereGeometry(1.6, 16, 16), new THREE.MeshBasicMaterial({ color: 0x38bdf8 }));
-        shieldMesh.position.y = 1.2; player.add(shieldMesh);
-      }
-
-      const limbGeo = new THREE.BoxGeometry(0.4, 1.2, 0.4);
-      const skinMat = new THREE.MeshBasicMaterial({ color: 0xffdbac });
-      const pantsMat = new THREE.MeshBasicMaterial({ color: 0x1e293b });
-
-      const leftArm = new THREE.Mesh(limbGeo, skinMat); leftArm.position.set(-0.7, 1.2, 0); player.add(leftArm);
-      const rightArm = new THREE.Mesh(limbGeo, skinMat); rightArm.position.set(0.7, 1.2, 0); player.add(rightArm);
-      const leftLeg = new THREE.Mesh(limbGeo, pantsMat); leftLeg.position.set(-0.3, 0.4, 0); player.add(leftLeg);
-      const rightLeg = new THREE.Mesh(limbGeo, pantsMat); rightLeg.position.set(0.3, 0.4, 0); player.add(rightLeg);
-
-      player.position.set(0, 1, 15);
-      scene.add(player);
-
-      let petColor = userObj.hasGoldenPet ? 0xffd700 : 0xffaa00;
-      petObj = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.5), new THREE.MeshBasicMaterial({ color: petColor }));
-      scene.add(petObj);
-
-      shopBooth = new THREE.Group();
-      const boothBase = new THREE.Mesh(new THREE.BoxGeometry(3, 1.5, 2), new THREE.MeshBasicMaterial({ color: 0xfbbf24 }));
-      boothBase.position.y = 0.75; shopBooth.add(boothBase);
-      shopBooth.position.set(-8, 0, 5);
-      scene.add(shopBooth);
-
-      jackiaBooth = new THREE.Group();
-      const jBase = new THREE.Mesh(new THREE.BoxGeometry(3, 2, 2), new THREE.MeshBasicMaterial({ color: 0xa855f7 }));
-      jBase.position.y = 1; jackiaBooth.add(jBase);
-      jackiaBooth.position.set(8, 0, 5);
-      scene.add(jackiaBooth);
-
-      let floorDepth = isOwnerSecondCityGame ? 300 : 250;
-      const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, floorDepth), new THREE.MeshBasicMaterial({ color: isOwnerSecondCityGame ? 0x2e1065 : 0x064e3b }));
-      floor.rotation.x = -Math.PI / 2; floor.position.z = -80; scene.add(floor);
-
-      supersonicPadMesh = new THREE.Mesh(new THREE.BoxGeometry(6, 0.2, 6), new THREE.MeshBasicMaterial({ color: 0xf97316 }));
-      supersonicPadMesh.position.set(0, 0.05, -50); 
-      scene.add(supersonicPadMesh);
-
-      megaJumpPadMesh = new THREE.Mesh(new THREE.BoxGeometry(5, 0.25, 5), new THREE.MeshBasicMaterial({ color: 0xd97706 }));
-      megaJumpPadMesh.position.set(0, 0.05, -30);
-      scene.add(megaJumpPadMesh);
-
-      turboPadMesh = new THREE.Mesh(new THREE.BoxGeometry(6, 0.25, 6), new THREE.MeshBasicMaterial({ color: 0x00ffcc }));
-      turboPadMesh.position.set(0, 0.05, -70);
-      scene.add(turboPadMesh);
-
-      const homeBase = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 0.1, 32), new THREE.MeshBasicMaterial({ color: 0x3b82f6 }));
-      homeBase.position.set(0, 0.05, 15); scene.add(homeBase);
-
-      spawnAllEggs();
-
-      camera.position.set(0, 8, 26);
-      camera.lookAt(player.position);
-
-      window.addEventListener('keydown', onKeyDown);
-      window.addEventListener('keyup', onKeyUp);
-      animate();
-    }
-
-    function onKeyDown(e) {
-      if (e.code === 'KeyW' || e.code === 'ArrowUp') keys.up = true;
-      if (e.code === 'KeyS' || e.code === 'ArrowDown') keys.down = true;
-      if (e.code === 'KeyA' || e.code === 'ArrowLeft') keys.left = true;
-      if (e.code === 'KeyD' || e.code === 'ArrowRight') keys.right = true;
-      if (e.code === 'Space') keys.jump = true;
-    }
-
-    function onKeyUp(e) {
-      if (e.code === 'KeyW' || e.code === 'ArrowUp') keys.up = false;
-      if (e.code === 'KeyS' || e.code === 'ArrowDown') keys.down = false;
-      if (e.code === 'KeyA' || e.code === 'ArrowLeft') keys.left = false;
-      if (e.code === 'KeyD' || e.code === 'ArrowRight') keys.right = false;
-      if (e.code === 'Space') keys.jump = false;
-    }
-
-    function animate() {
-      animationId = requestAnimationFrame(animate);
-      let moveX = 0; let moveZ = 0;
-
-      let eggScoreBonusSpeed = Math.min(5.0, gameScore / 1000);
-      let supersonicBoost = (supersonicPadMesh && player.position.distanceTo(supersonicPadMesh.position) < 3.5) ? 3.5 : 1.0;
-      let turboBoost = (turboPadMesh && player.position.distanceTo(turboPadMesh.position) < 3.5) ? 5.0 : 1.0;
-      let currentActiveSpeed = (playerSpeed + eggScoreBonusSpeed + 0.2) * supersonicBoost * turboBoost;
-
-      if (megaJumpPadMesh && player.position.distanceTo(megaJumpPadMesh.position) < 3.5) {
-        player.position.y = 8.5;
-      }
-
-      movingGuardsList.forEach((g, idx) => {
-        if(g) {
-          g.rotation.y += 0.08;
-          g.position.x = Math.sin(Date.now() * 0.005 + idx) * 1.8;
-          g.position.z = Math.cos(Date.now() * 0.005 + idx) * 1.8;
-        }
-      });
-
-      if (keys.up) moveZ -= currentActiveSpeed;
-      if (keys.down) moveZ += currentActiveSpeed;
-      if (keys.left) moveX -= currentActiveSpeed;
-      if (keys.right) moveX += currentActiveSpeed;
-
-      if (moveX !== 0 || moveZ !== 0) {
-        player.position.x += moveX;
-        player.position.z += moveZ;
-        player.rotation.y = Math.atan2(moveX, moveZ);
-      }
-
-      if (keys.jump && player.position.y <= 1.05) player.position.y = 3.8;
-      if (player.position.y > 1.0) player.position.y -= 0.12;
-      else player.position.y = 1.0;
-
-      if (petObj) {
-        petObj.position.x = player.position.x + Math.sin(Date.now() * 0.005) * 1.5;
-        petObj.position.z = player.position.z + Math.cos(Date.now() * 0.005) * 1.5;
-        petObj.position.y = 1.0 + Math.sin(Date.now() * 0.01) * 0.3;
-      }
-
-      if (vehicleMesh) vehicleMesh.rotation.y += 0.1;
-      if (auraMesh) auraMesh.rotation.y += 0.03;
-
-      if(airplaneMesh) {
-        airplaneMesh.position.z -= 0.2;
-        if(airplaneMesh.position.z < -150) airplaneMesh.position.z = 50;
-      }
-
-      if(isDiscoActive && scene) {
-        let r = Math.sin(Date.now() * 0.003) * 0.5 + 0.5;
-        let g = Math.cos(Date.now() * 0.004) * 0.5 + 0.5;
-        let b = Math.sin(Date.now() * 0.005) * 0.5 + 0.5;
-        scene.background = new THREE.Color(r, g, b);
-      }
-
-      if (!shopOpen && player.position.distanceTo(shopBooth.position) < 2.5) {
-        shopOpen = true;
-        document.getElementById('shop-modal').style.display = 'flex';
-      } else if (shopOpen && player.position.distanceTo(shopBooth.position) > 3.5) {
-        closeShopModal();
-      }
-
-      if (!jackiaOpen && player.position.distanceTo(jackiaBooth.position) < 2.5) {
-        jackiaOpen = true;
-        openJackiaModal();
-      } else if (jackiaOpen && player.position.distanceTo(jackiaBooth.position) > 3.5) {
-        closeJackiaModal();
-      }
-
-      eggsList.forEach((eggObj, idx) => {
-        if (eggObj && carriedEggs < maxCapacity && player.position.distanceTo(eggObj.position) < 1.4) {
-          let uObj = usersDB[currentUser];
-          let coinMultiplierVal = uObj.hasCoinMultiplier ? 3 : 1;
-
-          if(eggObj.userData && eggObj.userData.isDivine) {
-            let winAmount = (eggObj.userData.rewardAmount || 1090) * coinMultiplierVal;
-            usersDB[currentUser].robux += winAmount;
-            localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-            document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-            localStorage.removeItem('hamadev_divine_spawned');
-            document.getElementById('global-announcement-banner').style.display = 'none';
-            alert(`🎉 پیرۆزە! هێلکەی نایاب (${eggObj.userData.name}) بە زەربی x${coinMultiplierVal} بردەوە!`);
-          }
-
-          if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
-          uObj.inventoryEggs.push({ name: eggObj.userData.name, mult: eggObj.userData.mult * coinMultiplierVal, mutDrop: eggObj.userData.mutDrop });
-          localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-
-          carriedValueMultiplier = (eggObj.userData ? eggObj.userData.mult : 1) * coinMultiplierVal;
-          scene.remove(eggObj);
-          eggsList[idx] = null;
-          carriedEggs++;
-          document.getElementById('carried-count').innerText = carriedEggs;
-        }
-      });
-
-      if (eggsList.length > 0 && eggsList.every(e => e === null)) spawnAllEggs();
-
-      if (carriedEggs > 0 && player.position.distanceTo(new THREE.Vector3(0, 1, 15)) < 3.5) {
-        let uObj = usersDB[currentUser];
-        let mutantBonusSum = 0;
-        if(uObj.collectedPets) {
-          uObj.collectedPets.forEach(p => { if(p.bonus) mutantBonusSum += p.bonus; });
-        }
-
-        let coinMult = uObj.hasCoinMultiplier ? 3 : 1;
-        let pointsEarned = ((carriedEggs * 1000 * carriedValueMultiplier) + mutantBonusSum) * coinMult;
-        let robuxEarned = ((carriedEggs * 25 * carriedValueMultiplier) + Math.floor(mutantBonusSum / 10)) * coinMult;
-        
-        gameScore += pointsEarned;
-        usersDB[currentUser].robux += robuxEarned;
-        localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
-
-        carriedEggs = 0; carriedValueMultiplier = 1;
-        document.getElementById('game-score').innerText = gameScore;
-        document.getElementById('carried-count').innerText = carriedEggs;
-        document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
-      }
-
-      camera.position.x = player.position.x;
-      camera.position.z = player.position.z + 12;
-      camera.lookAt(player.position);
-
-      renderer.render(scene, camera);
-    }
-
-    function exitGame() {
-      cancelAnimationFrame(animationId);
-      if(raceTimerInterval) clearInterval(raceTimerInterval);
-      document.getElementById('game-container').style.display = 'none';
-      const hud = document.getElementById('in-game-admin-hud');
-      const airplaneBanner = document.getElementById('airplane-banner-hud');
-      if(hud) hud.style.display = 'none';
-      if(airplaneBanner) airplaneBanner.style.display = 'none';
-    }
-  </script>
-</body>
-</html>
-<!DOCTYPE html>
+      let uObj = usersDB[cu<!DOCTYPE html>
 <html lang="ckb" dir="rtl">
 <head>
   <meta charset="UTF-8">
@@ -2805,6 +2000,811 @@
       cancelAnimationFrame(animationId);
       if(raceTimerInterval) clearInterval(raceTimerInterval);
       document.getElementById('game-container').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
+rrentUser];
+      if(!uObj.collectedPets) uObj.collectedPets = [];
+      uObj.collectedPets.push({
+        name: `✨ Admin ${type} Pet (${type})`,
+        bonus: multiplier * 15,
+        mutationType: type
+      });
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      alert(`🧬 موتەیشنی ${type} (${multiplier}x) بە سەرکەوتوویی بۆ ئەکاونتەکەت دروست بوو!`);
+      closeAdminPanel();
+    }
+
+    function addAllMutationsToAdmin() {
+      let uObj = usersDB[currentUser];
+      if(!uObj.collectedPets) uObj.collectedPets = [];
+      uObj.collectedPets.push({ name: '✨ Gold Dragon', bonus: 150, mutationType: 'Gold' });
+      uObj.collectedPets.push({ name: '🌮 Taco Cat', bonus: 200, mutationType: 'Taco' });
+      uObj.collectedPets.push({ name: '💎 Diamond Wolf', bonus: 300, mutationType: 'Diamond' });
+      uObj.collectedPets.push({ name: '🌈 Rainbow Phoenix', bonus: 500, mutationType: 'Rainbow' });
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      alert('🚀 سەرجەم موتەیشنەکان (Gold, Taco, Diamond, Rainbow) بۆ ئەکاونتەکەت چالاک بون!');
+      closeAdminPanel();
+    }
+
+    function adminTeleportPlayer(destType) {
+      if(!player) {
+        alert('❌ تکایە سەرەتا یارییەکە بکەرەوە و بچۆ ناو ماپەکەوە!');
+        return;
+      }
+      if(destType === 'start') {
+        player.position.set(0, 1, 15);
+        alert('📍 تێلێپۆرت کرا بۆ سەرەتای ماپ (Home Spawn)!');
+      } else if(destType === 'eggs') {
+        if(eggsList.length > 0 && eggsList[0]) {
+          player.position.set(eggsList[0].position.x, 1, eggsList[0].position.z + 2);
+          alert('🥚 تێلێپۆرت کرا بۆ لای هێلکەکان!');
+        } else {
+          alert('❌ هیچ هێلکەیەک نەدۆزرایەوە لەسەر ماپ!');
+        }
+      } else if(destType === 'divine') {
+        let foundDivine = eggsList.find(e => e && e.userData && e.userData.isDivine);
+        if(foundDivine) {
+          player.position.set(foundDivine.position.x, 1, foundDivine.position.z + 2);
+          alert('✨ تێلێپۆرت کرا بۆ لای هێلکەی دیڤاین!');
+        } else {
+          player.position.set(0, 1, -50);
+          alert('✨ تێلێپۆرت کرا بۆ ناوچەی دیڤاین!');
+        }
+      }
+      closeAdminPanel();
+    }
+
+    function spawnSpecificDivineEgg(eggName, multVal) {
+      if(!scene) {
+        alert('❌ تکایە پێشتر بڕۆ ناو یارییەکە بۆ ئەوەی هێلکەکە لەسەر ماپەکە سپاون بێت!');
+        return;
+      }
+      const divGroup = new THREE.Group();
+      const divGeo = new THREE.SphereGeometry(1.0, 16, 16); divGeo.scale(1, 1.4, 1);
+      const divineEggObj = new THREE.Mesh(divGeo, new THREE.MeshBasicMaterial({ color: 0xa855f7 }));
+      divGroup.add(divineEggObj);
+
+      divGroup.position.set(0, 0, player ? player.position.z - 10 : -30);
+      divGroup.userData = { name: `✨ ${eggName}`, mult: multVal, speedReq: 0, mutDrop: 'Rainbow', isDivine: true, rewardAmount: multVal * 500 };
+      scene.add(divGroup); 
+      eggsList.push(divGroup);
+
+      document.getElementById('announcement-text').innerText = `🎁 هێلکەی نایابی نوێ (${eggName}) سپاون بوو!`;
+      document.getElementById('global-announcement-banner').style.display = 'flex';
+      alert(`✨ هێلکەی ${eggName} بە سەرکەوتوویی لەبەردەم کەسایەتییەکەت سپاون کرا!`);
+      closeAdminPanel();
+    }
+
+    function giveDivineEggToInventory(eggName, multVal) {
+      let uObj = usersDB[currentUser];
+      if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
+      uObj.inventoryEggs.push({ name: `✨ ${eggName}`, mult: multVal, mutDrop: 'Rainbow' });
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      alert(`🎒 هێلکەی (${eggName}) بە سەرکەوتوویی خرایە ناو کۆگای هێلکەکانت!`);
+      closeAdminPanel();
+    }
+
+    function modifyRobuxForPlayer(actionType) {
+      const targetUser = document.getElementById('robux-target-user').value.trim();
+      const amount = parseInt(document.getElementById('robux-target-amount').value) || 0;
+      if(!targetUser || !usersDB[targetUser]) {
+        alert('❌ ناوی یاریزان نەدۆزرایەوە یان هەڵەیە!');
+        return;
+      }
+      if(actionType === 'give') {
+        usersDB[targetUser].robux += amount;
+        alert(`✅ بڕی ${amount} ڕۆبوکس درا بە یاریزان ${targetUser}!`);
+      } else {
+        usersDB[targetUser].robux = Math.max(0, usersDB[targetUser].robux - amount);
+        alert(`✅ بڕی ${amount} ڕۆبوکس لە یاریزان ${targetUser} کەمکرایەوە!`);
+      }
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      if(targetUser === currentUser) {
+        document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+      }
+      openAdminPanel();
+    }
+
+    function triggerAirplaneTrailerFromAdmin() {
+      let bannerText = document.getElementById('trailer-banner-text').value.trim();
+      if(!bannerText) bannerText = "HAMA DEV v3.0 ULTIMATE ✈️ kurdistan";
+      localStorage.setItem('hamadev_airplane_trailer', bannerText);
+      showAirplaneBanner(bannerText);
+      alert('✈️ فڕۆکەی ترەیلەر بە سەرکەوتوویی لە ئاسمانی ماپەکەدا سپاون کرا!');
+      closeAdminPanel();
+      if(typeof spawnAirplaneInGame === 'function') spawnAirplaneInGame(bannerText);
+    }
+
+    function showAirplaneBanner(text) {
+      const banner = document.getElementById('airplane-banner-hud');
+      const textSpan = document.getElementById('airplane-hud-text');
+      if(banner && textSpan) {
+        textSpan.innerText = text;
+        banner.style.display = 'block';
+      }
+    }
+
+    function showInGameAdminMessage(text) {
+      const hud = document.getElementById('in-game-admin-hud');
+      if(hud) {
+        hud.innerText = "📢 پەیامی ئۆنەر: " + text;
+        hud.style.display = 'block';
+      }
+    }
+
+    function openAdminPanel() {
+      updateAdminUsersList();
+      document.getElementById('admin-modal').style.display = 'flex';
+
+      if(adminRefreshInterval) clearInterval(adminRefreshInterval);
+      adminRefreshInterval = setInterval(() => {
+        usersDB = JSON.parse(localStorage.getItem('hamadev_store_users') || '{}');
+        bannedDB = JSON.parse(localStorage.getItem('hamadev_store_banned') || '[]');
+        mutedDB = JSON.parse(localStorage.getItem('hamadev_store_muted') || '[]');
+        updateAdminUsersList();
+      }, 4000);
+    }
+
+    function updateAdminUsersList() {
+      const listEl = document.getElementById('admin-users-list');
+      if(!listEl) return;
+      listEl.innerHTML = '';
+      for (let uname in usersDB) {
+        const isBanned = bannedDB.includes(uname);
+        const isMuted = mutedDB.includes(uname);
+        listEl.innerHTML += `
+          <div class="user-row">
+            <div class="user-info-text">
+              <span><b>${uname}</b> (${usersDB[uname].robux.toLocaleString()} R$)</span>
+              <span class="${isBanned ? 'status-banned' : (isMuted ? 'status-muted' : 'status-active')}">
+                ${isBanned ? '🚫 باندکراوە' : (isMuted ? '🔇 میوتکراوە' : '✅ چالاکە')}
+              </span>
+            </div>
+            <div class="admin-action-btns">
+              <button class="login-as-btn" onclick="loginAsUser('${uname}')">چوونەژوورەوە</button>
+              <button class="give-robux-btn" onclick="quickGiveRobux('${uname}')">+500 R$</button>
+              <button class="mute-btn" onclick="toggleMuteUser('${uname}')">${isMuted ? 'لابردنی میوت' : 'میوت'}</button>
+              ${uname !== 'rip_hama276' ? `<button class="ban-btn" onclick="banUser('${uname}')">باند</button>` : ''}
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function closeAdminPanel() {
+      if(adminRefreshInterval) clearInterval(adminRefreshInterval);
+      document.getElementById('admin-modal').style.display = 'none';
+    }
+
+    function loginAsUser(uname) { currentUser = uname; localStorage.setItem('hamadev_store_current', currentUser); closeAdminPanel(); showDashboard(); }
+    function quickGiveRobux(uname) { usersDB[uname].robux += 500; localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB)); updateAdminUsersList(); }
+    
+    function toggleMuteUser(uname) {
+      if(mutedDB.includes(uname)) {
+        mutedDB = mutedDB.filter(u => u !== uname);
+        alert(`🔊 یاریزان ${uname} لە میوت دەرچوو.`);
+      } else {
+        mutedDB.push(uname);
+        alert(`🔇 یاریزان ${uname} میوت کرا.`);
+      }
+      localStorage.setItem('hamadev_store_muted', JSON.stringify(mutedDB));
+      updateAdminUsersList();
+    }
+
+    function banUser(uname) {
+      bannedDB.push(uname);
+      localStorage.setItem('hamadev_store_banned', JSON.stringify(bannedDB));
+      updateAdminUsersList();
+    }
+
+    function sendVerificationEmail() {
+      const email = document.getElementById('settings-email').value.trim();
+      if (!email || !email.includes('@')) { alert('تکایە ئیمەیڵێکی ڕاست بنووسە!'); return; }
+      pendingVerifyCode = Math.floor(1000 + Math.random() * 9000).toString();
+      document.getElementById('kurdish-mail-notice').innerHTML = `📩 کۆدی ڤێریفای: <b style="color:var(--robux-gold);">${pendingVerifyCode}</b>`;
+      document.getElementById('verify-box').style.display = 'block';
+    }
+
+    function confirmVerification() {
+      if (document.getElementById('verify-code-input').value.trim() === pendingVerifyCode) {
+        usersDB[currentUser].verified = true;
+        localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+        alert('🎉 ئەکاونتەکەت ڤێریفای کرا.');
+        document.getElementById('verify-box').style.display = 'none';
+      } else { alert('❌ کۆدەکە هەڵەیە قبۆڵ ناکرێت!'); }
+    }
+
+    let scene, camera, renderer, player, shopBooth, jackiaBooth, petObj, vehicleMesh, auraMesh, shieldMesh, animationId, supersonicPadMesh, megaJumpPadMesh, turboPadMesh, airplaneMesh;
+    let keys = { up: false, down: false, left: false, right: false, jump: false };
+    let gameScore = 0, carriedEggs = 0, carriedValueMultiplier = 1, maxCapacity = 1, playerSpeed = 0.25, eggsList = [], shopOpen = false, jackiaOpen = false;
+    let movingGuardsList = [];
+
+    function toggleDiscoMode() {
+      isDiscoActive = !isDiscoActive;
+      document.getElementById('disco-status-lbl').innerText = isDiscoActive ? 'کوژاندنەوە' : 'داگیرساندن';
+      alert(isDiscoActive ? '🪩 دیسکۆ لایت (Rainbow Disco) چالاک بوو!' : '💤 دیسکۆ لایت کوژایەوە.');
+    }
+
+    function buySpeed(speedVal, robuxCost) {
+      if (usersDB[currentUser].robux < robuxCost) { alert('ڕووبوکس (Robux)ت پێنییە!'); return; }
+      usersDB[currentUser].robux -= robuxCost;
+      usersDB[currentUser].savedSpeed = speedVal;
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      
+      document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+      playerSpeed = speedVal / 100;
+      document.getElementById('speed-display').innerText = speedVal;
+      alert(`⚡ پیرۆزە! خێرایی ${speedVal} کڕرا و پاشەکەوت (Save) کرا!`);
+      closeShopModal();
+    }
+
+    function buyCapacity(capVal, robuxCost) {
+      if (usersDB[currentUser].robux < robuxCost) { alert('ڕووبوکس (Robux)ت پێنییە!'); return; }
+      usersDB[currentUser].robux -= robuxCost;
+      usersDB[currentUser].savedCapacity = capVal;
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+
+      document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+      maxCapacity = capVal;
+      document.getElementById('max-capacity').innerText = maxCapacity;
+      alert(`🥚 پیرۆزە! توانای ${capVal} هێلکە کڕرا و پاشەکەوت (Save) کرا!`);
+      closeShopModal();
+    }
+
+    function closeShopModal() { document.getElementById('shop-modal').style.display = 'none'; shopOpen = false; }
+
+    function openJackiaModal() {
+      document.getElementById('jackia-modal').style.display = 'flex';
+      jackiaOpen = true;
+    }
+
+    function closeJackiaModal() {
+      document.getElementById('jackia-modal').style.display = 'none';
+      jackiaOpen = false;
+    }
+
+    function spinJackiaWheel() {
+      if(gameScore < 200) { alert('❌ خاڵی پێویستت نییە (کەمتر لە 200 خاڵ)! یاری بکە و خاڵ کۆبکەرەوە.'); return; }
+      gameScore -= 200;
+      document.getElementById('game-score').innerText = gameScore;
+      
+      let randReward = Math.random();
+      if(randReward > 0.4) {
+        usersDB[currentUser].robux += 500;
+        localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+        document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+        alert('🎰 پیرۆزە! لە چەرخەی جاکیا ٥٠٠ ڕۆبۆکس ڕوویدا و درا بە ئەکاونتەکەت!');
+      } else {
+        let uObj = usersDB[currentUser];
+        if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
+        uObj.inventoryEggs.push({ name: 'هێلکەی بەختی جاکیا (Jackia Lucky)', mult: 5, mutDrop: 'Rainbow' });
+        localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+        alert('🥚 پیرۆزە! لە چەرخەی جاکیا هێلکەیەکی نایابی ڕەینبۆ دەچوو بۆ کۆگاکەت!');
+      }
+      closeJackiaModal();
+    }
+
+    function buyJackiaEgg(eggName, costPoints) {
+      if(gameScore < costPoints) { alert(`❌ خاڵی پێویستت نییە! پێویستت بە ${costPoints} خاڵ هەیە.`); return; }
+      gameScore -= costPoints;
+      document.getElementById('game-score').innerText = gameScore;
+
+      let uObj = usersDB[currentUser];
+      if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
+      uObj.inventoryEggs.push({ name: eggName, mult: 8, mutDrop: 'Rainbow' });
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      alert(`🎉 پیرۆزە! ${eggName} کڕرا و چوە ناو کۆگای هێلکەکانت.`);
+      closeJackiaModal();
+    }
+
+    function openGardenModal() {
+      let uObj = usersDB[currentUser];
+      if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
+      if(!uObj.hatchingSlots) uObj.hatchingSlots = [];
+      if(!uObj.collectedPets) uObj.collectedPets = [];
+
+      renderGardenUI();
+      document.getElementById('garden-modal').style.display = 'flex';
+    }
+
+    function closeGardenModal() {
+      document.getElementById('garden-modal').style.display = 'none';
+    }
+
+    function renderGardenUI() {
+      let uObj = usersDB[currentUser];
+      
+      let storeListEl = document.getElementById('garden-storage-list');
+      storeListEl.innerHTML = '';
+      if(uObj.inventoryEggs.length === 0) {
+        storeListEl.innerHTML = `<p style="font-size:11px; color:var(--text-muted);">هیچ هێلکەیەک لە کۆگا نییە. هێلکە لە یاری بڕفێنە یان لە وێستگەی جاکیا دابنە!</p>`;
+      } else {
+        uObj.inventoryEggs.forEach((egg, idx) => {
+          storeListEl.innerHTML += `
+            <div class="garden-slot">
+              <span>🥚 ${egg.name} ${egg.mutDrop ? '⚡['+egg.mutDrop+']' : ''} (x${egg.mult})</span>
+              <button class="hatch-action-btn" onclick="placeEggInGarden(${idx})">دانان لە باخجە</button>
+            </div>
+          `;
+        });
+      }
+
+      let slotsListEl = document.getElementById('hatching-slots-list');
+      slotsListEl.innerHTML = '';
+      if(uObj.hatchingSlots.length === 0) {
+        slotsListEl.innerHTML = `<p style="font-size:11px; color:var(--text-muted);">هیچ هێلکەیەک لەسەر کاتژمێر نییە.</p>`;
+      } else {
+        let now = Date.now();
+        uObj.hatchingSlots.forEach((slot, sIdx) => {
+          let timeLeft = Math.max(0, Math.ceil((slot.endTime - now) / 1000));
+          slotsListEl.innerHTML += `
+            <div class="garden-slot">
+              <span>🥚 ${slot.name} ⚡ [${slot.mutType}]</span>
+              <span style="color:var(--robux-gold); font-weight:bold;">${timeLeft > 0 ? '⏳ ' + timeLeft + ' چرکە ماوە' : '✨ شکاوە!'}</span>
+            </div>
+          `;
+        });
+      }
+
+      let petsBox = document.getElementById('collected-pets-box');
+      petsBox.innerHTML = '';
+      if(uObj.collectedPets.length === 0) {
+        petsBox.innerHTML = `<span style="font-size:11px; color:var(--text-muted);">هێشتا هیچ پێتێک نەشکاوە.</span>`;
+      } else {
+        uObj.collectedPets.forEach(pet => {
+          let mutLabel = pet.mutationType ? ` ⚡(${pet.mutationType})` : '';
+          petsBox.innerHTML += `
+            <div class="pet-card">
+              <b>🐾 ${pet.name}</b><br>
+              <span style="color:var(--robux-gold);">Bonus: +${pet.bonus}x${mutLabel}</span>
+            </div>
+          `;
+        });
+      }
+    }
+
+    function placeEggInGarden(index) {
+      let uObj = usersDB[currentUser];
+      let egg = uObj.inventoryEggs.splice(index, 1)[0];
+      
+      let hatchTimeSec = egg.mult === 1 ? 10 : (egg.mult === 2 ? 25 : 40);
+      let chosenMut = egg.mutDrop || ['Gold', 'Taco', 'Diamond', 'Rainbow'][Math.floor(Math.random() * 4)];
+      
+      uObj.hatchingSlots.push({
+        name: egg.name,
+        mult: egg.mult,
+        mutType: chosenMut,
+        endTime: Date.now() + (hatchTimeSec * 1000)
+      });
+
+      localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      renderGardenUI();
+    }
+
+    setInterval(() => {
+      if(!currentUser || !usersDB[currentUser]) return;
+      let uObj = usersDB[currentUser];
+      if(!uObj.hatchingSlots || uObj.hatchingSlots.length === 0) return;
+
+      let now = Date.now();
+      let updated = false;
+
+      uObj.hatchingSlots = uObj.hatchingSlots.filter(slot => {
+        if(now >= slot.endTime) {
+          let petNames = ['Doggy', 'Dragon', 'Phoenix', 'Nuclear Beast', 'Shadow Demon', 'Mecha Titan', 'Hama God'];
+          let baseName = petNames[Math.floor(Math.random() * petNames.length)];
+          let finalMult = slot.mult * (slot.mutType === 'Rainbow' ? 50 : (slot.mutType === 'Diamond' ? 20 : (slot.mutType === 'Taco' ? 15 : 10)));
+          let petFullName = `⚡ ${slot.mutType} ${baseName} (x${finalMult})`;
+          
+          uObj.collectedPets.push({ name: petFullName, bonus: finalMult * 10, mutationType: slot.mutType });
+          updated = true;
+          return false;
+        }
+        return true;
+      });
+
+      if(updated) {
+        localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+      }
+
+      if(document.getElementById('garden-modal').style.display === 'flex') {
+        renderGardenUI();
+      }
+    }, 1000);
+
+    function setupMobileTouchEvents() {
+      const bindTouch = (id, keyName) => {
+        const btn = document.getElementById(id);
+        if(!btn) return;
+        btn.addEventListener('touchstart', (e) => { e.preventDefault(); keys[keyName] = true; }, {passive: false});
+        btn.addEventListener('touchend', (e) => { e.preventDefault(); keys[keyName] = false; }, {passive: false});
+        btn.addEventListener('mousedown', () => { keys[keyName] = true; });
+        btn.addEventListener('mouseup', () => { keys[keyName] = false; });
+      };
+      bindTouch('btn-up', 'up'); bindTouch('btn-down', 'down');
+      bindTouch('btn-left', 'left'); bindTouch('btn-right', 'right');
+      bindTouch('btn-jump', 'jump');
+    }
+
+    function spawnAllEggs() {
+      eggsList.forEach(e => { if(e) scene.remove(e); });
+      eggsList = [];
+      movingGuardsList = [];
+      
+      const biomesList = isOwnerSecondCityGame ? [
+        { name: 'Cherry Blossom (چرۆی گێلاس)', guard: 'پڵنگی ئۆنی (Oni Tiger)', color: 0xf472b6, mult: 12 },
+        { name: 'Titan Temple (پەرستگای تایتان)', guard: 'پاشای گۆریلا (Gorilla King)', color: 0x38bdf8, mult: 15 },
+        { name: 'Angels & Demons (فریشتە و شەیتانەکان)', guard: 'ArchAngel / World Burner', color: 0xa855f7, mult: 20 }
+      ] : [
+        { name: 'دارستان (Forest)', guard: 'مریشک (Chicken)', color: 0x10b981, mult: 1 },
+        { name: 'دەریاچە (Lake)', guard: 'قاز (Swan)', color: 0x38bdf8, mult: 2 },
+        { name: 'بیابان (Desert)', guard: 'مار (Snake)', color: 0xfbbf24, mult: 3 },
+        { name: 'جەنگەڵ (Jungle)', guard: 'پڵنگ (Tiger)', color: 0x059669, mult: 4 },
+        { name: 'بەفر (Snow)', guard: 'دێوی بەفر (Yeti)', color: 0xe0f2fe, mult: 5 },
+        { name: 'گڕکان (Volcano)', guard: 'سەگی سێ سەر (Cerberus)', color: 0xef4444, mult: 6 },
+        { name: 'زەریا (Abyss Ocean)', guard: 'نەهەنگی سپی (Beluga)', color: 0x1d4ed8, mult: 7 },
+        { name: 'پێش مێژوو (Prehistoric)', guard: 'تی ڕێکس (T-Rex)', color: 0x84cc16, mult: 8 },
+        { name: 'گەردوون (Cosmic)', guard: 'پەیکەری گەردوونی (Skeleton)', color: 0xa855f7, mult: 10 }
+      ];
+      
+      let maxEggsToSpawn = biomesList.length;
+      for (let i = 0; i < maxEggsToSpawn; i++) {
+        let b = biomesList[i];
+        const eggGroup = new THREE.Group();
+
+        const eggGeo = new THREE.SphereGeometry(0.6, 16, 16); eggGeo.scale(1, 1.3, 1);
+        const eggMesh = new THREE.Mesh(eggGeo, new THREE.MeshBasicMaterial({ color: b.color }));
+        eggGroup.add(eggMesh);
+
+        const guardGeo = new THREE.BoxGeometry(0.5, 1.1, 0.5);
+        const guardMat = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+        const guardMesh = new THREE.Mesh(guardGeo, guardMat);
+        guardMesh.position.set(1.4, 0.55, 0);
+        eggGroup.add(guardMesh);
+        movingGuardsList.push(guardMesh);
+
+        let zPos = -(i * 25) - 8;
+        eggGroup.position.set(((i % 2 === 0 ? 1 : -1) * (Math.random() * 8 + 3)), 0, zPos);
+        eggGroup.userData = { name: `${b.name} - پاسەوان: ${b.guard}`, mult: b.mult, speedReq: 0, mutDrop: 'Rainbow', isDivine: false };
+        scene.add(eggGroup); eggsList.push(eggGroup);
+      }
+    }
+
+    function createFieryHornsAvatar(parentGroup) {
+      const fireHeadGeo = new THREE.SphereGeometry(0.5, 16, 16);
+      const fireHeadMat = new THREE.MeshBasicMaterial({ color: 0xff8c00 });
+      const fireHead = new THREE.Mesh(fireHeadGeo, fireHeadMat);
+      fireHead.position.set(0, 2.7, 0);
+      parentGroup.add(fireHead);
+
+      const horn1Geo = new THREE.CylinderGeometry(0.08, 0.25, 1.2, 8);
+      const hornMat = new THREE.MeshBasicMaterial({ color: 0xd97706 });
+      const horn1 = new THREE.Mesh(horn1Geo, hornMat);
+      horn1.position.set(-0.55, 2.8, 0);
+      horn1.rotation.z = -0.5;
+      parentGroup.add(horn1);
+
+      const horn2 = new THREE.Mesh(horn1Geo, hornMat);
+      horn2.position.set(0.55, 2.8, 0);
+      horn2.rotation.z = 0.5;
+      parentGroup.add(horn2);
+    }
+
+    function spawnAirplaneInGame(bannerText) {
+      if(!scene) return;
+      if(airplaneMesh) scene.remove(airplaneMesh);
+
+      airplaneMesh = new THREE.Group();
+      const body = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.0, 4.0), new THREE.MeshBasicMaterial({ color: 0xef4444 }));
+      const wings = new THREE.Mesh(new THREE.BoxGeometry(6.0, 0.2, 1.5), new THREE.MeshBasicMaterial({ color: 0xffffff }));
+      const tail = new THREE.Mesh(new THREE.BoxGeometry(0.2, 1.2, 1.0), new THREE.MeshBasicMaterial({ color: 0x10b981 }));
+      tail.position.set(0, 0.8, -1.5);
+      
+      airplaneMesh.add(body); airplaneMesh.add(wings); airplaneMesh.add(tail);
+      airplaneMesh.position.set(0, 15, -20);
+      scene.add(airplaneMesh);
+    }
+
+    function startStealAnEggGame() {
+      isOwnerSecondCityGame = false;
+      initGameEngine();
+    }
+
+    function startOwnerSecondCityGame() {
+      isOwnerSecondCityGame = true;
+      initGameEngine();
+    }
+
+    function initGameEngine() {
+      document.getElementById('game-container').style.display = 'flex';
+      gameScore = 0; carriedEggs = 0; carriedValueMultiplier = 1; shopOpen = false; jackiaOpen = false;
+      raceSeconds = 0;
+      if(raceTimerInterval) clearInterval(raceTimerInterval);
+      raceTimerInterval = setInterval(() => {
+        raceSeconds++;
+        let m = Math.floor(raceSeconds / 60).toString().padStart(2, '0');
+        let s = (raceSeconds % 60).toString().padStart(2, '0');
+        let timerEl = document.getElementById('race-timer');
+        if(timerEl) timerEl.innerText = `${m}:${s}`;
+      }, 1000);
+
+      let userObj = usersDB[currentUser] || {};
+      playerSpeed = (userObj.savedSpeed ? userObj.savedSpeed : 25) / 100;
+      maxCapacity = userObj.savedCapacity ? userObj.savedCapacity : 1;
+
+      document.getElementById('game-score').innerText = gameScore;
+      document.getElementById('carried-count').innerText = carriedEggs;
+      document.getElementById('max-capacity').innerText = maxCapacity;
+      document.getElementById('speed-display').innerText = Math.round(playerSpeed * 100);
+
+      if (currentUser === 'rip_hama276') {
+        document.getElementById('in-game-owner-btn').style.display = 'inline-flex';
+      } else {
+        document.getElementById('in-game-owner-btn').style.display = 'none';
+      }
+
+      let activeBroadcast = localStorage.getItem('hamadev_broadcast_msg');
+      if(activeBroadcast) {
+        showInGameAdminMessage(activeBroadcast);
+      }
+
+      let activeAirplane = localStorage.getItem('hamadev_airplane_trailer');
+      if(activeAirplane) {
+        showAirplaneBanner(activeAirplane);
+        spawnAirplaneInGame(activeAirplane);
+      }
+
+      const canvas = document.getElementById('game-canvas');
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(isOwnerSecondCityGame ? 0x2e1065 : 0x090d16);
+
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      scene.add(new THREE.AmbientLight(0xffffff, 1));
+
+      player = new THREE.Group();
+      let shirtColor = (currentUser === 'rip_hama276' || userObj.hasVIP) ? 0xfbbf24 : 0x10b981;
+      const torso = new THREE.Mesh(new THREE.BoxGeometry(1, 1.2, 0.6), new THREE.MeshBasicMaterial({ color: shirtColor }));
+      torso.position.y = 1.2; player.add(torso);
+      const head = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.7, 0.7), new THREE.MeshBasicMaterial({ color: 0xffdbac }));
+      head.position.y = 2.15; player.add(head);
+
+      if(currentUser === 'rip_hama276' || userObj.hasVIP) {
+        createFieryHornsAvatar(player);
+      }
+
+      vehicleMesh = new THREE.Group();
+      const vBase = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.7, 2.8), new THREE.MeshBasicMaterial({ color: 0xfbbf24 }));
+      vBase.position.y = 0.5;
+      const vWing = new THREE.Mesh(new THREE.BoxGeometry(4.0, 0.12, 1.2), new THREE.MeshBasicMaterial({ color: 0xa855f7 }));
+      vWing.position.set(0, 0.9, 0);
+      vehicleMesh.add(vBase); vehicleMesh.add(vWing);
+      vehicleMesh.position.set(0, 0, 0);
+      player.add(vehicleMesh);
+
+      if(userObj.collectedPets && userObj.collectedPets.length > 0) {
+        auraMesh = new THREE.Mesh(new THREE.SphereGeometry(1.8, 16, 16), new THREE.MeshBasicMaterial({ color: 0xfbbf24, wireframe: true }));
+        auraMesh.position.y = 1.2; player.add(auraMesh);
+      }
+
+      if(userObj.hasShield) {
+        shieldMesh = new THREE.Mesh(new THREE.SphereGeometry(1.6, 16, 16), new THREE.MeshBasicMaterial({ color: 0x38bdf8 }));
+        shieldMesh.position.y = 1.2; player.add(shieldMesh);
+      }
+
+      const limbGeo = new THREE.BoxGeometry(0.4, 1.2, 0.4);
+      const skinMat = new THREE.MeshBasicMaterial({ color: 0xffdbac });
+      const pantsMat = new THREE.MeshBasicMaterial({ color: 0x1e293b });
+
+      const leftArm = new THREE.Mesh(limbGeo, skinMat); leftArm.position.set(-0.7, 1.2, 0); player.add(leftArm);
+      const rightArm = new THREE.Mesh(limbGeo, skinMat); rightArm.position.set(0.7, 1.2, 0); player.add(rightArm);
+      const leftLeg = new THREE.Mesh(limbGeo, pantsMat); leftLeg.position.set(-0.3, 0.4, 0); player.add(leftLeg);
+      const rightLeg = new THREE.Mesh(limbGeo, pantsMat); rightLeg.position.set(0.3, 0.4, 0); player.add(rightLeg);
+
+      player.position.set(0, 1, 15);
+      scene.add(player);
+
+      let petColor = userObj.hasGoldenPet ? 0xffd700 : 0xffaa00;
+      petObj = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.5), new THREE.MeshBasicMaterial({ color: petColor }));
+      scene.add(petObj);
+
+      shopBooth = new THREE.Group();
+      const boothBase = new THREE.Mesh(new THREE.BoxGeometry(3, 1.5, 2), new THREE.MeshBasicMaterial({ color: 0xfbbf24 }));
+      boothBase.position.y = 0.75; shopBooth.add(boothBase);
+      shopBooth.position.set(-8, 0, 5);
+      scene.add(shopBooth);
+
+      jackiaBooth = new THREE.Group();
+      const jBase = new THREE.Mesh(new THREE.BoxGeometry(3, 2, 2), new THREE.MeshBasicMaterial({ color: 0xa855f7 }));
+      jBase.position.y = 1; jackiaBooth.add(jBase);
+      jackiaBooth.position.set(8, 0, 5);
+      scene.add(jackiaBooth);
+
+      let floorDepth = isOwnerSecondCityGame ? 300 : 250;
+      const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, floorDepth), new THREE.MeshBasicMaterial({ color: isOwnerSecondCityGame ? 0x2e1065 : 0x064e3b }));
+      floor.rotation.x = -Math.PI / 2; floor.position.z = -80; scene.add(floor);
+
+      supersonicPadMesh = new THREE.Mesh(new THREE.BoxGeometry(6, 0.2, 6), new THREE.MeshBasicMaterial({ color: 0xf97316 }));
+      supersonicPadMesh.position.set(0, 0.05, -50); 
+      scene.add(supersonicPadMesh);
+
+      megaJumpPadMesh = new THREE.Mesh(new THREE.BoxGeometry(5, 0.25, 5), new THREE.MeshBasicMaterial({ color: 0xd97706 }));
+      megaJumpPadMesh.position.set(0, 0.05, -30);
+      scene.add(megaJumpPadMesh);
+
+      turboPadMesh = new THREE.Mesh(new THREE.BoxGeometry(6, 0.25, 6), new THREE.MeshBasicMaterial({ color: 0x00ffcc }));
+      turboPadMesh.position.set(0, 0.05, -70);
+      scene.add(turboPadMesh);
+
+      const homeBase = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 0.1, 32), new THREE.MeshBasicMaterial({ color: 0x3b82f6 }));
+      homeBase.position.set(0, 0.05, 15); scene.add(homeBase);
+
+      spawnAllEggs();
+
+      camera.position.set(0, 8, 26);
+      camera.lookAt(player.position);
+
+      window.addEventListener('keydown', onKeyDown);
+      window.addEventListener('keyup', onKeyUp);
+      animate();
+    }
+
+    function onKeyDown(e) {
+      if (e.code === 'KeyW' || e.code === 'ArrowUp') keys.up = true;
+      if (e.code === 'KeyS' || e.code === 'ArrowDown') keys.down = true;
+      if (e.code === 'KeyA' || e.code === 'ArrowLeft') keys.left = true;
+      if (e.code === 'KeyD' || e.code === 'ArrowRight') keys.right = true;
+      if (e.code === 'Space') keys.jump = true;
+    }
+
+    function onKeyUp(e) {
+      if (e.code === 'KeyW' || e.code === 'ArrowUp') keys.up = false;
+      if (e.code === 'KeyS' || e.code === 'ArrowDown') keys.down = false;
+      if (e.code === 'KeyA' || e.code === 'ArrowLeft') keys.left = false;
+      if (e.code === 'KeyD' || e.code === 'ArrowRight') keys.right = false;
+      if (e.code === 'Space') keys.jump = false;
+    }
+
+    function animate() {
+      animationId = requestAnimationFrame(animate);
+      let moveX = 0; let moveZ = 0;
+
+      let eggScoreBonusSpeed = Math.min(5.0, gameScore / 1000);
+      let supersonicBoost = (supersonicPadMesh && player.position.distanceTo(supersonicPadMesh.position) < 3.5) ? 3.5 : 1.0;
+      let turboBoost = (turboPadMesh && player.position.distanceTo(turboPadMesh.position) < 3.5) ? 5.0 : 1.0;
+      let currentActiveSpeed = (playerSpeed + eggScoreBonusSpeed + 0.2) * supersonicBoost * turboBoost;
+
+      if (megaJumpPadMesh && player.position.distanceTo(megaJumpPadMesh.position) < 3.5) {
+        player.position.y = 8.5;
+      }
+
+      movingGuardsList.forEach((g, idx) => {
+        if(g) {
+          g.rotation.y += 0.08;
+          g.position.x = Math.sin(Date.now() * 0.005 + idx) * 1.8;
+          g.position.z = Math.cos(Date.now() * 0.005 + idx) * 1.8;
+        }
+      });
+
+      if (keys.up) moveZ -= currentActiveSpeed;
+      if (keys.down) moveZ += currentActiveSpeed;
+      if (keys.left) moveX -= currentActiveSpeed;
+      if (keys.right) moveX += currentActiveSpeed;
+
+      if (moveX !== 0 || moveZ !== 0) {
+        player.position.x += moveX;
+        player.position.z += moveZ;
+        player.rotation.y = Math.atan2(moveX, moveZ);
+      }
+
+      if (keys.jump && player.position.y <= 1.05) player.position.y = 3.8;
+      if (player.position.y > 1.0) player.position.y -= 0.12;
+      else player.position.y = 1.0;
+
+      if (petObj) {
+        petObj.position.x = player.position.x + Math.sin(Date.now() * 0.005) * 1.5;
+        petObj.position.z = player.position.z + Math.cos(Date.now() * 0.005) * 1.5;
+        petObj.position.y = 1.0 + Math.sin(Date.now() * 0.01) * 0.3;
+      }
+
+      if (vehicleMesh) vehicleMesh.rotation.y += 0.1;
+      if (auraMesh) auraMesh.rotation.y += 0.03;
+
+      if(airplaneMesh) {
+        airplaneMesh.position.z -= 0.2;
+        if(airplaneMesh.position.z < -150) airplaneMesh.position.z = 50;
+      }
+
+      if(isDiscoActive && scene) {
+        let r = Math.sin(Date.now() * 0.003) * 0.5 + 0.5;
+        let g = Math.cos(Date.now() * 0.004) * 0.5 + 0.5;
+        let b = Math.sin(Date.now() * 0.005) * 0.5 + 0.5;
+        scene.background = new THREE.Color(r, g, b);
+      }
+
+      if (!shopOpen && player.position.distanceTo(shopBooth.position) < 2.5) {
+        shopOpen = true;
+        document.getElementById('shop-modal').style.display = 'flex';
+      } else if (shopOpen && player.position.distanceTo(shopBooth.position) > 3.5) {
+        closeShopModal();
+      }
+
+      if (!jackiaOpen && player.position.distanceTo(jackiaBooth.position) < 2.5) {
+        jackiaOpen = true;
+        openJackiaModal();
+      } else if (jackiaOpen && player.position.distanceTo(jackiaBooth.position) > 3.5) {
+        closeJackiaModal();
+      }
+
+      eggsList.forEach((eggObj, idx) => {
+        if (eggObj && carriedEggs < maxCapacity && player.position.distanceTo(eggObj.position) < 1.4) {
+          let uObj = usersDB[currentUser];
+          let coinMultiplierVal = uObj.hasCoinMultiplier ? 3 : 1;
+
+          if(eggObj.userData && eggObj.userData.isDivine) {
+            let winAmount = (eggObj.userData.rewardAmount || 1090) * coinMultiplierVal;
+            usersDB[currentUser].robux += winAmount;
+            localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+            document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+            localStorage.removeItem('hamadev_divine_spawned');
+            document.getElementById('global-announcement-banner').style.display = 'none';
+            alert(`🎉 پیرۆزە! هێلکەی نایاب (${eggObj.userData.name}) بە زەربی x${coinMultiplierVal} بردەوە!`);
+          }
+
+          if(!uObj.inventoryEggs) uObj.inventoryEggs = [];
+          uObj.inventoryEggs.push({ name: eggObj.userData.name, mult: eggObj.userData.mult * coinMultiplierVal, mutDrop: eggObj.userData.mutDrop });
+          localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+
+          carriedValueMultiplier = (eggObj.userData ? eggObj.userData.mult : 1) * coinMultiplierVal;
+          scene.remove(eggObj);
+          eggsList[idx] = null;
+          carriedEggs++;
+          document.getElementById('carried-count').innerText = carriedEggs;
+        }
+      });
+
+      if (eggsList.length > 0 && eggsList.every(e => e === null)) spawnAllEggs();
+
+      if (carriedEggs > 0 && player.position.distanceTo(new THREE.Vector3(0, 1, 15)) < 3.5) {
+        let uObj = usersDB[currentUser];
+        let mutantBonusSum = 0;
+        if(uObj.collectedPets) {
+          uObj.collectedPets.forEach(p => { if(p.bonus) mutantBonusSum += p.bonus; });
+        }
+
+        let coinMult = uObj.hasCoinMultiplier ? 3 : 1;
+        let pointsEarned = ((carriedEggs * 1000 * carriedValueMultiplier) + mutantBonusSum) * coinMult;
+        let robuxEarned = ((carriedEggs * 25 * carriedValueMultiplier) + Math.floor(mutantBonusSum / 10)) * coinMult;
+        
+        gameScore += pointsEarned;
+        usersDB[currentUser].robux += robuxEarned;
+        localStorage.setItem('hamadev_store_users', JSON.stringify(usersDB));
+
+        carriedEggs = 0; carriedValueMultiplier = 1;
+        document.getElementById('game-score').innerText = gameScore;
+        document.getElementById('carried-count').innerText = carriedEggs;
+        document.getElementById('user-robux').innerText = usersDB[currentUser].robux.toLocaleString();
+      }
+
+      camera.position.x = player.position.x;
+      camera.position.z = player.position.z + 12;
+      camera.lookAt(player.position);
+
+      renderer.render(scene, camera);
+    }
+
+    function exitGame() {
+      cancelAnimationFrame(animationId);
+      if(raceTimerInterval) clearInterval(raceTimerInterval);
+      document.getElementById('game-container').style.display = 'none';
+      const hud = document.getElementById('in-game-admin-hud');
+      const airplaneBanner = document.getElementById('airplane-banner-hud');
+      if(hud) hud.style.display = 'none';
+      if(airplaneBanner) airplaneBanner.style.display = 'none';
     }
   </script>
 </body>

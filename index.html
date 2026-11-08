@@ -771,7 +771,6 @@
         showAirplaneBanner(activeAirplane);
       }
 
-      // پشکنینی دۆخی مۆسیقا لە localStorage بۆ هەموو یاریزانەکان
       let musicState = localStorage.getItem('hamadev_global_music_playing');
       if(musicState === 'true') {
         const bgMusic = document.getElementById('game-background-music');
@@ -977,7 +976,6 @@
       closeAdminPanel();
     }
 
-    /* 🎵 فانکشنەکانی کۆنترۆڵی مۆسیقا و گۆرانی بۆ هەموو یاریزانەکان لە پەنێڵی ئۆنەردا */
     function ownerPlayMusicForEveryone() {
       const bgMusic = document.getElementById('game-background-music');
       if(bgMusic) {
@@ -1001,7 +999,6 @@
       closeAdminPanel();
     }
 
-    /* 📢 فانکشنی بەشی ناردنی دەق بۆ شاشەی یاریزانان */
     function sendBroadcastToScreen() {
       const broadcastInput = document.getElementById('admin-broadcast-input');
       const msgText = broadcastInput.value.trim();

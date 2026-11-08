@@ -2755,4 +2755,57 @@
       scene.add(jackiaBooth);
 
       const floor = new THREE.Mesh(new THREE.PlaneGeometry(100, 200), new THREE.MeshBasicMaterial({ color: isOwnerSecondCityGame ? 0x2e1065 : 0x064e3b }));
-      floor.rotation.x = -Math.PI / 2; floor.position.z
+      floor.rotation.x = -Math.PI / 2; floor.position.z = -50; scene.add(floor);
+
+      spawnAllEggs();
+      camera.position.set(0, 8, 26);
+      camera.lookAt(player.position);
+
+      window.addEventListener('keydown', (e) => {
+        if (e.code === 'KeyW' || e.code === 'ArrowUp') keys.up = true;
+        if (e.code === 'KeyS' || e.code === 'ArrowDown') keys.down = true;
+        if (e.code === 'KeyA' || e.code === 'ArrowLeft') keys.left = true;
+        if (e.code === 'KeyD' || e.code === 'ArrowRight') keys.right = true;
+      });
+      window.addEventListener('keyup', (e) => {
+        if (e.code === 'KeyW' || e.code === 'ArrowUp') keys.up = false;
+        if (e.code === 'KeyS' || e.code === 'ArrowDown') keys.down = false;
+        if (e.code === 'KeyA' || e.code === 'ArrowLeft') keys.left = false;
+        if (e.code === 'KeyD' || e.code === 'ArrowRight') keys.right = false;
+      });
+
+      animate();
+    }
+
+    function animate() {
+      animationId = requestAnimationFrame(animate);
+      if (keys.up) player.position.z -= playerSpeed;
+      if (keys.down) player.position.z += playerSpeed;
+      if (keys.left) player.position.x -= playerSpeed;
+      if (keys.right) player.position.x += playerSpeed;
+
+      if (!shopOpen && player.position.distanceTo(shopBooth.position) < 2.5) {
+        shopOpen = true; document.getElementById('shop-modal').style.display = 'flex';
+      }
+      if (!jackiaOpen && player.position.distanceTo(jackiaBooth.position) < 2.5) {
+        jackiaOpen = true; openJackiaModal();
+      }
+
+      if(isDiscoActive && scene) {
+        scene.background = new THREE.Color(Math.random(), Math.random(), Math.random());
+      }
+
+      camera.position.x = player.position.x;
+      camera.position.z = player.position.z + 12;
+      camera.lookAt(player.position);
+      renderer.render(scene, camera);
+    }
+
+    function exitGame() {
+      cancelAnimationFrame(animationId);
+      if(raceTimerInterval) clearInterval(raceTimerInterval);
+      document.getElementById('game-container').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="ku" dir="rtl">
 <head>
@@ -122,6 +123,7 @@ $('abilitylist').innerHTML=abilities.map(a=>`<div class="listrow"><span>${a[0]}<
 function buy(n,c){if(state.robux<c){notice('R$ بەس نییە');return}state.robux-=c;if(n==='Speed Booster')state.speed=Math.min(7,state.speed+1);if(n==='Coin Multiplier')state.multiplier=3;state.pets.push('🎁 '+n);updateUI();notice('کڕین سەرکەوتوو بوو: '+n)}
 function ability(v,c){if(state.robux<c){notice('R$ بەس نییە');return}state.robux-=c;if(v<=5)state.speed=v;else state.capacity=v;updateUI();notice('تواناکە چالاک کرا')}
 function spin(){if(state.score<200){$('jackresult').textContent='خاڵت بەس نییە';return}state.score-=200;let prizes=[50,100,250,500,'🥚 هێلکەی نایاب'];let p=prizes[Math.floor(Math.random()*prizes.length)];if(typeof p==='number')state.score+=p;else state.inventory.push(1),state.carry++;$('jackresult').textContent='🎉 خەڵاتت: '+p;updateUI()}
+
 function todayKey(){let d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function yesterdayKey(){let d=new Date();d.setDate(d.getDate()-1);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function ensureQuestDay(){let t=todayKey();if(state.questDate!==t){state.questDate=t;state.questCollect=0;state.questSell=0;state.questHatch=0;state.questClaimed=[]}}
@@ -134,6 +136,7 @@ state.questClaimed.push(id);let reward=id==='collect'?75: id==='sell'?100:150;st
 function renderDaily(){if(!$('daily-status'))return;let t=todayKey(),claimed=state.dailyLast===t;$('daily-status').textContent=claimed?'ئەمڕۆ پاداشتت وەرگرتووە. زنجیرە: '+(state.dailyStreak||0)+' ڕۆژ':'پاداشتی ئەمڕۆ: 100 خاڵ؛ هەر ڕۆژ بەردەوام بیت پاداشت زیاد دەبێت. زنجیرە: '+(state.dailyStreak||0)+' ڕۆژ';$('daily-btn').disabled=claimed;$('daily-btn').textContent=claimed?'سبەی بگەڕێوە':'وەرگرتنی پاداشتی ئەمڕۆ';
 let tasks=[['collect','🥚 کۆکردنەوەی ٣ هێلکە',state.questCollect||0,3,75],['sell','🏠 فرۆشتنی هێلکەکان جارێک',state.questSell||0,1,100],['hatch','🐣 شکاندنی هێلکە و دەرکردنی پێت',state.questHatch||0,1,150]];
 $('daily-quests').innerHTML=tasks.map(q=>{let done=state.questClaimed?.includes(q[0]);let progress=Math.min(q[2],q[3]);return `<div class="listrow"><span>${q[1]}<br><small>${progress}/${q[3]} • +${q[4]} خاڵ</small></span><button ${done?'disabled':''} onclick="claimQuest('${q[0]}')">${done?'وەرگیرا':progress>=q[3]?'وەرگرتن':'ئەرک'}</button></div>`}).join('')}
+
 function renderInventory(){$('egginv').innerHTML=state.inventory.map(i=>`<div class="listrow"><span>${eggTypes[i][0]} ${eggTypes[i][1]}</span><button onclick="hatch(${i})">شکاندن</button></div>`).join('')||'<p class="hint">کۆگاکەت بەتاڵە؛ لە ماپ هێلکە کۆبکەرەوە.</p>'}
 function hatch(i){let ix=state.inventory.indexOf(i);if(ix<0)return;state.inventory.splice(ix,1);state.carry=Math.max(0,state.carry-1);let pet=['🐣','🐉','🦄','🦖'][Math.floor(Math.random()*4)]+' '+eggTypes[i][1]+' Pet';state.pets.push(pet);ensureQuestDay();state.questHatch++;updateUI();notice('پێتت لە هێلکەکە دەرچوو!')}
 function renderPets(){$('pets').innerHTML=state.pets.map(p=>`<div class="listrow">${p}</div>`).join('')||'<p class="hint">هێشتا پێتت نییە.</p>'}
@@ -150,8 +153,7 @@ $('spawnbuttons').innerHTML=eggTypes.map((e,i)=>`<button onclick="spawnEgg(${i})
 function broadcast(){if(!isOwner())return;let t=$('broadcastinput').value.trim();if(t){$('broadcast').textContent='📢 پەیامی ئۆنەر: '+t;$('broadcast').style.display='block'}}
 function clearBroadcast(){$('broadcast').style.display='none'}
 function renderUsers(){$('userlist').innerHTML=Object.keys(users).map(u=>`<div class="listrow">${u} ${users[u].owner?'👑 Owner':'👤 Player'}</div>`).join('')}
-const oldAuth=authUser;
+const oldAuth=authUser; // owner list refreshes after login
 const originalTab=tab;
 </script>
-</body>
-</html>
+</body></html>

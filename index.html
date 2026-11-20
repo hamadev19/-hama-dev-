@@ -3,7 +3,7 @@
 <html lang="ku" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Hama Dev Play v3.1</title>
+<title>Hama Dev Play v5.0</title>
 <style>
 :root{--bg:#080d1b;--panel:#111a2d;--panel2:#17243b;--gold:#fbbf24;--green:#10b981;--blue:#38bdf8;--purple:#a78bfa;--red:#ef4444;--txt:#eef4ff;--muted:#9aabc4}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#182747,#080d1b 65%);color:var(--txt);font-family:Tahoma,Arial,sans-serif}
@@ -21,12 +21,16 @@ h2,h3{margin-top:0}.auth input,.admin input{width:100%;padding:12px;border:1px s
 .listrow{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#0d1729;border:1px solid #2b3d5b;border-radius:9px;padding:9px;margin:6px 0}
 #notice{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#fbbf24;color:#241700;padding:11px 18px;border-radius:12px;font-weight:bold;display:none;z-index:20;max-width:90%;text-align:center}
 #broadcast{display:none;background:linear-gradient(90deg,#7c2d12,#a16207,#065f46);padding:11px;text-align:center;font-weight:bold;border-radius:10px;margin-bottom:10px}
-.admin{border:1px solid var(--gold);background:#211d32;padding:13px;border-radius:12px;margin:10px 0}.admin button{margin:3px}
+.admin{border:1px solid var(--gold);background:#211d32;padding:13px;border-radius:12px;margin:10px 0}
+.glitch-mode{animation:glitchHue .7s steps(2,end) infinite}
+.glitch-mode header,.glitch-mode .panel,.glitch-mode .game-shell{box-shadow:3px 0 #ec4899,-3px 0 #38bdf8;filter:saturate(1.35)}
+@keyframes glitchHue{0%{filter:hue-rotate(0deg)}50%{filter:hue-rotate(22deg)}100%{filter:hue-rotate(-18deg)}}
+.v4btn{background:#6d28d9!important;color:white!important}.v5panel{margin-top:12px;background:linear-gradient(135deg,#14243d,#201b3b);border:1px solid #5b4b86;border-radius:14px;padding:13px}.v5panel button{margin:4px;background:#4338ca;color:white}.power-status{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.power-status .pill{font-size:12px}.zonebtn{background:#0e7490!important;color:white!important}.admin button{margin:3px}
 @media(max-width:760px){.layout{grid-template-columns:1fr}.side{display:grid;grid-template-columns:repeat(2,1fr);gap:4px}.nav{text-align:center;font-size:13px}.wrap{padding:10px}header{padding:10px}.brand h1{font-size:18px}}
 </style>
 </head>
 <body>
-<header><div class="brand"><h1>☀️ Hama Dev Play</h1><small>v3.1 Active City Edition</small></div><div class="topstats" id="headerstats" style="display:none"><span class="pill">💎 <b id="robux">250</b> R$</span><span class="pill">🪙 <b id="coins">0</b></span><span class="pill">👤 <b id="who">-</b></span><button onclick="logout()" style="background:#7f1d1d;color:white">دەرچوون</button></div></header>
+<header><div class="brand"><h1>☀️ Hama Dev Play</h1><small>v5.0 Adventure Update</small></div><div class="topstats" id="headerstats" style="display:none"><span class="pill">💎 <b id="robux">250</b> R$</span><span class="pill">🪙 <b id="coins">0</b></span><span class="pill">👤 <b id="who">-</b></span><button onclick="logout()" style="background:#7f1d1d;color:white">دەرچوون</button></div></header>
 <div class="wrap">
 <section class="auth" id="auth">
 <h2>🎮 بەخێربێیت بۆ Hama Dev Play</h2><p class="hint">یەکەم ئەژمار کە دروست دەکرێت دەبێتە ئۆنەری ئەم نموونەیە.</p>
@@ -51,7 +55,10 @@ h2,h3{margin-top:0}.auth input,.admin input{width:100%;padding:12px;border:1px s
 <div class="game-shell">
 <div class="gamebar"><b>🥚 Steal An Egg — شاری یەکەم</b><span class="pill">خاڵ: <b id="score">0</b></span><span class="pill">هێلکە: <b id="carry">0</b>/<b id="capacity">3</b></span><span class="pill">⚡ <b id="speed">3</b></span></div>
 <canvas id="world" width="900" height="540"></canvas>
-<div class="game-actions"><button class="goldbtn" onclick="sellEggs()">🏠 فرۆشتنی هێلکەکان لە ماڵ</button><button onclick="claimDaily()">🎁 پاداشتی ڕۆژانە</button><button onclick="openModal('shopmodal')">🛒 شۆپی تواناکان</button><button onclick="openModal('jackmodal')">🎰 جاکیا</button><button onclick="tab('garden',document.querySelectorAll('.nav')[2])">🌱 باخچە</button><button onclick="resetPosition()">📍 گەڕانەوە بۆ ماڵ</button></div>
+<div class="game-actions"><button class="goldbtn" onclick="sellEggs()">🏠 فرۆشتنی هێلکەکان لە ماڵ</button><button onclick="claimDaily()">🎁 پاداشتی ڕۆژانە</button><button onclick="openModal('shopmodal')">🛒 شۆپی تواناکان</button><button onclick="openModal('jackmodal')">🎰 جاکیا</button><button onclick="tab('garden',document.querySelectorAll('.nav')[2])">🌱 باخچە</button><button onclick="resetPosition()">📍 گەڕانەوە بۆ ماڵ</button>
+<button class="v4btn" onclick="toggleGlitch()">👾 Glitch Mode</button><button class="v4btn" onclick="activateBoost()">⚡ Super Boost</button><button class="v4btn" onclick="spawnBonusEgg()">🥚 Bonus Egg</button><button class="v4btn" onclick="showAchievements()">🏆 Achievement</button>
+<button class="zonebtn" onclick="teleportZone('desert')">🏜️ Desert</button><button class="zonebtn" onclick="teleportZone('space')">🌌 Space</button><button class="zonebtn" onclick="teleportZone('volcano')">🌋 Volcano</button></div>
+<div class="v5panel"><h3>🚀 Adventure Power Center — V5</h3><p class="hint">تواناکانی تایبەت بەکاربهێنە، سندوقی نهێنی بدۆزەرەوە و لە پاسەوانەکان خۆت بپارێزە.</p><button onclick="activateShield()">🛡️ Shield</button><button onclick="activateDoubleCoins()">💰 Double Coins</button><button onclick="claimTreasure()">🎁 Secret Treasure</button><div class="power-status"><span class="pill" id="shield-status">🛡️ Shield: 0</span><span class="pill" id="double-status">💰 Double Coins: OFF</span><span class="pill" id="treasure-status">🎁 Treasure: Ready</span></div></div>
 <div class="controls"><div><b>کۆنترۆڵ:</b> WASD / تیرەکان، لە مۆبایل دوگمەکان</div><div class="dpad"><span></span><button data-dir="up">▲</button><span></span><button data-dir="left">◀</button><span></span><button data-dir="right">▶</button><span></span><button data-dir="down">▼</button><span></span></div><button class="jump" onclick="jump()">⬆ بازدان</button></div>
 <div class="panel" style="margin-top:12px"><h3>🎁 پاداشتی ڕۆژانە</h3><p id="daily-status" class="hint">هەر ڕۆژ جارێک پاداشت وەربگرە؛ بەردەوامی ڕۆژانە پاداشتی زیاتر دەدات.</p><button id="daily-btn" class="goldbtn" onclick="claimDaily()">وەرگرتنی پاداشتی ئەمڕۆ</button><h3 style="margin-top:16px">⭐ ئەرکەکانی ئەمڕۆ</h3><div id="daily-quests"></div></div>
 <p class="hint">هێلکەکان کۆبکەرەوە، لە پاسەوانە سوورەکان دووربکەوە و بگەڕێوە ماڵ بۆ گۆڕینیان بە خاڵ. هێلکەی تایبەت زیاتر خاڵ دەدات.</p>
@@ -66,6 +73,7 @@ h2,h3{margin-top:0}.auth input,.admin input{width:100%;padding:12px;border:1px s
 <div class="admin"><h3>🥚 سپاون کردنی هێلکەی تایبەت</h3><div id="spawnbuttons"></div></div>
 <div class="admin"><h3>📢 پەیامی شاشە</h3><input id="broadcastinput" placeholder="پەیام بنووسە"><button onclick="broadcast()">ناردنی پەیام</button><button onclick="clearBroadcast()" style="background:#ef4444;color:white">سڕینەوە</button></div>
 <div class="admin"><h3>📍 تێلێپۆرت</h3><button onclick="resetPosition()">ماڵ</button><button onclick="teleportEggs()">شوێنی هێلکەکان</button><button onclick="teleportRare()">هێلکەی نایاب</button></div>
+<div class="admin"><h3>👑 پاداشتی Owner</h3><button onclick="giveBonusReward()">+10000 Coins و +5000 R$</button></div>
 <div class="admin"><h3>🧬 موتەیشن</h3><button onclick="grantPet('Gold')">Gold</button><button onclick="grantPet('Diamond')">Diamond</button><button onclick="grantPet('Rainbow')">Rainbow</button><button onclick="grantPet('Taco')">Taco</button></div>
 <div class="admin"><h3>👥 ئەژمارە دروستکراوەکان لەم وێبگەڕە</h3><div id="userlist"></div></div></section>
 </main></div></section></div>
@@ -74,7 +82,7 @@ h2,h3{margin-top:0}.auth input,.admin input{width:100%;padding:12px;border:1px s
 <div id="notice"></div>
 <script>
 const $=id=>document.getElementById(id);
-const eggTypes=[['🥚','ئاسایی',30],['🌋','Nuclear Meltdown',250],['😈','Shadow Demon',300],['🤖','Cyberpunk Dragon',400],['🌌','Infinity Cosmic',500],['☀️','Hama Dev God',2500]];
+const eggTypes=[['🥚','ئاسایی',30],['🌋','Nuclear Meltdown',250],['😈','Shadow Demon',300],['🤖','Cyberpunk Dragon',400],['🌌','Infinity Cosmic',500],['☀️','Hama Dev God',2500],['👾','Glitch Egg',900],['🐉','Diamond Dragon',1200],['🦅','Rainbow Phoenix',1500],['🌠','Galaxy Titan',2200]];
 let users=JSON.parse(localStorage.getItem('hamaUsers')||'{}'),current=null;
 let state={score:0,robux:250,carry:0,capacity:3,speed:3,inventory:[],pets:[],friends:[],display:'',dailyLast:'',dailyStreak:0,questDate:'',questCollect:0,questSell:0,questHatch:0,questClaimed:[]};
 let player={x:95,y:440,vx:0,vy:0},keys={},eggs=[],guards=[],last=0,seconds=0;
@@ -89,7 +97,7 @@ function logout(){persist();location.reload()}
 function tab(name,btn){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));$(name).classList.add('active');document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active')}
 function updateUI(){['score','coins'].forEach(id=>$(id).textContent=state.score);$('robux').textContent=state.robux;$('carry').textContent=state.carry;$('capacity').textContent=state.capacity;$('speed').textContent=state.speed;renderInventory();renderPets();renderFriends();renderDaily();persist()}
 function notice(t){$('notice').textContent=t;$('notice').style.display='block';clearTimeout(notice.t);notice.t=setTimeout(()=>$('notice').style.display='none',2300)}
-function initWorld(){eggs=[];guards=[];for(let i=0;i<11;i++)eggs.push({x:180+(i%4)*170,y:100+Math.floor(i/4)*145,type:i===10?5:(i%5===0?1:0),taken:false});for(let i=0;i<4;i++)guards.push({x:260+i*165,y:210+(i%2)*115,base:260+i*165,phase:i*1.7});}
+function initWorld(){eggs=[];guards=[];for(let i=0;i<11;i++){let type=i===10?5:(i%5===0?1:0);if(i===3)type=6;if(i===7)type=7;eggs.push({x:180+(i%4)*170,y:100+Math.floor(i/4)*145,type,taken:false});}for(let i=0;i<4;i++)guards.push({x:260+i*165,y:210+(i%2)*115,base:260+i*165,phase:i*1.7});}
 function draw(){let c=$('world'),ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);
 ctx.fillStyle='#1c463b';ctx.fillRect(0,0,900,540);
 ctx.strokeStyle='#2a5b4c';ctx.lineWidth=2;for(let x=0;x<900;x+=45){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,540);ctx.stroke()}for(let y=0;y<540;y+=45){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(900,y);ctx.stroke()}
@@ -105,14 +113,14 @@ ctx.fillStyle='#0f172a';ctx.fillRect(12,12,180,28);ctx.fillStyle='#fbbf24';ctx.f
 function loop(ts){if(!current)return;let dt=Math.min((ts-last)/16||1,2);last=ts;
 let dx=(keys.right?1:0)-(keys.left?1:0),dy=(keys.down?1:0)-(keys.up?1:0),len=Math.hypot(dx,dy)||1;
 player.x=Math.max(18,Math.min(880,player.x+dx/len*state.speed*dt));player.y=Math.max(55,Math.min(520,player.y+dy/len*state.speed*dt));
-guards.forEach(g=>{g.x=g.base+Math.sin(ts/700+g.phase)*55; if(Math.hypot(g.x-player.x,g.y-player.y)<27){player.x=Math.max(30,player.x-18);player.y=Math.min(510,player.y+15);state.score=Math.max(0,state.score-5);updateUI();notice('پاسەوان گەیشتە تۆ! ٥ خاڵت لەدەستدا');}});
+guards.forEach(g=>{g.x=g.base+Math.sin(ts/700+g.phase)*55; if(Math.hypot(g.x-player.x,g.y-player.y)<27){if((state.shieldCharges||0)>0){state.shieldCharges--;player.x=Math.max(30,player.x-10);notice('🛡️ Shield پاراستی!');}else{player.x=Math.max(30,player.x-18);player.y=Math.min(510,player.y+15);state.score=Math.max(0,state.score-5);notice('پاسەوان گەیشتە تۆ! ٥ خاڵت لەدەستدا');}updateUI();}});
 eggs.forEach(e=>{if(!e.taken&&state.carry<state.capacity&&Math.hypot(e.x-player.x,e.y-player.y)<27){e.taken=true;state.carry++;state.inventory.push(e.type);ensureQuestDay();state.questCollect++;updateUI();notice('هێلکەت هەڵگرت: '+eggTypes[e.type][1]);}});
 draw();requestAnimationFrame(loop)}
 window.addEventListener('keydown',e=>{let k=e.key.toLowerCase();if(['arrowup','w'].includes(k))keys.up=true;if(['arrowdown','s'].includes(k))keys.down=true;if(['arrowleft','a'].includes(k))keys.left=true;if(['arrowright','d'].includes(k))keys.right=true;if(k===' ')jump()});
 window.addEventListener('keyup',e=>{let k=e.key.toLowerCase();if(['arrowup','w'].includes(k))keys.up=false;if(['arrowdown','s'].includes(k))keys.down=false;if(['arrowleft','a'].includes(k))keys.left=false;if(['arrowright','d'].includes(k))keys.right=false});
 document.querySelectorAll('[data-dir]').forEach(b=>{let d=b.dataset.dir;b.addEventListener('pointerdown',e=>{e.preventDefault();keys[d]=true});['pointerup','pointerleave','pointercancel'].forEach(ev=>b.addEventListener(ev,()=>keys[d]=false))});
 function jump(){player.y=Math.max(45,player.y-28);setTimeout(()=>player.y=Math.min(520,player.y+28),180)}
-function sellEggs(){if(!state.carry){notice('هیچ هێلکەیەکت نییە');return}let total=0;state.inventory.forEach(i=>total+=eggTypes[i][2]);state.score+=total;state.inventory=[];state.carry=0;ensureQuestDay();state.questSell++;initWorld();updateUI();notice('فرۆشرا! +'+total+' خاڵ')}
+function sellEggs(){if(!state.carry){notice('هیچ هێلکەیەکت نییە');return}let total=0;state.inventory.forEach(i=>total+=eggTypes[i][2]);if((state.doubleCoinsUntil||0)>Date.now())total*=2;state.score+=total;state.inventory=[];state.carry=0;ensureQuestDay();state.questSell++;initWorld();updateUI();notice('فرۆشرا! +'+total+' خاڵ')}
 function resetPosition(){player.x=95;player.y=440;notice('گەڕایتەوە بۆ ماڵ')}
 function teleportEggs(){player.x=350;player.y=180}function teleportRare(){player.x=860;player.y=490}
 function openModal(id){$(id).style.display='block'}function closeModal(id){$(id).style.display='none'}
@@ -155,5 +163,53 @@ function clearBroadcast(){$('broadcast').style.display='none'}
 function renderUsers(){$('userlist').innerHTML=Object.keys(users).map(u=>`<div class="listrow">${u} ${users[u].owner?'👑 Owner':'👤 Player'}</div>`).join('')}
 const oldAuth=authUser; // owner list refreshes after login
 const originalTab=tab;
+
+// ===== HAMA DEV PLAY V4 FEATURES =====
+let glitchActive=false,boostActive=false;
+function toggleGlitch(){glitchActive=!glitchActive;document.body.classList.toggle('glitch-mode',glitchActive);notice(glitchActive?'👾 GLITCH MODE ACTIVATED!':'GLITCH MODE OFF');}
+function activateBoost(){if(boostActive){notice('Boost پێشتر چالاکە!');return;}boostActive=true;let oldSpeed=state.speed;state.speed=Math.min(10,oldSpeed+3);updateUI();notice('⚡ SUPER BOOST چالاک کرا!');setTimeout(()=>{state.speed=oldSpeed;boostActive=false;updateUI();notice('Boost کۆتایی هات');},15000);}
+function spawnBonusEgg(){if(state.carry>=state.capacity){notice('کۆگاکەت پڕە!');return;}let type=6+Math.floor(Math.random()*4);state.inventory.push(type);state.carry++;updateUI();notice('🥚 هێلکەی تایبەتت وەرگرت!');}
+function teleportZone(zone){if(zone==='desert'){player.x=400;player.y=100;notice('🏜️ بەخێربێیت بۆ Desert Zone!');}else if(zone==='space'){player.x=800;player.y=100;notice('🌌 بەخێربێیت بۆ Space Zone!');}else if(zone==='volcano'){player.x=700;player.y=450;notice('🌋 بەخێربێیت بۆ Volcano Zone!');}}
+function checkAchievements(){if(!state.achievements)state.achievements=[];let list=[[500,'🥉 Beginner'],[2000,'🥈 Pro Player'],[5000,'🥇 Master'],[10000,'👑 Hama Legend']];list.forEach(a=>{if(state.score>=a[0]&&!state.achievements.includes(a[1])){state.achievements.push(a[1]);notice('🏆 Achievement: '+a[1]);persist();}});}
+function showAchievements(){let list=state.achievements||[];alert(list.length?'🏆 ACHIEVEMENTS\\n\\n'+list.join('\\n'):'هێشتا هیچ Achievement ـێکت نییە');}
+function randomGlitchEvent(){if(!current||boostActive)return;if(Math.random()<0.15){notice('👾 RANDOM GLITCH EVENT! +2 Speed');let oldSpeed=state.speed;state.speed=Math.min(10,oldSpeed+2);updateUI();setTimeout(()=>{state.speed=oldSpeed;updateUI();},7000);}}
+setInterval(randomGlitchEvent,45000);
+const v4PreviousUpdateUI=updateUI;updateUI=function(){v4PreviousUpdateUI();checkAchievements();};
+function giveBonusReward(){if(!isOwner())return;state.score+=10000;state.robux+=5000;updateUI();notice('👑 OWNER BONUS: +10000 Coins +5000 R$');}
+
+
+// ===== HAMA DEV PLAY V5: ADVENTURE POWER CENTER =====
+function ensureV5State(){
+  if(!Array.isArray(state.achievements))state.achievements=[];
+  if(!Number.isFinite(state.shieldCharges))state.shieldCharges=0;
+  if(!Number.isFinite(state.doubleCoinsUntil))state.doubleCoinsUntil=0;
+  if(!Number.isFinite(state.treasureNext))state.treasureNext=0;
+}
+const v5BaseAuth=authUser;
+authUser=function(){v5BaseAuth();if(current){ensureV5State();updateUI();}};
+const v5BaseUpdateUI=updateUI;
+updateUI=function(){ensureV5State();v5BaseUpdateUI();renderV5Status();};
+function renderV5Status(){
+  if(!$('shield-status'))return;
+  $('shield-status').textContent='🛡️ Shield: '+(state.shieldCharges||0);
+  $('double-status').textContent='💰 Double Coins: '+((state.doubleCoinsUntil||0)>Date.now()?'ON':'OFF');
+  let left=Math.max(0,Math.ceil(((state.treasureNext||0)-Date.now())/1000));
+  $('treasure-status').textContent=left?'🎁 Treasure: '+Math.ceil(left/60)+'m':'🎁 Treasure: Ready';
+}
+function activateShield(){ensureV5State();state.shieldCharges=Math.min(5,(state.shieldCharges||0)+2);updateUI();notice('🛡️ دو پاراستنی نوێت وەرگرت!');}
+function activateDoubleCoins(){
+  ensureV5State();if(state.robux<100){notice('R$ بەس نییە؛ 100 R$ پێویستە');return;}
+  state.robux-=100;state.doubleCoinsUntil=Date.now()+60000;updateUI();notice('💰 بۆ ٦٠ چرکە دوو هێندە خاڵ وەردەگریت!');
+  setTimeout(()=>{if(current){updateUI();notice('کاتی Double Coins تەواو بوو');}},61000);
+}
+function claimTreasure(){
+  ensureV5State();let now=Date.now();if((state.treasureNext||0)>now){renderV5Status();notice('🎁 سندوقەکە هێشتا ئامادە نییە؛ کەمێک چاوەڕێ بکە');return;}
+  let coins=150+Math.floor(Math.random()*351);state.score+=coins;
+  if(state.carry<state.capacity&&Math.random()<0.45){let type=6+Math.floor(Math.random()*4);state.inventory.push(type);state.carry++;notice('🎁 +'+coins+' خاڵ و هێلکەی '+eggTypes[type][1]);}
+  else notice('🎁 سندوقی نهێنی: +'+coins+' خاڵ!');
+  state.treasureNext=now+5*60*1000;updateUI();
+}
+setInterval(()=>{if(current)renderV5Status();},10000);
+
 </script>
 </body></html>

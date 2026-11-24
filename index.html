@@ -1,215 +1,1926 @@
-
 <!doctype html>
 <html lang="ku" dir="rtl">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Hama Dev Play v5.0</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hama Dev Play v7.0 — Steal An Egg & MM2</title>
 <style>
-:root{--bg:#080d1b;--panel:#111a2d;--panel2:#17243b;--gold:#fbbf24;--green:#10b981;--blue:#38bdf8;--purple:#a78bfa;--red:#ef4444;--txt:#eef4ff;--muted:#9aabc4}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#182747,#080d1b 65%);color:var(--txt);font-family:Tahoma,Arial,sans-serif}
-button,input{font:inherit}button{border:0;border-radius:10px;padding:10px 13px;font-weight:bold;cursor:pointer;background:var(--green);color:#04130e}button:disabled{opacity:.45;cursor:not-allowed}
-header{position:sticky;top:0;z-index:5;background:#0c1425ee;border-bottom:1px solid #293854;padding:12px 4%;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.brand h1{margin:0;font-size:22px}.brand small{color:var(--muted)}.topstats{display:flex;gap:8px;flex-wrap:wrap}.pill{background:#1c2a43;border:1px solid #344766;border-radius:30px;padding:8px 12px}
-.wrap{max-width:1250px;margin:auto;padding:18px}.auth{max-width:420px;margin:8vh auto;background:var(--panel);border:1px solid #344766;padding:24px;border-radius:18px;box-shadow:0 20px 60px #0007}
-h2,h3{margin-top:0}.auth input,.admin input{width:100%;padding:12px;border:1px solid #3b4d6b;border-radius:9px;background:#091326;color:white;margin:7px 0 13px}.hint{color:var(--muted);font-size:12px;line-height:1.6}
-.app{display:none}.layout{display:grid;grid-template-columns:210px 1fr;gap:16px}.side,.panel{background:var(--panel);border:1px solid #293b59;border-radius:15px;padding:14px}.nav{display:block;width:100%;text-align:right;background:transparent;color:var(--txt);margin:4px 0}.nav.active,.nav:hover{background:#263958}.content{min-width:0}.tab{display:none}.tab.active{display:block}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{background:var(--panel2);border:1px solid #344766;border-radius:13px;padding:15px}.card p{color:var(--muted);font-size:13px;line-height:1.6}.gold{color:var(--gold)}.blue{color:var(--blue)}
-.game-shell{background:#081322;border:1px solid #3b5275;border-radius:16px;padding:10px;overflow:hidden}
-.gamebar{display:flex;gap:8px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:9px}.gamebar .pill{font-size:13px;padding:7px 10px}
-#world{display:block;width:100%;height:auto;max-height:68vh;background:#172b2a;border-radius:12px;touch-action:none}
-.game-actions{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.game-actions button{background:#263958;color:white}.game-actions .goldbtn{background:var(--gold);color:#241700}
-.controls{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.dpad{display:grid;grid-template-columns:42px 42px 42px;gap:4px}.dpad button{padding:9px 0;background:#263958;color:white}.dpad span{visibility:hidden}.jump{background:var(--purple);color:#160c2c}
-.listrow{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#0d1729;border:1px solid #2b3d5b;border-radius:9px;padding:9px;margin:6px 0}
-#notice{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#fbbf24;color:#241700;padding:11px 18px;border-radius:12px;font-weight:bold;display:none;z-index:20;max-width:90%;text-align:center}
-#broadcast{display:none;background:linear-gradient(90deg,#7c2d12,#a16207,#065f46);padding:11px;text-align:center;font-weight:bold;border-radius:10px;margin-bottom:10px}
-.admin{border:1px solid var(--gold);background:#211d32;padding:13px;border-radius:12px;margin:10px 0}
+:root{
+  --bg:#060b17;
+  --panel:#0f182c;
+  --panel2:#16233d;
+  --panel3:#1d2e4f;
+  --gold:#fbbf24;
+  --green:#10b981;
+  --blue:#38bdf8;
+  --purple:#a78bfa;
+  --pink:#f472b6;
+  --red:#ef4444;
+  --teal:#2dd4bf;
+  --txt:#f1f5ff;
+  --muted:#9ab0cf;
+  --border:#2b3e61;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:radial-gradient(circle at 20% 0%,#1c315c 0%,#091122 48%,#050913 100%);
+  color:var(--txt);
+  font-family:Tahoma,Arial,sans-serif;
+  min-height:100vh;
+}
+button,input,select{font:inherit}
+button{
+  border:0;
+  border-radius:10px;
+  padding:9px 13px;
+  font-weight:bold;
+  cursor:pointer;
+  background:var(--green);
+  color:#03140e;
+  transition:transform .12s ease,filter .15s ease,box-shadow .15s ease;
+}
+button:hover:not(:disabled){filter:brightness(1.08);transform:translateY(-1px)}
+button:active:not(:disabled){transform:translateY(0)}
+button:disabled{opacity:.42;cursor:not-allowed}
+
+header{
+  position:sticky;top:0;z-index:20;
+  background:rgba(9,16,32,.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+  padding:11px 4%;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-badge{
+  background:linear-gradient(135deg,#ef4444,#8b5cf6,#0ea5e9);
+  color:#fff;font-size:11px;font-weight:bold;padding:3px 9px;border-radius:20px;
+}
+.brand h1{margin:0;font-size:20px;letter-spacing:.2px}
+.brand small{color:var(--muted);display:block;font-size:11px}
+
+.topstats{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.pill{
+  background:#182742;border:1px solid #354c75;
+  border-radius:30px;padding:6px 11px;font-size:13px;
+  display:inline-flex;align-items:center;gap:5px;
+}
+.pill b.gold{color:var(--gold)}
+.pill b.blue{color:var(--blue)}
+.pill b.teal{color:var(--teal)}
+.pill b.red{color:#fca5a5}
+
+.wrap{max-width:1340px;margin:auto;padding:16px}
+.auth{
+  max-width:450px;margin:6vh auto;
+  background:var(--panel);border:1px solid #38507a;
+  padding:26px;border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.6);
+}
+h2,h3{margin-top:0}
+.auth input,.admin input,.panel input,.panel select{
+  width:100%;padding:11px 12px;border:1px solid #3c537a;border-radius:10px;
+  background:#081122;color:#fff;margin:6px 0 12px;
+}
+.hint{color:var(--muted);font-size:12px;line-height:1.65}
+
+.app{display:none}
+.layout{display:grid;grid-template-columns:230px 1fr;gap:16px;align-items:start}
+.side,.panel{
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:16px;padding:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+.nav{
+  display:flex;align-items:center;justify-content:space-between;
+  width:100%;text-align:right;background:transparent;color:var(--txt);
+  margin:4px 0;padding:10px 12px;border-radius:11px;font-size:14px;
+}
+.nav.active,.nav:hover{background:linear-gradient(90deg,#23385c,#1a2a47);color:#fff;box-shadow:inset 3px 0 0 var(--blue)}
+.nav .badge{
+  background:#2a426b;color:var(--gold);font-size:11px;padding:2px 7px;border-radius:12px;
+}
+
+.content{min-width:0}
+.tab{display:none}
+.tab.active{display:block;animation:fadeIn .18s ease}
+@keyframes fadeIn{from{opacity:.5;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.card{
+  background:var(--panel2);border:1px solid #33496e;border-radius:14px;padding:15px;
+  display:flex;flex-direction:column;justify-content:space-between;gap:10px;
+}
+.card h3{margin:0 0 4px;font-size:16px}
+.card p{color:var(--muted);font-size:13px;line-height:1.6;margin:0}
+.card-meta{font-size:12px;color:var(--teal);font-weight:bold}
+
+.game-shell{
+  background:#071120;border:1px solid #375078;border-radius:16px;padding:12px;overflow:hidden;
+}
+.gamebar{
+  display:flex;gap:7px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:9px;
+}
+.gamebar .pill{font-size:12px;padding:6px 10px}
+#world{
+  display:block;width:100%;height:auto;max-height:68vh;
+  background:#152c2b;border-radius:12px;border:1px solid #29465c;touch-action:none;
+}
+
+.game-actions{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
+.game-actions button{background:#233657;color:#eef4ff;font-size:12.5px;padding:8px 11px}
+.game-actions .goldbtn{background:var(--gold);color:#1f1300}
+.game-actions .tealbtn{background:#0d9488;color:#fff}
+.v4btn{background:#6d28d9!important;color:#fff!important}
+.zonebtn{background:#0284c7!important;color:#fff!important}
+
+/* Roblox-style Action HUD Buttons */
+.rbx-btn{
+  position:relative;
+  border-radius:14px!important;
+  border:2px solid rgba(255,255,255,.24)!important;
+  box-shadow:0 4px 0 rgba(0,0,0,.55),0 0 14px rgba(56,189,248,.18)!important;
+  text-transform:uppercase;
+  letter-spacing:.35px;
+  font-weight:900!important;
+  padding:10px 15px!important;
+}
+.rbx-btn:hover:not(:disabled){
+  transform:translateY(-2px)!important;
+  box-shadow:0 6px 0 rgba(0,0,0,.6),0 0 18px rgba(255,255,255,.28)!important;
+}
+.rbx-btn:active:not(:disabled){
+  transform:translateY(2px)!important;
+  box-shadow:0 2px 0 rgba(0,0,0,.5)!important;
+}
+.rbx-key{
+  display:inline-block;
+  background:rgba(0,0,0,.45);
+  border:1px solid rgba(255,255,255,.35);
+  color:#fff;
+  font-size:10px;
+  padding:1px 5px;
+  border-radius:6px;
+  margin-left:5px;
+  vertical-align:middle;
+}
+
+/* MM2-styled Steal An Egg Button */
+.mm2-steal-btn{
+  background:linear-gradient(135deg,#dc2626,#7f1d1d 55%,#eab308)!important;
+  color:#fff!important;
+  border:1px solid rgba(254,202,202,.55)!important;
+  box-shadow:0 0 16px rgba(239,68,68,.45);
+  letter-spacing:.3px;
+}
+.mm2-mode-btn{
+  background:linear-gradient(135deg,#991b1b,#450a0a)!important;
+  color:#fecaca!important;
+  border:1px solid #ef4444!important;
+}
+
+.v5panel{
+  margin-top:12px;
+  background:linear-gradient(135deg,#12233f,#1e183b);
+  border:1px solid #594987;border-radius:14px;padding:13px;
+}
+.v5panel button{margin:3px;background:#4338ca;color:#fff;font-size:12.5px}
+.power-status{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
+.power-status .pill{font-size:12px}
+
+.controls{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+  margin-top:10px;background:#0c172a;padding:10px 12px;border-radius:12px;border:1px solid #243754;
+}
+.dpad{display:grid;grid-template-columns:44px 44px 44px;gap:4px}
+.dpad button{padding:9px 0;background:#243859;color:#fff}
+.dpad span{visibility:hidden}
+.jump{background:var(--purple);color:#140929;padding:12px 16px}
+.shoot-btn{background:#dc2626!important;color:#fff!important;padding:12px 16px}
+
+.listrow{
+  display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;
+  background:#0b1526;border:1px solid #283b59;border-radius:10px;padding:9px 11px;margin:6px 0;
+}
+.subgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:12px}
+.xp-bar{width:100%;height:10px;background:#091221;border-radius:99px;overflow:hidden;border:1px solid #2c4166;margin:6px 0}
+.xp-fill{height:100%;background:linear-gradient(90deg,#10b981,#38bdf8,#a78bfa);transition:width .25s ease}
+
+#notice{
+  position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(90deg,#fbbf24,#f59e0b);color:#1d1200;
+  padding:11px 18px;border-radius:12px;font-weight:bold;display:none;z-index:50;
+  max-width:92%;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.5);
+}
+#broadcast{
+  display:none;background:linear-gradient(90deg,#7c2d12,#b45309,#047857);
+  padding:11px 14px;text-align:center;font-weight:bold;border-radius:12px;margin-bottom:12px;
+  border:1px solid rgba(255,255,255,.18);
+}
+.admin{
+  border:1px solid rgba(251,191,36,.55);background:#1c192e;
+  padding:13px;border-radius:12px;margin:10px 0;
+}
+.admin button{margin:3px}
+
 .glitch-mode{animation:glitchHue .7s steps(2,end) infinite}
-.glitch-mode header,.glitch-mode .panel,.glitch-mode .game-shell{box-shadow:3px 0 #ec4899,-3px 0 #38bdf8;filter:saturate(1.35)}
+.glitch-mode header,.glitch-mode .panel,.glitch-mode .game-shell{
+  box-shadow:3px 0 #ec4899,-3px 0 #38bdf8;filter:saturate(1.35);
+}
 @keyframes glitchHue{0%{filter:hue-rotate(0deg)}50%{filter:hue-rotate(22deg)}100%{filter:hue-rotate(-18deg)}}
-.v4btn{background:#6d28d9!important;color:white!important}.v5panel{margin-top:12px;background:linear-gradient(135deg,#14243d,#201b3b);border:1px solid #5b4b86;border-radius:14px;padding:13px}.v5panel button{margin:4px;background:#4338ca;color:white}.power-status{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.power-status .pill{font-size:12px}.zonebtn{background:#0e7490!important;color:white!important}.admin button{margin:3px}
-@media(max-width:760px){.layout{grid-template-columns:1fr}.side{display:grid;grid-template-columns:repeat(2,1fr);gap:4px}.nav{text-align:center;font-size:13px}.wrap{padding:10px}header{padding:10px}.brand h1{font-size:18px}}
+
+.modal-backdrop{
+  display:none;position:fixed;inset:0;background:rgba(2,6,15,.72);z-index:35;
+}
+.modal-box{
+  display:none;position:fixed;z-index:40;top:11%;left:50%;transform:translateX(-50%);
+  width:min(490px,94%);max-height:78vh;overflow-y:auto;box-shadow:0 24px 80px #000;
+}
+.bot-tag{font-size:11px;background:#1e3a5f;color:#7dd3fc;padding:2px 7px;border-radius:8px;margin-right:6px}
+.equipped-badge{font-size:11px;background:#065f46;color:#6ee7b7;padding:2px 8px;border-radius:8px}
+
+@media(max-width:820px){
+  .layout{grid-template-columns:1fr}
+  .side{display:grid;grid-template-columns:repeat(2,1fr);gap:5px}
+  .nav{text-align:center;justify-content:center;font-size:13px}
+  .wrap{padding:10px}
+  header{padding:10px}
+  .brand h1{font-size:17px}
+}
+
+/* Distinct MM2 Signature Button inside Arena */
+.mm2-signature-btn{
+  background:linear-gradient(135deg,#ff1e56,#ac002d 52%,#f59e0b)!important;
+  color:#fff!important;
+  border:2px solid #ffd166!important;
+  border-radius:16px!important;
+  padding:11px 16px!important;
+  font-weight:900!important;
+  letter-spacing:.4px;
+  box-shadow:0 4px 0 #590016,0 0 20px rgba(255,30,86,.55)!important;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+.mm2-signature-btn:hover:not(:disabled){
+  transform:translateY(-2px)!important;
+  box-shadow:0 6px 0 #590016,0 0 26px rgba(251,191,36,.7)!important;
+}
+.mm2-signature-btn:active:not(:disabled){
+  transform:translateY(2px)!important;
+  box-shadow:0 2px 0 #590016!important;
+}
+
 </style>
 </head>
 <body>
-<header><div class="brand"><h1>☀️ Hama Dev Play</h1><small>v5.0 Adventure Update</small></div><div class="topstats" id="headerstats" style="display:none"><span class="pill">💎 <b id="robux">250</b> R$</span><span class="pill">🪙 <b id="coins">0</b></span><span class="pill">👤 <b id="who">-</b></span><button onclick="logout()" style="background:#7f1d1d;color:white">دەرچوون</button></div></header>
+<header>
+  <div class="brand">
+    <div>
+      <h1>☀️ Hama Dev Play <span class="brand-badge">v7.0 • MM2</span></h1>
+      <small>Steal An Egg • Murder Mystery 2 • Pets, Zones, Fusion &amp; Save System</small>
+    </div>
+  </div>
+  <div class="topstats" id="headerstats" style="display:none">
+    <span class="pill">⭐ Level <b class="teal" id="lvl">1</b></span>
+    <span class="pill">💎 <b class="blue" id="robux">250</b> R$</span>
+    <span class="pill">🪙 <b class="gold" id="coins">0</b></span>
+    <span class="pill">🔪 MM2 Wins: <b class="red" id="mm2wins">0</b></span>
+    <span class="pill">🐾 <b id="petcount">0</b></span>
+    <span class="pill">👤 <b id="who">-</b></span>
+    <button onclick="logout()" style="background:#7f1d1d;color:#fff">دەرچوون</button>
+  </div>
+</header>
+
 <div class="wrap">
-<section class="auth" id="auth">
-<h2>🎮 بەخێربێیت بۆ Hama Dev Play</h2><p class="hint">یەکەم ئەژمار کە دروست دەکرێت دەبێتە ئۆنەری ئەم نموونەیە.</p>
-<label>ناوی بەکارهێنەر</label><input id="username" placeholder="ناوی خۆت">
-<label>تێپەڕەواژە</label><input id="password" type="password" placeholder="تێپەڕەواژەیەکی نوێ">
-<button onclick="authUser()" style="width:100%">دروستکردن / چوونەژوورەوە</button><p class="hint">تێبینی: ئەم نموونەیە تەنها لەسەر ئەم وێبگەڕە داتاکان هەڵدەگرێت. تێپەڕەواژەی ڕاستەقینەت بەکارمەهێنە.</p><div id="autherr" class="hint"></div>
-</section>
-<section class="app" id="app">
-<div id="broadcast"></div>
-<div class="layout">
-<aside class="side">
-<button class="nav active" onclick="tab('game',this)">🎮 یارییەکە</button>
-<button class="nav" onclick="tab('store',this)">🏪 ستۆر</button>
-<button class="nav" onclick="tab('garden',this)">🌱 باخچە و پێتەکان</button>
-<button class="nav" onclick="tab('friends',this)">👥 هاوڕێکان</button>
-<button class="nav" onclick="tab('chat',this)">💬 چاتی ناوخۆیی</button>
-<button class="nav" onclick="tab('settings',this)">⚙️ سیتینگ</button>
-<button class="nav" id="ownerNav" style="display:none" onclick="tab('owner',this)">👑 Owner Hub</button>
-</aside>
-<main class="content">
-<section class="tab active" id="game">
-<div class="game-shell">
-<div class="gamebar"><b>🥚 Steal An Egg — شاری یەکەم</b><span class="pill">خاڵ: <b id="score">0</b></span><span class="pill">هێلکە: <b id="carry">0</b>/<b id="capacity">3</b></span><span class="pill">⚡ <b id="speed">3</b></span></div>
-<canvas id="world" width="900" height="540"></canvas>
-<div class="game-actions"><button class="goldbtn" onclick="sellEggs()">🏠 فرۆشتنی هێلکەکان لە ماڵ</button><button onclick="claimDaily()">🎁 پاداشتی ڕۆژانە</button><button onclick="openModal('shopmodal')">🛒 شۆپی تواناکان</button><button onclick="openModal('jackmodal')">🎰 جاکیا</button><button onclick="tab('garden',document.querySelectorAll('.nav')[2])">🌱 باخچە</button><button onclick="resetPosition()">📍 گەڕانەوە بۆ ماڵ</button>
-<button class="v4btn" onclick="toggleGlitch()">👾 Glitch Mode</button><button class="v4btn" onclick="activateBoost()">⚡ Super Boost</button><button class="v4btn" onclick="spawnBonusEgg()">🥚 Bonus Egg</button><button class="v4btn" onclick="showAchievements()">🏆 Achievement</button>
-<button class="zonebtn" onclick="teleportZone('desert')">🏜️ Desert</button><button class="zonebtn" onclick="teleportZone('space')">🌌 Space</button><button class="zonebtn" onclick="teleportZone('volcano')">🌋 Volcano</button></div>
-<div class="v5panel"><h3>🚀 Adventure Power Center — V5</h3><p class="hint">تواناکانی تایبەت بەکاربهێنە، سندوقی نهێنی بدۆزەرەوە و لە پاسەوانەکان خۆت بپارێزە.</p><button onclick="activateShield()">🛡️ Shield</button><button onclick="activateDoubleCoins()">💰 Double Coins</button><button onclick="claimTreasure()">🎁 Secret Treasure</button><div class="power-status"><span class="pill" id="shield-status">🛡️ Shield: 0</span><span class="pill" id="double-status">💰 Double Coins: OFF</span><span class="pill" id="treasure-status">🎁 Treasure: Ready</span></div></div>
-<div class="controls"><div><b>کۆنترۆڵ:</b> WASD / تیرەکان، لە مۆبایل دوگمەکان</div><div class="dpad"><span></span><button data-dir="up">▲</button><span></span><button data-dir="left">◀</button><span></span><button data-dir="right">▶</button><span></span><button data-dir="down">▼</button><span></span></div><button class="jump" onclick="jump()">⬆ بازدان</button></div>
-<div class="panel" style="margin-top:12px"><h3>🎁 پاداشتی ڕۆژانە</h3><p id="daily-status" class="hint">هەر ڕۆژ جارێک پاداشت وەربگرە؛ بەردەوامی ڕۆژانە پاداشتی زیاتر دەدات.</p><button id="daily-btn" class="goldbtn" onclick="claimDaily()">وەرگرتنی پاداشتی ئەمڕۆ</button><h3 style="margin-top:16px">⭐ ئەرکەکانی ئەمڕۆ</h3><div id="daily-quests"></div></div>
-<p class="hint">هێلکەکان کۆبکەرەوە، لە پاسەوانە سوورەکان دووربکەوە و بگەڕێوە ماڵ بۆ گۆڕینیان بە خاڵ. هێلکەی تایبەت زیاتر خاڵ دەدات.</p>
+  <section class="auth" id="auth">
+    <h2>🎮 بەخێربێیت بۆ Hama Dev Play v7.0</h2>
+    <p class="hint">ئەژماری <b>rip_hama276</b> بە شێوەی خۆکار وەک <b>Owner</b> ناسراوە. ناو و تێپەڕەواژەکەت بنووسە و بچۆ ژوورەوە.</p>
+    <label>ناوی بەکارهێنەر</label>
+    <input id="username" value="rip_hama276" placeholder="بۆ نموونە: rip_hama276">
+    <label>تێپەڕەواژە</label>
+    <input id="password" type="password" placeholder="تێپەڕەواژەکەت بنووسە">
+    <button onclick="authUser()" style="width:100%">دروستکردن / چوونەژوورەوە</button>
+    <p class="hint">تێبینی: ئەگەر پێشتر بە <b>rip_hama276</b> یان <b>RIP_hama276</b> ئەژمارت هەبووبێت، هەر بەیەکەوە دەبەسترێنەوە و داتاکان دەپارێزرێن.</p>
+    <div id="autherr" class="hint" style="color:#fca5a5"></div>
+  </section>
+
+  <section class="app" id="app">
+    <div id="broadcast"></div>
+    <div class="layout">
+      <aside class="side">
+        <button class="nav active" onclick="tab('game',this)"><span>🎮 یارییەکە</span><span class="badge" id="nav-zone">City 1</span></button>
+        <button class="nav" onclick="openMM2Live(this)"><span>🔪 Murder Mystery 2</span><span class="badge">LIVE</span></button>
+        <button class="nav" onclick="tab('store',this)"><span>🏪 ستۆر</span><span class="badge">R$</span></button>
+        <button class="nav" onclick="tab('garden',this)"><span>🌱 باخچە و پێتەکان</span><span class="badge" id="nav-pets">0</span></button>
+        <button class="nav" onclick="tab('minigames',this)"><span>🎯 مینی گەیم</span><span class="badge">v7</span></button>
+        <button class="nav" onclick="tab('friends',this)"><span>👥 هاوڕێکان</span><span class="badge" id="nav-friends">0</span></button>
+        <button class="nav" onclick="tab('chat',this)"><span>💬 چاتی ناوخۆیی</span><span class="badge">LIVE</span></button>
+        <button class="nav" onclick="tab('settings',this)"><span>⚙️ سیتینگ و باکئەپ</span><span class="badge">v7</span></button>
+        <button class="nav" id="ownerNav" style="display:none" onclick="tab('owner',this)"><span>👑 Owner Hub</span><span class="badge">OWNER</span></button>
+      </aside>
+
+      <main class="content">
+        <!-- GAME TAB -->
+        <section class="tab active" id="game">
+          <div class="game-shell">
+            <div class="gamebar">
+              <b id="zone-title">🥚 Steal An Egg — City 1 (شاری یەکەم)</b>
+              <span class="pill">خاڵ: <b class="gold" id="score">0</b></span>
+              <span class="pill">هێلکە: <b id="carry">0</b>/<b id="capacity">3</b></span>
+              <span class="pill">⚡ خێرایی: <b id="speed">3</b></span>
+              <span class="pill">✨ بووست: <b class="teal" id="mult-badge">1x</b></span>
+              <span class="pill" id="mode-pill">دۆخ: <b class="gold">Steal Egg</b></span>
+            </div>
+
+            <div style="margin-bottom:8px">
+              <div class="hint" style="display:flex;justify-content:space-between">
+                <span>پێشکەوتنی Level <b id="lvl-label">1</b></span>
+                <span id="xp-text">0 / 250 XP</span>
+              </div>
+              <div class="xp-bar"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
+            </div>
+
+            <canvas id="world" width="900" height="540"></canvas>
+
+            <div class="game-actions">
+              <button class="rbx-btn" style="background:#06b6d4;color:#04151a" onclick="dashStrike()"><span class="rbx-key">Q</span>⚡ DASH STRIKE</button>
+              <button class="rbx-btn" style="background:#ec4899;color:#fff" onclick="openMysteryCrate()"><span class="rbx-key">C</span>📦 MYSTERY CRATE</button>
+              <button class="rbx-btn" style="background:#f59e0b;color:#1b1100" onclick="cycleWorldEvent()"><span class="rbx-key">W</span>🌦️ WORLD EVENT</button>
+              <button class="mm2-signature-btn" onclick="mm2QuickAction()"><span class="rbx-key">MM2</span>🔪 دووگمەی MM2</button>
+              <button class="mm2-steal-btn rbx-btn" onclick="triggerMM2StealEgg()"><span class="rbx-key">E</span>🔪🥚 STEAL AN EGG • MM2</button>
+              <button class="mm2-mode-btn rbx-btn" onclick="toggleMM2Arena()"><span class="rbx-key">M</span>🔫 MM2 ARENA</button>
+              <button class="goldbtn" onclick="sellEggs()">🏠 فرۆشتنی هێلکەکان لە ماڵ</button>
+              <button onclick="claimDaily()">🎁 پاداشتی ڕۆژانە</button>
+              <button onclick="openModal('shopmodal')">🛒 شۆپی تواناکان</button>
+              <button onclick="openModal('jackmodal')">🎰 جاکپۆت</button>
+              <button class="tealbtn" onclick="magnetPulse()">🧲 کێشکردنی هێلکە (Magnet)</button>
+              <button onclick="tab('garden',document.querySelectorAll('.nav')[3])">🌱 باخچە</button>
+              <button onclick="resetPosition()">📍 گەڕانەوە بۆ ماڵ</button>
+              <button class="v4btn" onclick="toggleGlitch()">👾 Glitch Mode</button>
+              <button class="v4btn" onclick="activateBoost()">⚡ Super Boost</button>
+              <button class="v4btn" onclick="spawnBonusEgg()">🥚 Bonus Egg</button>
+              <button class="v4btn" onclick="showAchievements()">🏆 Achievements</button>
+              <button class="zonebtn" onclick="teleportZone('city')">🏙️ City</button>
+              <button class="zonebtn" onclick="teleportZone('desert')">🏜️ Desert</button>
+              <button class="zonebtn" onclick="teleportZone('space')">🌌 Space</button>
+              <button class="zonebtn" onclick="teleportZone('volcano')">🌋 Volcano</button>
+            </div>
+
+            <div class="v5panel">
+              <h3>🚀 Adventure Power Center — V7 &amp; MM2 Tactics</h3>
+              <p class="hint">تواناکانی تایبەت چالاک بکە، سندوقی نهێنی بکەرەوە و لە پاسەوانەکان و Murderer خۆت بپارێزە.</p>
+              <button onclick="activateShield()">🛡️ Shield (+2)</button>
+              <button onclick="activateDoubleCoins()">💰 Double Coins (100 R$)</button>
+              <button onclick="claimTreasure()">🎁 Secret Treasure</button>
+              <button onclick="buyRobuxPack()" style="background:#059669">💎 گۆڕینی 500 خاڵ بۆ 50 R$</button>
+              <button onclick="activateMM2Scanner()" style="background:#b91c1c">🕵️ MM2 Radar Scan (50 R$)</button>
+              <div class="power-status">
+                <span class="pill" id="shield-status">🛡️ Shield: 0</span>
+                <span class="pill" id="double-status">💰 Double Coins: OFF</span>
+                <span class="pill" id="treasure-status">🎁 Treasure: Ready</span>
+                <span class="pill" id="magnet-status">🧲 Magnet: Ready</span>
+                <span class="pill" id="mm2-role-status">🎭 Role: Sheriff / Hunter</span>
+              </div>
+            </div>
+
+            <div class="controls">
+              <div><b>کۆنترۆڵ:</b> WASD / تیرەکان / Space بازدان / F تەقە یان هێرشی MM2</div>
+              <div class="dpad">
+                <span></span><button data-dir="up">▲</button><span></span>
+                <button data-dir="left">◀</button><span></span><button data-dir="right">▶</button>
+                <span></span><button data-dir="down">▼</button><span></span>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <button class="mm2-steal-btn rbx-btn" onclick="triggerMM2StealEgg()"><span class="rbx-key">E</span>🥚 STEAL</button>
+                <button class="shoot-btn rbx-btn" onclick="mm2Attack()"><span class="rbx-key">F</span>🔫 SHOOT / SLASH</button>
+                <button class="jump rbx-btn" onclick="jump()"><span class="rbx-key">SPC</span>⬆ JUMP</button>
+              </div>
+            </div>
+
+            <div class="subgrid">
+              <div class="panel">
+                <h3>🎁 پاداشتی ڕۆژانە</h3>
+                <p id="daily-status" class="hint">هەر ڕۆژ جارێک پاداشت وەربگرە؛ بەردەوامی ڕۆژانە پاداشتی زیاتر دەدات.</p>
+                <button id="daily-btn" class="goldbtn" onclick="claimDaily()">وەرگرتنی پاداشتی ئەمڕۆ</button>
+                <h3 style="margin-top:16px">⭐ ئەرکەکانی ئەمڕۆ</h3>
+                <div id="daily-quests"></div>
+              </div>
+              <div class="panel">
+                <h3>📜 تۆماری چالاکییەکانی دوایی (Activity Log)</h3>
+                <p class="hint">دوایین هەنگاوەکانت لە یارییەکەدا لێرە دەبینیت.</p>
+                <div id="activity-log"></div>
+              </div>
+            </div>
+
+            <p class="hint" style="margin-top:10px">هێلکەکان کۆبکەرەوە، لە پاسەوانەکان دووربکەوە و بگەڕێوە ماڵ بۆ گۆڕینیان بە خاڵ. هێلکەی نایاب خاڵ و XPـی زۆر زیاتر دەدات.</p>
+          </div>
+        </section>
+
+        <!-- MURDER MYSTERY 2 TAB (LIVE ARENA) -->
+        <section class="tab" id="mm2tab">
+          <div class="game-shell">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:8px">
+              <div>
+                <h2 id="mm2-round-title" style="margin:0">🔪 Murder Mystery 2 — 🔫 Sheriff</h2>
+                <p class="hint" id="mm2-desc" style="margin:2px 0 0">Murderer بپێکە یان ٨ سکە کۆبکەرەوە لە شاشەی یاری خوارەوە!</p>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+                <button class="mm2-signature-btn" onclick="mm2QuickAction()"><span class="rbx-key">MM2</span>🔪 دووگمەی MM2</button>
+                <button class="mm2-steal-btn rbx-btn" onclick="startMM2Match()"><span class="rbx-key">R</span>▶️ NEW ROUND</button>
+                <button class="shoot-btn rbx-btn" onclick="mm2Attack()"><span class="rbx-key">F</span>🔫 SHOOT / KNIFE</button>
+                <button class="mm2-steal-btn rbx-btn" onclick="triggerMM2StealEgg()"><span class="rbx-key">E</span>🥚 STEAL EGG</button>
+              </div>
+            </div>
+
+            <div class="power-status" style="margin-bottom:10px">
+              <span class="pill">⏱️ کات: <b class="gold" id="mm2-timer">45s</b></span>
+              <span class="pill">🪙 سکە: <b class="gold" id="mm2-coins">0</b>/8</span>
+              <span class="pill">🏆 MM2 Wins: <b class="teal" id="mm2-wins-card">0</b></span>
+              <span class="pill">🎯 Murderer: <b class="red" id="mm2-threat">چالاکە</b></span>
+            </div>
+
+            <div id="mm2-canvas-host"></div>
+
+            <div class="subgrid" style="margin-top:12px">
+              <div class="card">
+                <div>
+                  <h3>🔫 چەکەکانی MM2</h3>
+                  <p>چەک بکڕە بۆ مەودای تەقە و هێرشی خێراتر.</p>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <button class="rbx-btn" onclick="buyMM2Weapon('Laser Revolver',150)">🔫 LASER REVOLVER (150 R$)</button>
+                  <button class="rbx-btn" onclick="buyMM2Weapon('Shadow Knife',220)" style="background:#7c3aed;color:#fff">🔪 SHADOW KNIFE (220 R$)</button>
+                </div>
+              </div>
+              <div class="card">
+                <div>
+                  <h3>🥚 Steal An Egg × MM2 Combo</h3>
+                  <p>هێلکە ڕابکێشە و بە خێرایی لە Murderer دوور بکەوە.</p>
+                </div>
+                <button class="mm2-steal-btn rbx-btn" onclick="triggerMM2StealEgg()">🔪🥚 STEAL &amp; DASH</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STORE TAB -->
+        <section class="tab" id="store">
+          <h2>🏪 Hama Dev Store</h2>
+          <p class="hint">ئایتم و بووستە تایبەتەکان بکڕە بۆ بەرزکردنەوەی خێرایی، خاڵ و هێزی کارەکتەرەکەت.</p>
+          <div class="cards" id="storecards"></div>
+        </section>
+
+        <!-- GARDEN & PETS TAB -->
+        <section class="tab" id="garden">
+          <h2>🌱 باخچەی هێلکە و پێتەکان</h2>
+          <div class="panel">
+            <h3>🥚 هێلکەکانی کۆگات</h3>
+            <p class="hint">هێلکەی کۆگاکەت بشکێنە بۆ دەرکردنی پێتە نوێیەکان، یان هەموویان بەیەکەوە بشکێنە.</p>
+            <div style="margin-bottom:8px;display:flex;gap:8px;flex-wrap:wrap">
+              <button onclick="hatchAll()" class="goldbtn">🐣 شکاندنی هەموو هێلکەکان</button>
+              <button onclick="fusePets()" style="background:#8b5cf6;color:#fff">🧬 تێکەڵکردنی ٢ پێت (Pet Fusion)</button>
+            </div>
+            <div id="egginv"></div>
+
+            <h3 style="margin-top:18px">🐾 پێتەکانت (Equip بۆ زیادکردنی بووست)</h3>
+            <p class="hint">دەتوانیت تا ٢ پێت چالاک (Equip) بکەیت بۆ زیادکردنی خێرایی و بووستی خاڵ.</p>
+            <div id="pets"></div>
+          </div>
+        </section>
+
+        <!-- MINIGAMES TAB -->
+        <section class="tab" id="minigames">
+          <h2>🎯 ناوەندی مینی گەیمەکان</h2>
+          <div class="cards">
+            <div class="card">
+              <div>
+                <h3>🔢 خێرا هەژمارکردنی Math</h3>
+                <p>پرسیارێکی بیرکاری خێرا شیکار بکە بۆ بەدەستهێنانی خاڵ و XP بەبێ ڕیسک.</p>
+              </div>
+              <div>
+                <div id="math-q" class="card-meta" style="margin-bottom:8px">پرسیارێک دروست بکە</div>
+                <input id="math-ans" type="number" placeholder="وەڵام بنووسە" style="margin:0 0 8px">
+                <div style="display:flex;gap:6px;flex-wrap:wrap">
+                  <button onclick="newMathQ()" style="background:#2563eb;color:#fff">پرسیاری نوێ</button>
+                  <button onclick="checkMathQ()">پشتڕاستکردنەوە (+120)</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div>
+                <h3>🎲 یاری زار و شانس</h3>
+                <p>١٠٠ خاڵ دابنێ: ئەگەر ژمارەکەت لە ٤ زیاتر بێت ٢٥٠ خاڵ دەبەیتەوە، ئەگەر ٦ بێت ٣٥٠ خاڵ + ٥٠ R$!</p>
+              </div>
+              <div>
+                <div id="dice-res" class="card-meta" style="margin-bottom:8px">ئامادەیە بۆ هاویشتن</div>
+                <button onclick="rollDice()" class="goldbtn">🎲 هاویشتنی زار (100 خاڵ)</button>
+              </div>
+            </div>
+
+            <div class="card">
+              <div>
+                <h3>⚡ تاقیکردنەوەی پەرچەکردار (Reflex)</h3>
+                <p>چاوەڕێ بکە تا دوگمەی (بگرە!) سەوز دەبێت، پاشان بە خێرایی لێی بدە بۆ وەرگرتنی خەڵات.</p>
+              </div>
+              <div>
+                <div id="reflex-status" class="card-meta" style="margin-bottom:8px">پشوو بدە...</div>
+                <button id="reflex-btn" onclick="reflexAction()">⚡ دەستپێکردن</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- FRIENDS TAB -->
+        <section class="tab" id="friends">
+          <h2>👥 هاوڕێکان</h2>
+          <div class="panel">
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <input id="friendname" placeholder="ناوی هاوڕێ" style="flex:1;min-width:180px;margin:0">
+              <button onclick="addFriend()">زیادکردن</button>
+            </div>
+            <div id="friendlist" style="margin-top:10px"></div>
+            <p class="hint">لیستی هاوڕێکان لەم نموونەیەدا بە شێوەی خۆکار لەسەر ئامێرەکەت پاشەکەوت دەکرێت.</p>
+          </div>
+        </section>
+
+        <!-- CHAT TAB -->
+        <section class="tab" id="chat">
+          <h2>💬 چاتی ناوخۆیی و بۆتی یارمەتیدەر</h2>
+          <div class="panel">
+            <div id="messages" style="min-height:190px;max-height:320px;overflow-y:auto"></div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+              <input id="chattext" placeholder="پەیامەکەت بنووسە (بۆ نموونە: یارمەتی، mm2، هێلکە، زۆن)..." style="flex:1;min-width:200px;margin:0" onkeydown="if(event.key==='Enter')sendChat()">
+              <button onclick="sendChat()">ناردن</button>
+            </div>
+            <p class="hint">ئەم چاتە لەسەر ئەم ئامێرە کار دەکات و بۆتی HamaBot وەڵامی پرسیارەکانی یارییەکەت دەداتەوە.</p>
+          </div>
+        </section>
+
+        <!-- SETTINGS & BACKUP TAB -->
+        <section class="tab" id="settings">
+          <h2>⚙️ سیتینگ و بەڕێوەبردنی فایل (Save / Load)</h2>
+          <div class="panel">
+            <label>ناوی پیشاندان (Display Name)</label>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <input id="displayname" style="flex:1;min-width:200px;margin:0">
+              <button onclick="saveDisplay()">پاشەکەوتکردن</button>
+            </div>
+
+            <h3 style="margin-top:20px">💾 هەناردە و هێنانەوەی فایلی داتا (JSON Backup)</h3>
+            <p class="hint">دەتوانیت فایلی داتاکانت دابگریت بۆ ئەوەی لە هەر کاتێکدا یان لە وێبگەڕێکی تر بیهێنیتەوە.</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button onclick="exportSaveFile()" style="background:#0284c7;color:#fff">⬇️ داگرتنی فایلی Save (.json)</button>
+              <button onclick="$('import-file').click()" style="background:#7c3aed;color:#fff">⬆️ هێنانەوەی فایلی Save</button>
+              <input id="import-file" type="file" accept=".json,application/json" style="display:none" onchange="importSaveFile(event)">
+              <button onclick="resetProgress()" style="background:#991b1b;color:#fff">🗑️ ڕیسێتکردنەوەی پێشکەوتن</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- OWNER TAB -->
+        <section class="tab" id="owner">
+          <h2>👑 Owner Mega Hub — rip_hama276</h2>
+          <div class="panel admin">
+            <h3>🎁 بەخشینی خاڵ و R$</h3>
+            <input id="givecoins" type="number" placeholder="بڕی خاڵ">
+            <button onclick="giveCoins()">زیادکردنی خاڵ</button>
+            <input id="giverobux" type="number" placeholder="بڕی R$">
+            <button onclick="giveRobux()">زیادکردنی R$</button>
+          </div>
+          <div class="admin">
+            <h3>🥚 سپاون کردنی هێلکەی تایبەت</h3>
+            <div id="spawnbuttons"></div>
+          </div>
+          <div class="admin">
+            <h3>📢 پەیامی شاشە (Broadcast)</h3>
+            <input id="broadcastinput" placeholder="پەیام بنووسە">
+            <button onclick="broadcast()">ناردنی پەیام</button>
+            <button onclick="clearBroadcast()" style="background:#ef4444;color:#fff">سڕینەوە</button>
+          </div>
+          <div class="admin">
+            <h3>📍 تێلێپۆرتی خێرا</h3>
+            <button onclick="resetPosition()">ماڵ</button>
+            <button onclick="teleportEggs()">شوێنی هێلکەکان</button>
+            <button onclick="teleportRare()">هێلکەی نایاب</button>
+          </div>
+          <div class="admin">
+            <h3>👑 پاداشتی Owner</h3>
+            <button onclick="giveBonusReward()">+10000 Coins و +5000 R$</button>
+          </div>
+          <div class="admin">
+            <h3>🧬 موتەیشن پێت</h3>
+            <button onclick="grantPet('Gold')">Gold</button>
+            <button onclick="grantPet('Diamond')">Diamond</button>
+            <button onclick="grantPet('Rainbow')">Rainbow</button>
+            <button onclick="grantPet('Taco')">Taco</button>
+            <button onclick="grantPet('Galaxy')">Galaxy</button>
+          </div>
+          <div class="admin">
+            <h3>👥 ئەژمارە دروستکراوەکان لەم وێبگەڕە</h3>
+            <div id="userlist"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </section>
 </div>
-</section>
-<section class="tab" id="store"><h2>🏪 Hama Dev Store</h2><div class="cards" id="storecards"></div></section>
-<section class="tab" id="garden"><h2>🌱 باخچەی هێلکە و پێتەکان</h2><div class="panel"><p>هێلکەی کۆگاکەت هەڵبژێرە و بیانشکێنە بۆ بەدەستهێنانی پێت.</p><div id="egginv"></div><h3>🐾 پێتەکانت</h3><div id="pets"></div></div></section>
-<section class="tab" id="friends"><h2>👥 هاوڕێکان</h2><div class="panel"><input id="friendname" placeholder="ناوی هاوڕێ"><button onclick="addFriend()">زیادکردن</button><div id="friendlist"></div><p class="hint">لیستی هاوڕێکان لەم نموونەیەدا ناوخۆییە.</p></div></section>
-<section class="tab" id="chat"><h2>💬 چاتی ناوخۆیی</h2><div class="panel"><div id="messages" style="min-height:180px"></div><input id="chattext" placeholder="پەیامەکەت..."><button onclick="sendChat()">ناردن</button><p class="hint">ئەم چاتە تەنها لەسەر ئەم ئامێرە کار دەکات، چاتی ئۆنلاین نییە.</p></div></section>
-<section class="tab" id="settings"><h2>⚙️ سیتینگ</h2><div class="panel"><label>ناوی پیشاندان</label><input id="displayname"><button onclick="saveDisplay()">پاشەکەوتکردن</button><p class="hint">گۆڕینی پاسوۆرد/ئیمەیڵ لەم وەشانەدا پشتگیریی سێرڤەری نییە.</p></div></section>
-<section class="tab" id="owner"><h2>👑 Owner Mega Hub</h2><div class="panel admin"><h3>🎁 بەخشینی خاڵ و R$</h3><input id="givecoins" type="number" placeholder="بڕی خاڵ"><button onclick="giveCoins()">زیادکردنی خاڵ</button><input id="giverobux" type="number" placeholder="بڕی R$"><button onclick="giveRobux()">زیادکردنی R$</button></div>
-<div class="admin"><h3>🥚 سپاون کردنی هێلکەی تایبەت</h3><div id="spawnbuttons"></div></div>
-<div class="admin"><h3>📢 پەیامی شاشە</h3><input id="broadcastinput" placeholder="پەیام بنووسە"><button onclick="broadcast()">ناردنی پەیام</button><button onclick="clearBroadcast()" style="background:#ef4444;color:white">سڕینەوە</button></div>
-<div class="admin"><h3>📍 تێلێپۆرت</h3><button onclick="resetPosition()">ماڵ</button><button onclick="teleportEggs()">شوێنی هێلکەکان</button><button onclick="teleportRare()">هێلکەی نایاب</button></div>
-<div class="admin"><h3>👑 پاداشتی Owner</h3><button onclick="giveBonusReward()">+10000 Coins و +5000 R$</button></div>
-<div class="admin"><h3>🧬 موتەیشن</h3><button onclick="grantPet('Gold')">Gold</button><button onclick="grantPet('Diamond')">Diamond</button><button onclick="grantPet('Rainbow')">Rainbow</button><button onclick="grantPet('Taco')">Taco</button></div>
-<div class="admin"><h3>👥 ئەژمارە دروستکراوەکان لەم وێبگەڕە</h3><div id="userlist"></div></div></section>
-</main></div></section></div>
-<div id="shopmodal" class="panel" style="display:none;position:fixed;z-index:10;top:12%;left:50%;transform:translateX(-50%);width:min(460px,94%);box-shadow:0 20px 80px #000"><h3>🛒 شۆپی تواناکان</h3><div id="abilitylist"></div><button onclick="closeModal('shopmodal')">داخستن</button></div>
-<div id="jackmodal" class="panel" style="display:none;position:fixed;z-index:10;top:18%;left:50%;transform:translateX(-50%);width:min(420px,94%);box-shadow:0 20px 80px #000"><h3>🎰 وێستگەی جاکیا</h3><p>سووڕاندن: 200 خاڵ</p><button onclick="spin()">سووڕاندنی چەرخە</button><div id="jackresult"></div><button onclick="closeModal('jackmodal')">داخستن</button></div>
+
+<div class="modal-backdrop" id="backdrop" onclick="closeAllModals()"></div>
+
+<div id="shopmodal" class="panel modal-box">
+  <h3>🛒 شۆپی تواناکان</h3>
+  <div id="abilitylist"></div>
+  <button onclick="closeModal('shopmodal')" style="margin-top:10px;background:#475569;color:#fff">داخستن</button>
+</div>
+
+<div id="jackmodal" class="panel modal-box">
+  <h3>🎰 وێستگەی جاکپۆت</h3>
+  <p class="hint">هەر سووڕاندنێک: 200 خاڵ • ئەگەری بردنەوەی خاڵی زۆر یان هێلکەی نایاب!</p>
+  <button onclick="spin()" class="goldbtn">سووڕاندنی چەرخە</button>
+  <div id="jackresult" style="margin:12px 0;font-weight:bold;color:var(--gold)"></div>
+  <button onclick="closeModal('jackmodal')" style="background:#475569;color:#fff">داخستن</button>
+</div>
+
 <div id="notice"></div>
+
 <script>
 const $=id=>document.getElementById(id);
-const eggTypes=[['🥚','ئاسایی',30],['🌋','Nuclear Meltdown',250],['😈','Shadow Demon',300],['🤖','Cyberpunk Dragon',400],['🌌','Infinity Cosmic',500],['☀️','Hama Dev God',2500],['👾','Glitch Egg',900],['🐉','Diamond Dragon',1200],['🦅','Rainbow Phoenix',1500],['🌠','Galaxy Titan',2200]];
-let users=JSON.parse(localStorage.getItem('hamaUsers')||'{}'),current=null;
-let state={score:0,robux:250,carry:0,capacity:3,speed:3,inventory:[],pets:[],friends:[],display:'',dailyLast:'',dailyStreak:0,questDate:'',questCollect:0,questSell:0,questHatch:0,questClaimed:[]};
-let player={x:95,y:440,vx:0,vy:0},keys={},eggs=[],guards=[],last=0,seconds=0;
-function persist(){if(current){users[current]={password:users[current].password,owner:users[current].owner,state};localStorage.setItem('hamaUsers',JSON.stringify(users));}}
-function authUser(){let u=$('username').value.trim(),p=$('password').value;if(!u||!p){$('autherr').textContent='ناو و تێپەڕەواژە پڕ بکەرەوە';return}
-if(users[u]){if(users[u].password!==p){$('autherr').textContent='تێپەڕەواژە هەڵەیە';return}current=u;state=Object.assign(state,users[u].state||{});}
-else{current=u;let first=Object.keys(users).length===0;users[u]={password:p,owner:first,state};state={score:0,robux:250,carry:0,capacity:3,speed:3,inventory:[],pets:[],friends:[],display:u};persist();notice(first?'ئەژماری یەکەم دروست بوو؛ تۆ ئۆنەریت!':'ئەژمار دروستکرا');}
-$('auth').style.display='none';$('app').style.display='block';$('headerstats').style.display='flex';$('who').textContent=state.display||u;
-if(users[u].owner){$('ownerNav').style.display='block';}
-$('displayname').value=state.display||u;updateUI();renderUsers();initWorld();requestAnimationFrame(loop);}
-function logout(){persist();location.reload()}
-function tab(name,btn){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));$(name).classList.add('active');document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active')}
-function updateUI(){['score','coins'].forEach(id=>$(id).textContent=state.score);$('robux').textContent=state.robux;$('carry').textContent=state.carry;$('capacity').textContent=state.capacity;$('speed').textContent=state.speed;renderInventory();renderPets();renderFriends();renderDaily();persist()}
-function notice(t){$('notice').textContent=t;$('notice').style.display='block';clearTimeout(notice.t);notice.t=setTimeout(()=>$('notice').style.display='none',2300)}
-function initWorld(){eggs=[];guards=[];for(let i=0;i<11;i++){let type=i===10?5:(i%5===0?1:0);if(i===3)type=6;if(i===7)type=7;eggs.push({x:180+(i%4)*170,y:100+Math.floor(i/4)*145,type,taken:false});}for(let i=0;i<4;i++)guards.push({x:260+i*165,y:210+(i%2)*115,base:260+i*165,phase:i*1.7});}
-function draw(){let c=$('world'),ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);
-ctx.fillStyle='#1c463b';ctx.fillRect(0,0,900,540);
-ctx.strokeStyle='#2a5b4c';ctx.lineWidth=2;for(let x=0;x<900;x+=45){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,540);ctx.stroke()}for(let y=0;y<540;y+=45){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(900,y);ctx.stroke()}
-ctx.fillStyle='#6b4b2e';ctx.fillRect(25,365,105,120);ctx.fillStyle='#facc15';ctx.font='bold 18px Tahoma';ctx.fillText('🏠 HOME',36,420);
-ctx.fillStyle='#334155';ctx.fillRect(720,25,150,80);ctx.fillStyle='white';ctx.fillText('🏪 SHOP',758,72);
-ctx.fillStyle='#4c1d95';ctx.fillRect(735,425,130,85);ctx.fillStyle='white';ctx.fillText('🎰 JACKPOT',748,470);
-eggs.forEach(e=>{if(e.taken)return;let t=eggTypes[e.type];ctx.font='30px Arial';ctx.fillText(t[0],e.x-14,e.y+10);ctx.fillStyle='#fff';ctx.font='11px Tahoma';ctx.fillText(t[1],e.x-34,e.y+27)});
-guards.forEach(g=>{ctx.font='31px Arial';ctx.fillText('🛡️',g.x-14,g.y+9);ctx.fillStyle='#fecaca';ctx.font='11px Tahoma';ctx.fillText('GUARD',g.x-22,g.y+24)});
-ctx.font='32px Arial';ctx.fillText('🧑‍🚀',player.x-15,player.y+10);
-ctx.fillStyle='#fff';ctx.font='12px Tahoma';ctx.fillText(state.display||current,player.x-30,player.y-20);
-ctx.fillStyle='#0f172a';ctx.fillRect(12,12,180,28);ctx.fillStyle='#fbbf24';ctx.fillText('⭐ City 1 • 10+ Eggs',22,31);
+const OWNER_HANDLE = 'rip_hama276';
+
+const eggTypes=[
+  ['🥚','ئاسایی',35,20],
+  ['🌋','Nuclear Meltdown',260,85],
+  ['😈','Shadow Demon',320,95],
+  ['🤖','Cyberpunk Dragon',420,115],
+  ['🌌','Infinity Cosmic',550,140],
+  ['☀️','Hama Dev God',2500,450],
+  ['👾','Glitch Egg',900,190],
+  ['🐉','Diamond Dragon',1250,240],
+  ['🦅','Rainbow Phoenix',1600,300],
+  ['🌠','Galaxy Titan',2250,400]
+];
+
+const zonesMeta={
+  city:{name:'City 1 (شاری یەکەم)',bg:'#163a35',grid:'#23544c',accent:'#fbbf24'},
+  desert:{name:'Desert Zone (بیابان)',bg:'#4a3518',grid:'#6b4e24',accent:'#fcd34d'},
+  space:{name:'Space Zone (بۆشایی)',bg:'#121838',grid:'#222e66',accent:'#67e8f9'},
+  volcano:{name:'Volcano Zone (گڕکان)',bg:'#3d1419',grid:'#631f28',accent:'#fb7185'}
+};
+
+let users=safeGetUsers();
+let current=null;
+
+function defaultState(displayName=''){
+  return {
+    score:0,robux:250,carry:0,capacity:3,speed:3,
+    xp:0,level:1,multiplier:1,zone:'city',
+    inventory:[],pets:[],equippedPets:[],friends:[],logs:[],
+    display:displayName,
+    dailyLast:'',dailyStreak:0,
+    questDate:'',questCollect:0,questSell:0,questHatch:0,questClaimed:[],
+    achievements:[],shieldCharges:0,doubleCoinsUntil:0,treasureNext:0,magnetNext:0,
+    mm2Wins:0,mm2Weapon:'Classic Revolver',weather:'Sunny',cratesOpened:0
+  };
 }
-function loop(ts){if(!current)return;let dt=Math.min((ts-last)/16||1,2);last=ts;
-let dx=(keys.right?1:0)-(keys.left?1:0),dy=(keys.down?1:0)-(keys.up?1:0),len=Math.hypot(dx,dy)||1;
-player.x=Math.max(18,Math.min(880,player.x+dx/len*state.speed*dt));player.y=Math.max(55,Math.min(520,player.y+dy/len*state.speed*dt));
-guards.forEach(g=>{g.x=g.base+Math.sin(ts/700+g.phase)*55; if(Math.hypot(g.x-player.x,g.y-player.y)<27){if((state.shieldCharges||0)>0){state.shieldCharges--;player.x=Math.max(30,player.x-10);notice('🛡️ Shield پاراستی!');}else{player.x=Math.max(30,player.x-18);player.y=Math.min(510,player.y+15);state.score=Math.max(0,state.score-5);notice('پاسەوان گەیشتە تۆ! ٥ خاڵت لەدەستدا');}updateUI();}});
-eggs.forEach(e=>{if(!e.taken&&state.carry<state.capacity&&Math.hypot(e.x-player.x,e.y-player.y)<27){e.taken=true;state.carry++;state.inventory.push(e.type);ensureQuestDay();state.questCollect++;updateUI();notice('هێلکەت هەڵگرت: '+eggTypes[e.type][1]);}});
-draw();requestAnimationFrame(loop)}
-window.addEventListener('keydown',e=>{let k=e.key.toLowerCase();if(['arrowup','w'].includes(k))keys.up=true;if(['arrowdown','s'].includes(k))keys.down=true;if(['arrowleft','a'].includes(k))keys.left=true;if(['arrowright','d'].includes(k))keys.right=true;if(k===' ')jump()});
-window.addEventListener('keyup',e=>{let k=e.key.toLowerCase();if(['arrowup','w'].includes(k))keys.up=false;if(['arrowdown','s'].includes(k))keys.down=false;if(['arrowleft','a'].includes(k))keys.left=false;if(['arrowright','d'].includes(k))keys.right=false});
-document.querySelectorAll('[data-dir]').forEach(b=>{let d=b.dataset.dir;b.addEventListener('pointerdown',e=>{e.preventDefault();keys[d]=true});['pointerup','pointerleave','pointercancel'].forEach(ev=>b.addEventListener(ev,()=>keys[d]=false))});
-function jump(){player.y=Math.max(45,player.y-28);setTimeout(()=>player.y=Math.min(520,player.y+28),180)}
-function sellEggs(){if(!state.carry){notice('هیچ هێلکەیەکت نییە');return}let total=0;state.inventory.forEach(i=>total+=eggTypes[i][2]);if((state.doubleCoinsUntil||0)>Date.now())total*=2;state.score+=total;state.inventory=[];state.carry=0;ensureQuestDay();state.questSell++;initWorld();updateUI();notice('فرۆشرا! +'+total+' خاڵ')}
-function resetPosition(){player.x=95;player.y=440;notice('گەڕایتەوە بۆ ماڵ')}
-function teleportEggs(){player.x=350;player.y=180}function teleportRare(){player.x=860;player.y=490}
-function openModal(id){$(id).style.display='block'}function closeModal(id){$(id).style.display='none'}
-const items=[['VIP Rank',500,'👑','پلەی VIP'],['Speed Booster',300,'⚡','خێرایی زیاد دەکات'],['Golden Moon',250,'🌙','Auraی مانگ'],['Coin Multiplier',400,'🪙','خاڵی زیاتر'],['Angel Wings',600,'🪽','باڵی فریشتە']];
-$('storecards').innerHTML=items.map(a=>`<div class="card"><h3>${a[2]} ${a[0]}</h3><p>${a[3]}</p><button onclick="buy('${a[0]}',${a[1]})">کڕین بە ${a[1]} R$</button></div>`).join('');
-let abilities=[['خێرایی 4',4,60],['خێرایی 5',5,120],['توانای 6 هێلکە',6,150],['توانای 10 هێلکە',10,300]];
-$('abilitylist').innerHTML=abilities.map(a=>`<div class="listrow"><span>${a[0]}</span><button onclick="ability(${a[1]},${a[2]})">${a[2]} R$</button></div>`).join('');
-function buy(n,c){if(state.robux<c){notice('R$ بەس نییە');return}state.robux-=c;if(n==='Speed Booster')state.speed=Math.min(7,state.speed+1);if(n==='Coin Multiplier')state.multiplier=3;state.pets.push('🎁 '+n);updateUI();notice('کڕین سەرکەوتوو بوو: '+n)}
-function ability(v,c){if(state.robux<c){notice('R$ بەس نییە');return}state.robux-=c;if(v<=5)state.speed=v;else state.capacity=v;updateUI();notice('تواناکە چالاک کرا')}
-function spin(){if(state.score<200){$('jackresult').textContent='خاڵت بەس نییە';return}state.score-=200;let prizes=[50,100,250,500,'🥚 هێلکەی نایاب'];let p=prizes[Math.floor(Math.random()*prizes.length)];if(typeof p==='number')state.score+=p;else state.inventory.push(1),state.carry++;$('jackresult').textContent='🎉 خەڵاتت: '+p;updateUI()}
 
-function todayKey(){let d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
-function yesterdayKey(){let d=new Date();d.setDate(d.getDate()-1);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
-function ensureQuestDay(){let t=todayKey();if(state.questDate!==t){state.questDate=t;state.questCollect=0;state.questSell=0;state.questHatch=0;state.questClaimed=[]}}
-function claimDaily(){let t=todayKey();if(state.dailyLast===t){notice('پاداشتی ئەمڕۆت وەرگرتووە؛ سبەی بگەڕێوە!');return}
-state.dailyStreak=state.dailyLast===yesterdayKey()?(state.dailyStreak||0)+1:1;
-let reward=100+Math.min(state.dailyStreak-1,6)*50;state.score+=reward;state.dailyLast=t;updateUI();notice('🎁 پاداشتی ڕۆژانە: +'+reward+' خاڵ! زنجیرەی ڕۆژانە: '+state.dailyStreak)}
-function claimQuest(id){ensureQuestDay();if(state.questClaimed.includes(id)){notice('ئەم پاداشتە پێشتر وەرگیراوە');return}
-let ready=(id==='collect'&&state.questCollect>=3)||(id==='sell'&&state.questSell>=1)||(id==='hatch'&&state.questHatch>=1);if(!ready){notice('هێشتا ئەم ئەرکەت تەواو نەکردووە');return}
-state.questClaimed.push(id);let reward=id==='collect'?75: id==='sell'?100:150;state.score+=reward;updateUI();notice('⭐ پاداشتی ئەرک: +'+reward+' خاڵ')}
-function renderDaily(){if(!$('daily-status'))return;let t=todayKey(),claimed=state.dailyLast===t;$('daily-status').textContent=claimed?'ئەمڕۆ پاداشتت وەرگرتووە. زنجیرە: '+(state.dailyStreak||0)+' ڕۆژ':'پاداشتی ئەمڕۆ: 100 خاڵ؛ هەر ڕۆژ بەردەوام بیت پاداشت زیاد دەبێت. زنجیرە: '+(state.dailyStreak||0)+' ڕۆژ';$('daily-btn').disabled=claimed;$('daily-btn').textContent=claimed?'سبەی بگەڕێوە':'وەرگرتنی پاداشتی ئەمڕۆ';
-let tasks=[['collect','🥚 کۆکردنەوەی ٣ هێلکە',state.questCollect||0,3,75],['sell','🏠 فرۆشتنی هێلکەکان جارێک',state.questSell||0,1,100],['hatch','🐣 شکاندنی هێلکە و دەرکردنی پێت',state.questHatch||0,1,150]];
-$('daily-quests').innerHTML=tasks.map(q=>{let done=state.questClaimed?.includes(q[0]);let progress=Math.min(q[2],q[3]);return `<div class="listrow"><span>${q[1]}<br><small>${progress}/${q[3]} • +${q[4]} خاڵ</small></span><button ${done?'disabled':''} onclick="claimQuest('${q[0]}')">${done?'وەرگیرا':progress>=q[3]?'وەرگرتن':'ئەرک'}</button></div>`}).join('')}
+let state=defaultState();
+let player={x:95,y:440,vx:0,vy:0};
+let keys={},eggs=[],guards=[],last=0;
+let currentMath=null,reflexTimer=null,reflexReady=false,reflexStart=0;
 
-function renderInventory(){$('egginv').innerHTML=state.inventory.map(i=>`<div class="listrow"><span>${eggTypes[i][0]} ${eggTypes[i][1]}</span><button onclick="hatch(${i})">شکاندن</button></div>`).join('')||'<p class="hint">کۆگاکەت بەتاڵە؛ لە ماپ هێلکە کۆبکەرەوە.</p>'}
-function hatch(i){let ix=state.inventory.indexOf(i);if(ix<0)return;state.inventory.splice(ix,1);state.carry=Math.max(0,state.carry-1);let pet=['🐣','🐉','🦄','🦖'][Math.floor(Math.random()*4)]+' '+eggTypes[i][1]+' Pet';state.pets.push(pet);ensureQuestDay();state.questHatch++;updateUI();notice('پێتت لە هێلکەکە دەرچوو!')}
-function renderPets(){$('pets').innerHTML=state.pets.map(p=>`<div class="listrow">${p}</div>`).join('')||'<p class="hint">هێشتا پێتت نییە.</p>'}
-function grantPet(m){state.pets.push('✨ '+m+' Mutation Pet');updateUI();notice(m+' Mutation زیادکرا')}
-function renderFriends(){$('friendlist').innerHTML=state.friends.map(f=>`<div class="listrow">👤 ${f}</div>`).join('')||'<p class="hint">هاوڕێت زیاد نەکردووە.</p>'}
-function addFriend(){let f=$('friendname').value.trim();if(f&&f!==current&&!state.friends.includes(f)){state.friends.push(f);$('friendname').value='';renderFriends();persist()}}
-function sendChat(){let t=$('chattext').value.trim();if(!t)return;let d=document.createElement('div');d.className='listrow';d.textContent=(state.display||current)+': '+t;$('messages').appendChild(d);$('chattext').value=''}
-function saveDisplay(){state.display=$('displayname').value.trim()||current;$('who').textContent=state.display;updateUI()}
-function isOwner(){return !!users[current]?.owner}
-function giveCoins(){if(!isOwner())return;state.score+=Math.max(0,Number($('givecoins').value)||0);updateUI();notice('خاڵ زیادکرا')}
-function giveRobux(){if(!isOwner())return;state.robux+=Math.max(0,Number($('giverobux').value)||0);updateUI();notice('R$ زیادکرا')}
-function spawnEgg(i){if(!isOwner())return;state.inventory.push(i);state.carry++;updateUI();notice(eggTypes[i][1]+' خرایە کۆگا')}
+// MM2 state
+let mm2Active=false;
+let mm2Role='Sheriff';
+let mm2TimerSec=45;
+let mm2Coins=0;
+let mm2Interval=null;
+let mm2CoinsList=[];
+let murderer={x:620,y:220,vx:2.3,vy:1.8,alive:true,scanUntil:0};
+let slashEffectUntil=0;
+
+function safeGetUsers(){
+  try{
+    return JSON.parse(localStorage.getItem('hamaUsers')||'{}')||{};
+  }catch(e){
+    return window.__hamaMemUsers || (window.__hamaMemUsers = {});
+  }
+}
+function safeSaveUsers(obj){
+  try{
+    localStorage.setItem('hamaUsers',JSON.stringify(obj));
+  }catch(e){
+    window.__hamaMemUsers = obj;
+  }
+}
+
+function normalizeUserKey(raw){
+  const clean = (raw||'').trim();
+  if(clean.toLowerCase() === OWNER_HANDLE) return OWNER_HANDLE;
+  return clean;
+}
+
+function addLog(msg){
+  if(!Array.isArray(state.logs))state.logs=[];
+  const time=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  state.logs.unshift(`[${time}] ${msg}`);
+  if(state.logs.length>12)state.logs.pop();
+  renderLogs();
+}
+
+function renderLogs(){
+  if(!$('activity-log'))return;
+  const arr=state.logs||[];
+  $('activity-log').innerHTML=arr.length
+    ? arr.map(x=>`<div class="listrow"><span style="font-size:12.5px">${x}</span></div>`).join('')
+    : '<p class="hint">هێشتا هیچ چالاکییەک تۆمار نەکراوە.</p>';
+}
+
+function gainXP(amount){
+  state.xp=(state.xp||0)+amount;
+  let needed=(state.level||1)*250;
+  while(state.xp>=needed){
+    state.xp-=needed;
+    state.level=(state.level||1)+1;
+    state.robux+=25;
+    needed=state.level*250;
+    addLog(`گەیشتە Level ${state.level} (+25 R$)`);
+    notice(`🎉 پیرۆزە! گەیشتیتە Level ${state.level} و +25 R$ وەرگرت!`);
+  }
+}
+
+function getPetBonuses(){
+  let bonusSpeed=0,bonusMult=1;
+  (state.equippedPets||[]).forEach(p=>{
+    if(p.includes('Diamond')||p.includes('Galaxy'))bonusMult+=0.35;
+    else if(p.includes('Rainbow')||p.includes('God'))bonusMult+=0.5;
+    else bonusMult+=0.2;
+    bonusSpeed+=0.4;
+  });
+  return {bonusSpeed,bonusMult};
+}
+
+function persist(){
+  if(current){
+    const isOwn = (current.toLowerCase() === OWNER_HANDLE) || !!users[current]?.owner;
+    users[current]={
+      password:users[current]?.password || '',
+      owner:isOwn,
+      state
+    };
+    safeSaveUsers(users);
+  }
+}
+
+function authUser(){
+  users = safeGetUsers();
+  const rawInput = ($('username').value||'').trim();
+  const u = normalizeUserKey(rawInput);
+  const p = ($('password').value||'').trim() || '1234';
+  $('autherr').textContent = '';
+
+  if(!u){
+    $('autherr').textContent = 'تکایە ناوی بەکارهێنەر بنووسە';
+    return;
+  }
+
+  // Merge legacy uppercase RIP_hama276 if present
+  if(u === OWNER_HANDLE && users['RIP_hama276'] && !users[OWNER_HANDLE]){
+    users[OWNER_HANDLE] = users['RIP_hama276'];
+  }
+
+  try{
+    const isOwnerAccount = (u.toLowerCase() === OWNER_HANDLE) || (Object.keys(users).length === 0);
+    if(users[u]){
+      // Allow rip_hama276 to always recover/enter cleanly even if password changed
+      if(users[u].password && users[u].password !== p && u !== OWNER_HANDLE){
+        $('autherr').textContent = 'تێپەڕەواژە هەڵەیە بۆ ئەم ناوە';
+        return;
+      }
+      current = u;
+      state = Object.assign(defaultState(u), users[u].state || {});
+      users[u].owner = isOwnerAccount || !!users[u].owner;
+      users[u].password = p;
+      addLog('چووە ناو یارییەکەوە');
+    }else{
+      current = u;
+      state = defaultState(u);
+      users[u] = {password:p, owner:isOwnerAccount, state};
+      safeSaveUsers(users);
+      addLog(isOwnerAccount ? 'ئەژماری rip_hama276 وەک Owner چالاک کرا' : 'ئەژماری نوێ دروست کرا');
+      notice(isOwnerAccount ? '👑 بەخێربێیت rip_hama276! تۆ Ownerـی!' : 'ئەژمار دروستکرا');
+    }
+    safeSaveUsers(users);
+    $('auth').style.display = 'none';
+    $('app').style.display = 'block';
+    $('headerstats').style.display = 'flex';
+    $('who').textContent = state.display || u;
+    if(users[u] && users[u].owner){
+      $('ownerNav').style.display = 'block';
+    }
+    $('displayname').value = state.display || u;
+    try{ newMathQ(); }catch(e){}
+    try{ initWorld(); }catch(e){}
+    try{ updateUI(); }catch(e){}
+    try{ renderUsers(); }catch(e){}
+    try{ requestAnimationFrame(loop); }catch(e){}
+  }catch(err){
+    $('autherr').textContent = 'هەڵەیەک ڕوویدا: ' + (err && err.message ? err.message : err);
+  }
+}
+
+function logout(){persist();location.reload();}
+
+function dockCanvasToTab(targetName){
+  const canvas = $('world');
+  const gameActions = document.querySelector('#game .game-actions');
+  const gameControls = document.querySelector('#game .controls');
+  const mm2Host = $('mm2-canvas-host');
+  if(!canvas || !mm2Host) return;
+  if(targetName === 'mm2tab'){
+    mm2Host.appendChild(canvas);
+  }else if(targetName === 'game' && gameActions && canvas.parentElement !== gameActions.parentElement){
+    gameActions.parentElement.insertBefore(canvas, gameActions);
+  }
+}
+
+function tab(name,btn){
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  $(name).classList.add('active');
+  document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  dockCanvasToTab(name);
+}
+
+function openMM2Live(btn){
+  tab('mm2tab', btn);
+  if(!mm2Active){
+    startMM2Match();
+  }
+}
+
+function updateUI(){
+  ['score','coins'].forEach(id=>$(id).textContent=Math.floor(state.score));
+  $('robux').textContent=Math.floor(state.robux);
+  $('mm2wins').textContent=state.mm2Wins||0;
+  if($('mm2-wins-card'))$('mm2-wins-card').textContent=state.mm2Wins||0;
+  $('carry').textContent=state.carry;
+  $('capacity').textContent=state.capacity;
+  const pb=getPetBonuses();
+  const effSpeed=(state.speed+pb.bonusSpeed).toFixed(1).replace(/\.0$/,'');
+  $('speed').textContent=effSpeed;
+
+  const activeDouble=(state.doubleCoinsUntil||0)>Date.now();
+  const totalMult=((state.multiplier||1)*pb.bonusMult*(activeDouble?2:1)).toFixed(1).replace(/\.0$/,'');
+  $('mult-badge').textContent=totalMult+'x';
+
+  $('lvl').textContent=state.level||1;
+  $('lvl-label').textContent=state.level||1;
+  const needed=(state.level||1)*250;
+  const pct=Math.min(100,Math.round(((state.xp||0)/needed)*100));
+  $('xp-fill').style.width=pct+'%';
+  $('xp-text').textContent=`${Math.floor(state.xp||0)} / ${needed} XP`;
+
+  $('petcount').textContent=(state.pets||[]).length;
+  $('nav-pets').textContent=(state.pets||[]).length;
+  $('nav-friends').textContent=(state.friends||[]).length;
+  $('nav-zone').textContent=mm2Active ? 'MM2' : (state.zone||'city').toUpperCase();
+  if($('mode-pill'))$('mode-pill').innerHTML = mm2Active ? 'دۆخ: <b class="red">MM2 Arena</b>' : 'دۆخ: <b class="gold">Steal Egg</b>';
+
+  const zm=zonesMeta[state.zone||'city']||zonesMeta.city;
+  $('zone-title').textContent=mm2Active
+    ? `🔪 Murder Mystery 2 — ${zm.name}`
+    : `🥚 Steal An Egg — ${zm.name}`;
+
+  renderInventory();
+  renderPets();
+  renderFriends();
+  renderDaily();
+  renderLogs();
+  renderV5Status();
+  checkAchievements();
+  persist();
+}
+
+
+function addNear111110(){
+  const amount = 111110;
+  state.score = (state.score || 0) + amount;
+  state.robux = (state.robux || 0) + 1111;
+  gainXP(250);
+  addLog(`+${amount.toLocaleString()} خاڵ و +1,111 R$ زیاد کران`);
+  updateUI();
+  notice(`💰 +${amount.toLocaleString()} خاڵ و +1,111 R$ زیاد کران!`);
+}
+
+function notice(t){
+  $('notice').textContent=t;
+  $('notice').style.display='block';
+  clearTimeout(notice.t);
+  notice.t=setTimeout(()=>$('notice').style.display='none',2400);
+}
+
+function initWorld(){
+  eggs=[];guards=[];
+  const z=state.zone||'city';
+  const offset=z==='desert'?1:z==='space'?2:z==='volcano'?3:0;
+  for(let i=0;i<11;i++){
+    let type=i===10?5:(i%5===0?1:0);
+    if(i===3)type=6;
+    if(i===7)type=7;
+    if(offset>0 && i%2===1)type=Math.min(eggTypes.length-1,(type+offset)%eggTypes.length);
+    eggs.push({x:180+(i%4)*170,y:100+Math.floor(i/4)*145,type,taken:false});
+  }
+  const guardCount=z==='volcano'?6:z==='space'?5:4;
+  for(let i=0;i<guardCount;i++){
+    guards.push({
+      x:240+(i%4)*155,
+      y:190+Math.floor(i/2)*115,
+      base:240+(i%4)*155,
+      phase:i*1.7,
+      spd:z==='volcano'?820:z==='space'?620:700
+    });
+  }
+  spawnMM2Coins();
+}
+
+function spawnMM2Coins(){
+  mm2CoinsList=[];
+  for(let i=0;i<8;i++){
+    mm2CoinsList.push({
+      x:140 + ((i*197)%680),
+      y:110 + ((i*127)%360),
+      taken:false
+    });
+  }
+}
+
+function triggerMM2StealEgg(){
+  // MM2-styled Steal An Egg burst: pulls nearby eggs, gives tactical speed burst & slash aura
+  let pulled=0;
+  eggs.forEach(e=>{
+    if(!e.taken && state.carry < state.capacity){
+      e.taken=true;
+      state.carry++;
+      state.inventory.push(e.type);
+      ensureQuestDay();
+      state.questCollect++;
+      pulled++;
+    }
+  });
+  slashEffectUntil = Date.now() + 1800;
+  const oldSpd = state.speed;
+  state.speed = Math.min(10, oldSpd + 2);
+  gainXP(25);
+  addLog(`🔪🥚 MM2 Steal Rush: ${pulled} هێلکە کێشران`);
+  updateUI();
+  notice(`🔪🥚 MM2 STEAL RUSH! ${pulled} هێلکە ڕاکێشران و خێراییت زیاد بوو!`);
+  setTimeout(()=>{ state.speed = oldSpd; updateUI(); }, 8000);
+}
+
+function toggleMM2Arena(){
+  mm2Active = !mm2Active;
+  if(mm2Active){
+    startMM2Match();
+    notice('🔪 چوویتە ناو دۆخی Murder Mystery 2!');
+  }else{
+    clearInterval(mm2Interval);
+    notice('🥚 گەڕایتەوە بۆ دۆخی Steal An Egg');
+  }
+  updateUI();
+}
+
+function startMM2Match(){
+  mm2Active = true;
+  mm2TimerSec = 45;
+  mm2Coins = 0;
+  mm2Role = Math.random() < 0.65 ? 'Sheriff' : 'Hero Hunter';
+  murderer = {x:680, y:180, vx:2.5, vy:2.0, alive:true, scanUntil:Date.now()+4000};
+  spawnMM2Coins();
+  if($('mm2-round-title'))$('mm2-round-title').textContent = `ڕۆڵی ئەم خولە: 🔫 ${mm2Role} (${state.mm2Weapon||'Classic Revolver'})`;
+  if($('mm2-timer'))$('mm2-timer').textContent = mm2TimerSec + 's';
+  if($('mm2-coins'))$('mm2-coins').textContent = '0';
+  if($('mm2-threat'))$('mm2-threat').textContent = 'Murderer چالاکە';
+  clearInterval(mm2Interval);
+  mm2Interval = setInterval(()=>{
+    if(!mm2Active) return;
+    mm2TimerSec--;
+    if($('mm2-timer'))$('mm2-timer').textContent = mm2TimerSec + 's';
+    if(mm2TimerSec <= 0){
+      clearInterval(mm2Interval);
+      if(murderer.alive){
+        notice('⏱️ کاتی MM2 تەواو بوو؛ خولی نوێ دەست پێدەکات');
+        startMM2Match();
+      }
+    }
+  }, 1000);
+  addLog(`خولی MM2 دەستی پێکرد (${mm2Role})`);
+  updateUI();
+}
+
+
+function mm2QuickAction(){
+  if(!mm2Active){
+    startMM2Match();
+  }
+  murderer.scanUntil = Date.now() + 8000;
+  slashEffectUntil = Date.now() + 1200;
+  mm2Attack();
+  updateUI();
+}
+
+function mm2Attack(){
+  slashEffectUntil = Date.now() + 900;
+  const dist = Math.hypot(murderer.x - player.x, murderer.y - player.y);
+  const range = (state.mm2Weapon||'').includes('Laser') ? 165 : 115;
+  if(murderer.alive && dist <= range){
+    murderer.alive = false;
+    state.mm2Wins = (state.mm2Wins||0) + 1;
+    state.score += 320;
+    state.robux += 35;
+    gainXP(80);
+    if($('mm2-threat'))$('mm2-threat').textContent = 'Murderer کوژرا! 🏆';
+    addLog('🔫🔪 Murderer لە MM2 کوژرا (+320 خاڵ، +35 R$)');
+    updateUI();
+    notice('🔫🔪 ناوازەیە! Murdererـت پێکا و بردتەوە (+320 خاڵ، +35 R$)');
+    setTimeout(()=>{ if(mm2Active) startMM2Match(); }, 2500);
+  }else{
+    notice(murderer.alive ? `🔪 لێدان! نزیکتر بە لە Murderer (دووری: ${Math.round(dist)})` : 'Murderer پێشتر کوژراوە!');
+  }
+}
+
+function activateMM2Scanner(){
+  if(state.robux < 50){notice('٥٠ R$ پێویستە بۆ MM2 Radar Scan');return;}
+  state.robux -= 50;
+  murderer.scanUntil = Date.now() + 12000;
+  addLog('🕵️ MM2 Radar Scan چالاک کرا');
+  updateUI();
+  notice('🕵️ شوێنی Murderer بۆ ١٢ چرکە بە ڕوونی دیارە!');
+}
+
+function buyMM2Weapon(name, cost){
+  if(state.robux < cost){notice(`${cost} R$ پێویستە بۆ کڕینی ${name}`);return;}
+  state.robux -= cost;
+  state.mm2Weapon = name;
+  addLog(`چەکی MM2 کڕدرا: ${name}`);
+  updateUI();
+  notice(`🔫 چەکی ${name} چالاک کرا!`);
+}
+
+
+let dashCooldownUntil = 0;
+let dashTrailUntil = 0;
+
+function dashStrike(){
+  const now = Date.now();
+  if(now < dashCooldownUntil){
+    const rem = Math.ceil((dashCooldownUntil - now)/1000);
+    notice(`⚡ Dash ئامادە نییە (${rem}s ماوە)`);
+    return;
+  }
+  dashCooldownUntil = now + 4500;
+  dashTrailUntil = now + 900;
+  slashEffectUntil = now + 900;
+
+  let dx = (keys.right?1:0)-(keys.left?1:0);
+  let dy = (keys.down?1:0)-(keys.up?1:0);
+  if(dx === 0 && dy === 0) dx = 1;
+  const len = Math.hypot(dx, dy) || 1;
+  player.x = Math.max(24, Math.min(875, player.x + (dx/len)*135));
+  player.y = Math.max(60, Math.min(515, player.y + (dy/len)*135));
+
+  // Auto-grab any egg passed through & check MM2 hit
+  eggs.forEach(e=>{
+    if(!e.taken && state.carry < state.capacity && Math.hypot(e.x - player.x, e.y - player.y) < 55){
+      e.taken = true;
+      state.carry++;
+      state.inventory.push(e.type);
+      ensureQuestDay();
+      state.questCollect++;
+      gainXP(20);
+    }
+  });
+  if(mm2Active && murderer.alive && Math.hypot(murderer.x - player.x, murderer.y - player.y) < 120){
+    mm2Attack();
+  }
+  addLog('⚡ Dash Strike بەکارهێنرا');
+  updateUI();
+  notice('⚡ DASH STRIKE! خێرا هەنگاوەت نا و هێلکەی نزیکت کێشا');
+}
+
+function openMysteryCrate(){
+  const cost = 75;
+  if(state.robux < cost){
+    notice(`📦 بۆ کردنەوەی Mystery Crate پێویستت بە ${cost} R$ هەیە`);
+    return;
+  }
+  state.robux -= cost;
+  state.cratesOpened = (state.cratesOpened || 0) + 1;
+  const roll = Math.random();
+  let msg = '';
+  if(roll < 0.28){
+    const rarePets = ['🦄 Neon Glitch Unicorn','🐉 Void Dragon','🦅 Solar Phoenix','🌌 Nebula Kitsune'];
+    const p = rarePets[Math.floor(Math.random()*rarePets.length)];
+    state.pets.push(p);
+    msg = `📦 پێتی تایبەتت دەرچوو: ${p}!`;
+  }else if(roll < 0.54){
+    const weps = ['Laser Revolver','Shadow Knife','Plasma Blade'];
+    const w = weps[Math.floor(Math.random()*weps.length)];
+    state.mm2Weapon = w;
+    msg = `📦 چەکی MM2ـت پێگەیشت: ${w}!`;
+  }else if(roll < 0.78){
+    state.shieldCharges = (state.shieldCharges || 0) + 3;
+    msg = '📦 ٣ Shieldـی پاراستن وەردەگریت!';
+  }else{
+    const rareEggIdx = 5 + Math.floor(Math.random()*5);
+    if(state.carry < state.capacity){
+      state.inventory.push(rareEggIdx);
+      state.carry++;
+      msg = `📦 هێلکەی دەگمەنی ${eggTypes[rareEggIdx][1]} خرایە کۆگات!`;
+    }else{
+      state.speed = Math.min(10, state.speed + 1);
+      msg = '📦 خێرایی کارەکتەرەکەت +1 زیاد بوو!';
+    }
+  }
+  gainXP(50);
+  addLog(msg);
+  updateUI();
+  notice(msg);
+}
+
+function cycleWorldEvent(){
+  const order = ['Sunny','Meteor Storm','Blood Moon'];
+  const idx = order.indexOf(state.weather || 'Sunny');
+  state.weather = order[(idx + 1) % order.length];
+  if(state.weather === 'Blood Moon' && !mm2Active){
+    mm2Active = true;
+    startMM2Match();
+  }else if(state.weather === 'Meteor Storm'){
+    spawnBonusEgg();
+  }
+  addLog(`🌦️ دۆخی کەشوهەوا گۆڕدرا بۆ ${state.weather}`);
+  updateUI();
+  notice(`🌦️ کەشوهەوای یاری بووە: ${state.weather}`);
+}
+
+function draw(){
+  let c=$('world'),ctx=c.getContext('2d');
+  ctx.clearRect(0,0,c.width,c.height);
+  const zm=zonesMeta[state.zone||'city']||zonesMeta.city;
+
+  ctx.fillStyle = mm2Active ? '#1f0d16' : zm.bg;
+  ctx.fillRect(0,0,900,540);
+
+  ctx.strokeStyle = mm2Active ? '#4a182b' : zm.grid;
+  ctx.lineWidth=2;
+  for(let x=0;x<900;x+=45){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,540);ctx.stroke();}
+  for(let y=0;y<540;y+=45){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(900,y);ctx.stroke();}
+
+  ctx.fillStyle='#6b4b2e';ctx.fillRect(25,365,105,120);
+  ctx.fillStyle='#facc15';ctx.font='bold 17px Tahoma';ctx.fillText('🏠 HOME',36,422);
+
+  ctx.fillStyle='#334155';ctx.fillRect(720,25,150,80);
+  ctx.fillStyle='white';ctx.fillText('🏪 SHOP',758,72);
+
+  ctx.fillStyle='#4c1d95';ctx.fillRect(735,425,130,85);
+  ctx.fillStyle='white';ctx.fillText('🎰 JACKPOT',748,472);
+
+  eggs.forEach(e=>{
+    if(e.taken)return;
+    let t=eggTypes[e.type];
+    ctx.font='30px Arial';ctx.fillText(t[0],e.x-14,e.y+10);
+    ctx.fillStyle='#fff';ctx.font='11px Tahoma';ctx.fillText(t[1],e.x-34,e.y+27);
+  });
+
+  if(mm2Active){
+    mm2CoinsList.forEach(cn=>{
+      if(cn.taken)return;
+      ctx.font='22px Arial';ctx.fillText('🪙',cn.x-10,cn.y+8);
+    });
+    if(murderer.alive){
+      if(Date.now() < murderer.scanUntil){
+        ctx.strokeStyle='#ef4444';ctx.lineWidth=2.5;
+        ctx.beginPath();ctx.arc(murderer.x,murderer.y,26,0,Math.PI*2);ctx.stroke();
+      }
+      ctx.font='32px Arial';ctx.fillText('🔪',murderer.x-15,murderer.y+10);
+      ctx.fillStyle='#fca5a5';ctx.font='bold 11px Tahoma';ctx.fillText('MURDERER',murderer.x-30,murderer.y-20);
+    }
+  }
+
+  guards.forEach(g=>{
+    ctx.font='31px Arial';ctx.fillText('🛡️',g.x-14,g.y+9);
+    ctx.fillStyle='#fecaca';ctx.font='11px Tahoma';ctx.fillText('GUARD',g.x-22,g.y+24);
+  });
+
+  if(Date.now() < slashEffectUntil){
+    ctx.strokeStyle='#f43f5e';ctx.lineWidth=3.5;
+    ctx.beginPath();ctx.arc(player.x,player.y,46,0,Math.PI*2);ctx.stroke();
+  }
+
+  if((state.shieldCharges||0)>0){
+    ctx.strokeStyle='#38bdf8';ctx.lineWidth=3;
+    ctx.beginPath();ctx.arc(player.x,player.y-2,24,0,Math.PI*2);ctx.stroke();
+  }
+
+  ctx.font='32px Arial';ctx.fillText(mm2Active?'🔫':'🧑‍🚀',player.x-15,player.y+10);
+  ctx.fillStyle='#fff';ctx.font='12px Tahoma';ctx.fillText(state.display||current,player.x-30,player.y-22);
+
+  ctx.fillStyle='#0f172a';ctx.fillRect(12,12,265,28);
+  ctx.fillStyle = mm2Active ? '#fda4af' : zm.accent;
+  ctx.font='bold 13px Tahoma';
+  if(Date.now() < dashTrailUntil){
+    ctx.strokeStyle='#22d3ee';ctx.lineWidth=3;
+    ctx.beginPath();ctx.arc(player.x,player.y,34,0,Math.PI*2);ctx.stroke();
+  }
+  const wLabel = state.weather || 'Sunny';
+  ctx.fillText(mm2Active ? `🔪 MM2 • ${mm2TimerSec}s • Coins ${mm2Coins}/8 • ${wLabel}` : `⭐ ${zm.name} • ${wLabel}`,20,31);
+}
+
+function loop(ts){
+  if(!current)return;
+  let dt=Math.min((ts-last)/16||1,2);last=ts;
+  const pb=getPetBonuses();
+  const moveSpd=state.speed+pb.bonusSpeed;
+
+  let dx=(keys.right?1:0)-(keys.left?1:0),dy=(keys.down?1:0)-(keys.up?1:0),len=Math.hypot(dx,dy)||1;
+  player.x=Math.max(18,Math.min(880,player.x+dx/len*moveSpd*dt));
+  player.y=Math.max(55,Math.min(520,player.y+dy/len*moveSpd*dt));
+
+  if(mm2Active && murderer.alive){
+    murderer.x += murderer.vx * dt;
+    murderer.y += murderer.vy * dt;
+    if(murderer.x < 140 || murderer.x > 860) murderer.vx *= -1;
+    if(murderer.y < 70 || murderer.y > 500) murderer.vy *= -1;
+
+    mm2CoinsList.forEach(cn=>{
+      if(!cn.taken && Math.hypot(cn.x-player.x, cn.y-player.y)<26){
+        cn.taken=true;
+        mm2Coins++;
+        state.score += 45;
+        gainXP(15);
+        if($('mm2-coins'))$('mm2-coins').textContent = mm2Coins;
+        if(mm2Coins >= 8){
+          state.mm2Wins = (state.mm2Wins||0) + 1;
+          state.score += 250;
+          state.robux += 25;
+          addLog('🪙 ٨ سکەی MM2 کۆکرانەوە و خولەکە بردرایەوە (+250 خاڵ، +25 R$)');
+          notice('🪙 پیرۆزە! ٨ سکەی MM2 کۆکرانەوە و بردتەوە (+250 خاڵ، +25 R$)');
+          startMM2Match();
+        }
+        updateUI();
+      }
+    });
+
+    if(Math.hypot(murderer.x-player.x, murderer.y-player.y)<28){
+      if((state.shieldCharges||0)>0){
+        state.shieldCharges--;
+        player.x = Math.max(30, player.x - 35);
+        notice('🛡️ Shield لە هێرشی Murderer پاراستی!');
+      }else{
+        player.x = 95; player.y = 440;
+        state.score = Math.max(0, state.score - 15);
+        notice('🔪 Murderer گەیشتە پێت! گەڕایتەوە بۆ ماڵ');
+      }
+      updateUI();
+    }
+  }
+
+  guards.forEach(g=>{
+    g.x=g.base+Math.sin(ts/(g.spd||700)+g.phase)*58;
+    if(Math.hypot(g.x-player.x,g.y-player.y)<27){
+      if((state.shieldCharges||0)>0){
+        state.shieldCharges--;
+        player.x=Math.max(30,player.x-14);
+        notice('🛡️ Shield پاراستی!');
+      }else{
+        player.x=Math.max(30,player.x-20);
+        player.y=Math.min(510,player.y+16);
+        state.score=Math.max(0,state.score-5);
+        notice('پاسەوان گەیشتە تۆ! ٥ خاڵت لەدەستدا');
+      }
+      updateUI();
+    }
+  });
+
+  eggs.forEach(e=>{
+    if(!e.taken&&state.carry<state.capacity&&Math.hypot(e.x-player.x,e.y-player.y)<28){
+      e.taken=true;state.carry++;state.inventory.push(e.type);
+      ensureQuestDay();state.questCollect++;
+      gainXP(15);
+      addLog(`هێلکەی ${eggTypes[e.type][1]} کۆکرایەوە`);
+      updateUI();
+      notice('هێلکەت هەڵگرت: '+eggTypes[e.type][1]);
+    }
+  });
+
+  draw();
+  requestAnimationFrame(loop);
+}
+
+window.addEventListener('keydown',e=>{
+  let k=e.key.toLowerCase();
+  if(['arrowup','w'].includes(k))keys.up=true;
+  if(['arrowdown','s'].includes(k))keys.down=true;
+  if(['arrowleft','a'].includes(k))keys.left=true;
+  if(['arrowright','d'].includes(k))keys.right=true;
+  if(k===' ')jump();
+  if(k==='f')mm2Attack();
+  if(k==='e')triggerMM2StealEgg();
+  if(k==='m')toggleMM2Arena();
+  if(k==='q')dashStrike();
+  if(k==='c')openMysteryCrate();
+  if(k==='w')cycleWorldEvent();
+});
+window.addEventListener('keyup',e=>{
+  let k=e.key.toLowerCase();
+  if(['arrowup','w'].includes(k))keys.up=false;
+  if(['arrowdown','s'].includes(k))keys.down=false;
+  if(['arrowleft','a'].includes(k))keys.left=false;
+  if(['arrowright','d'].includes(k))keys.right=false;
+});
+document.querySelectorAll('[data-dir]').forEach(b=>{
+  let d=b.dataset.dir;
+  b.addEventListener('pointerdown',e=>{e.preventDefault();keys[d]=true;});
+  ['pointerup','pointerleave','pointercancel'].forEach(ev=>b.addEventListener(ev,()=>keys[d]=false));
+});
+
+function jump(){
+  player.y=Math.max(45,player.y-28);
+  setTimeout(()=>player.y=Math.min(520,player.y+28),180);
+}
+
+function sellEggs(){
+  if(!state.carry){notice('هیچ هێلکەیەکت نییە');return;}
+  let base=0,xpGain=0;
+  state.inventory.forEach(i=>{base+=eggTypes[i][2];xpGain+=eggTypes[i][3]||25;});
+  const pb=getPetBonuses();
+  const activeDouble=(state.doubleCoinsUntil||0)>Date.now();
+  let total=Math.round(base*(state.multiplier||1)*pb.bonusMult*(activeDouble?2:1));
+  state.score+=total;
+  gainXP(xpGain);
+  state.inventory=[];state.carry=0;
+  ensureQuestDay();state.questSell++;
+  addLog(`هێلکەکانی فرۆشت بە +${total} خاڵ`);
+  initWorld();
+  updateUI();
+  notice('فرۆشرا! +'+total+' خاڵ');
+}
+
+function magnetPulse(){
+  const now=Date.now();
+  if((state.magnetNext||0)>now){
+    const sec=Math.ceil(((state.magnetNext||0)-now)/1000);
+    notice(`🧲 Magnet ئامادە نییە (${sec} چرکە ماوە)`);
+    return;
+  }
+  let pulled=0;
+  eggs.forEach(e=>{
+    if(!e.taken&&state.carry<state.capacity){
+      e.taken=true;state.carry++;state.inventory.push(e.type);
+      ensureQuestDay();state.questCollect++;pulled++;
+    }
+  });
+  state.magnetNext=now+35000;
+  addLog(`Magnet چالاک کرا (${pulled} هێلکە کێشران)`);
+  updateUI();
+  notice(pulled?`🧲 Magnet ${pulled} هێلکەی کێشا!`:'🧲 هیچ هێلکەیەک یان جێگەی کۆگا نەبوو');
+}
+
+function buyRobuxPack(){
+  if(state.score<500){notice('٥٠٠ خاڵ پێویستە بۆ گۆڕین بە ٥٠ R$');return;}
+  state.score-=500;
+  state.robux+=50;
+  addLog('٥٠٠ خاڵی گۆڕی بە +50 R$');
+  updateUI();
+  notice('💎 ٥٠٠ خاڵ گۆڕدرا بە +50 R$!');
+}
+
+function resetPosition(){player.x=95;player.y=440;notice('گەڕایتەوە بۆ ماڵ');}
+function teleportEggs(){player.x=350;player.y=180;}
+function teleportRare(){player.x=860;player.y=490;}
+
+function openModal(id){$('backdrop').style.display='block';$(id).style.display='block';}
+function closeModal(id){$(id).style.display='none';if(!document.querySelector('.modal-box[style*="block"]'))$('backdrop').style.display='none';}
+function closeAllModals(){document.querySelectorAll('.modal-box').forEach(m=>m.style.display='none');$('backdrop').style.display='none';}
+
+const items=[
+  ['VIP Rank',500,'👑','پلەی VIP و بووستی خاڵ','+0.3x'],
+  ['Speed Booster',300,'⚡','خێرایی کارەکتەر زیاد دەکات','+1 Speed'],
+  ['Golden Moon',250,'🌙','Auraـی درەوشاوەی مانگ','+0.2x'],
+  ['Coin Multiplier',400,'🪙','خاڵی زیاتر لە فرۆشتن','+0.5x'],
+  ['Angel Wings',600,'🪽','باڵی فریشتەی ئاسمانی','+1 Speed & +0.4x'],
+  ['Dragon Core',850,'🔥','ناواخنی ئەژدیهای ئاگرین','+0.7x'],
+  ['MM2 Sheriff Badge',450,'🔫','بووستی خاڵ لە یاری MM2','+0.4x & +15 R$']
+];
+
+$('storecards').innerHTML=items.map(a=>`
+  <div class="card">
+    <div>
+      <h3>${a[2]} ${a[0]}</h3>
+      <p>${a[3]}</p>
+      <div class="card-meta">سوود: ${a[4]}</div>
+    </div>
+    <button onclick="buy('${a[0]}',${a[1]})">کڕین بە ${a[1]} R$</button>
+  </div>
+`).join('');
+
+let abilities=[
+  ['خێرایی 4',4,60],
+  ['خێرایی 5',5,120],
+  ['توانای 6 هێلکە',6,150],
+  ['توانای 10 هێلکە',10,300],
+  ['توانای 15 هێلکە',15,550]
+];
+$('abilitylist').innerHTML=abilities.map(a=>`
+  <div class="listrow"><span>${a[0]}</span><button onclick="ability(${a[1]},${a[2]})">${a[2]} R$</button></div>
+`).join('');
+
+function buy(n,c){
+  if(state.robux<c){notice('R$ بەس نییە');return;}
+  state.robux-=c;
+  if(n==='Speed Booster')state.speed=Math.min(8,state.speed+1);
+  if(n==='Coin Multiplier')state.multiplier=(state.multiplier||1)+0.5;
+  if(n==='VIP Rank')state.multiplier=(state.multiplier||1)+0.3;
+  if(n==='Angel Wings'){state.speed=Math.min(8,state.speed+1);state.multiplier=(state.multiplier||1)+0.4;}
+  if(n==='Dragon Core')state.multiplier=(state.multiplier||1)+0.7;
+  if(n==='MM2 Sheriff Badge'){state.multiplier=(state.multiplier||1)+0.4;state.robux+=15;}
+  state.pets.push('🎁 '+n);
+  addLog(`کڕینی ${n} لە ستۆر`);
+  updateUI();
+  notice('کڕین سەرکەوتوو بوو: '+n);
+}
+
+function ability(v,c){
+  if(state.robux<c){notice('R$ بەس نییە');return;}
+  state.robux-=c;
+  if(v<=5)state.speed=v;else state.capacity=v;
+  addLog(`توانای ${v} چالاک کرا`);
+  updateUI();
+  notice('تواناکە چالاک کرا');
+}
+
+function spin(){
+  if(state.score<200){$('jackresult').textContent='خاڵت بەس نییە (200 خاڵ پێویستە)';return;}
+  state.score-=200;
+  let prizes=[50,120,250,500,800,'🥚 هێلکەی نایاب'];
+  let p=prizes[Math.floor(Math.random()*prizes.length)];
+  if(typeof p==='number'){state.score+=p;addLog(`جاکپۆت: ${p} خاڵ بردەوە`);}
+  else{
+    if(state.carry<state.capacity){state.inventory.push(1);state.carry++;}
+    else state.score+=250;
+    addLog('جاکپۆت: هێلکەی نایابی بردەوە');
+  }
+  $('jackresult').textContent='🎉 خەڵاتت: '+p;
+  updateUI();
+}
+
+function todayKey(){let d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function yesterdayKey(){let d=new Date();d.setDate(d.getDate()-1);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function ensureQuestDay(){
+  let t=todayKey();
+  if(state.questDate!==t){
+    state.questDate=t;state.questCollect=0;state.questSell=0;state.questHatch=0;state.questClaimed=[];
+  }
+}
+
+function claimDaily(){
+  let t=todayKey();
+  if(state.dailyLast===t){notice('پاداشتی ئەمڕۆت وەرگرتووە؛ سبەی بگەڕێوە!');return;}
+  state.dailyStreak=state.dailyLast===yesterdayKey()?(state.dailyStreak||0)+1:1;
+  let reward=100+Math.min(state.dailyStreak-1,6)*50;
+  state.score+=reward;gainXP(60);state.dailyLast=t;
+  addLog(`پاداشتی ڕۆژانە وەرگیرا (+${reward} خاڵ)`);
+  updateUI();
+  notice('🎁 پاداشتی ڕۆژانە: +'+reward+' خاڵ! زنجیرەی ڕۆژانە: '+state.dailyStreak);
+}
+
+function claimQuest(id){
+  ensureQuestDay();
+  if(state.questClaimed.includes(id)){notice('ئەم پاداشتە پێشتر وەرگیراوە');return;}
+  let ready=(id==='collect'&&state.questCollect>=3)||(id==='sell'&&state.questSell>=1)||(id==='hatch'&&state.questHatch>=1);
+  if(!ready){notice('هێشتا ئەم ئەرکەت تەواو نەکردووە');return;}
+  state.questClaimed.push(id);
+  let reward=id==='collect'?85:id==='sell'?120:160;
+  state.score+=reward;gainXP(50);
+  addLog(`ئەرکی ڕۆژانە تەواو کرا (+${reward} خاڵ)`);
+  updateUI();
+  notice('⭐ پاداشتی ئەرک: +'+reward+' خاڵ');
+}
+
+function renderDaily(){
+  if(!$('daily-status'))return;
+  let t=todayKey(),claimed=state.dailyLast===t;
+  $('daily-status').textContent=claimed
+    ?'ئەمڕۆ پاداشتت وەرگرتووە. زنجیرە: '+(state.dailyStreak||0)+' ڕۆژ'
+    :'پاداشتی ئەمڕۆ: 100 خاڵ؛ هەر ڕۆژ بەردەوام بیت پاداشت زیاد دەبێت. زنجیرە: '+(state.dailyStreak||0)+' ڕۆژ';
+  $('daily-btn').disabled=claimed;
+  $('daily-btn').textContent=claimed?'سبەی بگەڕێوە':'وەرگرتنی پاداشتی ئەمڕۆ';
+
+  let tasks=[
+    ['collect','🥚 کۆکردنەوەی ٣ هێلکە',state.questCollect||0,3,85],
+    ['sell','🏠 فرۆشتنی هێلکەکان جارێک',state.questSell||0,1,120],
+    ['hatch','🐣 شکاندنی هێلکە و دەرکردنی پێت',state.questHatch||0,1,160]
+  ];
+  $('daily-quests').innerHTML=tasks.map(q=>{
+    let done=state.questClaimed?.includes(q[0]);
+    let progress=Math.min(q[2],q[3]);
+    return `<div class="listrow"><span>${q[1]}<br><small>${progress}/${q[3]} • +${q[4]} خاڵ</small></span><button ${done?'disabled':''} onclick="claimQuest('${q[0]}')">${done?'وەرگیرا':progress>=q[3]?'وەرگرتن':'ئەرک'}</button></div>`;
+  }).join('');
+}
+
+function renderInventory(){
+  $('egginv').innerHTML=(state.inventory||[]).map((i,idx)=>`
+    <div class="listrow">
+      <span>${eggTypes[i]?.[0]||'🥚'} ${eggTypes[i]?.[1]||'Egg'}</span>
+      <button onclick="hatch(${i},${idx})">شکاندن</button>
+    </div>
+  `).join('')||'<p class="hint">کۆگاکەت بەتاڵە؛ لە ماپ هێلکە کۆبکەرەوە.</p>';
+}
+
+function hatch(i,idx=-1){
+  let ix=idx>=0?idx:state.inventory.indexOf(i);
+  if(ix<0)return;
+  state.inventory.splice(ix,1);
+  state.carry=Math.max(0,state.carry-1);
+  let pet=['🐣','🐉','🦄','🦖','🦊'][Math.floor(Math.random()*5)]+' '+(eggTypes[i]?.[1]||'Mystery')+' Pet';
+  state.pets.push(pet);
+  ensureQuestDay();state.questHatch++;
+  gainXP(45);
+  addLog(`پێتی ${pet} دەرچوو`);
+  updateUI();
+  notice('🐣 پێتت لە هێلکەکە دەرچوو: '+pet);
+}
+
+function hatchAll(){
+  if(!state.inventory.length){notice('هیچ هێلکەیەک لە کۆگادا نییە');return;}
+  let count=0;
+  while(state.inventory.length){
+    let typeId=state.inventory.shift();
+    let pet=['🐣','🐉','🦄','🦖','🦊'][Math.floor(Math.random()*5)]+' '+(eggTypes[typeId]?.[1]||'Mystery')+' Pet';
+    state.pets.push(pet);
+    ensureQuestDay();state.questHatch++;
+    count++;
+  }
+  state.carry=0;
+  gainXP(count*35);
+  addLog(`${count} هێلکە بە جارێک شکان`);
+  updateUI();
+  notice(`🐣 ${count} هێلکە شکان و پێتی نوێت بۆ زیاد بوون!`);
+}
+
+function fusePets(){
+  if(!Array.isArray(state.pets) || state.pets.length < 2){
+    notice('بۆ Pet Fusion پێویستت بە لانیکەم ٢ پێتە');
+    return;
+  }
+  state.pets.splice(0, 2);
+  const fused = '🧬🌠 Cosmic Fused God Pet';
+  state.pets.push(fused);
+  gainXP(90);
+  addLog(`٢ پێت تێکەڵ کران بۆ ${fused}`);
+  updateUI();
+  notice(`🧬 پیرۆزە! ${fused} دروست بوو!`);
+}
+
+function toggleEquipPet(petName){
+  if(!Array.isArray(state.equippedPets))state.equippedPets=[];
+  const pos=state.equippedPets.indexOf(petName);
+  if(pos>=0){
+    state.equippedPets.splice(pos,1);
+    notice('پێت لابرا (Unequipped)');
+  }else{
+    if(state.equippedPets.length>=2){notice('دەتوانیت تەنها ٢ پێت بەیەکەوە چالاک بکەیت!');return;}
+    state.equippedPets.push(petName);
+    notice('پێت چالاک کرا (Equipped)!');
+  }
+  updateUI();
+}
+
+function renderPets(){
+  const eq=state.equippedPets||[];
+  $('pets').innerHTML=(state.pets||[]).map(p=>{
+    const isEq=eq.includes(p);
+    return `<div class="listrow">
+      <span>${p} ${isEq?'<span class="equipped-badge">چالاکە</span>':''}</span>
+      <button onclick="toggleEquipPet('${p.replace(/'/g,"\\'")}')" style="background:${isEq?'#b45309':'#2563eb'};color:#fff">${isEq?'لابردن':'چالاککردن'}</button>
+    </div>`;
+  }).join('')||'<p class="hint">هێشتا پێتت نییە.</p>';
+}
+
+function grantPet(m){
+  if(!isOwner())return;
+  state.pets.push('✨ '+m+' Mutation Pet');
+  addLog(`موتەیشنی ${m} وەرگیرا`);
+  updateUI();
+  notice(m+' Mutation زیادکرا');
+}
+
+function renderFriends(){
+  $('friendlist').innerHTML=(state.friends||[]).map((f,i)=>`
+    <div class="listrow">
+      <span>👤 ${f}</span>
+      <button onclick="removeFriend(${i})" style="background:#7f1d1d;color:#fff;padding:5px 10px">سڕینەوە</button>
+    </div>
+  `).join('')||'<p class="hint">هاوڕێت زیاد نەکردووە.</p>';
+}
+function addFriend(){
+  let f=$('friendname').value.trim();
+  if(f&&f!==current&&!state.friends.includes(f)){
+    state.friends.push(f);$('friendname').value='';
+    addLog(`هاوڕێی ${f} زیاد کرا`);
+    updateUI();
+  }
+}
+function removeFriend(i){
+  state.friends.splice(i,1);updateUI();
+}
+
+function appendChatLine(sender,text,isBot=false){
+  let d=document.createElement('div');
+  d.className='listrow';
+  d.innerHTML=`<span>${isBot?'<span class="bot-tag">HamaBot</span>':''}<b>${sender}:</b> ${text}</span>`;
+  $('messages').appendChild(d);
+  $('messages').scrollTop=$('messages').scrollHeight;
+}
+
+function sendChat(){
+  let t=$('chattext').value.trim();
+  if(!t)return;
+  const sender=state.display||current;
+  appendChatLine(sender,t,false);
+  $('chattext').value='';
+
+  setTimeout(()=>{
+    let reply='بەردەوام بە! هێلکە کۆبکەرەوە و لە ماڵ بیفرۆشە بۆ زۆرترین خاڵ و Level.';
+    if(t.toLowerCase().includes('mm2'))reply='لە دۆخی MM2 سکە کۆبکەرەوە یان بە دوگمەی (🔫🔪 هێرش / تەقە) Murderer بپێکە بۆ بردنەوە!';
+    else if(t.includes('یارمەتی')||t.toLowerCase().includes('help'))reply='بۆ کۆکردنەوەی هێلکە WASD یان دوگمەکانی مۆبایل بەکاربهێنە و بگەڕێوە ماڵ بۆ فرۆشتن.';
+    else if(t.includes('هێلکە')||t.toLowerCase().includes('egg'))reply='هێلکەکانی Hama Dev God و Galaxy Titan زۆرترین خاڵ و XP دەدەن!';
+    else if(t.includes('زۆن')||t.toLowerCase().includes('zone'))reply='دەتوانیت بچیتە City، Desert، Space یان Volcano لە ڕێگەی دوگمەکانی ناو یارییەکە.';
+    appendChatLine('HamaBot',reply,true);
+  },260);
+}
+
+function saveDisplay(){
+  state.display=$('displayname').value.trim()||current;
+  $('who').textContent=state.display;
+  addLog(`ناوی پیشاندان گۆڕدرا بۆ ${state.display}`);
+  updateUI();
+  notice('ناوی پیشاندان پاشەکەوت کرا');
+}
+
+function exportSaveFile(){
+  const payload={app:'HamaDevPlay',version:'7.0',exportedAt:new Date().toISOString(),user:current,state};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=`HamaDevPlay_v7_${current}_${todayKey()}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  addLog('فایلی Save دابەزێندرا');
+  notice('⬇️ فایلی Save بە سەرکەوتوویی دابەزێندرا!');
+}
+
+function importSaveFile(ev){
+  const file=ev.target.files?.[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const parsed=JSON.parse(reader.result);
+      const importedState=parsed.state||parsed;
+      state=Object.assign(defaultState(current),importedState);
+      addLog('فایلی Save هێنرایەوە');
+      initWorld();
+      updateUI();
+      notice('⬆️ داتاکان بە سەرکەوتوویی هێنرانەوە!');
+    }catch(e){
+      notice('❌ فایلەکە دروست نییە یان تێکچووە');
+    }
+  };
+  reader.readAsText(file);
+  ev.target.value='';
+}
+
+function resetProgress(){
+  if(!confirm('دڵنیایت دەتەوێت هەموو خاڵ، پێت و پێشکەوتنەکانت ڕیسێت بکەیتەوە؟'))return;
+  state=defaultState(state.display||current);
+  addLog('پێشکەوتن ڕیسێت کرایەوە');
+  initWorld();
+  updateUI();
+  notice('پێشکەوتنەکەت ڕیسێت کرایەوە');
+}
+
+function isOwner(){return (current && current.toLowerCase()===OWNER_HANDLE) || !!users[current]?.owner;}
+function giveCoins(){if(!isOwner())return;state.score+=Math.max(0,Number($('givecoins').value)||0);updateUI();notice('خاڵ زیادکرا');}
+function giveRobux(){if(!isOwner())return;state.robux+=Math.max(0,Number($('giverobux').value)||0);updateUI();notice('R$ زیادکرا');}
+function spawnEgg(i){
+  if(!isOwner())return;
+  if(state.carry>=state.capacity){notice('کۆگاکەت پڕە! توانای زیاتر بکڕە');return;}
+  state.inventory.push(i);state.carry++;updateUI();notice(eggTypes[i][1]+' خرایە کۆگا');
+}
 $('spawnbuttons').innerHTML=eggTypes.map((e,i)=>`<button onclick="spawnEgg(${i})">${e[0]} ${e[1]}</button>`).join('');
-function broadcast(){if(!isOwner())return;let t=$('broadcastinput').value.trim();if(t){$('broadcast').textContent='📢 پەیامی ئۆنەر: '+t;$('broadcast').style.display='block'}}
-function clearBroadcast(){$('broadcast').style.display='none'}
-function renderUsers(){$('userlist').innerHTML=Object.keys(users).map(u=>`<div class="listrow">${u} ${users[u].owner?'👑 Owner':'👤 Player'}</div>`).join('')}
-const oldAuth=authUser; // owner list refreshes after login
-const originalTab=tab;
+function broadcast(){if(!isOwner())return;let t=$('broadcastinput').value.trim();if(t){$('broadcast').textContent='📢 پەیامی ئۆنەر: '+t;$('broadcast').style.display='block';}}
+function clearBroadcast(){$('broadcast').style.display='none';}
+function renderUsers(){$('userlist').innerHTML=Object.keys(users).map(u=>`<div class="listrow">${u} ${users[u].owner?'👑 Owner':'👤 Player'}</div>`).join('');}
 
-// ===== HAMA DEV PLAY V4 FEATURES =====
-let glitchActive=false,boostActive=false;
-function toggleGlitch(){glitchActive=!glitchActive;document.body.classList.toggle('glitch-mode',glitchActive);notice(glitchActive?'👾 GLITCH MODE ACTIVATED!':'GLITCH MODE OFF');}
-function activateBoost(){if(boostActive){notice('Boost پێشتر چالاکە!');return;}boostActive=true;let oldSpeed=state.speed;state.speed=Math.min(10,oldSpeed+3);updateUI();notice('⚡ SUPER BOOST چالاک کرا!');setTimeout(()=>{state.speed=oldSpeed;boostActive=false;updateUI();notice('Boost کۆتایی هات');},15000);}
-function spawnBonusEgg(){if(state.carry>=state.capacity){notice('کۆگاکەت پڕە!');return;}let type=6+Math.floor(Math.random()*4);state.inventory.push(type);state.carry++;updateUI();notice('🥚 هێلکەی تایبەتت وەرگرت!');}
-function teleportZone(zone){if(zone==='desert'){player.x=400;player.y=100;notice('🏜️ بەخێربێیت بۆ Desert Zone!');}else if(zone==='space'){player.x=800;player.y=100;notice('🌌 بەخێربێیت بۆ Space Zone!');}else if(zone==='volcano'){player.x=700;player.y=450;notice('🌋 بەخێربێیت بۆ Volcano Zone!');}}
-function checkAchievements(){if(!state.achievements)state.achievements=[];let list=[[500,'🥉 Beginner'],[2000,'🥈 Pro Player'],[5000,'🥇 Master'],[10000,'👑 Hama Legend']];list.forEach(a=>{if(state.score>=a[0]&&!state.achievements.includes(a[1])){state.achievements.push(a[1]);notice('🏆 Achievement: '+a[1]);persist();}});}
-function showAchievements(){let list=state.achievements||[];alert(list.length?'🏆 ACHIEVEMENTS\\n\\n'+list.join('\\n'):'هێشتا هیچ Achievement ـێکت نییە');}
-function randomGlitchEvent(){if(!current||boostActive)return;if(Math.random()<0.15){notice('👾 RANDOM GLITCH EVENT! +2 Speed');let oldSpeed=state.speed;state.speed=Math.min(10,oldSpeed+2);updateUI();setTimeout(()=>{state.speed=oldSpeed;updateUI();},7000);}}
-setInterval(randomGlitchEvent,45000);
-const v4PreviousUpdateUI=updateUI;updateUI=function(){v4PreviousUpdateUI();checkAchievements();};
-function giveBonusReward(){if(!isOwner())return;state.score+=10000;state.robux+=5000;updateUI();notice('👑 OWNER BONUS: +10000 Coins +5000 R$');}
-
-
-// ===== HAMA DEV PLAY V5: ADVENTURE POWER CENTER =====
-function ensureV5State(){
-  if(!Array.isArray(state.achievements))state.achievements=[];
-  if(!Number.isFinite(state.shieldCharges))state.shieldCharges=0;
-  if(!Number.isFinite(state.doubleCoinsUntil))state.doubleCoinsUntil=0;
-  if(!Number.isFinite(state.treasureNext))state.treasureNext=0;
+// ===== MINIGAMES =====
+function newMathQ(){
+  const a=Math.floor(Math.random()*25)+5;
+  const b=Math.floor(Math.random()*20)+3;
+  const mul=Math.random()<0.4;
+  if(mul){
+    const x=Math.floor(Math.random()*10)+2,y=Math.floor(Math.random()*9)+2;
+    currentMath={q:`${x} × ${y} = ?`,ans:x*y};
+  }else{
+    currentMath={q:`${a} + ${b} = ?`,ans:a+b};
+  }
+  $('math-q').textContent=currentMath.q;
+  $('math-ans').value='';
 }
-const v5BaseAuth=authUser;
-authUser=function(){v5BaseAuth();if(current){ensureV5State();updateUI();}};
-const v5BaseUpdateUI=updateUI;
-updateUI=function(){ensureV5State();v5BaseUpdateUI();renderV5Status();};
+function checkMathQ(){
+  if(!currentMath)newMathQ();
+  const val=Number($('math-ans').value);
+  if(val===currentMath.ans){
+    state.score+=120;gainXP(40);
+    addLog('پرسیاری بیرکاری بە دروستی وەڵام درایەوە (+120 خاڵ)');
+    updateUI();
+    notice('✅ وەڵامی دروست! +120 خاڵ و +40 XP');
+    newMathQ();
+  }else{
+    notice('❌ وەڵامەکە هەڵە بوو؛ دووبارە هەوڵ بدەرەوە');
+  }
+}
+
+function rollDice(){
+  if(state.score<100){notice('١٠٠ خاڵ پێویستە بۆ هاویشتنی زار');return;}
+  state.score-=100;
+  const r=Math.floor(Math.random()*6)+1;
+  if(r===6){
+    state.score+=350;state.robux+=50;gainXP(60);
+    $('dice-res').textContent=`🎲 زار هاتە 6! بردتەوە: +350 خاڵ و +50 R$`;
+    addLog('یاری زار: ژمارە 6 هات (+350 خاڵ و +50 R$)');
+    notice('🎲 ناوازەیە! ژمارە 6 هات: +350 خاڵ و +50 R$');
+  }else if(r>=4){
+    state.score+=250;gainXP(35);
+    $('dice-res').textContent=`🎲 زار هاتە ${r}! بردتەوە: +250 خاڵ`;
+    addLog(`یاری زار: ژمارە ${r} هات (+250 خاڵ)`);
+    notice(`🎲 بردتەوە! زار ${r} بوو (+250 خاڵ)`);
+  }else{
+    $('dice-res').textContent=`🎲 زار هاتە ${r} — ئەم جارە نەبوو`;
+    updateUI();
+    notice(`🎲 زار ${r} بوو؛ دووبارە تاقی بکەرەوە`);
+  }
+  updateUI();
+}
+
+function reflexAction(){
+  const btn=$('reflex-btn');
+  if(!reflexReady&&!reflexTimer){
+    btn.textContent='⏳ چاوەڕێ بە...';
+    btn.style.background='#d97706';btn.style.color='#fff';
+    $('reflex-status').textContent='خۆت ئامادە بکە تا دەبێتە سەوز...';
+    const delay=1100+Math.random()*2200;
+    reflexTimer=setTimeout(()=>{
+      reflexTimer=null;reflexReady=true;reflexStart=performance.now();
+      btn.textContent='🟢 ئێستا لێی بدە!';
+      btn.style.background='#10b981';btn.style.color='#03140e';
+      $('reflex-status').textContent='بگرە! کات دەژمێرێت...';
+    },delay);
+  }else if(reflexTimer){
+    clearTimeout(reflexTimer);reflexTimer=null;
+    btn.textContent='⚡ دەستپێکردن';btn.style.background='#10b981';btn.style.color='#03140e';
+    $('reflex-status').textContent='زوو لێتدا! کەمێک چاوەڕێ بکە.';
+    notice('زوو لێتدا! چاوەڕێی ڕەنگی سەوز بە');
+  }else if(reflexReady){
+    const ms=Math.round(performance.now()-reflexStart);
+    reflexReady=false;
+    const reward=ms<350?180:ms<600?110:70;
+    state.score+=reward;gainXP(30);
+    btn.textContent='⚡ دەستپێکردن';btn.style.background='#10b981';btn.style.color='#03140e';
+    $('reflex-status').textContent=`خێراییەکەت: ${ms}ms • خەڵات: +${reward} خاڵ`;
+    addLog(`پەرچەکردار ${ms}ms (+${reward} خاڵ)`);
+    updateUI();
+    notice(`⚡ ${ms}ms! +${reward} خاڵت بەدەستهێنا`);
+  }
+}
+
+// ===== V4, V5, V6 & V7 FEATURES =====
+let glitchActive=false,boostActive=false;
+function toggleGlitch(){
+  glitchActive=!glitchActive;
+  document.body.classList.toggle('glitch-mode',glitchActive);
+  notice(glitchActive?'👾 GLITCH MODE ACTIVATED!':'GLITCH MODE OFF');
+}
+function activateBoost(){
+  if(boostActive){notice('Boost پێشتر چالاکە!');return;}
+  boostActive=true;let oldSpeed=state.speed;state.speed=Math.min(10,oldSpeed+3);updateUI();
+  notice('⚡ SUPER BOOST چالاک کرا!');
+  setTimeout(()=>{state.speed=oldSpeed;boostActive=false;updateUI();notice('Boost کۆتایی هات');},15000);
+}
+function spawnBonusEgg(){
+  if(state.carry>=state.capacity){notice('کۆگاکەت پڕە!');return;}
+  let type=6+Math.floor(Math.random()*4);
+  state.inventory.push(type);state.carry++;gainXP(25);
+  addLog(`Bonus Egg وەرگیرا: ${eggTypes[type][1]}`);
+  updateUI();
+  notice('🥚 هێلکەی تایبەتت وەرگرت: '+eggTypes[type][1]);
+}
+function teleportZone(zone){
+  if(!zonesMeta[zone])return;
+  state.zone=zone;
+  if(zone==='desert'){player.x=400;player.y=120;}
+  else if(zone==='space'){player.x=760;player.y=120;}
+  else if(zone==='volcano'){player.x=640;player.y=430;}
+  else{player.x=95;player.y=440;}
+  addLog(`چووە ناو ${zonesMeta[zone].name}`);
+  initWorld();updateUI();
+  notice(`چوویتە ناو ${zonesMeta[zone].name}!`);
+}
+function checkAchievements(){
+  if(!Array.isArray(state.achievements))state.achievements=[];
+  let list=[
+    [500,'🥉 Beginner'],
+    [2000,'🥈 Pro Player'],
+    [5000,'🥇 Master'],
+    [10000,'👑 Hama Legend']
+  ];
+  list.forEach(a=>{
+    if(state.score>=a[0]&&!state.achievements.includes(a[1])){
+      state.achievements.push(a[1]);
+      addLog(`Achievement بەدەستهات: ${a[1]}`);
+      notice('🏆 Achievement: '+a[1]);
+    }
+  });
+}
+function showAchievements(){
+  let list=state.achievements||[];
+  alert(list.length?'🏆 ACHIEVEMENTS\n\n'+list.join('\n'):'هێشتا هیچ Achievement ـێکت نییە');
+}
+function randomGlitchEvent(){
+  if(!current||boostActive)return;
+  if(Math.random()<0.15){
+    notice('👾 RANDOM GLITCH EVENT! +2 Speed');
+    let oldSpeed=state.speed;state.speed=Math.min(10,oldSpeed+2);updateUI();
+    setTimeout(()=>{state.speed=oldSpeed;updateUI();},7000);
+  }
+}
+setInterval(randomGlitchEvent,45000);
+
+function giveBonusReward(){
+  if(!isOwner())return;
+  state.score+=10000;state.robux+=5000;gainXP(250);
+  addLog('پاداشتی گەورەی Owner وەرگیرا');
+  updateUI();
+  notice('👑 OWNER BONUS: +10000 Coins +5000 R$');
+}
+
 function renderV5Status(){
   if(!$('shield-status'))return;
   $('shield-status').textContent='🛡️ Shield: '+(state.shieldCharges||0);
   $('double-status').textContent='💰 Double Coins: '+((state.doubleCoinsUntil||0)>Date.now()?'ON':'OFF');
-  let left=Math.max(0,Math.ceil(((state.treasureNext||0)-Date.now())/1000));
-  $('treasure-status').textContent=left?'🎁 Treasure: '+Math.ceil(left/60)+'m':'🎁 Treasure: Ready';
+  let tLeft=Math.max(0,Math.ceil(((state.treasureNext||0)-Date.now())/1000));
+  $('treasure-status').textContent=tLeft?'🎁 Treasure: '+Math.ceil(tLeft/60)+'m':'🎁 Treasure: Ready';
+  let mLeft=Math.max(0,Math.ceil(((state.magnetNext||0)-Date.now())/1000));
+  $('magnet-status').textContent=mLeft?`🧲 Magnet: ${mLeft}s`:'🧲 Magnet: Ready';
+  if($('mm2-role-status'))$('mm2-role-status').textContent=`🎭 Role: ${mm2Role} (${state.mm2Weapon||'Classic Revolver'})`;
 }
-function activateShield(){ensureV5State();state.shieldCharges=Math.min(5,(state.shieldCharges||0)+2);updateUI();notice('🛡️ دو پاراستنی نوێت وەرگرت!');}
+
+function activateShield(){
+  state.shieldCharges=Math.min(5,(state.shieldCharges||0)+2);
+  addLog('Shield چالاک کرا (+2)');
+  updateUI();
+  notice('🛡️ دوو پاراستنی نوێت وەرگرت!');
+}
+
 function activateDoubleCoins(){
-  ensureV5State();if(state.robux<100){notice('R$ بەس نییە؛ 100 R$ پێویستە');return;}
-  state.robux-=100;state.doubleCoinsUntil=Date.now()+60000;updateUI();notice('💰 بۆ ٦٠ چرکە دوو هێندە خاڵ وەردەگریت!');
+  if(state.robux<100){notice('R$ بەس نییە؛ 100 R$ پێویستە');return;}
+  state.robux-=100;state.doubleCoinsUntil=Date.now()+60000;
+  addLog('Double Coins بۆ ٦٠ چرکە چالاک کرا');
+  updateUI();
+  notice('💰 بۆ ٦٠ چرکە دوو هێندە خاڵ وەردەگریت!');
   setTimeout(()=>{if(current){updateUI();notice('کاتی Double Coins تەواو بوو');}},61000);
 }
-function claimTreasure(){
-  ensureV5State();let now=Date.now();if((state.treasureNext||0)>now){renderV5Status();notice('🎁 سندوقەکە هێشتا ئامادە نییە؛ کەمێک چاوەڕێ بکە');return;}
-  let coins=150+Math.floor(Math.random()*351);state.score+=coins;
-  if(state.carry<state.capacity&&Math.random()<0.45){let type=6+Math.floor(Math.random()*4);state.inventory.push(type);state.carry++;notice('🎁 +'+coins+' خاڵ و هێلکەی '+eggTypes[type][1]);}
-  else notice('🎁 سندوقی نهێنی: +'+coins+' خاڵ!');
-  state.treasureNext=now+5*60*1000;updateUI();
-}
-setInterval(()=>{if(current)renderV5Status();},10000);
 
+function claimTreasure(){
+  let now=Date.now();
+  if((state.treasureNext||0)>now){renderV5Status();notice('🎁 سندوقەکە هێشتا ئامادە نییە؛ کەمێک چاوەڕێ بکە');return;}
+  let coins=150+Math.floor(Math.random()*351);
+  state.score+=coins;gainXP(55);
+  if(state.carry<state.capacity&&Math.random()<0.45){
+    let type=6+Math.floor(Math.random()*4);
+    state.inventory.push(type);state.carry++;
+    addLog(`Secret Treasure: +${coins} خاڵ و هێلکەی ${eggTypes[type][1]}`);
+    notice('🎁 +'+coins+' خاڵ و هێلکەی '+eggTypes[type][1]);
+  }else{
+    addLog(`Secret Treasure: +${coins} خاڵ`);
+    notice('🎁 سندوقی نهێنی: +'+coins+' خاڵ!');
+  }
+  state.treasureNext=now+5*60*1000;
+  updateUI();
+}
+
+setInterval(()=>{if(current)renderV5Status();},5000);
 </script>
-</body></html>
+</body>
+</html>
